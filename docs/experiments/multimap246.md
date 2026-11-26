@@ -65,3 +65,34 @@ Next: replace flat instrument details with reusable proper meshes, clean origina
 floor duplicates around replacements, improve wall materials, add retained cast
 and integrate existing combat through an adapter. Other four environments remain
 TODO; full six-map native and artistic acceptance still NOT VERIFIED.
+
+## Laboratory248 and factory249
+
+IN_PROGRESS. Lab248 adds separate angled displays, keyboards, specimen vials,
+service conduits and existing blue-metal PBR maps; original instrument artwork
+is retained on worktops after a visually rejected blank-steel variant. Native
+Godot imported527 meshes and its FullHD screenshot was inspected. No cast or
+interactive tactical adapter yet. Walls and instrument diversity remain unfinished.
+
+`prepare_floor248.py` repairs inferred hidden floor only within selected surveyed
+replacement rectangles. Original map bytes and unmasked corridor pixels remain
+unchanged; one focused preservation test actually PASS. Inpainting is inferred
+art, not authentic recovered hidden flooring. CLI accepts selected map/output and
+explicit replacement identifiers; output is restricted to E: generated resources.
+
+Factory249 reconstructs six survey groups using existing generator/crate assets;
+crate rows use multiple proportion-preserving instances. Four compressor matches
+were rejected after native visual inspection; original corner machinery remains.
+Twenty-one other survey objects remain unmatched and retain original 2D art.
+Do not count these drawings as 3D reconstruction. No new AI generation in this pass.
+`blender/library_placement.py` shares imported mesh data and fits rigid models
+uniformly inside placement envelopes instead of distorting their proportions.
+
+Reproduce factory floor before Blender export:
+`python experiments/2d_to_3d/prepare_floor248.py --map city_industrial_factory_floor --output E:/CyberCity2085-3d-lab/generated/phase2/factory249 --objects west_generator,north_crates_w,north_crates_m,north_crates_e,south_crates_w,south_crates_e`
+Then run `blender/factory249.py` via existing Blender wrapper, and
+`res://factory249.tscn` via existing Godot wrapper. Outputs stay on E:.
+
+Next: source-specific industrial reactors/assembly lines and proper lab instrument
+meshes, then metro/residential/wasteland using shared library. No new map has full
+artistic acceptance; six-map selector, cast/real combat adapter and tour are TODO.

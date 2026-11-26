@@ -1,10 +1,10 @@
 extends Node3D
 ## Art import review only. This scene does not implement tactical rules.
-const ROOT := "E:/CyberCity2085-3d-lab/generated/phase2/lab247/"
+@export var review_folder := "E:/CyberCity2085-3d-lab/generated/phase2/lab247/"
 func _ready() -> void:
  var document := GLTFDocument.new()
  var state := GLTFState.new()
- assert(document.append_from_file(ROOT+"environment.glb",state)==OK)
+ assert(document.append_from_file(review_folder+"environment.glb",state)==OK)
  var model := document.generate_scene(state)
  add_child(model)
  var world := WorldEnvironment.new()
@@ -29,5 +29,5 @@ func _ready() -> void:
  camera.current=true
  await get_tree().process_frame
  await RenderingServer.frame_post_draw
- get_viewport().get_texture().get_image().save_png(ROOT+"godot_overview.png")
- print("LAB247_NATIVE_IMPORTED meshes=",model.find_children("*","MeshInstance3D",true,false).size())
+ get_viewport().get_texture().get_image().save_png(review_folder+"godot_overview.png")
+ print("ENVIRONMENT_REVIEW_IMPORTED folder=",review_folder," meshes=",model.find_children("*","MeshInstance3D",true,false).size())
