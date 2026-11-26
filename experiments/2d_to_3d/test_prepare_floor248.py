@@ -15,3 +15,19 @@ def test_open_guardrail_mask_preserves_road_between_segments():
     assert mask[60, 40] == 255
     assert mask[35, 40] == 0
     assert mask[15, 75] == 0
+
+
+def test_water_polygon_is_preserved_as_ground_art():
+    original = Image.new("RGB", (100, 100), "blue")
+    survey = {
+        "canvas_size": [100, 100],
+        "walls": [
+            {"id": "basin", "kind": "water", "polygon": [[0, 0], [42, 0], [42, 62], [0, 62]]},
+            {"id": "container", "rect": [58, 20, 78, 36]},
+        ],
+    }
+    repaired, mask = prepare(original, survey)
+
+    assert not mask[:, :43].any()
+    assert mask[28, 68] == 255
+    assert repaired.crop((0, 0, 43, 100)).tobytes() == original.crop((0, 0, 43, 100)).tobytes()

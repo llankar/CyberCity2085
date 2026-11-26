@@ -13,6 +13,7 @@ def prepare(source,survey):
     sx=width/survey['canvas_size'][0];sy=height/survey['canvas_size'][1]
     for item in survey['walls']:
         if item['id'] in ('west_wall','east_wall'):continue
+        if item.get('kind') == 'water':continue
         if 'polygon' in item:
             points=np.array([[round(x*sx),round(y*sy)] for x,y in item['polygon']],dtype=np.int32)
             cv2.fillPoly(mask,[points],255)

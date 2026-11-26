@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place
 from shipping_container import build_container
+from loading_crane import build_crane
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -53,31 +54,8 @@ for row in survey["walls"]:
     group = bpy.data.objects.new("Occludable_" + identifier, None)
     bpy.context.collection.objects.link(group)
     if is_crane:
-        parts = []
-        def member(label, position, dimensions, material):
-            parts.append(box(label, position, dimensions, material, .018))
-
-        height = 3.8 if "north" in identifier else 4.4
-        for side in (-1, 1):
-            member("Crane footing", (x,y+side*depth*.32,.12),
-                   (width*.41,depth*.14,.12), steel)
-            member("Crane portal leg", (x,y+side*depth*.32,height*.5),
-                   (.13,.15,height*.5), beam)
-        member("Crane portal beam", (x,y,height), (.16,depth*.44,.14), beam)
-        # The jib extends toward the harbor, above ground level.
-        outreach = 2.65
-        member("Crane harbor jib", (x-outreach*.47,y,height+.23),
-               (outreach*.55,.14,.18), beam)
-        member("Crane motor housing", (x,y,height+.28), (.32,.28,.23), steel)
-        member("Crane hoist cable", (x-outreach*.91,y,height-.58), (.018,.018,.73), steel)
-        member("Crane spreader", (x-outreach*.91,y,height-1.32), (.28,.14,.065), beam)
-        bpy.ops.object.select_all(action="DESELECT")
-        for part in parts:
-            part.select_set(True)
-        bpy.context.view_layer.objects.active = parts[0]
-        bpy.ops.object.join()
-        bpy.context.object.name = "Dockside loading crane"
-        bpy.context.object.parent = group
+        build_crane(group, x, y, width, depth, steel, beam,
+                    height=3.8 if "north" in identifier else 4.4)
         cranes += 1
     elif is_barrier:
         count = max(1, math.ceil(depth / 2))

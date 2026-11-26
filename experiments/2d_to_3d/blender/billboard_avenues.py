@@ -9,13 +9,15 @@ import bpy
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place, reset_library_cache
+from loading_crane import build_crane
+from shipping_container import build_container
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
 BUILDING_EXCEPTIONS = {
     "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
-    "far_northeast", "southwest_annex", "north_mid", "se_corner",
+    "far_northeast", "southwest_annex", "north_mid", "se_corner", "nw_tower",
 }
 
 
@@ -51,9 +53,14 @@ def build(name):
     seat = make_material("Blue enamel seating", (.047, .19, .25, 1), .38, .52)
     gravel = make_material("Planted gravel", (.086, .079, .058, 1), .05, .93)
     foliage = make_material("Hardy street shrubs", (.095, .19, .075, 1), .03, .84)
+    shipping_skins = [make_material("Shipping enamel", color, .55, .64) for color in (
+        (.07,.17,.19,1), (.27,.081,.05,1), (.17,.21,.095,1)
+    )]
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
+        if row.get("kind") == "water":
+            continue
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
             for (ax,ay),(bx,by) in zip(points, points[1:]):
@@ -82,10 +89,20 @@ def build(name):
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
-        if identifier.startswith("car_") or identifier in {"north_car", "south_car"}:
+        if identifier.startswith(("car_", "north_car", "south_car")):
             vertical = d > w
             place(library / "derelict_suv275/model.glb", group, (x, y, 0),
                   (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
+            continue
+        if "crane" in identifier:
+            build_crane(group, x, y, w, d, frame, shipping_skins[1],
+                        height=3.8, outreach=min(2.65, max(w,d)))
+            continue
+        if "container" in identifier or "cargo" in identifier:
+            vertical = d > w
+            build_container(group, x, y, max(w,d), min(w,d),
+                            shipping_skins[i % len(shipping_skins)], frame, wall,
+                            yaw=math.pi/2 if vertical else 0)
             continue
         if identifier.startswith(("bus_", "truck_", "station_")):
             shelter = identifier.startswith("station_")
@@ -110,7 +127,7 @@ def build(name):
             box(identifier, (x,y,height/2), (w*.49,d*.49,height/2), wall).parent = group
             box(identifier + " trim", (x,y,height), (w*.49,d*.49,.035), frame).parent = group
             continue
-        if identifier == "crate_mid":
+        if "crate" in identifier:
             place(library / "cargo_crate274/model.glb", group, (x, y, 0), (w, d, .55))
             continue
         if identifier.startswith("utility_"):
@@ -118,11 +135,11 @@ def build(name):
             place(library / "industrial_service267/model.glb", group, (x, y, 0),
                   (max(w, d), min(w, d), 1.3), yaw=math.pi/2 if vertical else 0)
             continue
-        if identifier.startswith("bin_"):
+        if identifier.startswith("bin_") or identifier.endswith("_bins"):
             box(identifier, (x, y, .25), (w*.45, d*.45, .25), wall).parent = group
             box(identifier + " lid", (x, y, .51), (w*.49, d*.49, .035), frame).parent = group
             continue
-        if identifier.endswith(("_sign", "_kiosk")) or identifier.startswith("ticket_"):
+        if identifier.endswith(("_sign", "_kiosk", "_guard")) or identifier.startswith("ticket_"):
             is_kiosk = not identifier.endswith("_sign")
             height = 1.55 if is_kiosk else .95
             box(identifier + " plinth", (x, y, .11), (w*.49, d*.47, .11), frame).parent = group
@@ -159,7 +176,7 @@ def build(name):
             for label, position, half_size, material in parts:
                 box(f"{identifier} {label}", position, half_size, material).parent = group
             continue
-        if not any(part in identifier for part in ("block", "building", "_roof")) and identifier not in BUILDING_EXCEPTIONS:
+        if not any(part in identifier for part in ("block", "building", "_roof", "warehouse")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
         shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
         shell.parent = group
@@ -197,7 +214,7 @@ def build(name):
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")
-    print("BILLBOARD_AVENUE_EXPORTED", name, len(survey["walls"]))
+    print("BILLBOARD_AVENUE_EXPORTED", name, sum(row.get("kind") != "water" for row in survey["walls"]))
 
 
 maps = sys.argv[sys.argv.index("--") + 1:]
