@@ -6029,7 +6029,7 @@ resources must not be pushed without explicit authorization.
   package_combat169.py. AVI and obsolete blend1 removed after final media encode.
   CHANTIER GLOBAL INCOMPLET.
 
-## Active reconstruction direction — user specification 2026-11-26
+## Active reconstruction direction â€” user specification 2026-11-26
 
 Source instruction: C:/Users/llank/.codex/attachments/49f6518a-63ec-4e44-8a96-f057aab9e982/Pasted text.txt.
 This supersedes generic-building selection as the main artistic reference. Keep
@@ -6067,7 +6067,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   Source E: sources/building224; review generated/phase2/building224. No new
   acquisition needed for extraction. SourceAssets sibling inspected: retained
   source_sheets currently character/unit sheets, not isolated alley architecture.
-- `IN_PROGRESS` ENVIRONMENT-RECONSTRUCTION (spec sections1–16). Library is an
+- `IN_PROGRESS` ENVIRONMENT-RECONSTRUCTION (spec sections1â€“16). Library is an
   initial index, NOT a finished reconstruction pipeline. Next: isolate one actual
   roof machine/container from context using a reproducible mask, preserve source
   provenance, select existing/procedural mesh from actual reference, register
@@ -6205,7 +6205,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   AVI removed after final encode. No campaign, inference, production/save edit,
   new build or resource push. CHANTIER GLOBAL INCOMPLET.
 
-### LIVE-PACING-231 — DONE (prototype only, 2026-11-26)
+### LIVE-PACING-231 â€” DONE (prototype only, 2026-11-26)
 - User-observed native stutters reproduced without movie recording. Root cause:
   tempo212 phase captures still performed GPU readback and PNG compression live.
 - Live playback now skips these captures; explicit --capture-stills, --record and
@@ -6223,7 +6223,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   next artistic batch remains facade wear/materials and map-specific variety.
   CHANTIER GLOBAL INCOMPLET.
 
-### SERVICE-MATERIAL-232 — DONE scoped material pass; artistic finish open
+### SERVICE-MATERIAL-232 â€” DONE scoped material pass; artistic finish open
 - Reused existing acquired blue_metal_plate diffuse/roughness/normal maps on four
   Service230 doors/utility covers, metric UV repeat2m; no new geometry, AI download,
   tactical mutation or production change. Packed E: showcase232/environment.blend,
@@ -6240,7 +6240,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   do not repeat micro-wear passes without clear combat-scale improvement.
   CHANTIER GLOBAL INCOMPLET.
 
-### ORIGINAL-CANOPY-233 — DONE partial source reconstruction, art finish open
+### ORIGINAL-CANOPY-233 â€” DONE partial source reconstruction, art finish open
 - Replaced one repeated rigid market_nw cap with a384quad draped cloth mesh with
   thickness. Original green tarp RGB cropped from genuine market_nw context;
   exact crop pixel equality tested, one authentic view, no generated view.
@@ -6261,7 +6261,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   package_combat169.py. Next: reusable full original-derived shop assembly and better
   source-texture proportions/lighting. CHANTIER GLOBAL INCOMPLET.
 
-### ORIGINAL-SHOP-234 — DONE scoped reusable shop; global art still open
+### ORIGINAL-SHOP-234 â€” DONE scoped reusable shop; global art still open
 - Replaced stretched single tarp with three separate sage/green/plum meshes from
   genuine original RGB crops. Exact pixel equality tests passed for all three.
   600cloth quads plus thickness and corner supports. Lower acquired machinery and
@@ -6285,7 +6285,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   identity and larger architectural surfaces; no mass conversion.
   CHANTIER GLOBAL INCOMPLET.
 
-### ORIGINAL-DISPLAY-235 — DONE scoped shop reconstruction; global art open
+### ORIGINAL-DISPLAY-235 â€” DONE scoped shop reconstruction; global art open
 - Southeast shop now uses original blue cloth and four source tray interiors on real
   recessed trays (bottom/rims/thickness), replacing acquired salvage pipes. Cloth288
   quads; added rear support rails/posts after first native review, neutralized stale
@@ -6309,7 +6309,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   street objects; avoid turning this into endless canopy-only variants.
   CHANTIER GLOBAL INCOMPLET.
 
-### SOURCE-ROOF-236 — DONE scoped roof layout; global art open
+### SOURCE-ROOF-236 â€” DONE scoped roof layout; global art open
 - Northeast roof replaces a uniform dark slab/old generic vent with original-layout
   dark plates, two unequal extractors, upper-right stepped hatch and service pipes.
   Existing swept fan meshes reused (10parts each), acquired industrial pipe mesh
@@ -6334,7 +6334,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   on this building, respecting original roof identity and existing tactical footprint.
   CHANTIER GLOBAL INCOMPLET.
 
-### FACTORY-FACADE-237 — DONE scoped facade integration; global art open
+### FACTORY-FACADE-237 â€” DONE scoped facade integration; global art open
 - Northeast brick bays replaced with acquired factory garage/service doors and high
   windows, worn metallic PBR cladding and a magenta strip matching original palette.
   Roof236 retained exactly. Vertical facade remains interpreted (source shows roof,
@@ -6357,7 +6357,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   large source-derived structure/street object using retained acquired assets.
   CHANTIER GLOBAL INCOMPLET.
 
-### DOOR-PALETTE-238 — DONE scoped material correction
+### DOOR-PALETTE-238 â€” DONE scoped material correction
 - Toned only two acquired industrial door objects via Blender Multiply color nodes,
   exported as glTF baseColorFactor[.28,.34,.40,1]. Three exported material factors
   actually checked; original diffuse/normal textures retained, no image pixel edits.
@@ -6371,7 +6371,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   Next: original-layout northern roof to replace another uniform surface.
   CHANTIER GLOBAL INCOMPLET.
 
-### NORTHERN-ROOF-239 — DONE scoped reconstruction; global art open
+### NORTHERN-ROOF-239 â€” DONE scoped reconstruction; global art open
 - Northern roof uses its original asymmetric layout: left-side reused extractor,
   service-unit cluster, peripheral pipes and broad right panel.75added parts;10fan
   meshes and acquired pipe mesh reused from existing northeast assembly. One genuine
@@ -6401,7 +6401,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   preserving one-map scope; no endless canopy-only or material-only batches.
   CHANTIER GLOBAL INCOMPLET.
 
-### WEST-UTILITY-240 — DONE scoped building adaptation; global art open
+### WEST-UTILITY-240 â€” DONE scoped building adaptation; global art open
 - Western narrow building now has an interpreted utility frontage: acquired urban
   tall windows and glazed service door, dark worn PBR cladding and magenta service
   light. Genuine source guides roof tile/conduit layout; no invented rooftop fans.
@@ -6423,7 +6423,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  references and tactical footprints; continue improving the whole one-map scene.
  CHANTIER GLOBAL INCOMPLET.
 
-### EAST-COVER-241 — DONE scoped visual roof; standalone placement open
+### EAST-COVER-241 â€” DONE scoped visual roof; standalone placement open
 - Eastern building now follows source-context blue covering/service roof composition:
   genuine cloth RGB crop on768quad draped mesh with thickness, four tension posts,
   two rails, reused extractor and segmented roof; blue PBR cladding replaces brick
@@ -6446,7 +6446,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  remaining large structure/street identity and whole-map artistic finish still open.
  CHANTIER GLOBAL INCOMPLET.
 
-### COVER-PLACEMENT-242 — DONE scoped native integration
+### COVER-PLACEMENT-242 â€” DONE scoped native integration
 - Activated standalone east_blue_cover association on its original building/root and
  roof anchor; hides seven embedded meshes before adding the7mesh GLB. Native100frame
  run exit0; actual close view inspected. Five library instances now load natively.
@@ -6463,7 +6463,7 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  No campaign, production/save edits, new build or experimental-resource push.
  Next: northwest large building source identity. CHANTIER GLOBAL INCOMPLET.
 
-### NORTHWEST-PLANT-243 — DONE scoped visual building; global art open
+### NORTHWEST-PLANT-243 â€” DONE scoped visual building; global art open
 - Northwest source roof now has four acquired service grilles in a central row,
   reused right extractor/pipe meshes and segmented plates. Interpreted concrete
   utility facade uses actual PBR textures, factory door and ventilation; night tone
@@ -6488,10 +6488,26 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   arguments), materials186.gd, package_combat169.py. No production/save edits, new AI,
   Windows build or asset push. CHANTIER GLOBAL INCOMPLET.
 
-### VOLUME-FLOOR-244 — TODO
-- Current combat169.build_environment loads the complete original map PNG as floor;
-  that illustration contains the source volumes. Inspect the existing cutaway views
-  for duplicated flat object art beneath the new meshes before choosing a remedy.
-- Next: one experimental floor treatment restricted to existing blocked/volume areas,
-  preserving visible route pixels, original PNG, grid, LOS and all tactical rules.
-  No implementation, image edit or validation executed for this next task yet.
+### VOLUME-FLOOR-244 - DONE scoped inferred floor treatment; global art open
+- Confirmed original PNG canopy drawings beneath transparent3D objects in actual
+ 243cutaway. Added reversible PBR floor support only on627existing occupied cells:
+ one surface,2508vertices,1254triangles. Original PNG and route surfaces retained.
+ Unseen floors are inferred, not recovered original views.
+- Three targeted tests passed: exact union/input preservation, invalid map cell and
+ noninteger rejection. Generated cell union exactly matches source; PNG and walls
+ hashes unchanged after native run (floor244/source_integrity.json). No grid, LOS,
+ collision or campaign changes. Native200frame preview and549frame movie exited0.
+- Before/after cutaway crops inspected: flat source canopy removed in examined area.
+ Other regions still need artistic review; no all-map pixel acceptance claim.
+ Final H2641920x1080 at30FPS/AAC packaged; state blocked1/occlusion908/health unchanged.
+- Compiler --floor-support/--no-floor-support and persistence actually exercised;
+ runtime --original-volume-floor supports comparison. No added per-frame work.
+ E: floor244/plan.json/native.json/source_integrity.json/before_detail.png/after_detail.png.
+ Current library227 gallery has side-by-side comparison. Raw AVI removed after encode.
+- Files: build_floor244.py, test_floor244.py, godot/volume_floor244.gd,
+ build_library_scene.py, godot/library227.gd, package_combat169.py.
+ No new bulky model copy, AI inference, Windows build or production/save edit.
+- Registry encoding repair: converted only invalid legacy CP1252 bytes to Unicode,
+ preserving valid UTF8 text and historical entries. Source registry now strict UTF8.
+ Next: inspect remaining boundary/source-volume alignments and unfinished large
+ structures; whole-map artistic finish still open. CHANTIER GLOBAL INCOMPLET.
