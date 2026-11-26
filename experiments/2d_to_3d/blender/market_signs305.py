@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market322"
+output = phase / "market323"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -28,10 +28,14 @@ icons = (
      ("parcel strap", 0, 0, .023, .076)),
     (),
 )
+tray_mat = make_material("Market food tray enamel", (.10,.12,.09,1), .2, .53)
+produce = [make_material("Market produce "+name, (*color,1), 0, .68)
+           for name,color in (("citrus",(.69,.23,.023)),("greens",(.12,.29,.04)))]
 groups = sorted((obj for obj in bpy.data.objects if obj.name.startswith("Occludable_market_")),
                 key=lambda obj: obj.name)
 count = 0
 trimmed = 0
+trays = 0
 for index, group in enumerate(groups):
     mesh = next((obj for obj in group.children_recursive if obj.name.startswith("PBR_Facade_")), None)
     if mesh is None:
@@ -109,8 +113,42 @@ for index, group in enumerate(groups):
         bpy.context.collection.objects.link(bolt)
         bolt.parent = group
         bolt.matrix_parent_inverse = group.matrix_world.inverted()
+    if index % len(icons) == 0:
+        stock = {}
+        for obj in group.children:
+            if obj.type == "MESH" and obj.name.startswith("Store197 rear stock"):
+                key = tuple(round(value, 4) for value in obj.matrix_world.translation)
+                stock.setdefault(key, []).append(obj)
+        for contents in stock.values():
+            points = [obj.matrix_world @ Vector(corner)
+                      for obj in contents for corner in obj.bound_box]
+            lo = Vector(tuple(min(point[i] for point in points) for i in range(3)))
+            hi = Vector(tuple(max(point[i] for point in points) for i in range(3)))
+            center = (hi+lo)/2
+            width, depth = (hi.x-lo.x)/2, (hi.y-lo.y)/2
+            for obj in contents:
+                bpy.data.objects.remove(obj, do_unlink=True)
+            tray = box("Open produce tray", (center.x, center.y, lo.z+.032),
+                       (width, depth, .032), tray_mat, .014)
+            items = [tray]
+            for row in (-1,1):
+                for column in (-1,0,1):
+                    radius = min(width*.26, depth*.34)
+                    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=radius,
+                        location=(center.x+column*width*.58,center.y+row*depth*.47,lo.z+.064+radius*.65))
+                    fruit = bpy.context.object
+                    fruit.data.materials.append(produce[(index+row+column)%2])
+                    items.append(fruit)
+            bpy.ops.object.select_all(action="DESELECT")
+            for obj in items:
+                obj.select_set(True)
+            bpy.context.view_layer.objects.active = tray
+            bpy.ops.object.join()
+            tray.parent = group
+            tray.matrix_parent_inverse = group.matrix_world.inverted()
+            trays += 1
     count += 1
-assert count >= 3, count
+assert count >= 3 and trays > 0, (count, trays)
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
@@ -118,4 +156,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET322_EXPORTED", count, "trimmed", trimmed)
+print("MARKET323_EXPORTED", count, "trimmed", trimmed, "food trays", trays)
