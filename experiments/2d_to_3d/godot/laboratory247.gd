@@ -1,4 +1,7 @@
 extends Node3D
+@export var review_ambient_color := Color(.66, .78, .9)
+@export var review_ambient_energy := .65
+@export var review_key_energy := 1.3
 ## Art import review only. This scene does not implement tactical rules.
 @export var review_folder := "E:/CyberCity2085-3d-lab/generated/phase2/lab247/"
 @export var review_model_name := "environment.glb"
@@ -47,12 +50,12 @@ func _ready() -> void:
  world.environment.background_mode=Environment.BG_COLOR
  world.environment.background_color=Color(.07,.1,.13)
  world.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
- world.environment.ambient_light_color=Color(.66,.78,.9)
- world.environment.ambient_light_energy=.65
+ world.environment.ambient_light_color=review_ambient_color
+ world.environment.ambient_light_energy=review_ambient_energy
  add_child(world)
  var light:=DirectionalLight3D.new()
  light.rotation_degrees=Vector3(-55,-30,0)
- light.light_energy=1.3
+ light.light_energy=review_key_energy
  light.shadow_enabled=true
  add_child(light)
  var camera:=Camera3D.new()
