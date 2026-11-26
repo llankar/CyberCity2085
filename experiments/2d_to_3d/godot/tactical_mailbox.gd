@@ -12,7 +12,7 @@ func _init(session_directory: String) -> void:
  directory = session_directory
 
 func refresh() -> bool:
- var path := directory.path_join("reply.json")
+ var path := directory.path_join("reply-%d.json" % sequence)
  if not FileAccess.file_exists(path):
   return false
  var parser := JSON.new()

@@ -36,6 +36,10 @@ TITLES = {
     "warehouse": "Warehouse", "metro": "Metro Interchange", "downtown": "Downtown Intersection",
     "rooftop": "Rooftop Access", "skybridge": "Skybridge Spine",
 }
+SUPPORT_CELLS = {
+    "warehouse": (20, 15), "metro": (17, 13), "downtown": (19, 11),
+    "rooftop": (13, 13), "skybridge": (15, 11),
+}
 
 
 def scenario_preview(scenario: str) -> TacticalPreview:
@@ -62,13 +66,17 @@ def scenario_preview(scenario: str) -> TacticalPreview:
     for slot, item_id in (("sidearm", "mono_knife"), ("utility_item", "trauma_patch")):
         ally.character.loadout.equip(slot, next(item for item in catalog[slot] if item.id == item_id))
     ally.attack_range = ally.character.loadout.primary_weapon.range_cells
+    support = spawn(SUPPORT_CELLS[scenario], PlayerStats(psi=4), "player")
+    support.character = Character("Oracle", role="psi", stats=support.stats)
+    equip_starter_loadout(support.character.loadout, support.character.role)
+    support.attack_range = support.character.loadout.primary_weapon.range_cells
     enemy = spawn(enemy_cell, EnemyStats(level=5), "enemy")
     enemy.attack_range = 3
     cover = [
         CoverNode(x // CELL_SIZE, y // CELL_SIZE, "high", passable=False)
         for x, y in sorted(terrain.sight_blocked_cells)
     ]
-    return TacticalPreview(CombatEngine(CombatState(None, [ally], [enemy]),
+    return TacticalPreview(CombatEngine(CombatState(None, [ally, support], [enemy]),
                                         terrain_profile=terrain, cover_nodes=cover))
 
 
@@ -124,7 +132,7 @@ def main() -> int:
                 time.sleep(.03)
         if args.smoke and mailbox is None:
             raise RuntimeError("The map selector did not start a scenario")
-        if args.smoke and (mailbox.sequence != 5 or mailbox.reply["state"]["round"] != 2
+        if args.smoke and (mailbox.sequence != 6 or mailbox.reply["state"]["round"] != 2
                            or not mailbox.reply["state"]["units"][0]["defending"]):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
         return godot.returncode

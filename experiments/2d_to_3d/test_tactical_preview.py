@@ -14,6 +14,18 @@ from run_tactical_preview import SCENARIOS, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_oracle_has_independent_psi_ap_and_can_receive_adjacent_aid(self):
+        preview = scenario_preview("metro")
+        sniper, oracle = (preview.units[key] for key in ("ally:0", "ally:1"))
+        self.assertTrue(preview.action("move", "ally:0", destination=[17, 14])["success"])
+        oracle.health = oracle.stats.hp = 6
+        self.assertTrue(preview.action("first_aid", "ally:0", target_id="ally:1")["success"])
+        self.assertEqual(oracle.health, 8)
+        self.assertEqual(oracle.action_points, 3)
+        self.assertTrue(preview.action("psi", "ally:1", target_id="enemy:0")["success"])
+        self.assertEqual(oracle.action_points, 2)
+        self.assertEqual(sniper.action_points, 1)
+
     def test_equipped_support_actions_apply_existing_combat_rules(self):
         preview = scenario_preview("warehouse")
         ally = preview.units["ally:0"]
@@ -67,19 +79,22 @@ class TacticalPreviewTest(unittest.TestCase):
 
     def test_enemy_hit_events_preserve_engine_damage_and_positions(self):
         preview = scenario_preview("warehouse")
-        ally = preview.units["ally:0"]
         enemy = preview.units["enemy:0"]
         enemy.attack_range = 10
-        starting_hp = ally.health
+        allies = {key: unit for key, unit in preview.units.items() if key.startswith("ally:")}
+        starting_hp = {key: unit.health for key, unit in allies.items()}
         with patch("game.combat.attack_resolution.random.random", return_value=.2):
             result = preview.action("end_turn", "ally:0")
         self.assertTrue(result["success"])
         events = result["events"]
         self.assertTrue(events)
-        self.assertEqual(sum(event["damage"] for event in events), starting_hp - ally.health)
+        for key, unit in allies.items():
+            self.assertEqual(sum(event["damage"] for event in events if event["target"] == key),
+                             starting_hp[key] - unit.health)
         self.assertEqual(events[0]["actor"], "enemy:0")
-        self.assertEqual(events[0]["target"], "ally:0")
-        self.assertEqual(events[0]["to_cell"], [19, 14])
+        self.assertEqual(events[0]["to_cell"], [
+            axis // CELL_SIZE for axis in allies[events[0]["target"]].position
+        ])
 
     def test_warehouse_fire_spends_ap_and_surveyed_cover_blocks_fire(self):
         preview = scenario_preview("warehouse")
@@ -141,7 +156,9 @@ class TacticalPreviewTest(unittest.TestCase):
             command.write_text(json.dumps({"action":"move","actor":"ally:0","destination":[3,2]}),
                                encoding="utf-8")
             self.assertTrue(mailbox.poll())
-            response = json.loads((directory / "reply.json").read_text(encoding="utf-8"))
+            response = json.loads((directory / "reply-1.json").read_text(encoding="utf-8"))
+            original = json.loads((directory / "reply-0.json").read_text(encoding="utf-8"))
+            self.assertEqual(original["state"]["units"][0]["cell"], [2, 2])
             self.assertEqual(response["sequence"], 1)
             self.assertTrue(response["success"])
             self.assertFalse(mailbox.poll())

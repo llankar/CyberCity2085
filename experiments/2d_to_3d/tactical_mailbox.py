@@ -13,9 +13,13 @@ class TacticalMailbox:
         self.directory = directory
         self.preview = preview
         self.sequence = 0
-        self.reply_path = directory / "reply.json"
         self.reply = {"sequence": 0, "state": preview.snapshot()}
-        atomic_json(self.reply_path, self.reply)
+        self._publish_reply()
+
+    def _publish_reply(self) -> None:
+        # Windows can deny replacement while Godot has the old reply open.
+        # Each reply has a new filename and remains immutable after publishing.
+        atomic_json(self.directory / f"reply-{self.sequence}.json", self.reply)
 
     def poll(self) -> bool:
         path = self.directory / f"command-{self.sequence + 1}.json"
@@ -35,5 +39,5 @@ class TacticalMailbox:
                                      destination=command.get("destination"))
         self.sequence += 1
         self.reply = {"sequence": self.sequence, **result}
-        atomic_json(self.reply_path, self.reply)
+        self._publish_reply()
         return True

@@ -2,10 +2,14 @@ extends "res://laboratory247.gd"
 
 const Mailbox = preload("res://tactical_mailbox.gd")
 const TacticalActor = preload("res://tactical_actor.gd")
+const Effects = preload("res://combat_effects169.gd")
 const ALLY := "ally:0"
 @export var scenario_title := "Warehouse"
 var mailbox: Mailbox
 var status: Label
+var selection: Label
+var selected_ally := ALLY
+var effects: Effects
 var actors := {}
 var last_sequence := -1
 var smoke := false
@@ -14,6 +18,7 @@ var smoke_destination: Array[int]
 var playing_events := false
 var attack_mode := "fire"
 var smoke_hp := 0
+var smoke_patient := ALLY
 
 
 func _ready() -> void:
@@ -34,9 +39,17 @@ func _ready() -> void:
  status.position = Vector2(20, 85)
  status.add_theme_font_size_override("font_size", 22)
  hud.add_child(status)
+ selection = Label.new()
+ selection.position = Vector2(20, 48)
+ selection.add_theme_font_size_override("font_size", 23)
+ hud.add_child(selection)
+ effects = Effects.new()
+ add_child(effects)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+ if effects != null:
+  effects.step(delta, effects.clock + delta)
  if mailbox == null or playing_events or mailbox.sequence == last_sequence or not mailbox.refresh():
   return
  last_sequence = mailbox.sequence
@@ -52,7 +65,7 @@ func _process(_delta: float) -> void:
   if not actors.has(id):
    var actor := TacticalActor.new()
    add_child(actor)
-   if not actor.configure(id == ALLY, point):
+   if not actor.configure(id.begins_with("ally:"), id == "ally:1", point):
     push_error("Could not load retained tactical actor: " + id)
     get_tree().quit(5)
     return
@@ -60,13 +73,20 @@ func _process(_delta: float) -> void:
   var model: TacticalActor = actors[id]
   model.update_state(point, int(unit.hp))
   var stance := "  OVERWATCH" if unit.overwatch else "  DEFENDING" if unit.defending else ""
-  readout.append("%s  HP %d  AP %d%s" % [id, unit.hp, unit.ap, stance])
- if mailbox.success and pending_command.get("action") in ["fire", "melee"]:
-  var shooter: TacticalActor = actors[ALLY]
-  var victim: TacticalActor = actors[pending_command.target]
-  shooter.fire_at(victim.position, pending_command.action == "melee")
+  readout.append("%s  HP %d  AP %d%s" % [unit.name, unit.hp, unit.ap, stance])
+ if mailbox.success:
+  var action: String = pending_command.get("action", "")
+  if action in ["fire", "melee", "psi", "first_aid"]:
+   var actor: TacticalActor = actors[pending_command.actor]
+   var target: TacticalActor = actors[pending_command.get("target", pending_command.actor)]
+   actor.play_action(target.position, "aid" if action == "first_aid" else action)
+   if action == "psi":
+    effects.psychic(target_center(actor), target_center(target))
  pending_command.clear()
- status.text = "%s  //  Round %d   %s\n%s\nLeft click: move   Right click: %s   F / M: choose attack\nA: first aid   B: defend   O: overwatch   T: end turn\nQ / E: rotate   Wheel: zoom   Esc: close" % [
+ if actors[selected_ally].fallen:
+  select_next_ally()
+ refresh_selection()
+ status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Esc: close" % [
   scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
@@ -111,14 +131,30 @@ func _process(_delta: float) -> void:
     if mailbox.events.is_empty():
      get_tree().quit(10)
      return
-    smoke_hp = int(state.units[0].hp)
-    use_action("first_aid")
+    smoke_patient = mailbox.events[0].target
+    smoke_hp = int(unit_state(smoke_patient).hp)
+    use_action("first_aid", smoke_patient)
    4:
-    if not mailbox.success or int(state.units[0].hp) != smoke_hp + 2:
+    if not mailbox.success or int(unit_state(smoke_patient).hp) != smoke_hp + 2:
      get_tree().quit(11)
      return
     use_action("defend")
    5:
+    select_next_ally()
+    if selected_ally != "ally:1":
+     get_tree().quit(12)
+     return
+    use_action("psi", "enemy:0")
+   6:
+    var oracle: TacticalActor = actors["ally:1"]
+    if not mailbox.success or oracle.animation.current_animation != oracle.clips.psi:
+     push_error(mailbox.message)
+     get_tree().quit(13)
+     return
+    await RenderingServer.frame_post_draw
+    if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_psi.png") != OK:
+     get_tree().quit(14)
+     return
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
 
@@ -160,32 +196,62 @@ func play_phase_events(events: Array) -> void:
 
 
 func fire_at(screen_position: Vector2) -> void:
+ var nearest := actor_at(screen_position, "enemy:")
+ if not nearest.is_empty():
+  use_action(attack_mode, nearest)
+
+
+func actor_at(screen_position: Vector2, side: String) -> String:
  var nearest := ""
  var radius := 26.0
  for id: String in actors:
   var actor: TacticalActor = actors[id]
   var center := target_center(actor)
-  if not id.begins_with("enemy:") or actor.fallen or review_camera.is_position_behind(center):
+  if not id.begins_with(side) or actor.fallen or review_camera.is_position_behind(center):
    continue
   var distance := screen_position.distance_to(review_camera.unproject_position(center))
   if distance < radius:
    nearest = id
    radius = distance
- if not nearest.is_empty():
-  use_action(attack_mode, nearest)
+ return nearest
+
+
+func refresh_selection() -> void:
+ for unit: Dictionary in mailbox.state.units:
+  if unit.id.begins_with("ally:"):
+   actors[unit.id].ring.scale = Vector3.ONE * (1.22 if unit.id == selected_ally else 1.0)
+  if unit.id == selected_ally:
+   selection.text = "Selected: " + unit.name if int(unit.hp) > 0 else "No living agent"
+
+
+func select_next_ally() -> void:
+ var living: Array[String] = []
+ for unit: Dictionary in mailbox.state.units:
+  if unit.id.begins_with("ally:") and int(unit.hp) > 0:
+   living.append(unit.id)
+ if not living.is_empty():
+  selected_ally = living[(living.find(selected_ally)+1) % living.size()]
+  refresh_selection()
 
 
 func use_action(action: String, target := "") -> void:
  if mailbox.state.is_empty() or playing_events or mailbox.pending:
   return
- var actions: Array = mailbox.state.units[0].actions
+ var actions: Array = unit_state(selected_ally).get("actions", [])
  if action not in actions:
   status.text += "\nAction unavailable: " + action.capitalize()
   return
- var command := {"action": action, "actor": ALLY}
+ var command := {"action": action, "actor": selected_ally}
  if not target.is_empty():
   command["target"] = target
  send(command)
+
+
+func unit_state(id: String) -> Dictionary:
+ for unit: Dictionary in mailbox.state.units:
+  if unit.id == id:
+   return unit
+ return {}
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -199,19 +265,31 @@ func _unhandled_input(event: InputEvent) -> void:
   var previous_mode := attack_mode
   match event.keycode:
    KEY_T: use_action("end_turn")
-   KEY_A: use_action("first_aid")
+   KEY_A:
+    var target := actor_at(get_viewport().get_mouse_position(), "ally:") if event.shift_pressed else selected_ally
+    if not target.is_empty():
+     use_action("first_aid", target)
    KEY_B: use_action("defend")
    KEY_O: use_action("overwatch")
    KEY_F: attack_mode = "fire"
    KEY_M: attack_mode = "melee"
+   KEY_P: attack_mode = "psi"
+   KEY_TAB:
+    if not playing_events and not mailbox.state.is_empty():
+     select_next_ally()
   if previous_mode != attack_mode and not playing_events:
    status.text = status.text.replace("Right click: " + previous_mode, "Right click: " + attack_mode)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
   fire_at(event.position)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+  var ally := actor_at(event.position, "ally:")
+  if not ally.is_empty() and not playing_events and not mailbox.pending:
+   selected_ally = ally
+   refresh_selection()
+   return
   var ray := review_camera.project_ray_normal(event.position)
   var origin := review_camera.project_ray_origin(event.position)
   var ground: Variant = Plane(Vector3.UP, 0).intersects_ray(origin, ray)
   if ground is Vector3:
-   send({"action": "move", "actor": ALLY,
+   send({"action": "move", "actor": selected_ally,
     "destination": [floori(ground.x + 20), floori(14 - ground.z)]})

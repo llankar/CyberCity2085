@@ -27,6 +27,7 @@ class TacticalPreview:
             "units": [
                 {
                     "id": key,
+                    "name": unit.character.name if unit.character else "Raider",
                     "cell": [coordinate // CELL_SIZE for coordinate in unit.position],
                     "hp": unit.health,
                     "ap": unit.action_points,

@@ -9,9 +9,10 @@ var fallen := false
 var ring: MeshInstance3D
 
 
-func configure(allied: bool, initial: Vector3) -> bool:
- var path := "sole_skin162/human.glb" if allied else "armored203/armored_actions.glb"
- clips = {"idle": "Hard stand", "walk": "Walk (1_24)", "fire": "ShootStudy", "death": "DeathStudy", "melee": "MeleeStudy"} if allied else {
+func configure(allied: bool, support: bool, initial: Vector3) -> bool:
+ var path := "support167/human.glb" if allied else "armored203/armored_actions.glb"
+ clips = {"idle": "Hard stand", "walk": "Walk (1_24)", "fire": "ShootStudy", "death": "DeathStudy",
+  "melee": "MeleeStudy", "psi": "PsiCast", "aid": "MedicalAidPrototype"} if allied else {
   "idle": "Idle", "walk": "Walk", "fire": "Pistol_Attack_Study", "death": "Death", "melee": "Attack"}
  var document := GLTFDocument.new()
  var state := GLTFState.new()
@@ -37,7 +38,7 @@ func configure(allied: bool, initial: Vector3) -> bool:
  torus.rings = 24
  torus.ring_segments = 8
  ring.mesh = torus
- var tint := Color(.12,.85,1.0) if allied else Color(1.0,.24,.10)
+ var tint := Color(.62,.28,1.0) if support else Color(.12,.85,1.0) if allied else Color(1.0,.24,.10)
  var material := StandardMaterial3D.new()
  material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
  material.albedo_color = tint
@@ -78,6 +79,10 @@ func update_state(point: Vector3, health: int) -> void:
 
 
 func fire_at(point: Vector3, melee := false) -> void:
+ play_action(point, "melee" if melee else "fire")
+
+
+func play_action(point: Vector3, action: String) -> void:
  if fallen:
   return
  if movement != null and movement.is_running():
@@ -85,9 +90,9 @@ func fire_at(point: Vector3, melee := false) -> void:
   position = destination
  face(point)
  animation.stop()
- animation.play(clips.melee if melee else clips.fire, .06)
+ animation.play(clips[action], .06)
 
 
 func _clip_finished(clip: StringName) -> void:
- if not fallen and clip in [clips.fire, clips.melee]:
+ if not fallen and clip != clips.death:
   animation.play(clips.idle, .12)
