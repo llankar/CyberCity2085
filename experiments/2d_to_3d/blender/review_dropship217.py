@@ -8,7 +8,7 @@ LAB = Path('E:/CyberCity2085-3d-lab')
 OUT = LAB / 'generated/phase2/dropship217'
 OUT.mkdir(parents=True, exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True)
-bpy.ops.import_scene.gltf(filepath=str(LAB / 'sources/dropship217/dropship_uncompressed.glb'))
+bpy.ops.import_scene.gltf(filepath=str(LAB / 'sources/dropship217/dropship_blender.glb'))
 meshes = [o for o in bpy.context.scene.objects if o.type == 'MESH']
 points = [o.matrix_world @ Vector(c) for o in meshes for c in o.bound_box]
 low = Vector(tuple(min(p[i] for p in points) for i in range(3)))
@@ -41,4 +41,5 @@ bpy.ops.render.render(write_still=True)
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'candidate.blend'))
 (OUT/'inventory.json').write_text(json.dumps({'meshes':len(meshes),'dimensions':list(high-low),'objects':[o.name for o in meshes]},indent=2))
 (OUT/'CREDITS.txt').write_text('Sci-Fi Dropship v1 — tevy.dev\nhttps://tevy.dev/models/scifi-dropship\nCC0 1.0 according to source page. Downloaded 2026-11-26.\nCandidate review only; not integrated into production.\n',encoding='utf8')
+
 

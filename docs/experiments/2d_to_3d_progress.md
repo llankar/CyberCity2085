@@ -5903,3 +5903,16 @@ resources must not be pushed without explicit authorization.
   selecting this candidate. Script: blender/review_dropship217.py. Existing
   VTOL178, scene216 and standalone215 preserved; no production/save changes.
   Keep download/cache footprint limited. CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` VTOL-217 import/art review (2026-11-26). Decoded all three BasisU
+  images with official Khronos KTX 4.4.2 `extract --transcode rgba8`, rebuilt
+  editable GLB while retaining mesh buffers, imported and rendered in Blender.
+  E:/CyberCity2085-3d-lab/generated/phase2/dropship217/neutral.png inspected:
+  coherent four-pod transport, glazed cockpit, landing feet and panel seams,
+  but long uniform grey hull and generic silhouette do not establish the
+  requested artistic improvement. NOT SELECTED as showcase replacement.
+  Source, 4.97 MB editable GLB and candidate.blend kept for comparison only.
+  Files: decode_dropship217.py, blender/review_dropship217.py. Actual execution
+  succeeds, PNG reviewed; no Godot substitution, production changes or push.
+  Next: seek a stronger aircraft art source rather than embellishing this
+  generic candidate or repeating technical validation. Global art remains open.
