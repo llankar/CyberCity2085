@@ -981,3 +981,19 @@ Blender and appropriately licensed assets. Prior experimental outputs preserved.
 Next: one reproducibly isolated original roof machine/container, an actual
 textured 3D equivalent, calibrated library entry and independent Godot placement.
 Main production GOAL/runtime remains untouched. No campaign or massive conversion.
+
+## First source-derived roof module226
+
+Run `python experiments/2d_to_3d/extract_roof226.py`, then
+`run_blender.ps1 -Script blender/roof_fan226.py`. The explicit manual mask
+preserves original source pixels and records one genuine view. Repeated extraction
+keeps existing model metadata. Hidden sides/mechanics are inferred in Blender.
+No new Hunyuan inference. Source RGB/mask/provenance checks actually passed.
+
+Godot scene `res://roof226.tscn` reads the library asset association and inserts
+it before existing building cutaway registration. Previous generic duct is hidden;
+existing vapor follows the new module. No collision/LOS/path data changed.
+Gallery: E:/CyberCity2085-3d-lab/generated/phase2/roof226/index.html.
+Library asset: environment-library/assets/roof_twin_fan/source.json and models.
+A reviewed prototype, not final artistic acceptance. General scene-association
+loader, further original object isolation and whole-building identity remain open.

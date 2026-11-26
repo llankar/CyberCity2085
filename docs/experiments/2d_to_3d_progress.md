@@ -6079,3 +6079,35 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   Files: environment_library.py, test_environment_library.py,
   blender/review_building224.py, this register and tactical_showcase169.md.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` ROOF-226 first original-derived library prototype (2026-11-26).
+  Genuine south_building_w twin circular roof machinery manually isolated with
+  explicit polygon from its existing context crop, source bounds[2061,4138,2311,4308].
+  RGBA pixels verified equal to original RGB under the saved alpha mask; original
+  image hash unchanged. One authentic view; hidden sides/mechanics inferred.
+  Extraction rerun reuses prior result and preserves reconstruction metadata;
+  changed source/mask requires a new revision. No AI generation performed.
+  Blender reconstructs physical housing/recesses/twin swept-blade fans/rims/
+  fasteners/louvres, retained PBR normal+roughness. 40parts, estimated1.3x1.1x.39m;
+  model is not a textured plane or a silhouette extrusion. Neutral image actually
+  reviewed. First empty-world render error fixed, then full export/render succeeds.
+  Library models/dimensions/anchor/provenance/association registered without copy.
+  Godot reads placement(-8.6146,3.02,13.3713), adds mesh to original building group
+  before cutaway material collection, hides old generic roof duct and relocates
+  its existing vapor. Opaque roof covers original floor illustration beneath it;
+  no source PNG or tactical cells changed. Native final0030 actually inspected:
+  twin-fan module sits on left foreground roof, no obvious floating/duplication.
+  FullHD30 movie549frames/71s offline; blocked1,occlusion914,health retained.
+  Library gallery now shows actual mesh asset links as well as source crops.
+  Three library contract tests pass after fixing relative asset-link resolution
+  exposed by reimport fixture. Actual extraction pixel/provenance assertions pass.
+  Outputs E: environment-library/assets/roof_twin_fan (reference/mask/source.json,
+  source.blend/optimized.glb/neutral.png), generated/phase2/roof226/index.html/MP4.
+  AVI removed after encode. Files: extract_roof226.py, blender/roof_fan226.py,
+  godot/roof226.gd/tscn, environment_library.py, package_combat169.py.
+  Prototype reviewed, NOT final artistic acceptance. Hunyuan France permission
+  remains unresolved; existing222 cast/VTOL preserved. Next: generalize library
+  association loading, isolate an original container/shop, and improve whole
+  original-derived roof/facade identity instead of generic substitutes.
+  No production/save edit, campaign test, new model weights or resource push.
+  CHANTIER GLOBAL INCOMPLET.

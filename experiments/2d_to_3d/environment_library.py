@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 from PIL import Image
 
@@ -63,6 +64,17 @@ def initialize():
     for r in manifest['records']:
         relative=Path(r['context_crop']).relative_to(OUT).as_posix()
         cards.append(f'<article><h2>{html.escape(r["source_object_id"])}</h2><img src="{relative}"><p>{r["family"]} · context crop, not isolated · one authentic view</p></article>')
+    for asset in manifest.get('assets',[]):
+        links=[]
+        for kind,path in asset.get('models',{}).items():
+            relative=os.path.relpath(OUT/Path(path),OUT).replace('\\','/')
+            links.append(f'<a href="{html.escape(relative)}">{html.escape(kind)}</a>')
+        preview=asset.get('isolated_reference') or asset.get('source_image')
+        picture=''
+        if preview:
+            relative=os.path.relpath(OUT/Path(preview),OUT).replace('\\','/')
+            picture=f'<img src="{html.escape(relative)}">'
+        cards.append(f'<article><h2>{html.escape(asset["id"])}</h2>{picture}<p>{html.escape(asset.get("artistic_status","NOT_VERIFIED"))} ? '+ ' / '.join(links)+'</p></article>')
     (OUT/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>CyberCity Environment Library</title><style>body{background:#08141b;color:#d8edef;font:16px system-ui;margin:30px}main{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}img{max-width:100%;max-height:320px}article{border:1px solid #24636b;padding:15px}</style><h1>CyberCity 2085 — original map references</h1><p>Existing survey reused. Crops include surrounding image content; segmentation and reconstruction remain open.</p><main>'+''.join(cards)+'</main>',encoding='utf8')
     assert digest(source)==source_hash
     print('LIBRARY_IMPORTED',len(records),target)
