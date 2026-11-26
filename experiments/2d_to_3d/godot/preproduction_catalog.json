@@ -248,8 +248,10 @@
   {
     "map": "city_interior_corporate_lobby",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_corporate_lobby.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "city_interior_cyber_cafe",
@@ -266,14 +268,18 @@
   {
     "map": "city_interior_police_records",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_police_records.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "city_interior_safehouse",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_safehouse.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "city_interior_server_room",
@@ -300,8 +306,10 @@
   {
     "map": "cybercity_inner_02_safehouse",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_02_safehouse.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "cybercity_inner_03_research_lab",
@@ -338,14 +346,18 @@
   {
     "map": "cybercity_inner_07_corporate_lobby",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_07_corporate_lobby.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "cybercity_inner_08_police_records",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_08_police_records.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "cybercity_inner_10_penthouse_atrium",
@@ -662,8 +674,10 @@
   {
     "map": "wasteland_inner_01_abandoned_safehouse",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_01_abandoned_safehouse.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "wasteland_inner_02_collapsed_tunnel",
@@ -688,8 +702,10 @@
   {
     "map": "wasteland_inner_06_abandoned_safehouse",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_06_abandoned_safehouse.tscn",
+    "scope": "partial: perimeter, partitions, seating and selected fixtures"
   },
   {
     "map": "wasteland_inner_06_maintenance_depot",

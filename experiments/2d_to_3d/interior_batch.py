@@ -20,6 +20,14 @@ INTERIORS = (
     "city_interior_control_center",
     "cybercity_inner_01_control_center",
     "wasteland_inner_04_bunker_command_post",
+    "city_interior_safehouse",
+    "cybercity_inner_02_safehouse",
+    "wasteland_inner_01_abandoned_safehouse",
+    "wasteland_inner_06_abandoned_safehouse",
+    "city_interior_corporate_lobby",
+    "cybercity_inner_07_corporate_lobby",
+    "city_interior_police_records",
+    "cybercity_inner_08_police_records",
 )
 
 
@@ -45,7 +53,13 @@ def fixtures(name):
             selected[identifier] = "cabinet"
         elif "console" in identifier or "computer" in identifier:
             selected[identifier] = "console"
-        elif "desk" in identifier or "table" in identifier or "kitchen" in identifier:
+        elif "sofa" in identifier or identifier.startswith("chair"):
+            selected[identifier] = "sofa"
+        elif "planter" in identifier or identifier.startswith("reception_plant"):
+            selected[identifier] = "planter"
+        elif identifier.startswith(("gate_", "turnstile_")):
+            selected[identifier] = "gate"
+        elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee")) or identifier == "reception":
             selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"

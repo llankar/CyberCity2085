@@ -15,3 +15,7 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     assert lab["west_pods"] == "pod"
     assert warehouse["shelf_mid"] == "rack"
     assert lab["west_partition_n"] == "partition"
+    _, lobby = fixtures("cybercity_inner_07_corporate_lobby")
+    assert lobby["gate_1"] == "gate"
+    assert lobby["sofa_ne"] == "sofa"
+    assert lobby["planter_nw"] == "planter"

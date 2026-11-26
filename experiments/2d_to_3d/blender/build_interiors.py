@@ -35,6 +35,8 @@ def build(name):
     steel = make_material("Interior service steel", (.13,.19,.22,1), .5,.58)
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
+    upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
+    leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
     shader = screen.node_tree.nodes["Principled BSDF"]
     shader.inputs["Emission Color"].default_value = (.035,.52,.67,1)
@@ -73,6 +75,30 @@ def build(name):
             build_bed(group, x, y, w, d, steel, linen, trim)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)
+        elif kind == "sofa":
+            box(identifier+" frame", (x,y,.18), (w*.47,d*.46,.16), steel).parent = group
+            box(identifier+" cushions", (x,y,.37), (w*.43,d*.39,.088), upholstery).parent = group
+            back = (x+w*.37,y,.55) if vertical else (x,y+d*.37,.55)
+            size = (w*.085,d*.43,.23) if vertical else (w*.43,d*.085,.23)
+            box(identifier+" back", back, size, upholstery).parent = group
+        elif kind == "planter":
+            box(identifier+" vessel", (x,y,.20), (w*.46,d*.46,.20), steel).parent = group
+            for offset in (-.28,0,.28):
+                bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1, location=(
+                    x+(0 if vertical else offset*w), y+(offset*d if vertical else 0), .52
+                ))
+                shrub = bpy.context.object
+                shrub.name = identifier+" foliage"
+                shrub.scale = (min(w*.23,.38),min(d*.23,.38),.25)
+                shrub.data.materials.append(leaves)
+                shrub.parent = group
+        elif kind == "gate":
+            for side in (-1,1):
+                box(identifier+" post", (x+side*w*.33,y,.48),
+                    (w*.13,d*.42,.48), steel).parent = group
+            box(identifier+" rail", (x,y,.72), (w*.31,.024,.028), trim).parent = group
+            box(identifier+" indicator", (x+w*.33,y,.984),
+                (w*.10,d*.17,.025), screen).parent = group
         elif kind == "cabinet":
             box(identifier, (x,y,.78), (w*.46,d*.44,.78), steel).parent = group
             for level in (.42,.73,1.04,1.35):
