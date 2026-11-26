@@ -1,6 +1,25 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ROOF-199 scoped building identity delivery (2026-11-26). Prior turn
+  fixed conflicting dressing/end orbit. Three different hard-surface roof
+  assemblies now distinguish utility building (reservoir, lid, bands/mounts),
+  repair shop (four tilted photovoltaic panels/cell grid) and clinic (supported
+  emissive sign). Existing free roof patches selected from actual map meshes;
+  no functional cell/path changes. Source GLB/packed BLEND on E:. Solar local
+  orientation corrected before native capture. Full902frame1920x1080/30fps
+  take/81s offline packaged successfully;1blockedshot/602occlusion frames,
+  same health. Actual0030 inspected: solar/clinic identity visible; reservoir
+  outside main shot. Additional native90frame overview captured/inspected with
+  --roof-review: reservoir visible and separate from existing roof equipment.
+  No script/parse errors found. These samples do not prove all-frame clearance
+  or final art quality. Files: roof_identity199, roof199 scene, passthrough,
+  movie/package scripts and scoped docs. No new rig/engine/campaign tests,
+  production edits, downloads or push. Global IN_PROGRESS: repeated building
+  kit, human identities/material quality and full-motion contact quality.
+  Next: focus the retained textured human candidates at combat scale and
+  improve visible cast distinction instead of adding more tiny roof props.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` ART-198 scoped composition/material and end-camera correction
   (2026-11-26). Prior turn furnished stalls. Removed two decorative pipe valves
   obscuring medical sign/casualty; added existing local metal roughness/normal

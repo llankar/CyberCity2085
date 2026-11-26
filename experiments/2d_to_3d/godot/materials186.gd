@@ -3,7 +3,7 @@ extends "res://presentation182.gd"
 var material_changes := 0
 
 func load_glb(relative: String, place: Vector3) -> Node3D:
-	if (relative.begins_with("showcase195/") or relative.begins_with("showcase197/") or relative.begins_with("showcase198/")):return super.load_glb(relative,place)
+	if (relative.begins_with("showcase195/") or relative.begins_with("showcase197/") or relative.begins_with("showcase198/") or relative.begins_with("showcase199/")):return super.load_glb(relative,place)
 	if relative=="showcase174/environment.glb" and "--baked186" in OS.get_cmdline_user_args():
 		var baked:=super.load_glb("showcase186/environment.glb",place)
 		assert(baked!=null)

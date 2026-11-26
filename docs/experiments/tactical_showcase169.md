@@ -573,3 +573,31 @@ Still open: repetitive stall/facade appearance, character identity, full-motion
 contact/impact quality. Next: stronger cyberpunk silhouettes/materials using
 retained assets, with camera and working encounter preserved.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Roof199 - three distinct building identities
+
+Gallery: `E:/CyberCity2085-3d-lab/generated/phase2/roof199/index.html`.
+Sources: `showcase199/environment.blend` / `.glb`. Reproduce with
+`run_blender.ps1 -Script blender/roof_identity199.py`, `run_movie169.ps1 -Roof199`,
+then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/roof199`.
+
+Utility reservoir has a real round shell, bands, cap and mounts. Repair shop
+receives four tilted solar panels with frames/cell divisions. Clinic gets a
+supported backlit rooftop sign. Existing free roof patches selected from
+actual roof polygons; original tactical cells and paths preserved. Models are
+cosmetic hard-surface objects, not new cover/movement systems.
+
+Final native capture902frames1920x1080/30fps,81s offline; packaging assertions
+pass:1blockedshot/602occlusion frames, health unchanged.0030 inspected: panels
+and clinic sign visible. Tank outside main framing, so a single native overview
+was captured with --roof-review on the same scene/flags (quit after90frames).
+Actual roof_overview.png inspected: all three assemblies visible, tank separate
+from the existing equipment. Not exhaustive geometric/all-frame acceptance.
+No campaign tests, production edits, downloads or pushes.
+
+Remaining artistic scope: repeated facade kit and human/cast distinction,
+full-motion contacts/impact readability. Next work should focus retained human
+candidates at combat scale rather than more small decorative roof pieces.
+CHANTIER GLOBAL INCOMPLET.
