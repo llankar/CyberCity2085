@@ -6,7 +6,7 @@ import bpy
 from mathutils import Vector
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "wasteland301"
+output = phase / "wasteland303"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "wasteland297/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -50,13 +50,54 @@ for obj in bpy.context.scene.objects:
         mapped_faces += 1
     count += 1
 assert count > 0 and mapped_faces > 0
+# Use the original triangular slab top to keep roof pieces inside each ruin.
+roof_material = bpy.data.materials.new("Ashfield oxidized roof sheets")
+roof_material.use_nodes = True
+shader = roof_material.node_tree.nodes.get("Principled BSDF")
+shader.inputs["Base Color"].default_value = (.115, .056, .028, 1)
+shader.inputs["Metallic"].default_value = .55
+shader.inputs["Roughness"].default_value = .77
+for group in [obj for obj in bpy.data.objects if obj.name.startswith("Occludable_")]:
+    if "ruin" not in group.name:
+        continue
+    candidates = [obj for obj in group.children if " fractured slab0" in obj.name]
+    if not candidates:
+        continue
+    # Broad top faces survive the bevel and define the plane of the fallen sheet.
+    slab = candidates[0]
+    face = max(slab.data.polygons, key=lambda poly: poly.area if poly.normal.z > .5 else 0)
+    if face.normal.z <= .5 or len(face.vertices) < 3:
+        continue
+    a, b, c = [slab.matrix_world @ slab.data.vertices[i].co for i in face.vertices[:3]]
+    vertices = []
+    faces = []
+    for rib in range(12):
+        t = .16 + rib*.054
+        lift = .05 + (.037 if rib % 2 else 0)
+        for v in (.16, .27):
+            point = a*(1-t-v) + b*t + c*v + Vector((0, 0, lift))
+            vertices.append(tuple(point))
+        if rib:
+            j = 2*rib
+            faces.append((j-2, j, j+1, j-1))
+    mesh = bpy.data.meshes.new("Corrugated roof fragment")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    mesh.materials.append(roof_material)
+    panel = bpy.data.objects.new("Collapsed corrugated roofing", mesh)
+    bpy.context.collection.objects.link(panel)
+    panel.parent = group
+    panel.matrix_parent_inverse = group.matrix_world.inverted()
+    thickness = panel.modifiers.new("Sheet thickness", "SOLIDIFY")
+    thickness.thickness = .024
+
 floor = bpy.data.materials["Original ashfield ground"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
-texture.image = bpy.data.images.load(str(output / "floor.png"))
+texture.image = bpy.data.images.load(str(phase / "wasteland301/floor.png"))
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"),
                           export_format="GLB", use_selection=True, export_apply=True)
-print("ASHFIELD301_EXPORTED", count, mapped_faces)
+print("ASHFIELD303_EXPORTED", count, mapped_faces)
