@@ -1,6 +1,22 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `IN_PROGRESS` CYBERCITY-207 art direction (latest user steering): replace
+  contemporary market canopies with technical kiosks, holographic advertising,
+  industrial equipment and weathered materials on the same showcase map.
+  Keep functional cast/rigs/camera/heavy robot, reuse true game audio; no
+  production/campaign/mass conversion. Latest priority is visible cyberpunk
+  identity and class silhouettes, not further feasibility reports.
+- `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
+  retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
+  corrected; two rejected alignment takes retained. Source axes were already
+  correct: world-space wall normals/centers, not inherited reimport transforms,
+  fixed placement; window depth reduced to.18m. Final0030 inspected: frames now
+  flush/parallel with walls. Native902FullHD30/85s offline, packaging assertions
+  pass,1blockedshot/602occlusion frames/health unchanged. No new art-global PASS.
+  Source files: facade206, scene, material passthrough, movie/package helpers.
+  Stable Delivery205 preserved. Latest user correctly identifies market style
+  still too contemporary: next207 focuses substantial kiosk/hologram redesign.
 - `DONE` DELIVERY-205 selected local bundle (2026-11-26). Prior turn improved
   contacts. New builder assembles only current runtime dependencies/models,
   embedded-texture GLBs, packed Blender sources outside import tree, authoring

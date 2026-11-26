@@ -762,3 +762,18 @@ audio.json and preview.png. Clean-PC compatibility and overall artistic
 acceptance NOT VERIFIED. No production edit, campaign test, push or release.
 Remaining: repeated facade kit, main/medic face reuse, full-motion foot/grip
 quality and final visual acceptance. CHANTIER GLOBAL INCOMPLET.
+
+
+## Facade206 / latest artistic steering
+
+206 gallery: `E:/CyberCity2085-3d-lab/generated/phase2/facade206/index.html`.
+Eight retained urban-kit bays differentiate two buildings. Initial flat-wall
+zero-depth error fixed; first two alignment takes preserved. Independent axis
+normalization was not the real issue: world-space placement using actual wall
+normals/centers fixed inherited reimport transform mismatch. Window depth.18m.
+Final0030 inspected;902FullHD30frames/85s offline, package contact/audio/video
+checks pass;1blockedshot/602occlusion frames, same health. Stable205 preserved.
+Latest user steering: current market remains too contemporary.207 must replace
+striped canopies with cyberpunk kiosks/ads/industrial equipment, then improve
+class silhouettes, heavy robot materials/effects and occlusion. No old engine/
+rig proofs, no production/campaign/mass conversion. Global art still incomplete.
