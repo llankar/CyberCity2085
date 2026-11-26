@@ -101,6 +101,17 @@ class WastelandOutdoors:
             fragment = bpy.data.objects.new(name, mesh)
             bpy.context.collection.objects.link(fragment)
             fragment.parent = group
+            if "span" in name or "ramp" in name:
+                # Keep the shattered roadbed visible when the camera hides
+                # the tall fragment. Its outline stays within the survey.
+                roadbed_mesh = bpy.data.meshes.new(name + " roadbed")
+                roadbed_mesh.from_pydata(
+                    [(x, y, .035 + .018*(i%3)) for i,(x,y) in enumerate(points)],
+                    [], [tuple(range(n))])
+                self.project_concrete_uv(roadbed_mesh)
+                roadbed_mesh.materials.append(self.aggregate)
+                roadbed = bpy.data.objects.new(name + " retained roadbed", roadbed_mesh)
+                bpy.context.collection.objects.link(roadbed)
             return
         x1,y1,x2,y2 = row["rect"]
         x,y = self.coordinates((x1+x2)/2,(y1+y2)/2)
