@@ -3,6 +3,7 @@ extends Node3D
 @export var review_ambient_energy := .65
 @export var review_key_energy := 1.3
 @export var use_market_ground := false
+@export var market_ground_filename := ""
 ## Art import review only. This scene does not implement tactical rules.
 @export var review_folder := "E:/CyberCity2085-3d-lab/generated/phase2/lab247/"
 @export var review_model_name := "environment.glb"
@@ -33,7 +34,9 @@ func _ready() -> void:
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
   # architecture only. Recreate that visual floor in this independent review.
-  var image:=Image.load_from_file("E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png")
+  var path := "E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png"
+  if not market_ground_filename.is_empty():path=review_folder+market_ground_filename
+  var image:=Image.load_from_file(path)
   assert(image!=null)
   image.generate_mipmaps()
   var material:=StandardMaterial3D.new()

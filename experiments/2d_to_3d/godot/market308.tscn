@@ -4,5 +4,6 @@
 script = ExtResource("1")
 review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/market308/"
 use_market_ground = true
+market_ground_filename = "floor.png"
 reference_map = "city_exterior_neon_market_alley"
 reference_cells = Array[Vector2i]([Vector2i(19,13),Vector2i(21,15),Vector2i(23,16)])
