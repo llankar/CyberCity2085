@@ -47,6 +47,22 @@ func _ready() -> void:
  await RenderingServer.frame_post_draw
  get_viewport().get_texture().get_image().save_png(review_folder+"cast_close.png")
  print("MULTICAST271_CAPTURED actors=",units.size()," source_free_cells=",reference_cells," hidden_groups=",cutaway.update(.1))
+ if "--measure-static-preview" in OS.get_cmdline_user_args():
+  DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+  for frame in 90:
+   await get_tree().process_frame
+  var intervals: Array[float] = []
+  var previous := Time.get_ticks_usec()
+  for frame in 360:
+   await get_tree().process_frame
+   var now := Time.get_ticks_usec()
+   intervals.append(float(now-previous)/1000.0)
+   previous = now
+  intervals.sort()
+  print("STATIC_PREVIEW_TIMING ",review_folder," median_ms=",intervals[180],
+        " p95_ms=",intervals[341]," vsync=",DisplayServer.window_get_vsync_mode())
+  get_tree().quit()
+  return
  if not delivery_next_scene.is_empty() and "--production-lot278" in OS.get_cmdline_user_args():
   for frame in 90:
    review_yaw+=.004
