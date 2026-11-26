@@ -234,3 +234,5 @@ Track263 IN_PROGRESS: standalone real-profile rails/sleepers and native scene ex
 Station264: native overview and actor close reviewed; selector promoted from250 to264. Eight source-column service housings detailed and reusable normalized GLB registered. Rail263 previously pending visual review now inspected; no final station art acceptance. Generator265 source-art Hunyuan trial running, result not yet claimed.
 
 Generator265/Factory266: direct original isolated illustration, textured40000triangle mesh, native standalone and actor-close inspected. West coarse generator upgraded without moving source root or changing tactical rules. Factory detailed families4/types14instances across6 surveyed groups; other26 surveyed groups still coarse/flat. Main selector now factory266. Final map art0/6.
+
+Latest scoped architecture delivery281: physical wall UV/normal repair in residential280/wasteland280, reused acquired window/door variants in common library, two-map ensemble movie. This does not finish their simple architecture or replace flat wrecks. Next production lot: existing professional ventilation/cable resources in lab and subway; preserve rail exits.

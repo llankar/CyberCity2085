@@ -2,11 +2,11 @@ extends Control
 ## Independent environment selector. No campaign or alternative combat engine.
 const ENTRIES := [
  ["NEON MARKET // retained environment", "res://market251.tscn"],
- ["RESIDENTIAL // shared detailed cargo", "res://residential278_cast.tscn"],
+ ["RESIDENTIAL // facade surfaces and shared cargo", "res://residential280_cast.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab261.tscn"],
  ["FACTORY // machines, service walls and cargo", "res://factory278_cast.tscn"],
  ["SUBWAY // modular walls and open railway exits", "res://metro270.tscn"],
- ["WASTELAND // partial reconstruction", "res://wasteland254.tscn"]
+ ["WASTELAND // concrete surface repair; partial", "res://wasteland280_cast.tscn"]
 ]
 func _ready() -> void:
  var backdrop:=ColorRect.new()

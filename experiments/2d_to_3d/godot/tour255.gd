@@ -9,10 +9,11 @@ var single_map:=-1
 func _ready() -> void:
  selected_folders=FOLDERS.duplicate()
  if "--detail-pass" in OS.get_cmdline_user_args():
-  selected_folders[1]="residential278"
+  selected_folders[1]="residential280"
   selected_folders[2]="lab261"
   selected_folders[3]="factory278"
   selected_folders[4]="metro270"
+  selected_folders[5]="wasteland280"
  tour_index=int(get_tree().get_meta("environment_tour_index",0))
  for argument in OS.get_cmdline_user_args():
   if argument.begins_with("--tour-map="):
