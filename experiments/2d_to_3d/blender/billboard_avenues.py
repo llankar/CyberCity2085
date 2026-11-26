@@ -48,11 +48,11 @@ def build(name):
         shader.inputs["Emission Strength"].default_value = .65
         signs.append(sign)
 
-    building_rows = [row for row in survey["walls"] if "block" in row["id"] or row["id"] in {
-        "ne_corner", "west_mid", "south_mid"
-    }]
+    seat = make_material("Blue enamel seating", (.047, .19, .25, 1), .38, .52)
+    gravel = make_material("Planted gravel", (.086, .079, .058, 1), .05, .93)
+    foliage = make_material("Hardy street shrubs", (.095, .19, .075, 1), .03, .84)
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
-    for i, row in enumerate(building_rows):
+    for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
         x1, y1, x2, y2 = row["rect"]
         x, y = (x1 + x2) * gw / (2*cw) - gw/2, gh/2 - (y1 + y2) * gh / (2*ch)
@@ -60,6 +60,44 @@ def build(name):
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if identifier.startswith("car_"):
+            vertical = d > w
+            place(library / "derelict_suv275/model.glb", group, (x, y, 0),
+                  (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
+            continue
+        if identifier == "crate_mid":
+            place(library / "cargo_crate274/model.glb", group, (x, y, 0), (w, d, .55))
+            continue
+        if any(kind in identifier for kind in ("bench", "planter", "barrier")):
+            if "bench" in identifier:
+                parts = [
+                    ("seat", (x, y, .36), (w*.46, d*.30, .065), seat),
+                    ("backrest", (x, y+d*.27, .54), (w*.46, .055, .19), seat),
+                ]
+                parts.extend(("support", (x+w*offset, y, .17), (.08, d*.24, .17), frame)
+                             for offset in (-.33, .33))
+            else:
+                parts = [
+                    ("base", (x, y, .16), (w*.49, d*.48, .16), wall),
+                    ("rim", (x, y, .33), (w*.50, d*.49, .045), frame),
+                ]
+                if "planter" in identifier:
+                    parts.append(("gravel", (x, y, .375), (w*.43, d*.40, .02), gravel))
+                    for offset in (-.31, 0, .31):
+                        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1,
+                            location=(x+w*offset, y, .48+abs(offset)*.12))
+                        shrub = bpy.context.object
+                        shrub.name = identifier + " shrub"
+                        shrub.scale = (w*.13, d*.30, .19)
+                        shrub.data.materials.append(foliage)
+                        shrub.parent = group
+                else:
+                    parts.append(("reflector", (x, y, .38), (w*.38, .04, .02), signs[2]))
+            for label, position, half_size, material in parts:
+                box(f"{identifier} {label}", position, half_size, material).parent = group
+            continue
+        if "block" not in identifier and identifier not in {"ne_corner", "west_mid", "south_mid"}:
+            raise ValueError(f"No avenue model for {identifier}")
         shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
         shell.parent = group
         shell.data.materials.append(roof)
@@ -94,7 +132,7 @@ def build(name):
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")
-    print("BILLBOARD_AVENUE_EXPORTED", name, len(building_rows))
+    print("BILLBOARD_AVENUE_EXPORTED", name, len(survey["walls"]))
 
 
 for avenue in AVENUES:

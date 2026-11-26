@@ -102,7 +102,7 @@
     "status": "preview",
     "batch": "initial",
     "scene": "res://city_exterior_billboard_avenue.tscn",
-    "scope": "partial: building shells, facades and billboard fixtures"
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_inner_09_apartment_block",
@@ -501,7 +501,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_street_15_billboard_avenue.tscn",
-    "scope": "partial: building shells, facades and billboard fixtures"
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_15_bridge_access",
@@ -515,7 +515,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_street_16_billboard_avenue.tscn",
-    "scope": "partial: building shells, facades and billboard fixtures"
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "wasteland_city_01_ruined_downtown",
