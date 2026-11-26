@@ -1,6 +1,27 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ARMORED-203 stronger Raider candidate (2026-11-26). Prior turn's
+  comparison found civilian-shirt body unsuitable. Inspected retained scanned
+  candidate and Unvanquished authored armor; selected detailed yellow/black
+  armor. Reused122bone body, existing bound pistol and source motions, no new
+  generation/recolor/download. First runtime-composed take retained. Blender
+  assembler now supplies self-contained armored_actions.blend/.glb with7clips;
+  original sources preserved. Native imports keep static pose tracks; source
+  -Z forward audit reused, source firing reference1/15s retained. Final902frame
+  FullHD30 capture/82s offline, package checks pass:1blockedshot/602occlusion
+  frames, retaliation76->64HP and.750454m teammate clearance. Seven clips are
+  present; native encounter exercises idle/walk/fire, not all seven actions.
+  Actual0750, firing extraction and current41/62px comparison inspected: armor
+  visually closer to Raider sprite, distinct from green agents; no major new
+  deformation in inspected poses. All-motion grip/foot contact NOT VERIFIED.
+  Source's legacy PBR/contact/game-parity limitations retained, not declared
+  solved. Files: assemble_armored203, armored203scene, movie/package scripts,
+  comparator flag and scoped docs. No script/parse errors found; no production,
+  campaign or push. Global IN_PROGRESS: main/medic face duplication, architecture
+  repetition and whole-encounter artistic quality. Next: review full sequence
+  for visible motion/contact defects, favor corrections over more prop variants.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` MEDIC-201 equipment / SCALE-202 current visual comparison
   (2026-11-26). Prior turn distinguished reinforcement and added real retaliation.
   Existing medical_box PBR case normalized upright into detachable .42m module,

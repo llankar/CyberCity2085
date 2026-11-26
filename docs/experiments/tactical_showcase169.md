@@ -659,3 +659,35 @@ The medic module helps role recognition but does not solve duplicate face/outfit
 Next: select from existing armored/scanned human candidates for a stronger Raider
 identity, retaining working robot and staged encounter. No push.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Armored203 - retained authored Raider armor, portable model
+
+Gallery: `E:/CyberCity2085-3d-lab/generated/phase2/armored203/index.html`.
+Actual reusable sources: `armored203/armored_actions.blend` and `.glb`.
+Reproduce model with `run_blender.ps1 -Script blender/assemble_armored203.py`,
+then `run_movie169.ps1 -Armored203`, then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/armored203`. Current comparison:
+`run_godot.ps1 -Scene res://scale202.tscn -RenderingMethod gl_compatibility
+-QuitAfter 300 -SceneArguments @('--armored203')`.
+
+Inspected existing scanned candidate and Unvanquished authored armor. Selected
+latter for its detailed yellow/black plates and stronger tactical identity.
+Original body, actual bound pistol and six source motions plus existing pistol
+study combined into one portable model; no new AI generation/recolor/download.
+Native import retains static channels, -Z anatomical forward is corrected using
+existing audit, firing seeks source reference1/15s. No new rig or retarget pass.
+First runtime-composed take retained before self-contained export.
+
+Final902frames1920x1080/30fps,82s offline. Packaging assertions pass, seven clips
+present; encounter exercises Idle/Walk/Pistol_Attack_Study, not all seven clips.
+One blocked shot,602occlusion frames; retaliation76->64HP and.750454m teammate
+clearance, final health unchanged. Actual0750, fire extraction and current41/62px
+comparison inspected: stronger Raider likeness and cast separation; no major
+new deformation in these samples. All-motion grip/foot/contact quality remains
+NOT VERIFIED. Prior source legacy-PBR, grip and source-game-parity limitations
+are preserved; technical import does not close them. No campaign test,
+production edit or push. Global scene art remains incomplete: main/medic face
+reuse, repeated facade kit and full-motion contact/impact quality. Next: review
+whole-sequence visible motion defects rather than additional small props.
+CHANTIER GLOBAL INCOMPLET.
