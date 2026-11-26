@@ -7,6 +7,7 @@ var movement: Tween
 var destination := Vector3.ZERO
 var fallen := false
 var ring: MeshInstance3D
+var pistol_parts: Array[Node3D] = []
 
 
 func configure(allied: bool, support: bool, initial: Vector3) -> bool:
@@ -24,6 +25,12 @@ func configure(allied: bool, support: bool, initial: Vector3) -> bool:
  if players.is_empty():
   return false
  animation = players[0] as AnimationPlayer
+ if allied:
+  for mesh in model.find_children("EquippedPistol_*", "MeshInstance3D", true, false):
+   pistol_parts.append(mesh)
+   mesh.hide()
+ if support and not configure_support_appearance(model):
+  return false
  for action: String in clips:
   if not animation.has_animation(clips[action]):
    push_error("Missing retained animation %s in %s" % [clips[action], path])
@@ -51,6 +58,59 @@ func configure(allied: bool, support: bool, initial: Vector3) -> bool:
  return true
 
 
+func configure_support_appearance(model: Node3D) -> bool:
+ var rigs := model.find_children("*", "Skeleton3D", true, false)
+ if rigs.is_empty():
+  return false
+ var rig := rigs[0] as Skeleton3D
+ var head := rig.find_bone("DEF-spine_006")
+ if head < 0:
+  head = rig.find_bone("DEF-spine.006")
+ if head < 0:
+  return false
+ var document := GLTFDocument.new()
+ var state := GLTFState.new()
+ if document.append_from_file(CAST + "modularity166/body_0_helmet_restfixed.glb", state) != OK:
+  return false
+ var donor := document.generate_scene(state)
+ var source := donor.find_child("HelmetModule166", true, false) as MeshInstance3D
+ if source == null:
+  donor.free()
+  return false
+ var helmet := MeshInstance3D.new()
+ helmet.name = "OracleHelmet"
+ helmet.mesh = source.mesh
+ for surface in helmet.mesh.get_surface_count():
+  var original := source.get_active_material(surface) as StandardMaterial3D
+  if original != null:
+   var material := original.duplicate() as StandardMaterial3D
+   material.albedo_color *= Color(.42,.44,.58)
+   material.roughness = maxf(material.roughness, .68)
+   material.metallic = minf(material.metallic, .30)
+   helmet.set_surface_override_material(surface, material)
+ donor.free()
+ var head_mount := BoneAttachment3D.new()
+ head_mount.bone_name = rig.get_bone_name(head)
+ rig.add_child(head_mount)
+ head_mount.add_child(helmet)
+ var rest := rig.get_bone_global_rest(head)
+ var center := helmet.mesh.get_aabb().get_center()
+ var fit := Basis.from_scale(Vector3(1.09, 1.08, 1.12))
+ helmet.transform = (rig.global_transform * rest).affine_inverse() * model.global_transform * (
+  Transform3D(fit, center - fit * center + Vector3(0, -.025, -.016)))
+ for hair in model.find_children("ActualCopperQuiff*", "MeshInstance3D", true, false):
+  hair.hide()
+ var body := model.find_child("Character", true, false) as MeshInstance3D
+ if body != null:
+  for surface in body.mesh.get_surface_count():
+   var original := body.get_active_material(surface) as StandardMaterial3D
+   if original != null and original.resource_name in ["Jacket", "Pants"]:
+    var material := original.duplicate() as StandardMaterial3D
+    material.albedo_color *= Color(.63, .49, .94) if original.resource_name == "Jacket" else Color(.52,.57,.75)
+    body.set_surface_override_material(surface, material)
+ return true
+
+
 func face(point: Vector3) -> void:
  if position.distance_squared_to(point) > .0001:
   look_at(point, Vector3.UP, true)
@@ -62,6 +122,7 @@ func update_state(point: Vector3, health: int) -> void:
  if health <= 0:
   fallen = true
   ring.hide()
+  set_pistol_visible(false)
   if movement != null:
    movement.kill()
   animation.play(clips.death, .08)
@@ -71,6 +132,7 @@ func update_state(point: Vector3, health: int) -> void:
  if movement != null:
   movement.kill()
  destination = point
+ set_pistol_visible(false)
  face(point)
  animation.play(clips.walk, .08)
  movement = create_tween()
@@ -90,9 +152,16 @@ func play_action(point: Vector3, action: String) -> void:
   position = destination
  face(point)
  animation.stop()
+ set_pistol_visible(action == "fire")
  animation.play(clips[action], .06)
 
 
 func _clip_finished(clip: StringName) -> void:
  if not fallen and clip != clips.death:
+  set_pistol_visible(false)
   animation.play(clips.idle, .12)
+
+
+func set_pistol_visible(value: bool) -> void:
+ for part in pistol_parts:
+  part.visible = value

@@ -155,6 +155,19 @@ func _process(delta: float) -> void:
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_psi.png") != OK:
      get_tree().quit(14)
      return
+    var longshot: TacticalActor = actors[ALLY]
+    review_target = (longshot.position + oracle.position) / 2 + Vector3.UP * .90
+    review_distance = 5.0
+    review_elevation = 2.5
+    review_yaw += PI
+    review_camera.size = 3.4
+    status.hide()
+    selection.hide()
+    update_review_camera()
+    await RenderingServer.frame_post_draw
+    if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_squad_close.png") != OK:
+     get_tree().quit(15)
+     return
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
 
