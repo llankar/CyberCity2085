@@ -15,7 +15,7 @@ from shipping_container import build_container
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
 lab = Path("E:/CyberCity2085-3d-lab")
-output = lab / "generated/phase2/dockside336"
+output = lab / "generated/phase2/dockside337"
 name = "city_industrial_dockside_terminal"
 source = root / "assets/maps" / name
 survey = json.loads(source.with_suffix(".wall-traces.json").read_text())
@@ -24,6 +24,7 @@ cw, ch = survey["canvas_size"]
 library = lab / "environment-library/assets"
 cargo = library / "cargo_crate274/model.glb"
 generator = library / "industrial_generator265/model.glb"
+wall = library / "service_wall269_factory/model.glb"
 selected = {"northwest_top_crates", "central_generator", "south_cargo_generator"}
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.context.preferences.filepaths.save_version = 0
@@ -31,11 +32,12 @@ skins = {key: make_material("Dockside container "+key, (*color,1), .65,.63)
          for key,color in (("green",(.062,.15,.14)),("blue",(.044,.093,.22)),("red",(.24,.063,.034)))}
 steel = make_material("Dockside door hardware", (.075,.11,.15,1), .65,.48)
 beam = make_material("Dockside locking rods", (.52,.17,.028,1), .45,.48)
-instances = containers = 0
+instances = containers = barriers = 0
 for row in survey["walls"]:
     identifier = row["id"]
     is_container = "container" in identifier
-    if identifier not in selected and not is_container:
+    is_barrier = identifier.startswith("quay_barrier_")
+    if identifier not in selected and not is_container and not is_barrier:
         continue
     xs, ys = zip(*row["polygon"])
     a, c, b, d = min(xs), max(xs), min(ys), max(ys)
@@ -44,7 +46,14 @@ for row in survey["walls"]:
     x, y = (a+c)*gw/(2*cw)-gw/2, gh/2-(b+d)*gh/(2*ch)
     group = bpy.data.objects.new("Occludable_" + identifier, None)
     bpy.context.collection.objects.link(group)
-    if is_container:
+    if is_barrier:
+        count = max(1, math.ceil(depth / 2))
+        span = depth/count
+        for index in range(count):
+            place(wall, group, (x, y + (index+.5)*span-depth/2, 0),
+                  (span,width,.95), yaw=math.pi/2)
+        barriers += 1
+    elif is_container:
         color = next((key for key in skins if identifier.endswith(key)), "green")
         vertical = depth > width
         length, thickness = (depth,width) if vertical else (width,depth)
@@ -61,7 +70,7 @@ for row in survey["walls"]:
         for offset in (-.25,.25):
             place(cargo, group, (x+offset*width,y,0), (width*.45,depth*.92,1.05))
             instances += 1
-assert instances == 4 and containers == 9
+assert instances == 4 and containers == 9 and barriers == 3
 floor = make_material("Dockside source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")
@@ -75,7 +84,7 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB")
 elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
-    "map": name, "instances": instances, "containers": containers, "reused_model_families": 3,
+    "map": name, "instances": instances, "containers": containers, "barriers": barriers, "reused_model_families": 4,
     "new_model_families": 0, "blender_seconds": elapsed, "converted_groups": sorted(selected)
 }, indent=2))
-print("DOCKSIDE336_EXPORTED", instances, elapsed)
+print("DOCKSIDE337_EXPORTED", instances, elapsed)
