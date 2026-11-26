@@ -80,4 +80,7 @@ class TacticalPreview:
             delta = tuple(cell*CELL_SIZE - position//CELL_SIZE*CELL_SIZE
                           for cell, position in zip(destination, actor.position))
         result = self.engine.perform_action(key, actor=actor, target=target, move_delta=delta)
-        return {"success": result.success, "message": result.message, "state": self.snapshot()}
+        reply = {"success": result.success, "message": result.message, "state": self.snapshot()}
+        if result.success and result.attack_resolution is not None:
+            reply["attack"] = {"hit": result.attack_resolution.hit, "damage": result.damage}
+        return reply

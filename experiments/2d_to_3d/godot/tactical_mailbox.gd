@@ -7,6 +7,7 @@ var state: Dictionary = {}
 var message := ""
 var success := false
 var events: Array = []
+var attack: Dictionary = {}
 
 func _init(session_directory: String) -> void:
  directory = session_directory
@@ -27,6 +28,7 @@ func refresh() -> bool:
  message = str(reply.get("message", ""))
  success = bool(reply.get("success", false))
  events = reply.get("events", [])
+ attack = reply.get("attack", {})
  pending = false
  return true
 

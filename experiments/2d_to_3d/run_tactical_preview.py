@@ -53,8 +53,42 @@ SUPPORT_CELLS = {
 CATALOG = Path(__file__).with_name("godot") / "preproduction_catalog.json"
 
 
+def catalogue_scenarios() -> dict[str, dict]:
+    return {
+        entry["map"]: entry
+        for entry in json.loads(CATALOG.read_text(encoding="utf-8"))
+        if entry["status"] == "preview"
+    }
+
+
+def scenario_maps() -> dict[str, str]:
+    curated = {map_name for map_name, _, _ in SCENARIOS.values()}
+    return TITLES | {
+        name: name.replace("_", " ").title()
+        for name in catalogue_scenarios()
+        if name not in curated
+    }
+
+
+def automatic_spawns(terrain, width: int, height: int):
+    cells = {(x // CELL_SIZE, y // CELL_SIZE) for x, y in terrain.walkable_cells}
+    ordered = sorted(cells, key=lambda cell: (
+        abs(2 * cell[0] - width) + abs(2 * cell[1] - height), cell,
+    ))
+    for distance in (7, 5, 3):
+        for x, y in ordered:
+            for dx, dy in ((1, 0), (0, 1), (-1, 0), (0, -1)):
+                if not all((x + i * dx, y + i * dy) in cells for i in range(1, distance + 1)):
+                    continue
+                for side in (-1, 1):
+                    support = (x + dx - side * dy, y + dy + side * dx)
+                    if support in cells:
+                        return (x, y), support, (x + distance * dx, y + distance * dy)
+    raise ValueError(f"No connected deployment corridor on {terrain.image_path}")
+
+
 def scenario_preview(scenario: str) -> TacticalPreview:
-    map_name, ally_cell, enemy_cell = SCENARIOS[scenario]
+    map_name = SCENARIOS[scenario][0] if scenario in SCENARIOS else scenario
     background = ROOT / "assets/maps" / f"{map_name}.png"
     geometry = load_map_geometry(background)
     if not geometry:
@@ -63,6 +97,12 @@ def scenario_preview(scenario: str) -> TacticalPreview:
     terrain = build_terrain_profile(str(background), width * CELL_SIZE, height * CELL_SIZE)
     if terrain.source != "manual_wall_traces_v1":
         raise RuntimeError(f"Tactical geometry is unavailable: {map_name}")
+
+    if scenario in SCENARIOS:
+        _, ally_cell, enemy_cell = SCENARIOS[scenario]
+        support_cell = SUPPORT_CELLS[scenario]
+    else:
+        ally_cell, support_cell, enemy_cell = automatic_spawns(terrain, width, height)
 
     def spawn(cell, stats, team):
         position = tuple(axis * CELL_SIZE for axis in cell)
@@ -77,7 +117,7 @@ def scenario_preview(scenario: str) -> TacticalPreview:
     for slot, item_id in (("sidearm", "mono_knife"), ("utility_item", "trauma_patch")):
         ally.character.loadout.equip(slot, next(item for item in catalog[slot] if item.id == item_id))
     ally.attack_range = ally.character.loadout.primary_weapon.range_cells
-    support = spawn(SUPPORT_CELLS[scenario], PlayerStats(psi=4), "player")
+    support = spawn(support_cell, PlayerStats(psi=4), "player")
     support.character = Character("Oracle", role="psi", stats=support.stats)
     equip_starter_loadout(support.character.loadout, support.character.role)
     support.attack_range = support.character.loadout.primary_weapon.range_cells
@@ -96,7 +136,7 @@ def selected_map(directory: Path) -> str | None:
         selected = (directory / "map-selection.txt").read_text(encoding="utf-8").strip()
     except FileNotFoundError:
         return None
-    if selected not in SCENARIOS:
+    if selected not in scenario_maps():
         raise ValueError(f"Unknown experimental map: {selected}")
     return selected
 
@@ -113,17 +153,14 @@ def open_mailbox(directory: Path, map_key: str, smoke: bool) -> TacticalMailbox:
 
 
 def battlefield_presentation(map_key: str) -> dict:
-    map_name = SCENARIOS[map_key][0]
-    catalogue = json.loads(CATALOG.read_text(encoding="utf-8"))
-    entry = next(row for row in catalogue if row["map"] == map_name)
-    if entry["status"] != "preview":
-        raise ValueError(f"No 3D environment for {map_name}")
-    return {"title": TITLES[map_key], "preview_scene": entry["scene"]}
+    map_name = SCENARIOS[map_key][0] if map_key in SCENARIOS else map_key
+    entry = catalogue_scenarios()[map_name]
+    return {"title": scenario_maps()[map_key], "preview_scene": entry["scene"]}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--map", choices=SCENARIOS, help="Skip the map selection screen")
+    parser.add_argument("--map", choices=scenario_maps(), help="Skip the map selection screen")
     parser.add_argument("--smoke", action="store_true")
     args = parser.parse_args()
     temp_root = LAB / "tmp"
@@ -134,7 +171,7 @@ def main() -> int:
         mailbox = open_mailbox(directory, map_key, args.smoke) if map_key else None
         if not map_key:
             atomic_json(directory / "scenarios.json", {
-                "maps": [{"id": key, "title": TITLES[key]} for key in SCENARIOS],
+                "maps": [{"id": key, "title": title} for key, title in scenario_maps().items()],
             })
         scene = "tactical_battlefield" if map_key else "tactical_menu"
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,

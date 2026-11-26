@@ -10,10 +10,23 @@ from game.stats import EnemyStats, PlayerStats
 from game.unit import STATUS_BLEEDING, Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
-from run_tactical_preview import CATALOG, SCENARIOS, battlefield_presentation, scenario_preview, selected_map
+from run_tactical_preview import CATALOG, SCENARIOS, battlefield_presentation, scenario_maps, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_attack_replies_distinguish_hit_miss_and_rejection(self):
+        preview = scenario_preview("warehouse")
+        preview.units["ally:0"].stats.agi = 10
+        with patch("game.combat.attack_resolution.random.random", return_value=.9999):
+            missed = preview.action("fire", "ally:0", target_id="enemy:0")
+        self.assertEqual(missed["attack"], {"hit": False, "damage": 0})
+        with patch("game.combat.attack_resolution.random.random", return_value=0.0):
+            hit = preview.action("fire", "ally:0", target_id="enemy:0")
+        self.assertTrue(hit["attack"]["hit"])
+        self.assertGreater(hit["attack"]["damage"], 0)
+        rejected = preview.action("fire", "ally:0", target_id="ally:1")
+        self.assertNotIn("attack", rejected)
+
     def test_oracle_has_independent_psi_ap_and_can_receive_adjacent_aid(self):
         preview = scenario_preview("metro")
         sniper, oracle = (preview.units[key] for key in ("ally:0", "ally:1"))
@@ -110,6 +123,23 @@ class TacticalPreviewTest(unittest.TestCase):
         fired = preview.action("fire", "ally:0", target_id="enemy:0")
         self.assertTrue(fired["success"], fired)
         self.assertEqual(ally.action_points, 2)
+
+    def test_all_catalogue_maps_have_a_playable_deployment(self):
+        catalogue = json.loads(CATALOG.read_text(encoding="utf-8"))
+        self.assertEqual(len(scenario_maps()), len(catalogue))
+        map_names = set()
+        for key in scenario_maps():
+            with self.subTest(map=key):
+                presentation = battlefield_presentation(key)
+                scene = CATALOG.parent / presentation["preview_scene"].removeprefix("res://")
+                self.assertTrue(scene.is_file(), scene)
+                preview = scenario_preview(key)
+                terrain = preview.engine.terrain_profile
+                map_names.add(Path(terrain.image_path).stem)
+                positions = {unit.position for unit in preview.units.values()}
+                self.assertEqual(len(positions), 3)
+                self.assertTrue(positions <= terrain.walkable_cells)
+        self.assertEqual(map_names, {entry["map"] for entry in catalogue})
 
     def test_scenarios_use_original_geometry_and_advance_round(self):
         for name, (map_name, (x, y), _) in SCENARIOS.items():

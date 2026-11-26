@@ -6,7 +6,7 @@ var clock := 0.0
 const SOUNDS := {"pistol":"weapons/fire_pistol_01.wav","laser":"weapons/fire_laser_cc0_01.wav","step":"movement/step_concrete_cc0_01.wav",
 	"metal":"combat/impact_metal_cc0_01.wav","hit":"combat/impact_organic_cc0_01.wav",
 	"melee":"combat/melee_cc0_01.wav","explode":"combat/explosion_small_cc0_01.wav",
-	"psi":"technology/shield_cc0_01.wav"}
+	"psi":"technology/shield_cc0_01.wav","aid":"technology/terminal_cc0_01.wav"}
 
 func material(color: Color) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new(); mat.albedo_color = color
@@ -14,11 +14,12 @@ func material(color: Color) -> StandardMaterial3D:
 	mat.emission_enabled = true; mat.emission = color
 	return mat
 
-func sound(key: String, position_value: Vector3, gain := -10.0) -> void:
+func sound(key: String, position_value: Vector3, gain := -10.0, pitch := 1.0) -> void:
 	var path := ProjectSettings.globalize_path("res://../../../assets/audio/overhaul/"+SOUNDS[key])
 	var stream := AudioStreamWAV.load_from_file(path)
 	if stream == null: push_error("Missing showcase sound "+path); return
 	var player := AudioStreamPlayer3D.new(); player.stream = stream; player.volume_db = gain
+	player.pitch_scale = pitch
 	player.unit_size=20
 	add_child(player); player.global_position = position_value; player.play()
 	player.finished.connect(player.queue_free)
@@ -47,7 +48,7 @@ func shot(from: Vector3, to: Vector3, metal := false, laser := false) -> void:
 	spark(to,metal); sound("laser" if laser else "pistol",from,-8)
 	sound("metal" if metal else "hit",to,-15)
 
-func psychic(from: Vector3, to: Vector3) -> void:
+func psychic(from: Vector3, to: Vector3, hit := true) -> void:
 	var previous := from
 	for index in range(1,19):
 		var fraction := float(index)/18
@@ -55,7 +56,8 @@ func psychic(from: Vector3, to: Vector3) -> void:
 		point += Vector3(sin(index*7.1+clock*3),cos(index*5.3),sin(index*3.7))*.13*sin(fraction*PI)
 		line(previous,point,Color(.65,.15,1) if index%2 else Color(.12,.75,1),.018,.3)
 		previous = point
-	spark(to,true); sound("psi",from,-12)
+	if hit:spark(to,true)
+	sound("psi",from,-12)
 
 func destroy_robot(model: Node3D) -> void:
 	var center := model.global_position+Vector3(0,1,0)

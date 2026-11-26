@@ -2,7 +2,7 @@ extends "res://laboratory247.gd"
 
 const Mailbox = preload("res://tactical_mailbox.gd")
 const TacticalActor = preload("res://tactical_actor.gd")
-const Effects = preload("res://combat_effects169.gd")
+const Effects = preload("res://tactical_effects.gd")
 const Cutaway = preload("res://source_cutaway271.gd")
 const ALLY := "ally:0"
 @export var scenario_title := "Warehouse"
@@ -114,8 +114,14 @@ func _process(delta: float) -> void:
    var actor: TacticalActor = actors[pending_command.actor]
    var target: TacticalActor = actors[pending_command.get("target", pending_command.actor)]
    actor.play_action(target.position, "aid" if action == "first_aid" else action)
-   if action == "psi":
-    effects.psychic(target_center(actor), target_center(target))
+   if action == "first_aid":
+    effects.tactical_aid(target_center(target))
+   else:
+    effects.tactical_attack(action, target_center(actor), target_center(target),
+     bool(mailbox.attack.get("hit", false)), int(mailbox.attack.get("damage", 0)),
+     pending_command.actor == ALLY)
+  elif action == "move":
+   effects.sound("step", actors[pending_command.actor].global_position, -18)
  pending_command.clear()
  if actors[selected_ally].fallen:
   select_next_ally()
@@ -155,6 +161,12 @@ func _process(delta: float) -> void:
     var ally: TacticalActor = actors[ALLY]
     if ally.animation.current_animation != ally.clips.fire:
      get_tree().quit(8)
+     return
+    var recorded := effects.audio_events
+    var hit_audio := int(bool(mailbox.attack.get("hit", false)) and int(mailbox.attack.get("damage",0)) > 0)
+    if recorded.size() != 2 + hit_audio or not str(recorded[1].file).ends_with("fire_pistol_01.wav"):
+     push_error("Unexpected tactical shot audio")
+     get_tree().quit(17)
      return
     await RenderingServer.frame_post_draw
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
@@ -204,6 +216,7 @@ func _process(delta: float) -> void:
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_squad_close.png") != OK:
      get_tree().quit(15)
      return
+    await get_tree().create_timer(.7).timeout
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
 
@@ -237,6 +250,8 @@ func play_phase_events(events: Array) -> void:
    await attacker.movement.finished
   var melee: bool = event.kind == "attack" and from.distance_to(cell_position(event.to_cell)) <= 1.0
   attacker.fire_at(cell_position(event.to_cell), melee)
+  effects.tactical_attack("melee" if melee else "fire", target_center(attacker),
+   cell_position(event.to_cell) + Vector3.UP*.85, true, int(event.damage), event.actor == ALLY)
   status.text = "%s  //  Enemy phase\n%s → %s   %d damage" % [
    scenario_title, event.actor, event.target, event.damage]
   await get_tree().create_timer(.42).timeout
