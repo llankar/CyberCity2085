@@ -10,6 +10,7 @@ import bpy
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place
+from shipping_container import build_container
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -52,23 +53,7 @@ for row in survey["walls"]:
                   (span, thickness, 1.7), yaw=math.pi/2 if vertical else 0)
             wall_count += 1
     elif is_container:
-        parts = [box("Container body", (x,y,.88), (w*.46,d*.44,.88), container_skin)]
-        for side in (-1, 1):
-            for rib in range(11):
-                parts.append(box("Container corrugation", (x+(rib-5)*w*.078,y+side*d*.45,.88),
-                                 (.026,.024,.76), container_skin, .008))
-        for side in (-1,1):
-            parts.append(box("Container door", (x+w*.469,y+side*d*.215,.87),
-                             (.025,d*.20,.78), steel, .016))
-            parts.append(box("Container lock rod", (x+w*.486,y+side*d*.16,.88),
-                             (.012,.016,.72), beam, .006))
-        bpy.ops.object.select_all(action="DESELECT")
-        for part in parts:
-            part.select_set(True)
-        bpy.context.view_layer.objects.active = parts[0]
-        bpy.ops.object.join()
-        bpy.context.object.name = "Warehouse shipping container"
-        bpy.context.object.parent = group
+        build_container(group, x, y, w, d, container_skin, steel, beam)
         container_count += 1
     elif is_rack:
         rack_count += 1

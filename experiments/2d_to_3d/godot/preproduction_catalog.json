@@ -65,8 +65,8 @@
     "reuse": "factory cargo and yard machinery",
     "status": "preview",
     "batch": "initial",
-    "scene": "res://dockside335.tscn",
-    "scope": "partial: cargo and generators"
+    "scene": "res://dockside336.tscn",
+    "scope": "partial: cargo, generators and containers"
   },
   {
     "map": "city_interior_blacksite_lab",
