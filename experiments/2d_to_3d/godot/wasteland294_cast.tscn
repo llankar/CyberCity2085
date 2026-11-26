@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://multicast271.gd" id="1"]
+[node name="WastelandWallSurfaces294" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/wasteland294/"
+reference_map = "wasteland_outdoor_02_ashfield_ruins"
+reference_cells = Array[Vector2i]([Vector2i(36,10),Vector2i(36,12),Vector2i(37,13)])
+delivery_next_scene = "QUIT"
