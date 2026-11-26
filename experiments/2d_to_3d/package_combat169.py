@@ -32,6 +32,11 @@ def main():
 <p>Rencontre mise en scène dans le laboratoire indépendant : aucune campagne ni IA de production exécutée. La vidéo est rendue hors temps réel. Le style architectural et les contacts de soins restent perfectibles.</p>
 <img src="clean_0254.png"><img src="clean_0590.png"><img src="clean_0750.png">
 <p>Modèles humains et robot conservés. Matériaux PBR et accessoires Poly Haven, composants de toiture Kenney, sol et sons CyberCity existants. Ressources privées locales, aucune publication.</p></html>''',encoding='utf8')
+    if len(state['health'])==6:
+        page=(OUT/'index.html').read_text(encoding='utf8')
+        page=page.replace('Deux agents, deux raiders et un robot.', 'Trois agents, deux raiders et un robot, avec le candidat Hunyuan armé.')
+        page=page.replace('Modèles humains et robot conservés.', 'Cast conservé et candidat Hunyuan ajouté pour comparaison.')
+        (OUT/'index.html').write_text(page,encoding='utf8')
     (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,
         'scope':'Native rendered visual sequence, not campaign or production AI acceptance'},indent=2))
     print('COMBAT169_DELIVERED',state)

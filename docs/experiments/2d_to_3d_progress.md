@@ -2,6 +2,30 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EQUIPPED-176 (2026-11-26). Prior turn progressed with textured
+  unarmed neural mesh, binding corrections and two native animation movies.
+  Existing FireWarden pistol now rigidly bound to hand_r, nine genuine mesh parts;
+  original175 preserved. First finger-circle fit sat below generated glove;
+  revised wrist/forearm upright fit inspected natively, still approximate contact.
+  Five representative body floor samples: Idle/Walk/Shoot near zero, Melee~1.7cm
+  below floor, Death~0.1cm below. Scope is five poses, not full-clip acceptance;
+  no unjustified global floor offset applied. Detail/game-scale native330frame
+  movies and rig176 gallery packaged. Existing body weights retained.
+  New neural176 scene adds this candidate as sixth actor alongside retained cast,
+  real travel, two shots, existing WAV/impact effects, following markers, cover,
+  PSI/heal and bot collapse. First scene revealed idle reset during later walk;
+  fixed condition. Moved flanking lane to clear retained Rook's line of fire,
+  using source-map free cells. First take retained as first_scene_*.
+  Final native scene/package PASS:902frames1080p30/30.07s,69s offline,
+  168building/frame occlusions,1blockedshot. Six health entries; new agent
+  two hits reduce second raider to76HP. Clean0254/0750 inspected: candidate
+  visibly distinct, markers/path and final position coherent at scene scale.
+  E:phase2/neural176 MP4/GIF/gallery, rig176 equipped GLB/BLEND and two
+  focused movies. Weapon/finger contact and upper-arm garment creases remain
+  artistically open; no production replacement or final character acceptance. Muzzle hook
+  uses actual new hand; default old muzzle behaviour preserved. No production,
+  campaign, new AI generation or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` UNARMED-175 (2026-11-26). Existing textured Rook retains fused
   rifle/bent arms, so a new open-pose input addresses animation readiness instead
   of repeating shape/colour on the same unsuitable input. Built-in imagegen used

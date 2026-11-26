@@ -1,6 +1,6 @@
 extends Node3D
 ## First visible deformation trial of the new neural mesh; no campaign logic.
-const OUT := "E:/CyberCity2085-3d-lab/generated/phase2/rig175/"
+var out := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rig176/" if "--equipped" in OS.get_cmdline_user_args() else "rig175/")
 var actor: Node3D
 var player: AnimationPlayer
 var frame := 0
@@ -10,7 +10,7 @@ const CLIPS := ["Idle","Walk","Shoot","Melee","Death"]
 
 func _ready() -> void:
 	var doc:=GLTFDocument.new();var state:=GLTFState.new()
-	assert(doc.append_from_file(OUT+"human.glb",state)==OK)
+	assert(doc.append_from_file(out+"human.glb",state)==OK)
 	actor=doc.generate_scene(state);add_child(actor)
 	player=actor.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 	player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
@@ -46,4 +46,4 @@ func _process(_delta: float) -> void:
 
 func capture() -> void:
 	if frame in [15,75,135,195,285]:
-		get_viewport().get_texture().get_image().save_png(OUT+("game_pose_%03d.png" if "--game-scale" in OS.get_cmdline_user_args() else "pose_%03d.png")%frame)
+		get_viewport().get_texture().get_image().save_png(out+("game_pose_%03d.png" if "--game-scale" in OS.get_cmdline_user_args() else "pose_%03d.png")%frame)

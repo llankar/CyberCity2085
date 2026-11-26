@@ -113,13 +113,17 @@ func face(index: int,point: Vector3) -> void:
 	point.y=actors[index].position.y
 	if actors[index].position.distance_to(point)>.05:actors[index].look_at(point,Vector3.UP,true)
 
+func muzzle_position(source: int) -> Vector3:
+	if source==0 and equipment.attachment:
+		equipment.attachment.on_skeleton_update()
+		return equipment.attachment.global_position
+	return actors[source].position+Vector3(0,1.3,0)
+
 func fire(source: int,target_index: int) -> void:
 	face(source,actors[target_index].position)
 	clip(source,"ShootStudy" if source in [0,3] else ("Melee" if source==2 else "Pistol_Shoot"))
 	players[source].seek(.16,true)
-	var from := actors[source].position+Vector3(0,1.3,0)
-	if source==0 and equipment.attachment:
-		equipment.attachment.on_skeleton_update();from=equipment.attachment.global_position
+	var from := muzzle_position(source)
 	var target_point := actors[target_index].position+Vector3(0,1.1,0)
 	if target_index==0 and played[0]=="CoverStudy":target_point.y=.65
 	from+=(target_point-from).normalized()*.22
@@ -200,7 +204,7 @@ func _process(delta: float) -> void:
 	camera.size=23-3*sin(t*.10)
 	for building in buildings:
 		var blocked := false
-		for index in [0,3]:
+		for index in ([0,3,5] if actors.size()>5 else [0,3]):
 			if building.bounds.intersects_segment(camera.position,actors[index].position+Vector3(0,1,0))!=null:blocked=true
 		if blocked:occlusion_frames+=1
 		building.fade=move_toward(float(building.fade),.2 if blocked else 1.0,dt*4)
