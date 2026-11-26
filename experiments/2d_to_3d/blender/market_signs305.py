@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market306"
+output = phase / "market308"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -23,9 +23,10 @@ ink = make_material("Market sign dark lettering", (.009, .012, .016, 1), .1, .65
 icons = (
     (("fork", -.12, 0, .018, .10), ("knife", .10, 0, .024, .10),
      ("prongs", -.12, .072, .055, .018)),
-    (("parcel", 0, 0, .13, .085),),
-    (("chip", 0, 0, .085, .07), ("pins top", 0, .092, .12, .013),
-     ("pins bottom", 0, -.092, .12, .013)),
+    (("parcel top", 0, .088, .14, .016), ("parcel bottom", 0, -.088, .14, .016),
+     ("parcel left", -.124, 0, .016, .076), ("parcel right", .124, 0, .016, .076),
+     ("parcel strap", 0, 0, .023, .076)),
+    (),
 )
 groups = sorted((obj for obj in bpy.data.objects if obj.name.startswith("Occludable_market_")),
                 key=lambda obj: obj.name)
@@ -54,6 +55,17 @@ for index, group in enumerate(groups):
                    (sx, .005, sz), ink, .003)
         icon.parent = group
         icon.matrix_parent_inverse = group.matrix_world.inverted()
+    if index % len(icons) == 2:
+        outline = [(-.095,.015), (.027,.123), (.012,.032), (.099,.032),
+                   (-.029,-.121), (-.011,-.021), (-.095,-.021)]
+        mesh_data = bpy.data.meshes.new("Lightning sign silhouette")
+        mesh_data.from_pydata([(x+u, y-.067, top+.22+v) for u,v in outline],
+                              [], [tuple(reversed(range(len(outline))))])
+        mesh_data.materials.append(ink)
+        bolt = bpy.data.objects.new("Electronics lightning icon", mesh_data)
+        bpy.context.collection.objects.link(bolt)
+        bolt.parent = group
+        bolt.matrix_parent_inverse = group.matrix_world.inverted()
     count += 1
 assert count >= 3, count
 bpy.ops.file.pack_all()
@@ -63,4 +75,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET306_EXPORTED", count)
+print("MARKET308_EXPORTED", count)
