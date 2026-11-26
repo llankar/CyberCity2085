@@ -6525,3 +6525,6 @@ Laboratory247 first assembly exported packed BLEND/GLB and source-guided reusabl
 
 ## Batch248 - IN_PROGRESS laboratory detailed pass
 Added actual angled displays, keyboards, vials, conduits and retained blue-metal PBR maps. Native Godot527meshes exited0; FullHD screenshot inspected. Blank worktop variant rejected and original instrumentation restored. Masked-only floor repair preserves source/corridors; one focused test PASS; changed Python files compile. Source-floor hidden repair is inferred, not authentic recovered art. Lab remains below showcase quality; no actors or tactical adapter.
+
+## Batch249 - IN_PROGRESS industrial reuse
+Factory original examined; six survey groups replaced using retained generator/crate assets and measured uniform fitting. Crate groups use multiple shared-mesh instances. Four acquired compressor matches were rejected visually; original art restored rather than forcing unrelated silhouettes. Final native Godot233meshes exited0; FullHD screenshot inspected. Twenty-one survey objects remain unreconstructed in 2D. No fresh AI assets, campaign tests, tactical/save/production changes or builds. Source files compile; shared floor-preservation test PASS. Next: proper reactors/assembly equipment, remaining map families and real-combat adapter. CHANTIER GLOBAL INCOMPLET.
