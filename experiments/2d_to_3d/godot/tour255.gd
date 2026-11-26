@@ -24,6 +24,13 @@ func _ready() -> void:
    assert(single_map>=0 and single_map<selected_folders.size(),"Tour map index outside selected environments")
    tour_index=single_map
  review_folder="E:/CyberCity2085-3d-lab/generated/phase2/"+str(selected_folders[tour_index])+"/"
+ if selected_folders[tour_index]=="market308":
+  use_market_ground=true
+  market_ground_filename="floor.png"
+ if selected_folders[tour_index]=="wasteland304":
+  review_ambient_color=Color(.84,.75,.65)
+  review_ambient_energy=.54
+  review_key_energy=.78
  await super._ready()
  for child in get_children():
   if child is CanvasLayer:child.hide()
