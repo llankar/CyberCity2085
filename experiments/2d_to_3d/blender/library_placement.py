@@ -4,6 +4,10 @@ import bpy
 from mathutils import Vector,Matrix
 _cache={}
 
+def reset_library_cache():
+    """Discard Blender data references after opening a different source scene."""
+    _cache.clear()
+
 def place(source,parent,center,dimensions,*,preserve_anchor=False,yaw=0.0):
     source=Path(source).resolve()
     if source.drive.upper()!='E:':raise ValueError('Experimental library asset must remain on E:')

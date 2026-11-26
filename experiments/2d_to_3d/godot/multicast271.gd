@@ -3,6 +3,7 @@ extends "res://laboratory247.gd"
 @export var reference_map:="city_transit_subway_platform"
 @export var reference_cells:Array[Vector2i]=[Vector2i(22,24),Vector2i(24,24),Vector2i(26,24)]
 @export var close_elevation:=9.0
+@export var delivery_next_scene:=""
 const MODELS:=["sole_skin162/human.glb","modularity166/body_1.glb","robot210/robot_actions.glb"]
 const IDLES:=["Hard stand","Rocketbox_Idle","Idle"]
 var units:Array=[]
@@ -44,3 +45,12 @@ func _ready() -> void:
  await RenderingServer.frame_post_draw
  get_viewport().get_texture().get_image().save_png(review_folder+"cast_close.png")
  print("MULTICAST271_CAPTURED actors=",units.size()," source_free_cells=",reference_cells," faded_groups=",cutaway.update(.1))
+ if not delivery_next_scene.is_empty() and "--production-lot278" in OS.get_cmdline_user_args():
+  for frame in 90:
+   review_yaw+=.004
+   update_review_camera()
+   await get_tree().process_frame
+  if delivery_next_scene=="QUIT":
+   print("PRODUCTION278_REVIEW_COMPLETE assembled map sequence")
+   get_tree().quit()
+  else:assert(get_tree().change_scene_to_file(delivery_next_scene)==OK)
