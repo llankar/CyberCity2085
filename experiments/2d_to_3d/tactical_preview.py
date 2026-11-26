@@ -15,6 +15,7 @@ class TacticalPreview:
             for side, team in (("ally", state.allied_units), ("enemy", state.enemy_units))
             for index, unit in enumerate(team)
         }
+        self.unit_ids = {id(unit): key for key, unit in self.units.items()}
 
     def snapshot(self) -> dict:
         state = self.engine.state
@@ -42,9 +43,25 @@ class TacticalPreview:
         if key == "end_turn":
             if self.engine.state.turn != "player" or self.engine.end_battle_check().ended:
                 return {"success": False, "message": "Turn unavailable.", "state": self.snapshot()}
-            if not self.engine.start_enemy_turn().ended:
+            events = []
+
+            def attack_event(source, victim, damage, *, kind="attack"):
+                events.append({
+                    "kind": kind,
+                    "actor": self.unit_ids[id(source)],
+                    "target": self.unit_ids[id(victim)],
+                    "from_cell": [coordinate // CELL_SIZE for coordinate in source.position],
+                    "to_cell": [coordinate // CELL_SIZE for coordinate in victim.position],
+                    "damage": damage,
+                })
+
+            def overwatch_event(source, victim, damage):
+                attack_event(source, victim, damage, kind="overwatch")
+
+            if not self.engine.start_enemy_turn(on_attack=attack_event, on_overwatch_shot=overwatch_event).ended:
                 self.engine.start_player_turn()
-            return {"success": True, "message": "Enemy phase resolved.", "state": self.snapshot()}
+            return {"success": True, "message": "Enemy phase resolved.",
+                    "events": events, "state": self.snapshot()}
         actor = self.units.get(actor_id)
         target = self.units.get(target_id) if target_id is not None else None
         if actor is None or (target_id is not None and target is None):

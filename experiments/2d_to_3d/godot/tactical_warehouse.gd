@@ -11,6 +11,7 @@ var last_sequence := -1
 var smoke := false
 var pending_command := {}
 var smoke_destination: Array[int]
+var playing_events := false
 
 
 func _ready() -> void:
@@ -34,10 +35,14 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
- if mailbox == null or mailbox.sequence == last_sequence or not mailbox.refresh():
+ if mailbox == null or playing_events or mailbox.sequence == last_sequence or not mailbox.refresh():
   return
  last_sequence = mailbox.sequence
  var state := mailbox.state
+ if not mailbox.events.is_empty():
+  playing_events = true
+  await play_phase_events(mailbox.events)
+  playing_events = false
  var readout: Array[String] = []
  for unit: Dictionary in state.units:
   var id: String = unit.id
@@ -105,6 +110,8 @@ func _process(_delta: float) -> void:
 
 
 func send(command: Dictionary) -> void:
+ if playing_events:
+  return
  var error := mailbox.send(command)
  if error == OK:
   pending_command = command
@@ -120,6 +127,22 @@ func target_center(actor: TacticalActor) -> Vector3:
 
 func cell_position(cell: Array) -> Vector3:
  return Vector3(float(cell[0])-19.5, 0, 13.5-float(cell[1]))
+
+
+func play_phase_events(events: Array) -> void:
+ for event: Dictionary in events:
+  var attacker: TacticalActor = actors[event.actor]
+  var from := cell_position(event.from_cell)
+  attacker.update_state(from, 1)
+  if attacker.movement != null and attacker.movement.is_running():
+   await attacker.movement.finished
+  var melee: bool = event.kind == "attack" and from.distance_to(cell_position(event.to_cell)) <= 1.0
+  attacker.fire_at(cell_position(event.to_cell), melee)
+  status.text = "%s  //  Enemy phase\n%s → %s   %d damage" % [
+   scenario_title, event.actor, event.target, event.damage]
+  await get_tree().create_timer(.42).timeout
+  if smoke:
+   print("TACTICAL_PHASE_EVENT_PLAYED actor=", event.actor, " damage=", event.damage)
 
 
 func fire_at(screen_position: Vector2) -> void:

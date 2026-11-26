@@ -2,6 +2,7 @@
 import argparse
 import os
 from pathlib import Path
+import random
 import subprocess
 import sys
 import tempfile
@@ -45,14 +46,14 @@ def scenario_preview(scenario: str) -> TacticalPreview:
         position = tuple(axis * CELL_SIZE for axis in cell)
         if position not in terrain.walkable_cells:
             raise ValueError(f"Blocked spawn on {map_name}: {cell}")
-        return Unit(position=position, stats=stats, health=10, action_points=3, unit_type=team)
+        return Unit(position=position, stats=stats, health=stats.hp, action_points=3, unit_type=team)
 
     ally = spawn(ally_cell, PlayerStats(), "player")
     ally.character = Character("Longshot", role="sniper", stats=ally.stats)
     equip_starter_loadout(ally.character.loadout, ally.character.role)
     ally.attack_range = ally.character.loadout.primary_weapon.range_cells
-    enemy = spawn(enemy_cell, EnemyStats(level=1), "enemy")
-    enemy.health = enemy.stats.hp = 50
+    enemy = spawn(enemy_cell, EnemyStats(level=5), "enemy")
+    enemy.attack_range = 3
     cover = [
         CoverNode(x // CELL_SIZE, y // CELL_SIZE, "high", passable=False)
         for x, y in sorted(terrain.sight_blocked_cells)
@@ -69,7 +70,13 @@ def main() -> int:
     temp_root = LAB / "tmp"
     temp_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="tactical-", dir=temp_root) as temp:
-        mailbox = TacticalMailbox(Path(temp), scenario_preview(args.map))
+        preview = scenario_preview(args.map)
+        if args.smoke:
+            # A ranged drill exercises playback without waiting several rounds
+            # for the regular enemy to approach the player's starting lane.
+            preview.units["enemy:0"].attack_range = 10
+            random.seed(4)
+        mailbox = TacticalMailbox(Path(temp), preview)
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,
                    CYBERCITY_TACTICAL_SMOKE="1" if args.smoke else "0")
         command = ["powershell.exe", "-NoProfile", "-File", str(Path(__file__).with_name("run_godot.ps1")),
@@ -80,7 +87,8 @@ def main() -> int:
             while godot.poll() is None:
                 mailbox.poll()
                 time.sleep(.03)
-        if args.smoke and (mailbox.sequence != 3 or mailbox.reply["state"]["round"] != 2):
+        if args.smoke and (mailbox.sequence != 3 or mailbox.reply["state"]["round"] != 2
+                           or not mailbox.reply.get("events")):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
         return godot.returncode
 

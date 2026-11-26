@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from game.combat import CombatEngine, CombatState
 from game.combat.movement import CELL_SIZE
@@ -13,6 +14,22 @@ from run_tactical_preview import SCENARIOS, scenario_preview
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_enemy_hit_events_preserve_engine_damage_and_positions(self):
+        preview = scenario_preview("warehouse")
+        ally = preview.units["ally:0"]
+        enemy = preview.units["enemy:0"]
+        enemy.attack_range = 10
+        starting_hp = ally.health
+        with patch("game.combat.attack_resolution.random.random", return_value=.2):
+            result = preview.action("end_turn", "ally:0")
+        self.assertTrue(result["success"])
+        events = result["events"]
+        self.assertTrue(events)
+        self.assertEqual(sum(event["damage"] for event in events), starting_hp - ally.health)
+        self.assertEqual(events[0]["actor"], "enemy:0")
+        self.assertEqual(events[0]["target"], "ally:0")
+        self.assertEqual(events[0]["to_cell"], [19, 14])
+
     def test_warehouse_fire_spends_ap_and_surveyed_cover_blocks_fire(self):
         preview = scenario_preview("warehouse")
         ally = preview.units["ally:0"]

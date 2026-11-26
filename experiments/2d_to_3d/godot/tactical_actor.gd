@@ -11,8 +11,8 @@ var ring: MeshInstance3D
 
 func configure(allied: bool, initial: Vector3) -> bool:
  var path := "sole_skin162/human.glb" if allied else "armored203/armored_actions.glb"
- clips = {"idle": "Hard stand", "walk": "Walk (1_24)", "fire": "ShootStudy", "death": "DeathStudy"} if allied else {
-  "idle": "Idle", "walk": "Walk", "fire": "Pistol_Attack_Study", "death": "Death"}
+ clips = {"idle": "Hard stand", "walk": "Walk (1_24)", "fire": "ShootStudy", "death": "DeathStudy", "melee": "MeleeStudy"} if allied else {
+  "idle": "Idle", "walk": "Walk", "fire": "Pistol_Attack_Study", "death": "Death", "melee": "Attack"}
  var document := GLTFDocument.new()
  var state := GLTFState.new()
  if document.append_from_file(CAST + path, state) != OK:
@@ -77,7 +77,7 @@ func update_state(point: Vector3, health: int) -> void:
  movement.finished.connect(func(): animation.play(clips.idle, .12))
 
 
-func fire_at(point: Vector3) -> void:
+func fire_at(point: Vector3, melee := false) -> void:
  if fallen:
   return
  if movement != null and movement.is_running():
@@ -85,9 +85,9 @@ func fire_at(point: Vector3) -> void:
   position = destination
  face(point)
  animation.stop()
- animation.play(clips.fire, .06)
+ animation.play(clips.melee if melee else clips.fire, .06)
 
 
 func _clip_finished(clip: StringName) -> void:
- if not fallen and clip == clips.fire:
+ if not fallen and clip in [clips.fire, clips.melee]:
   animation.play(clips.idle, .12)
