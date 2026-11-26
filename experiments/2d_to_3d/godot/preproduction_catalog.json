@@ -296,14 +296,18 @@
   {
     "map": "cybercity_inner_03_research_lab",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_03_research_lab.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_04_medical_clinic",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_04_medical_clinic.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_05_server_room",
@@ -314,8 +318,10 @@
   {
     "map": "cybercity_inner_06_blacksite_lab",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_06_blacksite_lab.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_07_corporate_lobby",
@@ -350,8 +356,10 @@
   {
     "map": "cybercity_inner_13_warehouse_floor",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_13_warehouse_floor.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_14_detention_block",
@@ -654,8 +662,10 @@
   {
     "map": "wasteland_inner_03_ruined_clinic",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_03_ruined_clinic.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "wasteland_inner_05_looted_vault",
@@ -696,8 +706,10 @@
   {
     "map": "wasteland_inner_08_ruined_clinic",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_08_ruined_clinic.tscn",
+    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
   },
   {
     "map": "wasteland_inner_09_bunker_command_post",

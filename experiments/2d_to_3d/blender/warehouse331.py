@@ -10,6 +10,7 @@ import bpy
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place
+from interior_furniture import build_rack
 from shipping_container import build_container
 
 started = time.perf_counter()
@@ -57,26 +58,7 @@ for row in survey["walls"]:
         container_count += 1
     elif is_rack:
         rack_count += 1
-        parts = []
-        def rack_part(label, location, dimensions, material):
-            parts.append(box(label, location, dimensions, material, .012))
-
-        for side_x in (-1, 1):
-            for side_y in (-1, 0, 1):
-                rack_part("Rack upright", (x+side_x*w*.43,y+side_y*d*.44,1.12),
-                          (.046,.05,1.12), steel)
-        for height in (.38,1.16,1.94):
-            rack_part("Slotted shelf deck", (x,y,height), (w*.43,d*.45,.038), steel)
-            for side in (-1,1):
-                rack_part("Safety shelf rail", (x+side*w*.42,y,height+.01),
-                          (.048,d*.46,.065), beam)
-        bpy.ops.object.select_all(action="DESELECT")
-        for part in parts:
-            part.select_set(True)
-        bpy.context.view_layer.objects.active = parts[0]
-        bpy.ops.object.join()
-        bpy.context.object.name = "Warehouse pallet rack"
-        bpy.context.object.parent = group
+        build_rack(group, x, y, w, d, steel, beam)
         place(cargo, group, (x,y-d*.21,.42), (w*.72,d*.32,.67))
         place(cargo, group, (x,y+d*.21,1.20), (w*.72,d*.32,.67))
         cargo_count += 2

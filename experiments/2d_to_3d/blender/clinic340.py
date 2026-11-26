@@ -10,6 +10,7 @@ import bpy
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place
+from interior_furniture import build_bed
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -49,27 +50,7 @@ for row in survey["walls"]:
                   (span, thickness, 1.7), yaw=math.pi/2 if vertical else 0)
             wall_count += 1
     else:
-        long_y = d > w
-        length, width = (d,w) if long_y else (w,d)
-        parts = []
-        def piece(label, along, across, z, half_length, half_width, half_height, material):
-            dx,dy = (across,along) if long_y else (along,across)
-            a,b = (half_width,half_length) if long_y else (half_length,half_width)
-            parts.append(box(label,(x+dx,y+dy,z),(a,b,half_height),material,.025))
-        for end in (-1,1):
-            for side in (-1,1):
-                piece("Bed leg",end*length*.32,side*width*.31,.24,.05,.05,.24,steel)
-        piece("Bed frame",0,0,.48,length*.46,width*.43,.065,steel)
-        piece("Bed mattress",0,0,.57,length*.44,width*.4,.075,linen)
-        piece("Bed pillow",length*.30,0,.66,length*.105,width*.31,.045,linen)
-        piece("Bed cover",-length*.13,0,.644,length*.29,width*.405,.021,pad)
-        bpy.ops.object.select_all(action="DESELECT")
-        for obj in parts:
-            obj.select_set(True)
-        bpy.context.view_layer.objects.active = parts[0]
-        bpy.ops.object.join()
-        bpy.context.object.name="Clinic treatment bed"
-        bpy.context.object.parent=group
+        build_bed(group, x, y, w, d, steel, linen, pad)
         bed_count += 1
 assert bed_count == 6, bed_count
 floor = make_material("Clinic source ground", (.13,.15,.17,1), .05,.84)
