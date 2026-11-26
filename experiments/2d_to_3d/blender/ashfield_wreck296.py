@@ -59,7 +59,7 @@ for obj in imported:
     bpy.data.objects.remove(obj, do_unlink=True)
 floor = bpy.data.materials["Original ashfield ground"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
-texture.image = bpy.data.images.load(str(phase / "wasteland278/floor.png"))
+texture.image = bpy.data.images.load(str(output / "floor.png"))
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
