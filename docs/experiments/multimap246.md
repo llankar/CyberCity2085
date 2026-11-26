@@ -43,3 +43,25 @@ showcase. Neither is evidence of a complete interactive 3D combat adapter.
 Performance, six-map native loading and artistic acceptance: NOT VERIFIED.
 New environments artistically finished: 0/5. No campaign tests or distribution.
 CHANTIER GLOBAL INCOMPLET.
+
+## Laboratory247 first assembly
+
+IN_PROGRESS. `blender/laboratory247.py` reuses the real lab survey: traced
+partitions, illustrated workstation footprints, source instrumentation surfaces,
+original floor and two cylindrical three-pod banks. 239 meshes export to packed
+BLEND/GLB on E:; Godot native art review actually loaded239 meshes and produced
+`generated/phase2/lab247/godot_overview.png` at1920x1080. Screenshot inspected.
+`res://laboratory247.tscn` is an art import review, not a combat demonstration.
+One actual GLB pod export test PASS; Python compilation of changed scripts PASS.
+
+Reusable pod bank registered by `register_lab247.py`: GLB, source BLEND/root,
+dimensions, anchor, original reference, materials and footprint. Source-guided
+rigid assembly replaces rejected Hunyuan pod trial; no AI texture success claimed.
+This first assembly is visually below the retained showcase: plain wall surfaces,
+source-image worktops and duplicate original floor equipment need improvement.
+No claim that these are finished reconstructed scientific instruments.
+
+Next: replace flat instrument details with reusable proper meshes, clean original
+floor duplicates around replacements, improve wall materials, add retained cast
+and integrate existing combat through an adapter. Other four environments remain
+TODO; full six-map native and artistic acceptance still NOT VERIFIED.
