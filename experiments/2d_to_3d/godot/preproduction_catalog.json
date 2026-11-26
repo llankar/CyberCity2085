@@ -222,8 +222,10 @@
   {
     "map": "city_industrial_data_vault",
     "family": "industrial",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_industrial_data_vault.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "city_industrial_service_tunnel",
@@ -256,14 +258,18 @@
   {
     "map": "city_interior_cyber_cafe",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_cyber_cafe.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "city_interior_penthouse_atrium",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_penthouse_atrium.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "city_interior_police_records",
@@ -362,14 +368,18 @@
   {
     "map": "cybercity_inner_10_penthouse_atrium",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_10_penthouse_atrium.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "cybercity_inner_11_cyber_cafe",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_11_cyber_cafe.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "cybercity_inner_12_maintenance_tunnel",
@@ -388,14 +398,18 @@
   {
     "map": "cybercity_inner_14_detention_block",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_14_detention_block.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "cybercity_inner_15_data_vault",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_15_data_vault.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "cybercity_street_01_downtown_intersection",
@@ -754,8 +768,10 @@
   {
     "map": "wasteland_inner_10_detention_block",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_10_detention_block.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "wasteland_inner_10_looted_vault",
@@ -796,8 +812,10 @@
   {
     "map": "wasteland_inner_15_detention_block",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_15_detention_block.tscn",
+    "scope": "partial: partitions and surveyed furniture, equipment or perimeter"
   },
   {
     "map": "wasteland_outdoor_01_dust_road_ambush",

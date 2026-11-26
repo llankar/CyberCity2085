@@ -28,6 +28,15 @@ INTERIORS = (
     "cybercity_inner_07_corporate_lobby",
     "city_interior_police_records",
     "cybercity_inner_08_police_records",
+    "city_interior_cyber_cafe",
+    "cybercity_inner_11_cyber_cafe",
+    "city_interior_penthouse_atrium",
+    "cybercity_inner_10_penthouse_atrium",
+    "cybercity_inner_14_detention_block",
+    "wasteland_inner_10_detention_block",
+    "wasteland_inner_15_detention_block",
+    "city_industrial_data_vault",
+    "cybercity_inner_15_data_vault",
 )
 
 
@@ -39,27 +48,29 @@ def fixtures(name):
         if "points" in row and row.get("blocks_sight", True):
             selected[identifier] = "partition"
             continue
-        if "rect" not in row:
+        if not any(key in row for key in ("rect", "polygon")):
             continue
-        if "wall" in identifier:
+        if "wall" in identifier or (name.endswith("penthouse_atrium") and "_edge" in identifier):
             selected[identifier] = "wall"
         elif "bed" in identifier or identifier == "operating_table":
             selected[identifier] = "bed"
-        elif "pods" in identifier or identifier in {"central_chamber", "central_cryo"}:
+        elif "pods" in identifier or identifier in {"central_chamber", "central_cryo", "core", "vault_core"}:
             selected[identifier] = "pod"
         elif "crate" in identifier:
             selected[identifier] = "crate"
         elif "server" in identifier or "cabinet" in identifier:
             selected[identifier] = "cabinet"
-        elif "console" in identifier or "computer" in identifier:
+        elif any(part in identifier for part in ("console", "computer", "gaming")):
             selected[identifier] = "console"
-        elif "sofa" in identifier or identifier.startswith("chair"):
+        elif any(part in identifier for part in ("sofa", "chair", "booth")):
             selected[identifier] = "sofa"
         elif "planter" in identifier or identifier.startswith("reception_plant"):
             selected[identifier] = "planter"
         elif identifier.startswith(("gate_", "turnstile_")):
             selected[identifier] = "gate"
-        elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee")) or identifier == "reception":
+        elif identifier.endswith("_fountain"):
+            selected[identifier] = "fountain"
+        elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee", "bar_", "_bar")) or identifier == "reception":
             selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"

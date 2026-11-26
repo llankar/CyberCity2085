@@ -4,8 +4,8 @@ from interior_batch import INTERIORS, fixtures
 def test_interior_batch_limits_replacements_to_modelled_footprints():
     for name in INTERIORS:
         survey, selected = fixtures(name)
-        assert "wall" in selected.values()
-        assert set(selected) <= {row["id"] for row in survey["walls"] if "rect" in row or "points" in row}
+        assert {"wall", "partition"} & set(selected.values())
+        assert set(selected) <= {row["id"] for row in survey["walls"]}
         assert not any(identifier.startswith("outside_") for identifier in selected)
 
     _, clinic = fixtures("cybercity_inner_04_medical_clinic")
@@ -19,3 +19,6 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     assert lobby["gate_1"] == "gate"
     assert lobby["sofa_ne"] == "sofa"
     assert lobby["planter_nw"] == "planter"
+    _, vault = fixtures("city_industrial_data_vault")
+    assert vault["west_server_rack"] == "cabinet"
+    assert vault["vault_core"] == "pod"

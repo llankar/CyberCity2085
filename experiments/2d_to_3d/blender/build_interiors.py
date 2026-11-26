@@ -35,6 +35,7 @@ def build(name):
     steel = make_material("Interior service steel", (.13,.19,.22,1), .5,.58)
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
+    partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
@@ -59,13 +60,17 @@ def build(name):
             mesh = bpy.data.meshes.new(identifier)
             mesh.from_pydata([(x,y,z) for z in (0,1.50) for x,y in outline], [], faces)
             mesh.materials.append(steel)
-            mesh.materials.append(trim)
+            mesh.materials.append(partition_cap)
             mesh.polygons[1].material_index = 1
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
             continue
-        x1,y1,x2,y2 = row["rect"]
+        if "rect" in row:
+            x1,y1,x2,y2 = row["rect"]
+        else:
+            xs,ys = zip(*row["polygon"])
+            x1,y1,x2,y2 = min(xs),min(ys),max(xs),max(ys)
         w,d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
         x,y = (x1+x2)*gw/(2*cw)-gw/2, gh/2-(y1+y2)*gh/(2*ch)
         vertical = d > w
@@ -75,6 +80,17 @@ def build(name):
             build_bed(group, x, y, w, d, steel, linen, trim)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)
+        elif kind == "fountain":
+            for label, z, depth, scale, material in (
+                ("basin", .18, .36, .47, steel), ("water", .36, .025, .39, screen),
+                ("fountain head", .58, .44, .14, trim),
+            ):
+                bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=1, depth=depth, location=(x,y,z))
+                piece = bpy.context.object
+                piece.name = identifier + " " + label
+                piece.scale = (w*scale, d*scale, 1)
+                piece.data.materials.append(material)
+                piece.parent = group
         elif kind == "sofa":
             box(identifier+" frame", (x,y,.18), (w*.47,d*.46,.16), steel).parent = group
             box(identifier+" cushions", (x,y,.37), (w*.43,d*.39,.088), upholstery).parent = group
