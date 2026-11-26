@@ -14,10 +14,19 @@ sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat','rook_unarmed','stealth_vtol'],default='robot')
     parser.add_argument('--local-only',action='store_true')
+    parser.add_argument('--mesh',type=Path)
+    parser.add_argument('--reference',type=Path)
+    parser.add_argument('--output',type=Path)
     args=parser.parse_args();subject=args.subject
     output=LAB/('generated/phase2/paint168/robot_official' if subject=='robot' else 'generated/phase2/paint171/rook_official')
     if subject=='rook_unarmed':output=LAB/'generated/phase2/paint175/rook_unarmed'
     if subject=='stealth_vtol':output=LAB/'generated/phase2/paint220/stealth_vtol'
+    custom=(args.mesh,args.reference,args.output)
+    if any(p is not None for p in custom):
+        if not all(p is not None for p in custom):raise ValueError('Custom mesh, reference and output are required together')
+        if not all(p.resolve().is_relative_to(LAB) for p in custom):raise ValueError('Custom paths must remain inside E: lab')
+        output=args.output.resolve()
+        if not output.is_relative_to(LAB/'generated'):raise ValueError('Output must remain in generated experiments')
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
@@ -30,6 +39,7 @@ def main():
     if subject=='stealth_vtol':
         source=LAB/'generated/phase2/hunyuan220/stealth_vtol/review/optimized.glb'
         reference=LAB/'sources/vtol220/reference.png'
+    if args.mesh is not None:source=args.mesh.resolve();reference=args.reference.resolve()
     assert source.is_file() and reference.is_file(),'Missing actual mesh/reference'
     import torch
     import custom_rasterizer as cr

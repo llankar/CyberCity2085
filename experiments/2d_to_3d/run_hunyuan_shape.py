@@ -13,6 +13,8 @@ from run_trellis_mesh import verified_existing_mesh
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt", "vehicle", "industrial_machine", "rook_unarmed", "stealth_vtol"])
+    parser.add_argument('--reference',type=Path)
+    parser.add_argument('--output',type=Path)
     args = parser.parse_args()
     lab = Path(os.environ["LAB"]).resolve()
     if str(lab) != "/mnt/e/CyberCity2085-3d-lab":
@@ -30,6 +32,13 @@ def main():
     output = lab / f"generated/phase2/{'hunyuan175' if args.subject=='rook_unarmed' else 'hunyuan166'}/{trial}"
     if args.subject == "stealth_vtol":
         output = lab / "generated/phase2/hunyuan220/stealth_vtol"
+    if args.reference is not None or args.output is not None:
+        if args.reference is None or args.output is None:
+            raise ValueError('Reference and output must be supplied together')
+        source=args.reference.resolve();output=args.output.resolve()
+        if not source.is_relative_to(lab) or not output.is_relative_to(lab/'generated'):
+            raise ValueError('Custom experiments must remain inside E: lab')
+        digest=hashlib.sha256(source.read_bytes()).hexdigest()
     output.mkdir(parents=True, exist_ok=True)
     evidence = output / "result.json"
     if evidence.exists():

@@ -6517,3 +6517,6 @@ Southwest source-derived framed housing, two real curved pipe meshes and acquire
 
 ## Batch246 ? IN_PROGRESS multi-map production
 Latest attached brief now authorizes five additional distinct maps. Selected originals visually inspected; five surveys/140 context crops imported into shared library, retaining old assets and decisions. Six importer tests PASS. New scripts and next tasks: docs/experiments/multimap246.md. Six-map finished scenes, interactive combat adapter, per-map videos, memory/performance and artistic acceptance remain TODO/NOT VERIFIED. No production or save edits. CHANTIER GLOBAL INCOMPLET.
+
+## Batch247 - IN_PROGRESS laboratory source reconstruction
+Reused Hunyuan2mini locally with custom E: reference/output arguments; no downloads. Original lab pod crop generated 1,011,996 triangles, 117s inference, peak allocated4.87GB/reserved5.42GB. Existing Blender reducer produced20,000triangles. Neutral renders inspected: unacceptable box-like shape; REJECTED artistically. Paint run interrupted before model loading/inference; no textured AI asset claim. Generic custom-path paint support remains available for later candidates. Python compilation succeeded.
