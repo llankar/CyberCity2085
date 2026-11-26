@@ -3,10 +3,14 @@ from pathlib import Path
 import json
 import re
 import shutil
+import argparse
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 REPO = Path(__file__).resolve().parents[2]
-OUT = LAB / "deliveries/tactical_demo205"
+parser=argparse.ArgumentParser();parser.add_argument("--latest",action="store_true")
+LATEST=parser.parse_args().latest
+OUT = LAB / ("deliveries/tactical_demo215" if LATEST else "deliveries/tactical_demo205")
+SELECTED="clinic214" if LATEST else "contact204"
 PROJECT = OUT / "project"
 assert OUT.resolve().is_relative_to(LAB.resolve())
 PROJECT.mkdir(parents=True, exist_ok=True)
@@ -31,7 +35,7 @@ def portable(text):
 # Preserve the existing scene implementations; only the delivered copies get
 # portable resource roots and fixed selection options.
 source = REPO / "experiments/2d_to_3d/godot"
-pending, seen = ["contact204.tscn"], set()
+pending, seen = [SELECTED+".tscn"], set()
 while pending:
     name = pending.pop()
     if name in seen:
@@ -67,6 +71,9 @@ models = {
     "amjviz_wardrobe150": "human_actions",
     "firewarden_pistol01": "pistol",
 }
+if LATEST:
+    del models["robot193"];del models["showcase199"]
+    models.update({"robot210":"robot_actions","showcase214":"environment","medic209":"helmet"})
 phase = LAB / "generated/phase2"
 for folder, stem in models.items():
     copy(phase / folder / (stem + ".glb"),
@@ -132,8 +139,8 @@ for folder in models:
     if notice.exists():
         copy(notice, OUT / "notices" / folder / "CREDITS.txt")
 copy(phase / "armored203/CREDITS.txt", OUT / "notices/armored203/CREDITS.txt")
-for file in (phase / "contact204").iterdir():
-    if file.suffix in [".png", ".json", ".gif", ".mp4"]:
+for file in (phase / ("clinic214" if LATEST else "contact204")).iterdir():
+    if file.suffix in [".png", ".json", ".gif", ".mp4"] and not (LATEST and file.name.startswith(("first_","before_"))):
         copy(file, OUT / "media" / file.name)
 copy(phase / "armored203/comparison_native.png", OUT / "media/comparison_native.png")
 for name in ["assemble_armored203.py", "medical_pack201.py", "roof_identity199.py",
@@ -142,6 +149,10 @@ for name in ["assemble_armored203.py", "medical_pack201.py", "roof_identity199.p
              "cannon_sockets193.py", "create_hardsurface_crate.py",
              "create_industrial_generator.py", "finish_vtol178.py"]:
     copy(REPO / "experiments/2d_to_3d/blender" / name, OUT / "source_scripts" / name)
+
+if LATEST:
+    for name in ["cyber_kiosks207.py","district208.py","street211.py","clinic214.py","medic_helmet209.py","robot_finish210.py"]:
+        copy(REPO/"experiments/2d_to_3d/blender"/name,OUT/"source_scripts"/name)
 
 engine = Path("C:/Users/llank/AppData/Local/Microsoft/WinGet/Packages/"
               "GodotEngine.GodotEngine_microsoft.Winget.Source_8wekyb3d8bbwe")
@@ -178,7 +189,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
  if time_value>1 and delta>0:frame_seconds.append(delta)
  super._process(delta)
- if time_value>=30 and not summary_written:
+ if time_value>=encounter_duration() and not summary_written:
   summary_written=true
   var total:=0.0
   for value in frame_seconds:total+=value
@@ -265,6 +276,20 @@ This is a staged experimental encounter, not production AI.</p>
 No clean-PC or general hardware compatibility claim.</p>
 <p>Remaining art: repeated architecture, main/medic face reuse and full-motion
 contact quality. CHANTIER GLOBAL INCOMPLET.</p>''', encoding="utf8")
+if LATEST:
+    entry=PROJECT/"delivery205.gd"
+    entry.write_text(entry.read_text().replace('extends "res://contact204.gd"','extends "res://clinic214.gd"'),encoding="utf8")
+    for file in [PROJECT/"project.godot",OUT/"Run.ps1"]:
+        file.write_text(file.read_text().replace("CyberCity 2085 - Experimental Tactical Demo","CyberCity 2085 - Experimental Tactical Demo 215"),encoding="utf8")
+    readme=OUT/"README.txt"
+    text=readme.read_text().replace("30 secondes puis se ferme","environ18 secondes puis se ferme")
+    text=text.replace("Le lancement natif mesure environ 59,7 FPS ici, hors premiere seconde de\nla sequence, sur RTX 5070 Ti. Ce n'est pas une mesure universelle.","Mesure native de cette version : consulter verification/verified.json apres verification.\nAucune mesure de performance215 n'est supposee avant execution.")
+    readme.write_text(text,encoding="utf8")
+    index=OUT/"index.html"
+    text=index.read_text().replace("Local native run: about 59.7 FPS here; startup about 35 seconds.","Latest selected scene: clinic214,1.7pace, completed medical recovery. Native results: verification/verified.json after actual run.")
+    text=text.replace("<h2>Visible combat contacts</h2>",'<h2>Medical recovery</h2><img src="media/recovery_final_detail.png"><h2>Visible combat contacts</h2>')
+    index.write_text(text,encoding="utf8")
+
 records = list({record["file"]: record for record in records}.values())
 for record in records:
     record["bytes"] = (OUT / record["file"]).stat().st_size

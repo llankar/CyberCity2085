@@ -870,3 +870,22 @@ Final549frames1080p30=18.3s,1.7pace retained; extra1simsecond shows recovery.
 Native/package state/contact/recovery checks and gallery links PASS. Old scene
 30s/contact defaults unchanged. Full-motion global art NOT VERIFIED. No campaign,
 production, push or release.214next: camera-facing hero facade then consolidation.
+
+
+### Clinic214 / local delivery215
+
+Current standalone: `E:/CyberCity2085-3d-lab/deliveries/tactical_demo215/Run.cmd`;
+video/gallery `generated/phase2/clinic214/`. Buildclinic214, movie -Clinic214,
+package folder; build_delivery205.py --latest; Run.ps1 -Verify;
+verify_delivery205.py --latest.205 remains intact.
+Frontal service bay corrects clipped first corner placement. Actual overview
+inspected. New lamp assemblies join existing occlusion fade; final native
+preview confirms medic stays visible. Current1.7tempo/recovery/cast retained.
+Final214FullHD30/549frames18.3s, package/gallery PASS. Bundled native exit0,
+55.615meanFPS here,35.412s setup,1004frames; verifier PASS108recorded assets,
+2.1305GB,38actual audio events within bundle. No clean-PC/global art claim.
+Recipes need original E: inputs, no AI environment bundled. No production,
+campaign, downloads or push. Latest owner steering accepts direction and asks
+richer roofs/shops/street furniture, aged PBR/lighting/atmosphere, combat/robot
+VFX, human variety and a less simplified VTOL.216 next uses authored repair
+machinery and restrained existing smoke; preserve rigs/motions and single map.

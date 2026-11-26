@@ -2,8 +2,10 @@
 from pathlib import Path
 import json
 import re
+import argparse
 
-ROOT = Path("E:/CyberCity2085-3d-lab/deliveries/tactical_demo205")
+parser=argparse.ArgumentParser();parser.add_argument("--latest",action="store_true");LATEST=parser.parse_args().latest
+ROOT = Path("E:/CyberCity2085-3d-lab/deliveries/"+("tactical_demo215" if LATEST else "tactical_demo205"))
 project = ROOT / "project"
 manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf8"))
 for item in manifest["files"]:
@@ -33,6 +35,9 @@ assert shot["health_before"] - shot["health_after"] == 12, shot
 assert shot["teammate_clearance_m"] > .35, shot
 assert audio and all(Path(event["file"]).resolve().is_relative_to(project.resolve()) for event in audio)
 assert all(Path(event["file"]).is_file() for event in audio)
+if LATEST:
+    recovery=json.loads((evidence/"recovery.json").read_text())
+    assert recovery["health"]==100 and not recovery["contact_active"] and recovery["idle_rest_channels_reset"],recovery
 report = {"status": "PASS", "recorded_files": len(manifest["files"]),
           "recorded_asset_bytes": manifest["bytes"], "native": native,
           "audio_events_inside_bundle": len(audio),

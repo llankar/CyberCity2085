@@ -96,11 +96,44 @@ This register is separate from the principal CyberCity 2085 GOAL.
   E: recovery213 video/GIF/gallery/native recovery.json/captures. No production,
   save, campaign, download, push/release;205preserved. Previous212 turn progress.
   Global full-motion art acceptance NOT VERIFIED. CHANTIER GLOBAL INCOMPLET.
-- `TODO` SHOWCASE214 next: expose/reposition service facade in a useful combat
-  camera view and complete a visibly distinct hero facade assembly, then
-  consolidate the strongest map/cast/tempo/recovery into the local delivery.
-  Retain18s rhythm and source rigs, no new baseline engine/rig/campaign proofs.
-  Global environment polish/class wardrobe/Hunyuan improvements remain open.
+- `DONE` CLINIC214 / DELIVERY215 scoped art consolidation (2026-11-26).
+  Clinic bay reuses retained authored vent/PBR, coolant conduits, medical scanner
+  illustration, dispenser drawer and signage. First corner take was clipped;
+  frontal bay at ground-correct1.5m center fixes framing. Actual0030 inspected:
+  entire module visible. Thick lamp masked medic chest in bundled preview;
+  register assemblies with existing cutaway before bounds collection. Final
+  native preview inspected: lamp fades, agent clear. No tactical volume changes.
+  Final214movie549frames1080p30/18.3s, package contact/state/recovery checks PASS,
+  blocked1/occlusion946/expectedhealth; gallery links PASS. Existing1.7tempo,
+  completed medical recovery/current cast/heavy robot kept.
+  Builder/verifier --latest creates independent tactical_demo215, leaves205
+  intact.108recorded assets,2130532705bytes incl packed Blender sources outside
+  import tree, GLBs/textures,8WAVs, selected media, recipes and bundled engine.
+  Rejected takes excluded. Recipes still use original E: inputs; no AI weights.
+  Final Run.ps1 -Verify exits0,1004native frames,55.61497meanFPS/981samples,
+  35412ms setup on this RTX5070Ti, not movie rendering/general hardware claim.
+  verify_delivery205.py --latest PASS,38audio events inside bundle, metadata
+  paths local, recovery100HP/noIK/bothidle/restreset. Final log has no script/
+  parse/assert/load errors (known SDL stick-calibration stderr remains).
+  E: deliveries/tactical_demo215/Run.cmd,index.html,verification/verified.json
+  and native-run.log. Actual bundled preview inspected. Clean-PC and full-motion
+  global artistic acceptance NOT VERIFIED. No production/save edits,campaign,
+  downloads,push/release. Previous213 turn progress. CHANTIER GLOBAL INCOMPLET.
+- `IN_PROGRESS` USER ART DIRECTION (latest steering): keep the accepted look and
+  all functional models/rigs/motions. Single showcase only; richer credible
+  roofs/facades, diverse shops/industrial structures/street furniture, fewer
+  repeated crates/counters, detailed aged PBR, lighting matched to floor pools,
+  subtle vapor/smoke/dust, improved combat/robot destruction, stronger human
+  silhouettes and better VTOL geometry. Prefer acquired/licensed quality meshes,
+  no primitive proliferation, no mass conversion or production/campaign tests.
+  Target The Ascent environment richness / XCOM2 readability; regular native
+  FullHD30 videos, not repeated technical proofs.215 is a tested checkpoint,
+  not final art acceptance.
+- `TODO` ART216 next: diversify one repair/power counter with retained authored
+  compressor/pipe equipment, add credible rooftop services and restrained vapor
+  using existing soft-smoke renderer; align local light colors with nearby
+  sources. Inspect existing aircraft candidates/assets before changing VTOL.
+  Preserve215 and produce a visible216 movie before rebuilding another bundle.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already
