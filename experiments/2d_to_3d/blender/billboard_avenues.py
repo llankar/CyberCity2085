@@ -170,7 +170,7 @@ def build(name):
                 library / "market_southeast_display/shop.glb",
                 library / "market_three_canopies/shop.glb",
             )
-            place(market_models[i % 3], group, (x,y,0), (w*.96,d*.96,2.05))
+            place(market_models[i % 3], group, (x,y,0), (w*.96,d*.96,2.05), merge=True)
             continue
         if identifier.endswith("_monument") or identifier == "monument":
             radius = min(w,d)*.40

@@ -82,7 +82,7 @@ class WastelandOutdoors:
                   (length*.97,breadth*.97,1.42), yaw=yaw)
         elif "stall" in name or name.startswith("market_"):
             place(self.library / "market_southeast_display/shop.glb", group, (x,y,0),
-                  (length*.96,breadth*.96,1.6), yaw=yaw)
+                  (length*.96,breadth*.96,1.6), yaw=yaw, merge=True)
         elif "crate" in name:
             place(self.library / "cargo_crate274/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,.8), yaw=yaw)

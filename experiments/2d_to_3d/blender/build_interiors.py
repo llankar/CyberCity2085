@@ -128,7 +128,7 @@ def build(name):
                     (w*.47,d/16,height/2), steel).parent = group
         elif kind == "stall":
             market = library / "market_southeast_display/shop.glb"
-            place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw)
+            place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw, merge=True)
         elif kind == "fountain":
             for label, z, depth, scale, material in (
                 ("basin", .18, .36, .47, steel), ("water", .36, .025, .39, screen),
