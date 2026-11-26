@@ -14,8 +14,11 @@ func load_glb(relative: String,place: Vector3) -> Node3D:
   var groups=model.find_children("Occludable_"+entry.parent,"Node3D",true,false)
   assert(groups.size()==1)
   var group=groups[0] as Node3D
+  var replaced:Array[MeshInstance3D]=[]
   for pattern in entry.replaces:
-   for old in group.find_children(pattern,"MeshInstance3D",true,false):old.visible=false
+   for old in group.find_children(pattern,"MeshInstance3D",true,false):
+    if old not in replaced:replaced.append(old)
+    old.visible=false
   var document:=GLTFDocument.new();var state:=GLTFState.new()
   assert(document.append_from_file(entry.glb,state)==OK)
   var instance:=document.generate_scene(state) as Node3D
@@ -23,6 +26,19 @@ func load_glb(relative: String,place: Vector3) -> Node3D:
   var p=entry.position;var s=entry.scale
   instance.global_position=Vector3(p[0],p[1],p[2])
   instance.rotation.y=float(entry.rotation_y);instance.scale=Vector3(s[0],s[1],s[2])
+  if entry.get("match_replaced_bounds",false):
+   assert(not replaced.is_empty())
+   var old_bounds:AABB=replaced[0].global_transform*replaced[0].get_aabb()
+   for old in replaced:old_bounds=old_bounds.merge(old.global_transform*old.get_aabb())
+   var new_bounds:=model_bounds(instance)
+   var center_error:=old_bounds.get_center().distance_to(new_bounds.get_center())
+   var size_error:=old_bounds.size.distance_to(new_bounds.size)
+   var imported:=instance.find_children("*","MeshInstance3D",true,false).size()
+   assert(center_error<.05 and size_error<.05 and imported==replaced.size(),"Replacement placement differs")
+   var evidence={"asset":entry.asset_id,"hidden_meshes":replaced.size(),"imported_meshes":imported,"center_error_m":center_error,"size_error_m":size_error,"scope":"Placement bounds and replaced mesh count only"}
+   var file:=FileAccess.open(ROOT+"library227/replacement_check.json",FileAccess.WRITE)
+   file.store_string(JSON.stringify(evidence,"  "));file.close()
+   print("LIBRARY_REPLACEMENT_MATCH ",evidence)
   if entry.vapor_offset!=null:
    var offset=entry.vapor_offset;library_vapor.append(instance.global_position+Vector3(offset[0],offset[1],offset[2]))
   print("LIBRARY227_PLACED ",entry.id," ",instance.global_position)

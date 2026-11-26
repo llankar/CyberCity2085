@@ -24,5 +24,12 @@ class PlacementContract(unittest.TestCase):
   with self.assertRaisesRegex(ValueError,'Invalid scale'):compile_bindings(self.data,'alley',self.lab)
  def test_other_maps_do_not_spawn(self):
   self.assertEqual(compile_bindings(self.data,'different',self.lab)['instances'],[])
+ def test_exact_replacement_check_is_opt_in(self):
+  self.assertFalse(compile_bindings(self.data,'alley',self.lab)['instances'][0]['match_replaced_bounds'])
+  self.data['assets'][0]['map_associations'][0]['match_replaced_bounds']=True
+  self.assertTrue(compile_bindings(self.data,'alley',self.lab)['instances'][0]['match_replaced_bounds'])
+ def test_rejects_non_boolean_replacement_flag(self):
+  self.data['assets'][0]['map_associations'][0]['match_replaced_bounds']='yes'
+  with self.assertRaisesRegex(ValueError,'Invalid replacement bounds flag'):compile_bindings(self.data,'alley',self.lab)
 
 if __name__=='__main__':unittest.main()

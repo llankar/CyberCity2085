@@ -6445,3 +6445,20 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  Next: activate/review reusable cover placement when integrating next scene revision;
  remaining large structure/street identity and whole-map artistic finish still open.
  CHANTIER GLOBAL INCOMPLET.
+
+### COVER-PLACEMENT-242 — DONE scoped native integration
+- Activated standalone east_blue_cover association on its original building/root and
+ roof anchor; hides seven embedded meshes before adding the7mesh GLB. Native100frame
+ run exit0; actual close view inspected. Five library instances now load natively.
+- Optional exact-replacement flag in compiler/native loader checks world bounds and
+ count, deliberately not applied to reinterpretive replacements. Actual evidence:
+ hidden7/imported7, center/size differences0, in library227/replacement_check.json.
+ Scope is bounds/visibility/count, not all-angle clipping or artistic acceptance.
+- Six placement metadata tests passed, including opt-in flag and rejected invalid
+ type. activate_cover242.py reproduces registration; cover export preserves existing
+ association on regeneration. No unnecessary new full movie: previous241 footage
+ embeds the same mesh; current still/gallery explicitly identifies library loading.
+- Files: activate_cover242.py, build_library_scene.py, test_library_scene.py,
+ godot/library227.gd, blender/export_cover241.py. Baked cloth lighting still open.
+ No campaign, production/save edits, new build or experimental-resource push.
+ Next: northwest large building source identity. CHANTIER GLOBAL INCOMPLET.

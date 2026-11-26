@@ -20,11 +20,14 @@ def compile_bindings(data,map_name,lab=LAB):
             if parent not in parents:raise ValueError('Unknown surveyed parent '+parent)
             rotation=association['rotation']
             if not isinstance(rotation,(int,float)) or not math.isfinite(rotation):raise ValueError('Invalid rotation')
+            match_bounds=association.get('match_replaced_bounds',False)
+            if not isinstance(match_bounds,bool):raise ValueError('Invalid replacement bounds flag')
             bindings.append({'id':asset['id']+':'+str(index),'asset_id':asset['id'],'glb':str(model),
                 'model_sha256':hashlib.sha256(model.read_bytes()).hexdigest(),
                 'position':vector(association['position'],'position'),'scale':vector(association['scale'],'scale',True),
                 'rotation_y':rotation,'parent':parent,'anchor':asset['anchor'],
-                'replaces':association.get('replaces',[]),'vapor_offset':association.get('vapor_offset')})
+                'replaces':association.get('replaces',[]),'vapor_offset':association.get('vapor_offset'),
+                'match_replaced_bounds':match_bounds})
     return {'schema_version':1,'map':map_name,'instances':bindings,'tactical_mutation':False}
 
 def write_if_changed(path,text):

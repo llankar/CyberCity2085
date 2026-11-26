@@ -1119,3 +1119,8 @@ a newly walkable courtyard. Native549frames/H2641080p30/AAC delivered; raw AVI r
 Standalone7-piece cover223kB registered in library; its independent native placement
 is not yet verified/activated. Main scene uses the identical embedded covering.
 Original baked cloth highlights remain a material limitation. Production unchanged.
+
+242: standalone eastern covering now replaces its seven embedded pieces through the
+library. Native bounds/count comparison: hidden7/imported7, center/size errors0;
+actual close view inspected. Six metadata tests passed. Current still uses external
+cover GLB; previous241 movie embeds identical geometry, labeled explicitly.
