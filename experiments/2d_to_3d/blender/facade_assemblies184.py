@@ -1,13 +1,14 @@
 """Replace selected repetitive bays with authored garage assemblies and roof walkways."""
 from pathlib import Path
-import bpy,json
+import bpy,json,sys
 from mathutils import Vector,Matrix
-LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2/showcase184';OUT.mkdir(exist_ok=True)
+visible='--visible-bays185' in sys.argv
+LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2'/('showcase185' if visible else 'showcase184');OUT.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(LAB/'generated/phase2/showcase183/environment.blend'))
 selected={
 'modular_factory_facade':['wall_door_garage_double_01','door_garage_double_01'],
 'modular_fire_escape':['modular_fire_escape_platform_railing','modular_fire_escape_platform_middle']}
-templates={}
+templates={};centers={}
 for pack,names in selected.items():
  before=set(bpy.data.objects);bpy.ops.import_scene.gltf(filepath=str(LAB/'sources/environment169'/pack/(pack+'_1k.gltf')))
  imported=set(bpy.data.objects)-before
@@ -18,8 +19,8 @@ for pack,names in selected.items():
   high=Vector([max(v.co[i] for v in mesh.vertices) for i in range(3)])
   center=(low+high)/2;mesh.transform(Matrix.Translation(-center));dims=high-low
   if pack=='modular_factory_facade' and dims.x<dims.y:
-   mesh.transform(Matrix.Rotation(1.57079632679,4,'Z'));dims.x,dims.y=dims.y,dims.x
-  templates[name]=(mesh,dims)
+   mesh.transform(Matrix.Rotation(1.57079632679,4,'Z'));center=Matrix.Rotation(1.57079632679,3,'Z')@center;dims.x,dims.y=dims.y,dims.x
+  templates[name]=(mesh,dims);centers[name]=center
   print('BAY184_TEMPLATE',name,list(dims),flush=True)
  for obj in imported:bpy.data.objects.remove(obj,do_unlink=True)
 roots=sorted([o for o in bpy.data.objects if o.name.startswith('Occludable_')],key=lambda o:o.name)
@@ -27,7 +28,8 @@ replaced=0;walkways=0
 for index,root in enumerate(roots):
  bays=sorted([o for o in root.children if o.name.startswith('AuthoredFacade_wall_window')],key=lambda o:o.name)
  if index%2==0 and bays:
-  bay=bays[len(bays)//2];old=bay.location.copy()
+  bay=max(bays,key=lambda o:(-(o.rotation_euler.to_matrix()@Vector((0,1,0)))).dot(Vector((1,-1,0)))) if visible else bays[len(bays)//2]
+  old=bay.location.copy()
   # Remove only its nearby window insert; leave neighboring bays untouched.
   for obj in list(root.children):
    if obj.name.startswith('AuthoredFacade_window') and (obj.location-old).length<1.3:bpy.data.objects.remove(obj,do_unlink=True)
@@ -35,7 +37,18 @@ for index,root in enumerate(roots):
   bay.name='AuthoredGarageBay184'
   mesh,dims=templates['door_garage_double_01'];insert=bpy.data.objects.new('AuthoredGarageShutter184',mesh);bpy.context.collection.objects.link(insert)
   insert.parent=root;insert.location=old;insert.rotation_euler=bay.rotation_euler
-  insert.scale=(2.5/dims.x,min(1,.20/dims.y),2.5/dims.z);replaced+=1
+  if visible:
+   insert.scale=bay.scale
+   offset=centers['door_garage_double_01']-centers['wall_door_garage_double_01']
+   offset=Vector(tuple(offset[i]*bay.scale[i] for i in range(3)))
+   insert.location=old+bay.rotation_euler.to_matrix()@offset
+   # Map wall stays solid: keep the shutter surface in front of its opaque backing.
+   outward=-(bay.rotation_euler.to_matrix()@Vector((0,1,0)))
+   depth=dims.y*insert.scale.y
+   inset=insert.location.dot(outward)-depth/2
+   insert.location+=outward*max(0,old.dot(outward)+.08-inset)
+  else:insert.scale=(2.5/dims.x,min(1,.20/dims.y),2.5/dims.z)
+  replaced+=1
  if index%3==1:
   body=next((o for o in root.children if o.name.startswith('PBR_Facade_')),None)
   if body:

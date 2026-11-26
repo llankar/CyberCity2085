@@ -270,3 +270,24 @@ those chosen bays; their appearance remains NOT VERIFIED. All eight walkway
 parts are not individually artistically accepted from this single view.
 Next: select facade bays visible to the encounter camera and review architectural
 silhouettes from that camera; avoid claiming completion from export counts.
+
+## Visible bays 185 (IN_PROGRESS)
+
+Same184 generator adds --visible-bays185 and outputs a separate showcase185.
+Bays selected by outward normal toward the main camera, with source-relative
+insert offsets and shared frame/door scale. First0030 shows new foreground
+bays, but retained solid wall backing occludes recessed shutters. First take
+retained. Corrected depth placement keeps shutter back surface outward of the
+opaque backing without cutting map walls. Final native render in progress.
+No production/campaign changes. A visible facade replacement is the criterion,
+not the number of exported objects.
+
+Final185:0030 inspected, two shutter leaves clearly visible on foreground
+facade, and another upper-edge assembly visible. Not all three bays fully
+reviewed. Clear metal remains too bright and depth projection needs artistic
+refinement; no final environment acceptance. Native902FullHD30frames, one
+blockedshot/61occlusions, health unchanged. No script/parse/surface errors found
+in final log. Separate sourceGLB/packedBLEND/textures in E:showcase185 and media
+in E:visible185. Next substantial environment action: unify facade/roof material
+response under scene lighting and compose building identities as a whole,
+not more count-based minor additions.

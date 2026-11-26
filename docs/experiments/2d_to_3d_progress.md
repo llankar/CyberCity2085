@@ -1,6 +1,17 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` VISIBLE-185 scoped facade trial (2026-11-26). Previous turn progressed
+  with authored bays/walkway placement. Generator --visible-bays185 selects
+  camera-facing bays and keeps source frame/shutter relative offsets/scale.
+  First recessed shutters were masked by solid map wall; first take retained.
+  Final moves surfaces outside backing, without changing tactical wall volume.
+  Final0030 inspected: foreground double shutter visible. Bright metal/depth
+  projection remain artistically rough; not all3bays reviewed. Native902FullHD30,
+  one blockedshot/61occlusions, same health, no script/surface errors found.
+  -VisibleBays and E:showcase185/visible185 retain earlier source/media.
+  Next: whole-building material response and identity, not tiny object counts.
+  Global IN_PROGRESS. No production/campaign/download/push.
 - `DONE` ASSEMBLIES-184 implementation/native trial (2026-11-26).
   New facade_assemblies184.py reuses actual factory double-garage and fire-escape
   meshes:3bay replacements/8roof parts. First roof-HVAC overlap inspected and

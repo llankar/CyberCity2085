@@ -1,4 +1,4 @@
-param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish,[switch]$WreckFinish,[switch]$FallFinish,[switch]$Presentation,[switch]$DistrictFinish,[switch]$FacadeAssemblies)
+param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish,[switch]$WreckFinish,[switch]$FallFinish,[switch]$Presentation,[switch]$DistrictFinish,[switch]$FacadeAssemblies,[switch]$VisibleBays)
 $ErrorActionPreference='Stop'
 if ($Architectural -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat170/encounter.avi' }
 if ($Refined -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat171/encounter.avi' }
@@ -13,6 +13,7 @@ if ($FallFinish -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E
 if ($Presentation -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/presentation182/encounter.avi' }
 if ($DistrictFinish -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/district183/encounter.avi' }
 if ($FacadeAssemblies -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/assemblies184/encounter.avi' }
+if ($VisibleBays -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/visible185/encounter.avi' }
 if (-not ([IO.Path]::GetFullPath($Output).StartsWith('E:\CyberCity2085-3d-lab\'))) { throw 'Keep experimental captures on E:' }
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Output) | Out-Null
 & (Join-Path $PSScriptRoot 'configure_godot_cache.ps1')
@@ -34,5 +35,6 @@ if ($FallFinish) { $sceneArguments=@('--','--refined-stage','--city-details','--
 if ($Presentation) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181');$scene='res://presentation182.tscn' }
 if ($DistrictFinish) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--district183');$scene='res://presentation182.tscn' }
 if ($FacadeAssemblies) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--assemblies184');$scene='res://presentation182.tscn' }
+if ($VisibleBays) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--visible185');$scene='res://presentation182.tscn' }
 & $engine --path (Join-Path $PSScriptRoot 'godot') --rendering-method gl_compatibility --resolution 1920x1080 --write-movie $Output --fixed-fps 30 --quit-after 2000 $scene @sceneArguments
 exit $LASTEXITCODE
