@@ -1,4 +1,4 @@
-﻿extends "res://combat_effects179.gd"
+extends "res://combat_effects179.gd"
 ## Preserve actual robot materials on fragments; keep a visible smoking wreck.
 func destroy_robot(model: Node3D) -> void:
 	var before:=motes.size()
@@ -8,7 +8,10 @@ func destroy_robot(model: Node3D) -> void:
 	for index in range(before,motes.size()):
 		var item: Dictionary=motes[index]
 		if item.node is MeshInstance3D and item.velocity.length_squared()>0 and fragment_index<mini(6,sources.size()):
-			var source:=sources[fragment_index] as MeshInstance3D
+			var source: MeshInstance3D=null
+			for candidate in sources:
+				if candidate.mesh==item.node.mesh:source=candidate;break
+			if source==null:continue
 			var fragment:=item.node as MeshInstance3D
 			fragment.material_override=source.material_override
 			for surface in source.mesh.get_surface_count():

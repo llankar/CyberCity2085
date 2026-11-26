@@ -1,6 +1,15 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` FALL-181 scoped staging and material bugfix (2026-11-26).
+  contact173.gd/new -FallFinish moves falling wreck1.25m over1.1s; previous
+  cover shot unchanged. First run exposed180 surface material assignment error:
+  sparks were counted as mesh fragments. Corrected by actual mesh identity.
+  Final native902FullHD30 frames/71s offline, six matched fragments, no script
+  or surface errors (existing SDL warning only). Final0630 inspected: wreck
+  clear of crate but bright/proximate medic; artistic acceptance still open.
+  First failing take retained on E:. Next: encounter composition/montage, not
+  more tiny wreck iterations. No production/campaign/push. Global IN_PROGRESS.
 - `DONE` WRECK-180 scoped visual trial (2026-11-26). Previous turn progressed
   with actual effect implementation/native media. New combat_effects180.gd
   retains source fragment materials, eight-second debris and elevated plume.

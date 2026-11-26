@@ -35,6 +35,9 @@ func _process(delta: float) -> void:
 	if time_value>=20:
 		# Authored Death alone leaves this thin bot upright. Topple its real body,
 		# then ground the transformed bounds; the wreck persists after the sparks.
+		# A PSI impulse carries the wreck out from behind the crate during the fall.
+		if "--fall181" in OS.get_cmdline_user_args():
+			actors[2].position.z=-.2+1.25*smoothstep(20,21.1,time_value)
 		actors[2].rotation.z=-PI*.5*smoothstep(20,21.1,time_value)
 		var base_y := INF
 		for mesh in actors[2].find_children("*","MeshInstance3D",true,false):

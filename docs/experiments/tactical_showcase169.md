@@ -189,3 +189,23 @@ retains one blocked shot,168occlusions and six-unit health state. No campaign,
 production changes or push. Next: staging the robot's fall in a readable free
 area without weakening the real cover demonstration. This is visual staging,
 not a change to production tactical rules.
+
+## Fall 181 — 2026-11-26 (IN_PROGRESS)
+
+Previous turn progressed with native180 media. New -FallFinish staging moves
+only the dying robot continuously1.25m toward the open alley over1.1seconds,
+synchronized with its toppling. The earlier cover-blocked shot stays unchanged.
+First0630 inspected: wreck moves out from cover, though close to the medic.
+First native run exposed an error missed in180: source-material iteration also
+matched spark CylinderMeshes. Corrected by matching fragment.mesh to an actual
+source mesh before copying its surface materials. Previous180 material claim
+was therefore not fully verified; first181 AVI retained as first_material_error.
+Final native take in progress; no PASS until final log/media inspected.
+
+Final181:902 native frames1920x1080/30fps,71seconds offline. Log confirms six
+matched fragments and no surface-index/script errors; existing SDL gamepad
+calibration warning persists. Final0630 inspected: wreck now outside crate,
+but its bright material and proximity to medic still weaken readability.
+Material-copy bug corrected, not a claim that all robot surfaces are dark.
+Next substantial priority: presentation/composition and a shorter combat montage;
+stop further tiny wreck iterations. Global artistic quality remains IN_PROGRESS.
