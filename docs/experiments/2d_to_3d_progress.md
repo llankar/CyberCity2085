@@ -1,12 +1,32 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
-- `IN_PROGRESS` CYBERCITY-207 art direction (latest user steering): replace
-  contemporary market canopies with technical kiosks, holographic advertising,
-  industrial equipment and weathered materials on the same showcase map.
-  Keep functional cast/rigs/camera/heavy robot, reuse true game audio; no
-  production/campaign/mass conversion. Latest priority is visible cyberpunk
-  identity and class silhouettes, not further feasibility reports.
+- `DONE` CYBERCITY-207 scoped kiosk art pass (2026-11-26). Seven striped
+  cloth canopies removed, replaced by cut-corner weathered metal caps, actual
+  retained Poly Haven vents/pipes, exposed cables, three brands and medical/
+  power/neural displays. Medical hologram reuses actual game illustration with
+  baked luminance alpha; source unchanged. Runtime preserves hologram alpha
+  after inherited building fade and animates scan bars in world coordinates.
+  First take exposed stale object matrices on attachment; depsgraph update
+  corrected authored accessories/sign placement. Rejected overview retained.
+  Final native capture902frames1920x1080/30,90s offline; package assertions PASS:
+  blocked shot1, occlusion831 frames, health[100,0,0,100,76,100], contact/retaliation
+  checks retained. Actual0030/0750 inspected: cloth gone, holograms/parts present,
+  medic/robot readable; small faded signage still crosses foreground during
+  treatment. Not final artistic acceptance or native real-time FPS measurement.
+  Files: cyber_kiosks207.py, cyber207.gd/tscn, material/movie/package helpers.
+  E: generated/phase2/cyber207/index.html, encounter_1080p30.mp4, clean captures;
+  showcase207/environment.blend/.glb, medical_hologram.png, kiosks.json.
+  Stable Delivery205 preserved. No production/save edits, campaign tests,
+  downloads, experimental push or release. CHANTIER GLOBAL INCOMPLET.
+- `TODO` CYBERCITY-208 visible architecture/readability: replace blank/overbright
+  wall panels with actual in-world advertising, vary exposed facade finishes and
+  service equipment; suppress faded small signage when it crosses units. Keep
+  the single map, existing rigs/motions and heavy robot. Then differentiate the
+  duplicated main/medic silhouette with retained authored accessories and review
+  full-motion combat. Hunyuan further candidate selection, class variety, robot
+  material/destruction refinement and final artistic acceptance remain open;
+  no new model run or full-motion acceptance claimed in207.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already

@@ -777,3 +777,24 @@ Latest user steering: current market remains too contemporary.207 must replace
 striped canopies with cyberpunk kiosks/ads/industrial equipment, then improve
 class silhouettes, heavy robot materials/effects and occlusion. No old engine/
 rig proofs, no production/campaign/mass conversion. Global art still incomplete.
+
+
+### Cyberpunk kiosk pass207 ? 2026-11-26
+
+Current art preview: `E:/CyberCity2085-3d-lab/generated/phase2/cyber207/index.html`.
+The stable self-contained Delivery205 remains unchanged. Reproduce the new map
+with `run_blender.ps1 -Script blender/cyber_kiosks207.py`, then
+`run_movie169.ps1 -Cyber207` and `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/cyber207`.
+Seven cloth awnings become weathered technical kiosks with retained authored
+vents/pipes, cables, medical holograms, energy/neural readouts and three brands.
+Actual game illustration supplies medical screen art. All BLEND/GLB/PNG/media
+stay on E:. The first attachment take was rejected and retained; updating the
+Blender view layer before reading world matrices fixed accessory placement.
+Final native902frames FullHD30 recorded90s offline; packaging assertions pass,
+1blocked shot,831occlusion frames and expected final health. Overview and medical
+capture inspected. Existing contact, audio, animations and sprite comparison
+retained. No campaign/production changes, downloads, push or release.
+Artistically incomplete: blank/overbright panels, repeated facade surfaces,
+faded small signs crossing units, main/medic face reuse and complete motion
+review. Next208 targets visible architecture and cutaway readability.
