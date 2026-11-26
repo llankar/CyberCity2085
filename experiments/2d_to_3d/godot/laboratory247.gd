@@ -29,8 +29,17 @@ func _ready() -> void:
  if "--topdown-review" in OS.get_cmdline_user_args():review_top_down=true
  var document := GLTFDocument.new()
  var state := GLTFState.new()
- assert(document.append_from_file(review_folder+review_model_name,state)==OK)
+ var model_path := review_folder + review_model_name
+ var import_error := document.append_from_file(model_path, state)
+ if import_error != OK:
+  push_error("Could not import %s: %s" % [model_path, error_string(import_error)])
+  get_tree().quit(16)
+  return
  var model := document.generate_scene(state)
+ if model == null:
+  push_error("Could not instantiate " + model_path)
+  get_tree().quit(16)
+  return
  add_child(model)
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
@@ -38,7 +47,10 @@ func _ready() -> void:
   var path := "E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png"
   if not market_ground_filename.is_empty():path=review_folder+market_ground_filename
   var image:=Image.load_from_file(path)
-  assert(image!=null)
+  if image == null or image.is_empty():
+   push_error("Could not load ground texture " + path)
+   get_tree().quit(16)
+   return
   image.generate_mipmaps()
   var material:=StandardMaterial3D.new()
   material.albedo_texture=ImageTexture.create_from_image(image)

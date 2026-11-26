@@ -39,6 +39,8 @@ func _ready() -> void:
   get_tree().quit(16)
   return
  await super._ready()
+ if review_camera == null:
+  return
  for child in get_children():
   if child is CanvasLayer:
    child.hide()

@@ -189,6 +189,8 @@ def main() -> int:
                 else:
                     mailbox.poll()
                 time.sleep(.03)
+        if godot.returncode:
+            return godot.returncode
         if args.smoke and mailbox is None:
             raise RuntimeError("The map selector did not start a scenario")
         if args.smoke and (mailbox.sequence != 6 or mailbox.reply["state"]["round"] != 2
