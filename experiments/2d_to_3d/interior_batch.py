@@ -14,6 +14,12 @@ INTERIORS = (
     "cybercity_inner_13_warehouse_floor",
     "wasteland_inner_03_ruined_clinic",
     "wasteland_inner_08_ruined_clinic",
+    "cybercity_inner_09_apartment_block",
+    "city_interior_server_room",
+    "cybercity_inner_05_server_room",
+    "city_interior_control_center",
+    "cybercity_inner_01_control_center",
+    "wasteland_inner_04_bunker_command_post",
 )
 
 
@@ -22,6 +28,9 @@ def fixtures(name):
     selected = {}
     for row in survey["walls"]:
         identifier = row["id"]
+        if "points" in row and row.get("blocks_sight", True):
+            selected[identifier] = "partition"
+            continue
         if "rect" not in row:
             continue
         if "wall" in identifier:
@@ -32,6 +41,12 @@ def fixtures(name):
             selected[identifier] = "pod"
         elif "crate" in identifier:
             selected[identifier] = "crate"
+        elif "server" in identifier or "cabinet" in identifier:
+            selected[identifier] = "cabinet"
+        elif "console" in identifier or "computer" in identifier:
+            selected[identifier] = "console"
+        elif "desk" in identifier or "table" in identifier or "kitchen" in identifier:
+            selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"
         elif "machine" in identifier or "scan" in identifier:
@@ -40,14 +55,22 @@ def fixtures(name):
 
 
 def main():
+    sys.path.insert(0, str(MAPS.parents[1]))
+    from game.map_geometry import stroke_outline
+
     names = sys.argv[1:] or INTERIORS
     for name in names:
         if name not in INTERIORS:
             raise ValueError(f"Unconfigured interior: {name}")
-        _, selected = fixtures(name)
+        survey, selected = fixtures(name)
         subprocess.run([sys.executable, str(ROOT / "prepare_floor248.py"), "--map", name,
                         "--output", str(OUTPUT / name), "--objects", ",".join(selected),
                         "--include-side-walls"], check=True)
+        outlines = {row["id"]: stroke_outline(row["points"], row["width"])
+                    for row in survey["walls"] if selected.get(row["id"]) == "partition"}
+        (OUTPUT / name / "fixtures.json").write_text(
+            json.dumps({"selected": selected, "outlines": outlines}), encoding="utf-8"
+        )
     return subprocess.run([
         "powershell.exe", "-NoProfile", "-File", str(ROOT / "run_blender.ps1"),
         "-Script", "blender/build_interiors.py", *names,

@@ -108,8 +108,10 @@
     "map": "cybercity_inner_09_apartment_block",
     "family": "residential",
     "reuse": "residential windows and roof equipment",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://cybercity_inner_09_apartment_block.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "city_transit_train_tunnel",
@@ -145,8 +147,10 @@
     "map": "wasteland_inner_04_bunker_command_post",
     "family": "military",
     "reuse": "ruined walls and technical furniture",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://wasteland_inner_04_bunker_command_post.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "wasteland_city_03_collapsed_overpass",
@@ -236,8 +240,10 @@
   {
     "map": "city_interior_control_center",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_control_center.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "city_interior_corporate_lobby",
@@ -272,8 +278,10 @@
   {
     "map": "city_interior_server_room",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_server_room.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "city_rooftop_skybridge_spine",
@@ -284,8 +292,10 @@
   {
     "map": "cybercity_inner_01_control_center",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_01_control_center.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_02_safehouse",
@@ -299,7 +309,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_inner_03_research_lab.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_04_medical_clinic",
@@ -307,13 +317,15 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_inner_04_medical_clinic.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_05_server_room",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_05_server_room.tscn",
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_06_blacksite_lab",
@@ -321,7 +333,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_inner_06_blacksite_lab.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_07_corporate_lobby",
@@ -359,7 +371,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://cybercity_inner_13_warehouse_floor.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "cybercity_inner_14_detention_block",
@@ -665,7 +677,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://wasteland_inner_03_ruined_clinic.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "wasteland_inner_05_looted_vault",
@@ -709,7 +721,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://wasteland_inner_08_ruined_clinic.tscn",
-    "scope": "partial: surveyed perimeter walls and selected interior fixtures"
+    "scope": "partial: perimeter, traced partitions and selected interior fixtures"
   },
   {
     "map": "wasteland_inner_09_bunker_command_post",
