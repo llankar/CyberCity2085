@@ -1094,3 +1094,7 @@ explicitly interpreted. Actual saved-model comparison preserves98roof/body meshe
 Native549frame sequence and H2641080p30/AAC packaging completed; raw AVI removed.
 Facade close crop/source comparison in current gallery. Pale shutters and remaining
 repetitive buildings still need artistic integration; no production/campaign claim.
+
+238 door paint correction: real glTF factors verified with original normal/diffuse
+textures retained. Actual native close preview at ../showcase238/index.html;
+existing movie remains237 and is labeled explicitly. Pale-shutter issue reduced.

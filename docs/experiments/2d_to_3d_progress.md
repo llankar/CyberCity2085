@@ -6356,3 +6356,17 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
 - Next: integrate material brightness with existing floor lights; diversify next
   large source-derived structure/street object using retained acquired assets.
   CHANTIER GLOBAL INCOMPLET.
+
+### DOOR-PALETTE-238 — DONE scoped material correction
+- Toned only two acquired industrial door objects via Blender Multiply color nodes,
+  exported as glTF baseColorFactor[.28,.34,.40,1]. Three exported material factors
+  actually checked; original diffuse/normal textures retained, no image pixel edits.
+  Geometry unchanged by this recipe; no broad regression rerun claimed.
+- Actual native100frame preview exit0. Final close view inspected: shutters no longer
+  dominate the blue cladding. Still not global artistic acceptance.
+- E: showcase238/environment.blend/.glb/material_check.json/index.html/detail.png.
+  Reusable publish_candidate.py labels current238 stills separately from237 movie.
+  No new full video for this material-only change; no campaign, production or build.
+- Files: blender/door_palette238.py, publish_candidate.py, materials186.gd.
+  Next: original-layout northern roof to replace another uniform surface.
+  CHANTIER GLOBAL INCOMPLET.
