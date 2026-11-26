@@ -1,9 +1,13 @@
+import json
+from pathlib import Path
+import tempfile
 import unittest
 
 from game.combat import CombatEngine, CombatState
 from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_preview import TacticalPreview
+from tactical_mailbox import TacticalMailbox
 
 
 class TacticalPreviewTest(unittest.TestCase):
@@ -20,3 +24,24 @@ class TacticalPreviewTest(unittest.TestCase):
         rejected = preview.action("move", "ally:0", destination=[4, 2])
         self.assertFalse(rejected["success"], rejected)
         self.assertEqual(rejected["state"], result["state"])
+
+
+    def test_mailbox_applies_each_command_once(self):
+        ally = Unit(position=(64, 64), stats=PlayerStats(), health=10, action_points=3)
+        enemy = Unit(position=(320, 64), stats=EnemyStats(level=1), health=10, unit_type="enemy")
+        engine = CombatEngine(CombatState(None, [ally], [enemy]))
+        lab_tmp = Path("E:/CyberCity2085-3d-lab/tmp")
+        with tempfile.TemporaryDirectory(dir=lab_tmp if lab_tmp.is_dir() else None) as temp:
+            directory = Path(temp)
+            mailbox = TacticalMailbox(directory, TacticalPreview(engine))
+            command = directory / "command-1.json"
+            command.write_text('{"action":', encoding="utf-8")
+            self.assertFalse(mailbox.poll())
+            command.write_text(json.dumps({"action":"move","actor":"ally:0","destination":[3,2]}),
+                               encoding="utf-8")
+            self.assertTrue(mailbox.poll())
+            response = json.loads((directory / "reply.json").read_text(encoding="utf-8"))
+            self.assertEqual(response["sequence"], 1)
+            self.assertTrue(response["success"])
+            self.assertFalse(mailbox.poll())
+            self.assertEqual(ally.position, (96,64))
