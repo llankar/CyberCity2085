@@ -5891,3 +5891,15 @@ and build modular clothing on the preserved MPFB body.
 Phase 1 evidence is stored under `E:\CyberCity2085-3d-lab\outputs`; Phase 2
 evidence is under `E:\CyberCity2085-3d-lab\generated\phase2`. These generated
 resources must not be pushed without explicit authorization.
+
+- `IN_PROGRESS` VTOL-217 (2026-11-26). Acquired one 2.4 MB external candidate,
+  Sci-Fi Dropship v1, https://tevy.dev/models/scifi-dropship (source declares CC0).
+  Source retained at E:/CyberCity2085-3d-lab/sources/dropship217.
+  Blender import rejected EXT_meshopt_compression; glTF Transform copy decoded
+  geometry successfully. Import then rejected KHR_texture_basisu. PNG transform
+  produced same size and is not evidence of texture decoding. No render exists,
+  no artistic acceptance, no runtime replacement. Next: decode BasisU textures
+  or obtain an uncompressed author export, then inspect neutral render before
+  selecting this candidate. Script: blender/review_dropship217.py. Existing
+  VTOL178, scene216 and standalone215 preserved; no production/save changes.
+  Keep download/cache footprint limited. CHANTIER GLOBAL INCOMPLET.
