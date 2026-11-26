@@ -204,8 +204,7 @@ func _process(delta: float) -> void:
 		fire(int(EVENTS[shot_index][1]),int(EVENTS[shot_index][2]));event_index+=1
 	if health[1]>0 and played[1]=="Death01" and t>recoil_until:clip(1,"Pistol_Shoot")
 	# Melee event has its own latch independent of later PSI event ordering.
-	if t>=15.2 and health[1]>0:
-		health[1]=0;clip(1,"Death01",false);effects.sound("melee",actors[1].position,-10);effects.spark(actors[1].position+Vector3(0,1,0))
+	resolve_staged_melee(t)
 	for index in actors.size():
 		players[index].advance(dt);rings[index].position=actors[index].position+Vector3(0,.025,0)
 		rings[index].visible=health[index]>0
@@ -252,3 +251,7 @@ func update_camera(t: float) -> void:
 	var vertical := lerpf(23,5 if refined else 12,smoothstep(21,26,t))
 	camera.position=target+Vector3(sin(yaw)*28,vertical,cos(yaw)*28);camera.look_at(target)
 	camera.size=23-3*sin(t*.10)
+
+func resolve_staged_melee(t: float) -> void:
+	if t>=15.2 and health[1]>0:
+		health[1]=0;clip(1,"Death01",false);effects.sound("melee",actors[1].position,-10);effects.spark(actors[1].position+Vector3(0,1,0))

@@ -1,6 +1,28 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` CONTACT-204 scoped impact/melee synchronization (2026-11-26).
+  Inspected203 hit/melee strips before changing behavior: survivor squat from
+  Death prefix, fixed melee clock. New204 blocks nonlethal Death, adds bounded
+  .32s/8degree torso recoil with prior-frame overlay reset, plays one melee
+  gesture and leaves out-of-range robot idle rather than swinging. Attacker
+  endpoint moves.15m closer; actual advancing wrist vs approximate torso volume
+  resolves contact/death/effect/sound. Original169 default clock retained behind
+  an experimental virtual hook; production unchanged. Native trace: right hand
+  contact14.725s, gap.281415m, forward speed5.81987m/s. Runtime/package checks
+  verify moving contact<=.35m and dead target, not mesh-triangle collision.
+  First indentation parse failure fixed; targeted check-only then exit0. First
+  valid take retained; second interrupted for overlay reset (not a passed take).
+  Final902FullHD30frames/82s offline capture and packaging pass:1blockedshot,
+  602occlusion frames, final health unchanged. Hit/melee strips and0750 actually
+  inspected: no survivor leg collapse, strike precedes fall, medic contact kept.
+  No final script/parse errors found. Full-motion art/feet/grip NOT VERIFIED.
+  Files: contact204scene,169hook, movie/package scripts, scoped docs. No campaign,
+  downloads, production or push. Global IN_PROGRESS: overall art acceptance,
+  repeated facade kit/main-medic face reuse and coherent final delivery.
+  Next: assemble a clear local delivery of the selected scene/assets/sources/
+  captures with concise remaining-art notes, rather than more prop variants.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` ARMORED-203 stronger Raider candidate (2026-11-26). Prior turn's
   comparison found civilian-shirt body unsuitable. Inspected retained scanned
   candidate and Unvanquished authored armor; selected detailed yellow/black

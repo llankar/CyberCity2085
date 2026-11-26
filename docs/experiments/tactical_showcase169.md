@@ -691,3 +691,35 @@ production edit or push. Global scene art remains incomplete: main/medic face
 reuse, repeated facade kit and full-motion contact/impact quality. Next: review
 whole-sequence visible motion defects rather than additional small props.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Contact204 - visible hits and contact-driven melee
+
+Gallery: `E:/CyberCity2085-3d-lab/generated/phase2/contact204/index.html`.
+Reproduce: `run_movie169.ps1 -Contact204`, then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/contact204`.
+
+Actual203 hit/melee strips inspected before edits. Nonlethal shots no longer
+queue Death on the first Raider. Short torso recoil on both enemies restores
+its prior offset before animation advancement, preventing cumulative lean even
+when a source clip has no bone key. One nonlooping melee gesture, attacker.15m
+closer, resolves on an advancing wrist reaching an approximate torso volume.
+Death, contact effect and existing melee WAV share that event. Robot out of
+reach now waits instead of swinging. Existing169 scene preserves its original
+15.2s behavior via a virtual hook; new behavior is confined to204 prototype.
+
+Actual melee_contact.json:14.725s, right wrist distance.281415m, advancing speed
+5.81987m/s. Package asserts distance<=.35, speed>.12 and target dead. These test
+one staged contact volume, not general production/triangle collisions. Final
+902frames1920x1080/30fps,82s offline, packaging successful:1blockedshot,
+602occlusion frames, same final health. Hit strip, melee strip and0750 inspected:
+legs do not collapse on nonlethal hit, punch precedes fall, medical staging kept.
+No all-motion foot/grip/art acceptance claimed. First indentation parse failure
+corrected and targeted script check exited0; initial valid take preserved and
+second interrupted before final overlay-reset capture. No campaign tests,
+production edits, downloads or pushes.
+
+Next: coherent local delivery of selected scene, reusable sources/assets and
+media with a short honest remaining-art list; avoid more small prop variants.
+Global art acceptance remains open (facade repetition, main/medic face reuse,
+full-motion contacts/identity). CHANTIER GLOBAL INCOMPLET.
