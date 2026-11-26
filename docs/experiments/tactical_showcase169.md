@@ -1036,3 +1036,14 @@ and an outside-path rejection check pass. No tactical/source PNG changes.
 Current gallery/video remains generated/phase2/library227/index.html; source
 contexts and native roof detail crop are included. Native0030 inspected; facades
 remain unfinished. This assembly is not yet a standalone library roof module.
+
+## Interpreted service facade230
+
+`run_blender.ps1 -Script blender/service_building230.py` loads229 and replaces
+only the foreground west building's generic facade parts. Custom cut-corner
+shell panels, recessed access, glazing and supply conduits share the building's
+existing cutaway. Vertical facade is inferred, not an authentic original view.
+Compile with --environment showcase230/environment.glb using build_library_scene.py.
+Actual native overview/close crop inspected. Surface remains too clean/flat for
+final artistic acceptance; improve material richness before broadening this style.
+Current gallery/video: generated/phase2/library227/index.html.

@@ -6184,3 +6184,23 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   review, retaining actual cast/VTOL. Hunyuan territorial permission remains open.
   Fifth local code/docs checkpoint since last push; push five commits normally.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` SERVICE-BUILDING-230 scoped complete facade interpretation (2026-11-26).
+  South_building_w retains original-derived229 roof and library fan; generic
+  facade/window/advertisement pieces replaced on visible front+side by custom
+  extruded cut-corner panels, structural columns/beams, recessed split doors,
+  narrow glazing/mullions, utility covers/louvres and curved supply conduits.
+  46new parts, same original building parent; no collision/source image edits.
+  Unseen vertical walls are explicitly interpreted from roof palette/function,
+  NOT authentic recovered facade views. Existing actor rigs/motions/VTOL unchanged.
+  Actual native0030 and380x350 close crop inspected: distinct industrial facade,
+  fits original roof, but surface treatment remains too clean/flat for final art.
+  Do not generalize this to other buildings as artistically accepted. Next visible
+  improvement: richer worn material response and facade variety without rebuilding
+  this geometry; original-source references remain primary.
+  Native549frames1080p30/72s offline, blocked1,occlusion914,health retained.
+  Current library227 gallery/MP4 and before source-roof/facade crop updated.
+  E: showcase230/environment.blend/.glb/facade.json. Previous229 retained.
+  Files: blender/service_building230.py, materials186.gd,package_combat169.py.
+  AVI removed after final encode. No campaign, inference, production/save edit,
+  new build or resource push. CHANTIER GLOBAL INCOMPLET.

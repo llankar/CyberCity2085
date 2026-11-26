@@ -69,6 +69,13 @@ def main():
             page+='<h2>Original-derived library placements</h2><p>Roof fan and purple paneled pair loaded from the same compiled library associations. Original map context, manual masks, Blender reconstructions; hidden sides inferred. No new Hunyuan inference.</p><p><a href="../../../environment-library/index.html">Source library and model links</a></p><img src="../../../environment-library/assets/purple_paneled_pair/reference.png"><img src="../../../environment-library/assets/purple_paneled_pair/neutral.png">'
         if OUT.name=='library227' and environment=='showcase229':
             page+='<h2>Original-derived segmented roofs</h2><p>Original contexts govern dark segmented plates and service hatch. Invented photovoltaic assemblies and roof sign removed; wall clinic signage retained. Reconstruction is interpretive, not recovered hidden geometry.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__south_building_w.png"><img src="original_roofs_detail.png">'
+        if OUT.name=='library227' and environment=='showcase230':
+            run('-i',OUT/'clean_0030.png','-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_facade_detail.png')
+            page+='<h2>Interpreted industrial facade</h2><p>Original roof identity retained; unseen wall construction interpreted with cut-corner panels, service doors, glazing, reinforcement and supply conduits. Not an authentic recovered facade view.</p><img src="service_facade_detail.png">'
+            baseline=OUT.parent/'roof226/clean_0030.png'
+            if baseline.is_file():
+                run('-i',baseline,'-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_building_before.png')
+                page+='<p>Before the source roof and facade passes:</p><img src="service_building_before.png">'
         (OUT/'index.html').write_text(page,encoding='utf8')
         (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,'scope':'Selected native scene; historical scratch workspaces pruned'},indent=2))
         print('CURRENT_SHOWCASE_DELIVERED',state)
