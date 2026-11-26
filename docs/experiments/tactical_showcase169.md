@@ -1132,3 +1132,10 @@ H2641080p30/AAC; external cover replacement still bounds/count matched.
 Current source pointers consolidated into243 packed master; baseline219 retained,
 0.776GiB old exports pruned, raw AVI removed. Next art issue: inspect original floor
 volume drawings visible during cutaway; no floor treatment implemented yet.
+
+244: inferred occupied-area floors remove original flat volume drawings when3D
+objects fade. Source PNG/routes unchanged; exact627cell union checked, one surface,
+2508vertices/1254triangles. Before/after cutaway comparison in current gallery.
+Three targeted tests passed; native focused preview and549frame FullHD30/AAC movie
+completed. Scene floor support enabled; --original-volume-floor is comparison-only.
+Other boundaries/art regions remain open; no global artistic acceptance claim.

@@ -37,6 +37,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--map',choices=['city_exterior_neon_market_alley'],default='city_exterior_neon_market_alley')
     parser.add_argument('--environment')
+    parser.add_argument('--floor-support',action=argparse.BooleanOptionalAction,default=None)
     args=parser.parse_args()
     data=json.loads((LAB/'environment-library/library.json').read_text(encoding='utf8'))
     output=LAB/'generated/phase2/library227';output.mkdir(exist_ok=True)
@@ -47,6 +48,11 @@ def main():
     if not environment.is_relative_to((LAB/'generated/phase2').resolve()) or not environment.is_file():
         raise ValueError('Environment must exist inside the selected E: experiment assets')
     bindings['environment_relative']=environment.relative_to(LAB/'generated/phase2').as_posix()
+    floor_choice=previous.get('floor_support','')
+    if args.floor_support is True:floor_choice=(LAB/'generated/phase2/floor244/plan.json').as_posix()
+    elif args.floor_support is False:floor_choice=''
+    if floor_choice and not Path(floor_choice).is_file():raise ValueError('Build inferred floor plan first')
+    bindings['floor_support']=floor_choice
     path=output/'placements.json';write_if_changed(path,json.dumps(bindings,indent=2))
     scene='[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://library227.gd" id="1"]\n[node name="LibraryShowcase227" type="Node3D"]\nscript = ExtResource("1")\nbindings_path = '+json.dumps(path.as_posix())+'\n'
     write_if_changed(output/'scene.tscn',scene)

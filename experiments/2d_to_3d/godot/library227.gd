@@ -48,6 +48,12 @@ func _ready() -> void:
  var boot_start:=Time.get_ticks_usec()
  super._ready()
  delivery_folder=ROOT+"library227/";DirAccess.make_dir_recursive_absolute(delivery_folder)
+ var settings:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(bindings_path))
+ var floor_path:String=settings.get("floor_support","")
+ if "--volume-floor244" in OS.get_cmdline_user_args():floor_path=ROOT+"floor244/plan.json"
+ if floor_path!="" and not ("--original-volume-floor" in OS.get_cmdline_user_args()):
+  var support=preload("res://volume_floor244.gd").new();add_child(support)
+  support.build(JSON.parse_string(FileAccess.get_file_as_string(floor_path)))
  if not record and not OS.has_feature("movie") and not ("--skip-warmup" in OS.get_cmdline_user_args()):
   warm_live_materials()
  if "--measure-live" in OS.get_cmdline_user_args():

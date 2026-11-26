@@ -99,6 +99,12 @@ def main():
             page+='<h2>Original blue covered service roof</h2><p>Genuine blue cloth crop on a768quad draped mesh with thickness, posts and rails; reused service extractor and source-context segmented roof. Solid tactical body preserved, not a new walkable courtyard. Original baked highlights remain a limitation.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__east_building.png"><img src="east_cover_detail.png">'
         if OUT.name=='library227' and environment=='showcase243':
             page+='<h2>Northwest service plant</h2><p>Original central service row and right extractor layout; acquired grilles, factory door and worn concrete PBR. Night-adjusted albedo, source pixels retained. Vertical facade and equipment depths interpreted. Current scene loads the blue covering as a standalone library assembly, replacing its seven embedded parts.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__nw_building.png"><img src="../showcase243/north_neutral.png">'
+        if OUT.name=='library227' and bindings.get('floor_support'):
+            floor=OUT.parent/'floor244'
+            shutil.copyfile(OUT/'clean_0254.png',floor/'after_cutaway.png')
+            for label in ('before','after'):
+                run('-i',floor/(label+'_cutaway.png'),'-vf','crop=570:400:130:320','-frames:v','1',floor/(label+'_detail.png'))
+            page+='<h2>Inferred floors beneath occupied volumes</h2><p>Original map artwork remains unchanged on route surfaces. A single PBR support surface covers only the627existing occupied cells, hiding flat roof/canopy drawings when the corresponding3D objects fade. These unseen floors are inferred, not recovered source views. No grid, LOS or collision changes.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:15px"><div>Before<img src="../floor244/before_detail.png"></div><div>After<img src="../floor244/after_detail.png"></div></div>'
         (OUT/'index.html').write_text(page,encoding='utf8')
         (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,'scope':'Selected native scene; historical scratch workspaces pruned'},indent=2))
         print('CURRENT_SHOWCASE_DELIVERED',state)
