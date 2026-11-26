@@ -6462,3 +6462,36 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  godot/library227.gd, blender/export_cover241.py. Baked cloth lighting still open.
  No campaign, production/save edits, new build or experimental-resource push.
  Next: northwest large building source identity. CHANTIER GLOBAL INCOMPLET.
+
+### NORTHWEST-PLANT-243 — DONE scoped visual building; global art open
+- Northwest source roof now has four acquired service grilles in a central row,
+  reused right extractor/pipe meshes and segmented plates. Interpreted concrete
+  utility facade uses actual PBR textures, factory door and ventilation; night tone
+  uses glTF color factors, source pixels retained.91parts, base-body vertices/faces
+  preserved by executed assertions; source extractor selection asserted10parts.
+- Native100frame preview revealed overbright concrete; toned it before final art.
+  Isolated neutral view exposed old cable assembly across a grille; removed it and
+  regenerated final model/neutral view/movie. Both actual opening and corrected
+  neutral960x720 image inspected. Parts of roof remain outside opening crop; neutral
+  image supplies unobstructed review. No all-angle artistic acceptance claimed.
+- Final native549frames1080p30 exit0; H264/AAC confirmed. Five library instances,
+  including external eastern cover; exact replacement still hidden7/imported7,
+  bounds errors0. State blocked1,occlusion908,health unchanged. No campaign tests.
+- Current library227 movie/gallery refreshed with original northwest context and
+  showcase243/north_neutral.png. Shared packed master243 contains current geometry;
+  all current library source pointers consolidated into it and checked to exist.
+  Pruned7old239/240/241intermediate exports and243blend1:0.776GiB file bytes reclaimed.
+  Standalone GLBs, textures, images/metadata, baseline219 and scripts retained; older
+  fixtures require ordered regeneration per environment-library/REBUILD_ENVIRONMENT.txt.
+  Raw AVI removed after successful encode. E: tmp/cleanup243.json records cleanup.
+- Files: blender/northwest_plant243.py, blender/render_north239.py (optional preview
+  arguments), materials186.gd, package_combat169.py. No production/save edits, new AI,
+  Windows build or asset push. CHANTIER GLOBAL INCOMPLET.
+
+### VOLUME-FLOOR-244 — TODO
+- Current combat169.build_environment loads the complete original map PNG as floor;
+  that illustration contains the source volumes. Inspect the existing cutaway views
+  for duplicated flat object art beneath the new meshes before choosing a remedy.
+- Next: one experimental floor treatment restricted to existing blocked/volume areas,
+  preserving visible route pixels, original PNG, grid, LOS and all tactical rules.
+  No implementation, image edit or validation executed for this next task yet.

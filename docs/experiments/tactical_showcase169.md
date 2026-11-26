@@ -1124,3 +1124,11 @@ Original baked cloth highlights remain a material limitation. Production unchang
 library. Native bounds/count comparison: hidden7/imported7, center/size errors0;
 actual close view inspected. Six metadata tests passed. Current still uses external
 cover GLB; previous241 movie embeds identical geometry, labeled explicitly.
+
+243 current video: northwest original-layout plant roof and interpreted concrete
+utility facade, with acquired grilles/door/PBR and reused extractor/pipe geometry.
+Corrected neutral view included for unobstructed roof review. Final native549frames,
+H2641080p30/AAC; external cover replacement still bounds/count matched.
+Current source pointers consolidated into243 packed master; baseline219 retained,
+0.776GiB old exports pruned, raw AVI removed. Next art issue: inspect original floor
+volume drawings visible during cutaway; no floor treatment implemented yet.

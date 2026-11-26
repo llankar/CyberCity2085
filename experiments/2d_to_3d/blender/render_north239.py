@@ -1,10 +1,14 @@
 """Unobstructed neutral art view of the selected northern building, no master edits."""
 from pathlib import Path
-import bpy
+import bpy,argparse,sys
 from mathutils import Vector
-LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2/showcase239'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--variant',choices=['showcase239','showcase243'],default='showcase239')
+parser.add_argument('--object',choices=['north_building','nw_building'],default='north_building')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2'/args.variant
 bpy.ops.wm.open_mainfile(filepath=str(OUT/'environment.blend'))
-root=bpy.data.objects['Occludable_north_building'];kept=set(root.children_recursive)|{root}
+root=bpy.data.objects['Occludable_'+args.object];kept=set(root.children_recursive)|{root}
 for obj in bpy.context.scene.objects:obj.hide_render=obj not in kept
 body=next(o for o in kept if o.name.startswith('PBR_Facade_'))
 points=[body.matrix_world@Vector(p) for p in body.bound_box];center=sum(points,Vector())/8
