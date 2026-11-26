@@ -7,13 +7,37 @@ from unittest.mock import patch
 from game.combat import CombatEngine, CombatState
 from game.combat.movement import CELL_SIZE
 from game.stats import EnemyStats, PlayerStats
-from game.unit import Unit
+from game.unit import STATUS_BLEEDING, Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
 from run_tactical_preview import SCENARIOS, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_equipped_support_actions_apply_existing_combat_rules(self):
+        preview = scenario_preview("warehouse")
+        ally = preview.units["ally:0"]
+        ally.health = ally.stats.hp = 5
+        ally.apply_status(STATUS_BLEEDING)
+        result = preview.action("first_aid", "ally:0")
+        self.assertTrue(result["success"], result)
+        self.assertEqual(ally.health, 7)
+        self.assertFalse(ally.has_status(STATUS_BLEEDING))
+        self.assertTrue(preview.action("defend", "ally:0")["state"]["units"][0]["defending"])
+        self.assertTrue(preview.action("overwatch", "ally:0")["state"]["units"][0]["overwatch"])
+        self.assertEqual(ally.action_points, 0)
+
+    def test_melee_uses_close_range(self):
+        preview = scenario_preview("warehouse")
+        ally = preview.units["ally:0"]
+        enemy = preview.units["enemy:0"]
+        self.assertFalse(preview.action("melee", "ally:0", target_id="enemy:0")["success"])
+        self.assertEqual(ally.action_points, 3)
+        enemy.position = (ally.position[0] + CELL_SIZE, ally.position[1])
+        result = preview.action("melee", "ally:0", target_id="enemy:0")
+        self.assertTrue(result["success"], result)
+        self.assertEqual(ally.action_points, 2)
+
     def test_rooftop_canyons_block_movement_without_spending_ap(self):
         cases = (("rooftop", (19, 4), [18, 4]), ("skybridge", (15, 12), [16, 12]))
         for name, start, destination in cases:

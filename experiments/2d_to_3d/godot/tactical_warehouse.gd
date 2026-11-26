@@ -12,6 +12,8 @@ var smoke := false
 var pending_command := {}
 var smoke_destination: Array[int]
 var playing_events := false
+var attack_mode := "fire"
+var smoke_hp := 0
 
 
 func _ready() -> void:
@@ -57,14 +59,15 @@ func _process(_delta: float) -> void:
    actors[id] = actor
   var model: TacticalActor = actors[id]
   model.update_state(point, int(unit.hp))
-  readout.append("%s  HP %d  AP %d" % [id, unit.hp, unit.ap])
- if mailbox.success and pending_command.get("action") == "fire":
+  var stance := "  OVERWATCH" if unit.overwatch else "  DEFENDING" if unit.defending else ""
+  readout.append("%s  HP %d  AP %d%s" % [id, unit.hp, unit.ap, stance])
+ if mailbox.success and pending_command.get("action") in ["fire", "melee"]:
   var shooter: TacticalActor = actors[ALLY]
   var victim: TacticalActor = actors[pending_command.target]
-  shooter.fire_at(victim.position)
+  shooter.fire_at(victim.position, pending_command.action == "melee")
  pending_command.clear()
- status.text = "%s  //  Round %d   %s\n%s\nLeft click: move   Right click on hostile: fire   T: end turn\nQ / E: rotate   Wheel: zoom   Esc: close" % [
-  scenario_title, state.round, state.turn, "  |  ".join(readout)]
+ status.text = "%s  //  Round %d   %s\n%s\nLeft click: move   Right click: %s   F / M: choose attack\nA: first aid   B: defend   O: overwatch   T: end turn\nQ / E: rotate   Wheel: zoom   Esc: close" % [
+  scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
  if state.outcome != null:
@@ -105,6 +108,17 @@ func _process(_delta: float) -> void:
      return
     send({"action": "end_turn", "actor": ALLY})
    3:
+    if mailbox.events.is_empty():
+     get_tree().quit(10)
+     return
+    smoke_hp = int(state.units[0].hp)
+    use_action("first_aid")
+   4:
+    if not mailbox.success or int(state.units[0].hp) != smoke_hp + 2:
+     get_tree().quit(11)
+     return
+    use_action("defend")
+   5:
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
 
@@ -158,7 +172,20 @@ func fire_at(screen_position: Vector2) -> void:
    nearest = id
    radius = distance
  if not nearest.is_empty():
-  send({"action": "fire", "actor": ALLY, "target": nearest})
+  use_action(attack_mode, nearest)
+
+
+func use_action(action: String, target := "") -> void:
+ if mailbox.state.is_empty() or playing_events or mailbox.pending:
+  return
+ var actions: Array = mailbox.state.units[0].actions
+ if action not in actions:
+  status.text += "\nAction unavailable: " + action.capitalize()
+  return
+ var command := {"action": action, "actor": ALLY}
+ if not target.is_empty():
+  command["target"] = target
+ send(command)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -168,8 +195,17 @@ func _unhandled_input(event: InputEvent) -> void:
   return
  if mailbox == null or mailbox.state.get("outcome") != null:
   return
- if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_T:
-  send({"action": "end_turn", "actor": ALLY})
+ if event is InputEventKey and event.pressed and not event.echo:
+  var previous_mode := attack_mode
+  match event.keycode:
+   KEY_T: use_action("end_turn")
+   KEY_A: use_action("first_aid")
+   KEY_B: use_action("defend")
+   KEY_O: use_action("overwatch")
+   KEY_F: attack_mode = "fire"
+   KEY_M: attack_mode = "melee"
+  if previous_mode != attack_mode and not playing_events:
+   status.text = status.text.replace("Right click: " + previous_mode, "Right click: " + attack_mode)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
   fire_at(event.position)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

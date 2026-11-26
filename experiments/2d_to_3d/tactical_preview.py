@@ -30,6 +30,8 @@ class TacticalPreview:
                     "cell": [coordinate // CELL_SIZE for coordinate in unit.position],
                     "hp": unit.health,
                     "ap": unit.action_points,
+                    "defending": unit.is_defending,
+                    "overwatch": unit.on_overwatch,
                     "actions": [action.key for action in available_combat_actions(unit)]
                     if key.startswith("ally:") and state.turn == "player" and unit.health > 0
                     else [],

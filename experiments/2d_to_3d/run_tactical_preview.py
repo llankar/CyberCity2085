@@ -16,7 +16,7 @@ from game.combat.movement import CELL_SIZE
 from game.combat.session_protocol import atomic_json
 from game.character import Character
 from game.cover_system import CoverNode
-from game.management.equipment import equip_starter_loadout
+from game.management.equipment import default_equipment_catalog, equip_starter_loadout
 from game.map_geometry import load_map_geometry
 from game.map_terrain import build_terrain_profile
 from game.stats import EnemyStats, PlayerStats
@@ -58,6 +58,9 @@ def scenario_preview(scenario: str) -> TacticalPreview:
     ally = spawn(ally_cell, PlayerStats(), "player")
     ally.character = Character("Longshot", role="sniper", stats=ally.stats)
     equip_starter_loadout(ally.character.loadout, ally.character.role)
+    catalog = default_equipment_catalog()
+    for slot, item_id in (("sidearm", "mono_knife"), ("utility_item", "trauma_patch")):
+        ally.character.loadout.equip(slot, next(item for item in catalog[slot] if item.id == item_id))
     ally.attack_range = ally.character.loadout.primary_weapon.range_cells
     enemy = spawn(enemy_cell, EnemyStats(level=5), "enemy")
     enemy.attack_range = 3
@@ -121,8 +124,8 @@ def main() -> int:
                 time.sleep(.03)
         if args.smoke and mailbox is None:
             raise RuntimeError("The map selector did not start a scenario")
-        if args.smoke and (mailbox.sequence != 3 or mailbox.reply["state"]["round"] != 2
-                           or not mailbox.reply.get("events")):
+        if args.smoke and (mailbox.sequence != 5 or mailbox.reply["state"]["round"] != 2
+                           or not mailbox.reply["state"]["units"][0]["defending"]):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
         return godot.returncode
 
