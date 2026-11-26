@@ -1,5 +1,6 @@
 """Build raised laboratory work surfaces and rack fronts within surveyed bounds."""
 from pathlib import Path
+import json
 import math
 import sys
 
@@ -10,7 +11,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "lab289"
+output = phase / "lab290"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "lab282/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -146,9 +147,43 @@ for top in list(bpy.data.objects):
     count += 1
 
 assert count == 18 and len(families) == 4, (count, families)
+# Add independent source fixtures. Overlapping traces require individual reconciliation.
+repo = Path(__file__).resolve().parents[3]
+survey = json.loads((repo / "experiments/2d_to_3d/lab_fixtures290.json").read_text())
+grid_w, grid_h = json.loads((repo / "assets/maps/city_interior_research_lab.walls.json").read_text())["grid"]
+canvas_w, canvas_h = survey["canvas_size"]
+for fixture in survey["fixtures"]:
+    if fixture["action"] != "candidate_new":
+        continue
+    x1, y1, x2, y2 = fixture["rect"]
+    x = ((x1+x2)/2/canvas_w-.5)*grid_w
+    y = (.5-(y1+y2)/2/canvas_h)*grid_h
+    w, d = (x2-x1)/canvas_w*grid_w/2, (y2-y1)/canvas_h*grid_h/2
+    group = bpy.data.objects.new("Occludable_" + fixture["id"], None)
+    bpy.context.collection.objects.link(group)
+    if fixture["family"] == "storage":
+        for offset in (-.5, .5):
+            place(cargo, group, (x, y+offset*d, 0), (w*1.85, d*.88, .9))
+        continue
+    rack = fixture["family"] == "sample_rack"
+    body = box("Wall cabinet", (x, y, .52), (w*.94, d*.90, .52), dark)
+    body.parent = group
+    cap = box("Cabinet top trim", (x, y, 1.055), (w*.92, d*.89, .031), steel)
+    cap.parent = group
+    for index in range(3):
+        column = x+(index-1)*w*.58
+        front = box("Sample drawer" if rack else "Control display",
+                    (column, y-d*.90+.005, .73 if rack else .79),
+                    (w*.23, .05, .20), steel if rack else cyan)
+        front.parent = group
+        if rack:
+            latch = box("Sample latch", (column, y-d*.90-.074, .75),
+                        (w*.09, .018, .022), amber)
+            latch.parent = group
+
 floor = bpy.data.materials["Original laboratory floor"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
-texture.image = bpy.data.images.load(str(phase / "lab285/floor.png"))
+texture.image = bpy.data.images.load(str(phase / "lab290/floor.png"))
 for light in bpy.data.lights:
     if light.type == "POINT":
         light.energy *= .25
@@ -159,4 +194,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("LAB289_EXPORTED", count, "surveyed furniture groups")
+print("LAB290_EXPORTED", count, "surveyed furniture groups")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://multicast271.gd" id="1"]
+[node name="LaboratoryFurniture290" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/lab290/"
+reference_map = "city_interior_research_lab"
+reference_cells = Array[Vector2i]([Vector2i(23,14),Vector2i(21,15)])
+reference_models = Array[String](["sole_skin162/human.glb","modularity166/body_1.glb"])
+reference_idles = Array[String](["Hard stand","Rocketbox_Idle"])
+close_yaw = -0.9
+close_elevation = 6.5
+delivery_next_scene = "res://metro282_cast.tscn"
