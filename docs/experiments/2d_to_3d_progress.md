@@ -6370,3 +6370,33 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
 - Files: blender/door_palette238.py, publish_candidate.py, materials186.gd.
   Next: original-layout northern roof to replace another uniform surface.
   CHANTIER GLOBAL INCOMPLET.
+
+### NORTHERN-ROOF-239 — DONE scoped reconstruction; global art open
+- Northern roof uses its original asymmetric layout: left-side reused extractor,
+  service-unit cluster, peripheral pipes and broad right panel.75added parts;10fan
+  meshes and acquired pipe mesh reused from existing northeast assembly. One genuine
+  source view, hidden depth/connections inferred. Removed old generic compressor.
+- First rendered overview exposed retained compressor among new equipment; removed
+  it before final capture. Removal iteration initially referenced deleted Blender
+  objects; filtered the assembly list before deletion, rebuilt successfully.
+- Opening camera widened21->24.5m and shifted one further metre north, then restores
+  existing action framing. Full final native549frames1080p30 exit0, opening inspected;
+  unobstructed960x720 neutral building render also executed/inspected. Roof visible
+  behind VTOL; inherited brick facade and wear integration remain unfinished.
+  Source-part count assertions passed. No campaign or new live-FPS claim.
+- Current library227 video/gallery refreshed, with239 northern source/neutral view,
+  northeast roof/facade crops recalibrated for wider opening, and both source shops.
+  Actual H2641920x1080 at30FPS/AAC confirmed; raw AVI removed after encode.
+  State blocked1,occlusion908,health unchanged.238door factors retained in movie.
+- Consolidated both reusable shop Blender source pointers to current239 master;
+  all current library model paths verified before pruning11old intermediate files
+  (234..238BLEND/GLB plus239blend1), 1.290GiB file bytes reclaimed. Current239 full
+  packed master,219base, standalone shop GLBs, source textures, metadata and previews
+  retained. Historical intermediate states/check fixtures require ordered recipe
+  regeneration; E: environment-library/REBUILD_ENVIRONMENT.txt documents the chain.
+  E: tmp/cleanup239.json records removed paths. No unique source crops/models lost.
+- Files: blender/northern_roof239.py, blender/render_north239.py, aircraft221.gd,
+  materials186.gd, package_combat169.py. No production/save edits, AI inference,
+  campaign tests or Windows build. Next: larger remaining facade/street identity,
+  preserving one-map scope; no endless canopy-only or material-only batches.
+  CHANTIER GLOBAL INCOMPLET.

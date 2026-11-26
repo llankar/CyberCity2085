@@ -32,5 +32,5 @@ func update_camera(t: float) -> void:
  super.update_camera(t)
  # Brief establishing shot includes the aircraft before normal action framing.
  var establishing:=1.0-smoothstep(1.5,3.5,t)
- camera.position+=Vector3(-1,0,-2)*establishing
- camera.size=lerpf(camera.size,21.0,establishing)
+ camera.position+=Vector3(-1,0,-3)*establishing
+ camera.size=lerpf(camera.size,24.5,establishing)

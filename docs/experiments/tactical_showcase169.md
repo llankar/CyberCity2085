@@ -1098,3 +1098,10 @@ repetitive buildings still need artistic integration; no production/campaign cla
 238 door paint correction: real glTF factors verified with original normal/diffuse
 textures retained. Actual native close preview at ../showcase238/index.html;
 existing movie remains237 and is labeled explicitly. Pale-shutter issue reduced.
+
+239 current movie includes toned238 doors and source-layout northern roof; brief
+opening now24.5m before original action camera. Source/neutral northern comparison
+added, old generic compressor removed. Final native549frames, H2641080p30/AAC.
+Both reusable shop Blender pointers consolidated into239 packed master.11redundant
+intermediate exports pruned (1.290GiB file bytes);219base and reconstruction recipes
+retained. See E: environment-library/REBUILD_ENVIRONMENT.txt for old-state regeneration.
