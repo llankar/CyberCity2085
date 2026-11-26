@@ -3,8 +3,8 @@ extends Control
 const ENTRIES := [
  ["NEON MARKET // retained environment", "res://market251.tscn"],
  ["RESIDENTIAL // first assembly", "res://residential253.tscn"],
- ["RESEARCH LAB // work in progress", "res://laboratory248.tscn"],
- ["FACTORY // industrial detail in progress", "res://factory257.tscn"],
+ ["RESEARCH LAB // service wall detail", "res://lab261.tscn"],
+ ["FACTORY // industrial detail in progress", "res://factory260.tscn"],
  ["SUBWAY // first assembly", "res://metro250.tscn"],
  ["WASTELAND // partial reconstruction", "res://wasteland254.tscn"]
 ]

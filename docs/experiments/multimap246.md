@@ -216,3 +216,5 @@ Next: turbine/central-machine family from source references, then pipes/platform
 lab wall panels/doors/consoles, metro rails, residential services and richer ruins.
 Additional generated views must remain labelled inferred. Significant total object
 coverage across six maps is not yet inventoried; final artistic acceptance0/6.
+
+Current detail checkpoint259-262: factory260 and lab261 replace selector entries; baseline scenes preserved. Three industrial types/13 new instances, scientific service walls and local lights exported. Gallery on E: generated/phase2/detail262/index.html. Factory surveyed coverage5 detailed/11 coarse/16 flat, not full art inventory. All six final artistic acceptances remain TODO. Next: corner machines, flat factory props and metro track infrastructure.

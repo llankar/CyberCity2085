@@ -20,6 +20,7 @@ func _unhandled_input(event:InputEvent) -> void:
   if event.button_index==MOUSE_BUTTON_WHEEL_UP:review_camera.size=maxf(8,review_camera.size-2)
   if event.button_index==MOUSE_BUTTON_WHEEL_DOWN:review_camera.size=minf(60,review_camera.size+2)
 func _ready() -> void:
+ if "--topdown-review" in OS.get_cmdline_user_args():review_top_down=true
  var document := GLTFDocument.new()
  var state := GLTFState.new()
  assert(document.append_from_file(review_folder+review_model_name,state)==OK)

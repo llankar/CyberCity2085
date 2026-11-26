@@ -1,15 +1,22 @@
 """Artistic PBR estimates from the generated colour map; never claimed as measured."""
 from pathlib import Path
+import argparse
 import numpy as np
 from PIL import Image
 LAB=Path('E:/CyberCity2085-3d-lab')
 
 def main():
- source=LAB/'generated/phase2/arm256/paint/colour.png'
- out=LAB/'environment-library/assets/industrial_arm256';out.mkdir(parents=True,exist_ok=True)
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--source',type=Path,default=LAB/'generated/phase2/arm256/paint/colour.png')
+ parser.add_argument('--output',type=Path,default=LAB/'environment-library/assets/industrial_arm256')
+ parser.add_argument('--surface',choices=['painted','metal'],default='painted')
+ args=parser.parse_args();source=args.source.resolve();out=args.output.resolve()
+ if not source.is_relative_to(LAB.resolve()) or not out.is_relative_to(LAB.resolve()):raise ValueError('Materials must stay on E: lab')
+ out.mkdir(parents=True,exist_ok=True)
  rgb=np.asarray(Image.open(source).convert('RGB'),dtype=np.float32)/255
  red,green,blue=rgb[:,:,0],rgb[:,:,1],rgb[:,:,2]
  painted=(red>green*1.15)&(green>blue*1.1)
+ if args.surface=='metal':painted[:]=False
  dark=rgb.mean(axis=2)<.13
  scuffed=(rgb.max(axis=2)-rgb.min(axis=2)<.12)&(rgb.mean(axis=2)>.48)
  rough=np.full(red.shape,125,dtype=np.uint8);metal=np.full(red.shape,220,dtype=np.uint8)
