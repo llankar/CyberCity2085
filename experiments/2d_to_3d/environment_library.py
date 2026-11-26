@@ -14,12 +14,20 @@ MAP='city_exterior_neon_market_alley'
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def initialize():
+def initialize(map_name=None):
+    selected=map_name or MAP
+    if Path(selected).name!=selected or '/' in selected or '\\' in selected:
+        raise ValueError('Invalid map identifier')
+    return _initialize_map(selected)
+
+def _initialize_map(MAP):
     traces=ROOT/'assets/maps'/f'{MAP}.wall-traces.json'
     walls_path=ROOT/'assets/maps'/f'{MAP}.walls.json'
     walls=json.loads(walls_path.read_text())
     survey=json.loads(traces.read_text())
     source=LAB/'sources/tactical_map'/f'{MAP}.png'
+    if not source.is_file():
+        source=ROOT/'assets/maps'/f'{MAP}.png'
     source_hash=digest(source)
     if source_hash!=walls['image_sha256']:
         raise ValueError('Source image differs from the surveyed production original')
@@ -32,7 +40,12 @@ def initialize():
         sx=width/survey['canvas_size'][0];sy=height/survey['canvas_size'][1]
         for item in survey['walls']:
             identifier=item['id'];wall=cells[identifier]
-            rect=item['rect'];bounds=[round(rect[0]*sx),round(rect[1]*sy),round(rect[2]*sx),round(rect[3]*sy)]
+            rect=item.get('rect')
+            if rect is None:
+                points=item.get('polygon') or item['points']
+                pad=item.get('width',0)/2 if 'polygon' not in item else 0
+                rect=[max(0,min(p[0] for p in points)-pad),max(0,min(p[1] for p in points)-pad),min(survey['canvas_size'][0],max(p[0] for p in points)+pad),min(survey['canvas_size'][1],max(p[1] for p in points)+pad)]
+            bounds=[round(rect[0]*sx),round(rect[1]*sy),round(rect[2]*sx),round(rect[3]*sy)]
             target=crops/f'{MAP}__{identifier}.png'
             if not target.exists():image.crop(bounds).save(target)
             occupied=wall['cells'];xs=[c[0] for c in occupied];ys=[c[1] for c in occupied]
@@ -50,7 +63,7 @@ def initialize():
                 'artistic_status':'NOT_RECONSTRUCTED','remaining':['Isolate source object','Review reference','Select existing mesh or generation method']}
             records.append(record)
     manifest={'schema_version':1,'name':'CYBERCITY 2085 — ENVIRONMENT ASSET LIBRARY',
-              'scope':'One showcase map; source survey reused without tactical changes',
+              'scope':'Selected experimental maps; source surveys reused without tactical changes',
               'source_walls_sha256':digest(walls_path),'records':records}
     target=OUT/'library.json'
     if target.exists():
@@ -58,7 +71,7 @@ def initialize():
         manifest['assets']=old.get('assets',[])
         existing={r['id']:r for r in old['records']}
         # Preserve later reconstruction/segmentation decisions on repeated import.
-        manifest['records']=[existing.get(r['id'],r) for r in records]
+        manifest['records']=[r for r in old['records'] if r['source_map']!=MAP]+[existing.get(r['id'],r) for r in records]
     target.write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf8')
     cards=[]
     for r in manifest['records']:

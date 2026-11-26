@@ -43,5 +43,23 @@ class LibraryContract(unittest.TestCase):
  def test_rejects_changed_source(self):
   Image.new('RGB',(100,50),'red').save(self.source)
   with self.assertRaisesRegex(ValueError,'differs'):library.initialize()
+ def test_import_second_map_preserves_first_and_assets(self):
+  library.initialize()
+  for suffix in ['walls.json','wall-traces.json']:
+   (self.maps/f'second.{suffix}').write_bytes((self.maps/f'test_map.{suffix}').read_bytes())
+  (self.maps/'second.png').write_bytes(self.source.read_bytes())
+  library.initialize('second');library.initialize('second')
+  records=json.loads((self.out/'library.json').read_text(encoding='utf8'))['records']
+  self.assertEqual({r['source_map'] for r in records},{'test_map','second'})
+  self.assertEqual(len(records),2)
+ def test_rejects_path_identifier(self):
+  with self.assertRaises(ValueError):library.initialize('../outside')
+ def test_polygon_and_stroked_wall_context_bounds(self):
+  for shape,expected in [({'polygon':[[20,10],[40,10],[30,20]]},[20,10,40,20]),({'points':[[20,10],[40,10]],'width':4},[18,8,42,12])]:
+   (self.maps/'test_map.wall-traces.json').write_text(json.dumps({'canvas_size':[100,50],'walls':[dict(id='bench',**shape)]}))
+   library.initialize()
+   record=json.loads((self.out/'library.json').read_text(encoding='utf8'))['records'][0]
+   self.assertEqual(record['crop_pixels'],expected)
+   (self.out/'library.json').unlink()
 
 if __name__=='__main__':unittest.main()
