@@ -1,6 +1,27 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` CAST-200 scoped distinct reinforcement and retaliation (2026-11-26).
+  Previous turn differentiated three roofs. Reused existing authored civilian
+  body plus textured rigged helmet (modularity166) for enemy4 instead of clone;
+  five shared actions and actual pistol attachment retained. No AI generation,
+  geometry repaint or new downloads. Added one real returning shot. First take
+  crossed teammate; path endpoint moved to(6,0,.45). Chest-origin take retained;
+  actual wrist/calibrated.3s firing pose now emits shot. Inherited idle no longer
+  restarts shoot every frame. Treatment begins at actual HP instead of fixed76.
+  Native trace:76->64HP; teammate clearance.763855m. Runtime and package checks
+  cover this one shot, not general friendly-fire collision. One trace typing
+  parse failure fixed; not counted as passed capture. Earlier takes retained.
+  Final902frame1920x1080/30fps/81s offline capture packaged successfully;
+  1blockedshot/602occlusion frames/final health unchanged.0030, shot extraction
+  and four-frame burst board actually inspected: alternate body/helmet visible,
+  line clears teammate, firing motion proceeds instead of restarting.
+  Full-motion fit/aim artistic acceptance NOT VERIFIED. Files: cast200scene,
+  movie/package scripts, scoped docs. No production/campaign/push. Global
+  IN_PROGRESS: duplicate green main/medic identity, humanoid quality, repeated
+  architecture and whole-encounter artistic acceptance. Next: distinguish
+  support medic using genuine retained accessories rather than procedural
+  clothing or generic recoloring. CHANTIER GLOBAL INCOMPLET.
 - `DONE` ROOF-199 scoped building identity delivery (2026-11-26). Prior turn
   fixed conflicting dressing/end orbit. Three different hard-surface roof
   assemblies now distinguish utility building (reservoir, lid, bands/mounts),

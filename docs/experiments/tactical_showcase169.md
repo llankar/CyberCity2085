@@ -601,3 +601,32 @@ Remaining artistic scope: repeated facade kit and human/cast distinction,
 full-motion contacts/impact readability. Next work should focus retained human
 candidates at combat scale rather than more small decorative roof pieces.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Cast200 - alternate reinforcement with actual retaliation
+
+Gallery: `E:/CyberCity2085-3d-lab/generated/phase2/cast200/index.html`.
+Reproduce: `run_movie169.ps1 -Cast200`, then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/cast200`.
+
+Enemy4 now uses existing `modularity166/body_0_helmet_restfixed.glb` with its
+real textures/helmet and shared five actions, rather than duplicating enemy1.
+Existing Blender source linked in gallery. No new body generation or repaint.
+Added retaliation at11.7s reuses actual pistol, effects and WAV. First take
+crossed teammate; new endpoint(6,0,.45) gives a measured.763855m clearance on
+this shot. `retaliation.json` proves76->64HP. Runtime/package assertions check
+clearance>.35 and damage12 for this one event. This is not a new general
+friendly-fire system. Flash starts from actual wrist at the existing.3s firing
+pose. Idle guard allows the shoot animation to progress. Four-frame visual
+board inspected: distinct body/helmet, unobstructed trace and progressing pose.
+Treatment starts from actual remaining HP and uses the retained5HP/s cap100.
+
+Final902frames1920x1080/30fps/81s offline, packaging assertions pass;1blockedshot,
+602occlusion frames, final health unchanged. Earlier crossed/chest/wrist takes
+preserved. One sparse trace typing error caused a parse failure, corrected
+before final capture; no final script/parse error found. No campaign test,
+production edit, new download or push. Exact barrel alignment/full-motion fit
+not claimed. Global art remains incomplete, especially duplicate green main/
+medic identity and architectural repetition. Next: genuine retained medical
+accessory/role distinction, without rebuilding humans from primitives.
+CHANTIER GLOBAL INCOMPLET.
