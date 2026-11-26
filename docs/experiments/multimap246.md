@@ -218,3 +218,5 @@ Additional generated views must remain labelled inferred. Significant total obje
 coverage across six maps is not yet inventoried; final artistic acceptance0/6.
 
 Current detail checkpoint259-262: factory260 and lab261 replace selector entries; baseline scenes preserved. Three industrial types/13 new instances, scientific service walls and local lights exported. Gallery on E: generated/phase2/detail262/index.html. Factory surveyed coverage5 detailed/11 coarse/16 flat, not full art inventory. All six final artistic acceptances remain TODO. Next: corner machines, flat factory props and metro track infrastructure.
+
+Track263 IN_PROGRESS: standalone real-profile rails/sleepers and native scene exported on E:, two tests PASS. Artistic review NOT VERIFIED due image-output limit; selector intentionally retains metro250 until comparison. Ground-level only, recessed track/platform elevation remains TODO.
