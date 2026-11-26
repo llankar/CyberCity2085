@@ -128,7 +128,7 @@ func _process(delta: float) -> void:
  if actors[selected_ally].fallen:
   select_next_ally()
  refresh_selection()
- status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Esc: close" % [
+ status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
   scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
@@ -137,6 +137,22 @@ func _process(delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
+    focus_selected()
+    if not review_target.is_equal_approx(cell_position(state.units[0].cell)):
+     push_error("Camera did not focus the active operative")
+     get_tree().quit(19)
+     return
+    var drag := InputEventMouseMotion.new()
+    drag.button_mask = MOUSE_BUTTON_MASK_MIDDLE
+    drag.position = get_viewport().get_visible_rect().get_center()
+    drag.relative = Vector2(40, 20)
+    var focused := review_target
+    _unhandled_input(drag)
+    if review_target.is_equal_approx(focused):
+     push_error("Camera did not pan with middle drag")
+     get_tree().quit(20)
+     return
+    focus_selected()
     var start: Array = state.units[0].cell
     var enemy: Array = unit_state("enemy:0").cell
     smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),
@@ -328,11 +344,34 @@ func unit_state(id: String) -> Dictionary:
  return {}
 
 
+func focus_selected() -> void:
+ var actor: TacticalActor = actors.get(selected_ally)
+ if actor == null or actor.fallen:
+  return
+ review_target = Vector3(actor.position.x, 0, actor.position.z)
+ update_review_camera()
+
+
+func ground_under_cursor(screen_point: Vector2) -> Variant:
+ return Plane(Vector3.UP, 0).intersects_ray(
+  review_camera.project_ray_origin(screen_point), review_camera.project_ray_normal(screen_point))
+
+
 func _unhandled_input(event: InputEvent) -> void:
- super._unhandled_input(event)
  if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
   get_tree().quit()
   return
+ if review_camera == null:
+  return
+ super._unhandled_input(event)
+ if event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_MIDDLE:
+  var previous: Variant = ground_under_cursor(event.position - event.relative)
+  var current: Variant = ground_under_cursor(event.position)
+  if previous is Vector3 and current is Vector3:
+   review_target += previous - current
+   review_target.x = clampf(review_target.x, -20.0, 20.0)
+   review_target.z = clampf(review_target.z, -14.0, 14.0)
+   update_review_camera()
  if mailbox == null or mailbox.state.get("outcome") != null:
   return
  if event is InputEventKey and event.pressed and not event.echo:
@@ -348,6 +387,7 @@ func _unhandled_input(event: InputEvent) -> void:
    KEY_F: attack_mode = "fire"
    KEY_M: attack_mode = "melee"
    KEY_P: attack_mode = "psi"
+   KEY_HOME: focus_selected()
    KEY_TAB:
     if not playing_events and not mailbox.state.is_empty():
      select_next_ally()
@@ -361,9 +401,7 @@ func _unhandled_input(event: InputEvent) -> void:
    selected_ally = ally
    refresh_selection()
    return
-  var ray := review_camera.project_ray_normal(event.position)
-  var origin := review_camera.project_ray_origin(event.position)
-  var ground: Variant = Plane(Vector3.UP, 0).intersects_ray(origin, ray)
+  var ground: Variant = ground_under_cursor(event.position)
   if ground is Vector3:
    send({"action": "move", "actor": selected_ally,
     "destination": [floori(ground.x + 20), floori(14 - ground.z)]})
