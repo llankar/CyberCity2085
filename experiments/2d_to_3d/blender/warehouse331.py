@@ -14,7 +14,7 @@ from library_placement import place
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
 lab = Path("E:/CyberCity2085-3d-lab")
-output = lab / "generated/phase2/warehouse332"
+output = lab / "generated/phase2/warehouse333"
 name = "city_industrial_warehouse_floor"
 source = root / "assets/maps" / name
 survey = json.loads(source.with_suffix(".wall-traces.json").read_text())
@@ -27,12 +27,14 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.context.preferences.filepaths.save_version = 0
 steel = make_material("Warehouse rack steel", (.075,.11,.15,1), .65,.48)
 beam = make_material("Warehouse rack safety beam", (.52,.17,.028,1), .45,.48)
-cargo_count = wall_count = rack_count = 0
+container_skin = make_material("Weathered container green", (.062,.15,.14,1), .65,.63)
+cargo_count = wall_count = rack_count = container_count = 0
 for row in survey["walls"]:
     identifier = row["id"]
     is_wall = identifier.endswith("_wall")
     is_rack = identifier.startswith("row")
-    if not is_wall and not is_rack and "crate" not in identifier:
+    is_container = identifier.startswith("west_container_")
+    if not (is_wall or is_rack or is_container or "crate" in identifier):
         continue
     x1, y1, x2, y2 = row["rect"]
     w, d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
@@ -49,6 +51,25 @@ for row in survey["walls"]:
             place(wall, group, (x if vertical else x+offset, y+offset if vertical else y, 0),
                   (span, thickness, 1.7), yaw=math.pi/2 if vertical else 0)
             wall_count += 1
+    elif is_container:
+        parts = [box("Container body", (x,y,.88), (w*.46,d*.44,.88), container_skin)]
+        for side in (-1, 1):
+            for rib in range(11):
+                parts.append(box("Container corrugation", (x+(rib-5)*w*.078,y+side*d*.45,.88),
+                                 (.026,.024,.76), container_skin, .008))
+        for side in (-1,1):
+            parts.append(box("Container door", (x+w*.469,y+side*d*.215,.87),
+                             (.025,d*.20,.78), steel, .016))
+            parts.append(box("Container lock rod", (x+w*.486,y+side*d*.16,.88),
+                             (.012,.016,.72), beam, .006))
+        bpy.ops.object.select_all(action="DESELECT")
+        for part in parts:
+            part.select_set(True)
+        bpy.context.view_layer.objects.active = parts[0]
+        bpy.ops.object.join()
+        bpy.context.object.name = "Warehouse shipping container"
+        bpy.context.object.parent = group
+        container_count += 1
     elif is_rack:
         rack_count += 1
         parts = []
@@ -82,7 +103,7 @@ for row in survey["walls"]:
                       (w/nx*.93,d/ny*.93,1.05))
                 cargo_count += 1
 
-assert rack_count == 10, rack_count
+assert rack_count == 10 and container_count == 3, (rack_count, container_count)
 floor = make_material("Warehouse source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")
@@ -96,8 +117,8 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB")
 elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
-    "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count,
-    "reused_model_families":2, "new_model_families":1, "blender_seconds":elapsed,
-    "remaining":"containers, forklifts, office, stairs and loading bay"
+    "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count, "container_instances":container_count,
+    "reused_model_families":2, "new_model_families":2, "blender_seconds":elapsed,
+    "remaining":"forklifts, office, stairs and loading bay"
 }, indent=2))
-print("WAREHOUSE332_EXPORTED", cargo_count, wall_count, elapsed)
+print("WAREHOUSE333_EXPORTED", cargo_count, wall_count, elapsed)

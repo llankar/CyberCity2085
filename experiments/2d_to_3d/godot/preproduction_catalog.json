@@ -40,8 +40,8 @@
     "family": "industry",
     "reuse": "factory cargo and service walls",
     "status": "preview",
-    "scene": "res://warehouse332.tscn",
-    "scope": "partial: walls, cargo and racks"
+    "scene": "res://warehouse333.tscn",
+    "scope": "partial: walls, cargo, racks and containers"
   },
   {
     "map": "city_industrial_power_substation",
