@@ -6134,3 +6134,28 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   register next asset in same bindings, no new per-object scene subclass.
   Hunyuan territory permission still unresolved; no new inference/production edit,
   campaign test, resource push or bulk downloads. CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` CONTAINERS-228 second original-derived library prototype (2026-11-26).
+  Actual east_bins context isolated with two explicit polygons; RGB source pixels
+  retained under saved mask, production image SHA unchanged (actually checked).
+  Class remains paneled utility pair, not asserted generic litter bins. One real
+  view; height/end panels/hidden faces inferred. Blender model44parts, muted purple
+  housings, black reinforcement/panel seams, dull hinge hardware, actual retained
+  surface roughness/normal. Neutral render actually inspected; still a prototype.
+  Mesh bounds1.52x1.6495x.889m recorded, anchor bottom center. Source/model metadata
+  upserted in library; compilation now produces2associations. No new per-object
+  Godot scene/runtime subclass: roof and pair both load through library227.gd.
+  Current native placement(9.9167,0,2.0741), original east_bins render group hidden,
+  actual tactical cells unchanged. Final0030 inspected: pair visible at right
+  foreground; no obvious duplicate in opening view, full orbit boundaries remain
+  NOT VERIFIED. Original floor untouched; no arbitrary painted-area deletion.
+  Native549frames1080p30/70s offline; blocked1,occlusion914,health retained.
+  Movie/gallery updated at generated/phase2/library227/index.html/MP4; source
+  mask/reference/neutral/BLEND/GLB in environment-library/assets/purple_paneled_pair.
+  Four placement contracts pass. Same geometry exported again only to record
+  actual mesh bounds; no native movie rerun for that metadata-only change.
+  Files: extract_containers228.py, blender/containers228.py, package_combat169.py.
+  AVI and obsolete local blend1 removed after encoding. No new weights/inference,
+  production/save edits, campaign test or resource push. Next: original-derived
+  whole roof/shop identity, using same library associations; inspect duplicated
+  ground-art boundaries as coverage grows. CHANTIER GLOBAL INCOMPLET.

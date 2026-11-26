@@ -1011,3 +1011,15 @@ Only the current showcase map is supported by the scene runtime. The placement
 compiler/module is reusable, but no arbitrary-map reconstruction is claimed.
 No source/collision edits, no model duplication. Recompile unchanged bindings
 reuses output files. Four small contract tests passed; no campaign test.
+
+## Original paneled pair228
+
+`extract_containers228.py` preserves actual east_bins RGB under explicit masks.
+`run_blender.ps1 -Script blender/containers228.py` reconstructs the pair; unseen
+faces/height remain inferred. Library metadata includes actual mesh bounds and
+source placement. Re-run build_library_scene.py to load both roof fan and pair
+through the same generic runtime. No per-object scene code was added.
+
+Current FullHD movie/gallery: generated/phase2/library227/index.html. Opening
+frame reviewed; ground-art duplication is not obvious there, but full-orbit edge
+review is still open. Production floor/tactical cells and save remain untouched.
