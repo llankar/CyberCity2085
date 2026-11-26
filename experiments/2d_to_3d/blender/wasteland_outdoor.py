@@ -2,6 +2,7 @@
 import math
 
 import bpy
+import numpy as np
 
 from create_hardsurface_crate import box, make_material
 from library_placement import place
@@ -22,7 +23,13 @@ class WastelandOutdoors:
         links = self.aggregate.node_tree.links
         shader = nodes.get("Principled BSDF")
         diffuse = nodes.new("ShaderNodeTexImage")
-        diffuse.image = bpy.data.images.load(str(concrete_path / "diff.jpg"), check_existing=True)
+        source = bpy.data.images.load(str(concrete_path / "diff.jpg"), check_existing=True)
+        pixels = np.empty(len(source.pixels), dtype=np.float32)
+        source.pixels.foreach_get(pixels)
+        pixels.reshape(-1, 4)[:, :3] *= (.62, .58, .54)
+        diffuse.image = bpy.data.images.new("Weathered Wasteland concrete", *source.size)
+        diffuse.image.pixels.foreach_set(pixels)
+        diffuse.image.pack()
         links.new(diffuse.outputs["Color"], shader.inputs["Base Color"])
         roughness = nodes.new("ShaderNodeTexImage")
         roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
@@ -32,6 +39,22 @@ class WastelandOutdoors:
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
+
+    @staticmethod
+    def project_concrete_uv(mesh):
+        mesh.update()
+        uv = mesh.uv_layers.active or mesh.uv_layers.new()
+        for face in mesh.polygons:
+            dominant = max(range(3), key=lambda axis: abs(face.normal[axis]))
+            axes = [axis for axis in range(3) if axis != dominant]
+            for loop in face.loop_indices:
+                point = mesh.vertices[mesh.loops[loop].vertex_index].co
+                uv.data[loop].uv = tuple(point[axis] / 2 for axis in axes)
+
+    def concrete_box(self, name, position, scale, bevel=.025):
+        block = box(name, position, scale, self.aggregate, bevel)
+        self.project_concrete_uv(block.data)
+        return block
 
     def coordinates(self, px, py):
         return px*self.gw/self.cw-self.gw/2, self.gh/2-py*self.gh/self.ch
@@ -45,8 +68,8 @@ class WastelandOutdoors:
             width = row["width"] * self.gw/self.cw
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
-                segment = box(name, ((ax+bx)/2,(ay+by)/2,height/2),
-                              (math.hypot(bx-ax,by-ay)/2,width/2,height/2), self.stone, .055)
+                segment = self.concrete_box(name, ((ax+bx)/2,(ay+by)/2,height/2),
+                              (math.hypot(bx-ax,by-ay)/2,width/2,height/2), .055)
                 segment.rotation_euler.z = math.atan2(by-ay,bx-ax)
                 segment.parent = group
             return
@@ -69,14 +92,7 @@ class WastelandOutdoors:
                     faces.append((layer+i,layer+j,layer+j+n,layer+i+n))
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)
-            mesh.update()
-            uv = mesh.uv_layers.new()
-            for face in mesh.polygons:
-                dominant = max(range(3), key=lambda axis: abs(face.normal[axis]))
-                axes = [axis for axis in range(3) if axis != dominant]
-                for loop in face.loop_indices:
-                    point = mesh.vertices[mesh.loops[loop].vertex_index].co
-                    uv.data[loop].uv = tuple(point[axis] / 2 for axis in axes)
+            self.project_concrete_uv(mesh)
             for material in (self.stone, self.aggregate, self.seam):
                 mesh.materials.append(material)
             mesh.polygons[1].material_index = 1
@@ -143,17 +159,17 @@ class WastelandOutdoors:
                         (w*(.41 if vertical else .146),d*(.146 if vertical else .41),.11),
                         self.canvas, .08).parent = group
         elif self.city and ("ruin" in name or name == "ne_corner"):
-            box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16), self.stone).parent = group
+            self.concrete_box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16)).parent = group
             for side in (-1,1):
                 for index in range(3):
                     height = .75+.22*((index+(side>0))%3)
-                    box(name+" fractured facade", (x+(index-1)*w*.31,y+side*d*.41,height/2),
-                        (w*.154,d*.075,height/2), self.stone, .065).parent = group
-            box(name+" end wall", (x-w*.405,y,.51), (w*.058,d*.36,.51), self.stone, .065).parent = group
+                    self.concrete_box(name+" fractured facade", (x+(index-1)*w*.31,y+side*d*.41,height/2),
+                        (w*.154,d*.075,height/2), .065).parent = group
+            self.concrete_box(name+" end wall", (x-w*.405,y,.51), (w*.058,d*.36,.51), .065).parent = group
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
-                box(name,(x+w*(i-1)/3,y,.18+.11*i),
-                    (w*.162,d*.48,.18+.11*i),self.stone,.08).parent = group
+                self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
+                    (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
 
