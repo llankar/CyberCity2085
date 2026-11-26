@@ -96,3 +96,36 @@ Then run `blender/factory249.py` via existing Blender wrapper, and
 Next: source-specific industrial reactors/assembly lines and proper lab instrument
 meshes, then metro/residential/wasteland using shared library. No new map has full
 artistic acceptance; six-map selector, cast/real combat adapter and tour are TODO.
+
+## Metro250 and environment selector251
+
+IN_PROGRESS. Source subway art inspected, then24 survey groups assembled as
+separate architectural parts: four recessed twin escalators,112 treads, two seat
+banks, service columns, bins and ticket surfaces. Original floor retained outside
+selected repair rectangles; stair openings use alpha in an E: copy. Existing PBR
+metal and an actual source display crop used. Native Godot355 meshes loaded;
+FullHD screenshot inspected. Plain wall/cabinet surfaces and terminal detail remain
+below the retained showcase standard. This is not full artistic acceptance.
+
+Reproduce: `python experiments/2d_to_3d/prepare_metro250.py`, existing Blender wrapper
+with `blender/metro250.py`, then `python experiments/2d_to_3d/register_metro250.py`.
+Four standalone transit modules are registered: escalator pair, seats, service
+column and terminal. BLEND source/root, GLB, textures/materials, dimensions, source
+reference and footprint recorded. Escalator anchor is the entry plane (stairs
+extend below it), rather than incorrectly using the lowest tread as ground.
+One actual GLB/floor-opening test PASS. Changed Python files compile.
+
+`res://multimap251.tscn` provides independent selection of market, laboratory,
+factory and subway art reviews; residential/wasteland remain explicitly disabled.
+Shared reviews support Q/E rotation, wheel zoom and return to selector. These are
+environment reviews, not four playable tactical battles. Market review preserves
+the existing environment model; the original staged encounter remains untouched.
+Native `--menu-smoke` actually emitted the subway button, loaded its GLB, emitted
+the return button and exited0 with `ENVIRONMENT_MENU_ROUNDTRIP_PASS`.
+
+Combat reuse inspected: existing `combat_mission_ui.gd` owns rules and exposes
+`_visual_move_token`, `_visual_attack`, `_visual_self_effect`; production autoload
+CombatSignals and res://scripts dependencies must be retained in an isolated
+experimental project/adapter. No replacement combat rules were implemented.
+Next: residential/wasteland, richer source-specific equipment, retained cast and
+this visual adapter. New artistically accepted environments remain0/5.
