@@ -455,3 +455,23 @@ duty.6,period1.2, while inherited travel assumes generic nominal speed.85m/s.
 Derive cycle speed from that gait before further visual polish; do not rerun
 old import/rig gates. Global scene art/contacts and whole-sequence acceptance
 remain IN_PROGRESS, not completion.
+
+## Gait194 — authored cadence and actual path
+
+Independent gait194 scene derives cannon193. Existing .28m stance displacement,
+.6duty/1.2s period imply .388889m/s nominal stance speed. Actual2.8m/5s path is
+.56m/s; cycle scale1.44 replaces inherited human-oriented.6588. Other paths,
+events and clips unchanged. Constants refer to the existing baked191/193 gait;
+regenerating that gait requires updating this explicit prototype calibration.
+
+Executed one native902frame1920x1080/30fps capture,74s offline. gait.json records
+actual1.4399999speed_scale and.56path speed. One blockedshot/61occlusions, same
+six-unit health, no script/parse/surface errors found (existing SDL warning).
+Package MP4/audio/GIF and eight-frame8.2s walk board, which was inspected: more
+frequent steps, no major new tearing in these samples. Not proof of planted
+feet across the full clip; supports cadence correction, not complete contact art.
+E:gait194/index.html includes prior193 walk comparison. No new model export.
+
+Next substantive priority: whole-map composition and visual identity/readability,
+not more tiny foot poses. Remaining contact/architecture/complete artistic review
+criteria stay open. No production/campaign/download/push or old rig/engine gates.

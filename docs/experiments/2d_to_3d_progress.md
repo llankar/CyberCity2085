@@ -1,6 +1,16 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` GAIT-194 scoped cadence correction (2026-11-26). Previous turn delivered
+  geometry-attached cannon. New194 scene matches authored.28stride/.6duty/1.2s
+  period to actual.56m/s path: speed_scale1.44 instead of human-based.66.
+  One native902FullHD30 take/74s offline,1blockedshot/61occlusions, health same.
+  Eight-frame walk board inspected: cadence change visible, no major new tearing
+  in samples; planted-foot/full-clip art NOT VERIFIED. Native log has no script/
+  parse/surface errors. MP4/audio/GIF/gallery includes193 comparison. No new model
+  or repeated old rig gates. Next: whole-map composition/identity rather than
+  more tiny foot poses. Global IN_PROGRESS: contacts and final scene art/review
+  remain open. No production/campaign/download/push; old193 retained.
 - `DONE` CANNON-193 visible socket/aim trial (2026-11-26). Previous turn delivered
   grounded painted robot encounter. Geometry-derived cap/axis sockets on carrying
   bone, rigid cap weighting; robot193 realGLB/BLEND retained separately. New193
