@@ -1066,3 +1066,10 @@ True draped384quad mesh with thickness; authentic source RGB crop; overhead cap 
 removed after actual native inspection. Same scene/cast/path/camera; no tactical edit.
 FullHD30 H264/AAC verified; raw AVI removed. Baked source light and stretched cloth
 proportions still limit art quality; this partial shop is not a finished library model.
+
+234: selected scene now loads a complete standalone market shop from the reusable
+library at the original parent/anchor. Three original sage/green/plum cloth crops
+replace the over-stretched single tarp; lower machinery/counter remain interpreted.
+Full native549frame video refreshed at1080p30. Standalone shop GLB and Blender root
+reference are linked in the gallery/library. Baked source lighting and generic lower
+counter still need art work; no all-angle clipping or global completion claim.

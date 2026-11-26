@@ -6260,3 +6260,27 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
 - Files: extract_canopy233.py, blender/original_canopy233.py, materials186.gd,
   package_combat169.py. Next: reusable full original-derived shop assembly and better
   source-texture proportions/lighting. CHANTIER GLOBAL INCOMPLET.
+
+### ORIGINAL-SHOP-234 — DONE scoped reusable shop; global art still open
+- Replaced stretched single tarp with three separate sage/green/plum meshes from
+  genuine original RGB crops. Exact pixel equality tests passed for all three.
+  600cloth quads plus thickness and corner supports. Lower acquired machinery and
+  interpreted counter remain explicitly identified, not authentic recovered views.
+- Exported complete normalized shop GLB15.3MB, source references the selected packed
+  environment.blend/root (no duplicate Blender master). Registered original parent
+  market_nw at[-9.5,0,-2], scale1, rotation0; library replaces old visible shop meshes
+  before loading standalone GLB. Three library instances now actually loaded natively.
+- First focused native100frame capture found overdeep canopy near VTOL. Reduced
+  canopy depth to1.8m before full final render; opening view inspected, shop aligned
+  and fewer stretched textures. No broad all-angle clipping acceptance claimed.
+- Full final native549frames1080p30 completed exit0; offline73s (not live FPS).
+  Retained combat outcomes; four placement metadata tests passed. No campaign tests,
+  AI generation, new build or production edits. Source library re-import preserved
+  registered asset. Baked source highlights remain; counter still too generic.
+- Files: extract_shop234.py, blender/original_shop234.py, register_shop234.py,
+  materials186.gd, package_combat169.py. E: environment-library/assets/
+  market_three_canopies/shop.glb and source/model.json; showcase234/environment.blend.
+  Current gallery/movie refreshed through package, raw AVI and blend1 cleaned after
+  successful encoded deliverable verification. Next: original counter/furniture
+  identity and larger architectural surfaces; no mass conversion.
+  CHANTIER GLOBAL INCOMPLET.
