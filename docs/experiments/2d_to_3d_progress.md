@@ -5964,3 +5964,14 @@ resources must not be pushed without explicit authorization.
   normalizes CRLF only in an E: temporary runner; first source-shell attempt
   failed due to Windows line endings, corrected before generation. No campaign
   tests, production edits or push. CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` VTOL-220 local color trial (2026-11-26). Paint process63484 exited0:
+  actual1024x1024 albedo exported on40000faces; paint93.9s excluding imports,
+  peak allocated11.03GB/reserved14.34GB. No model acquisition. Blender neutral
+  renders produced at paint220/stealth_vtol/review, isometric actually inspected:
+  source silhouette/cockpit/fan rings recognizable, but soft geometry and green
+  contamination at turbine edges remain. Candidate only, not final aircraft.
+  Packed .blend, textured GLB, color.png and neutral views retained on E:.
+  Next: inspect/clean texture artifacts and compare in Godot at same size as
+  VTOL178, retaining existing animation solution; do not regenerate the shape.
+  No running paint job remains; no production replacement, campaign or push.
