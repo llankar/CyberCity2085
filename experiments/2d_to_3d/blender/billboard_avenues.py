@@ -18,6 +18,7 @@ BUILDING_EXCEPTIONS = {
     "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
     "far_northeast", "southwest_annex", "north_mid", "se_corner", "nw_tower",
+    "west_middle", "east_middle",
 }
 
 
@@ -38,6 +39,7 @@ def build(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
+    industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)
@@ -89,6 +91,31 @@ def build(name):
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if industrial and identifier.endswith("_wall"):
+            box(identifier, (x,y,.7), (w/2,d/2,.7), wall).parent = group
+            box(identifier + " coping", (x,y,1.4), (w/2,d/2,.055), frame).parent = group
+            continue
+        if identifier.endswith("_machine"):
+            vertical = d > w
+            place(library / "industrial_generator265/model.glb", group, (x,y,0),
+                  (max(w,d),min(w,d),1.7), yaw=math.pi/2 if vertical else 0)
+            continue
+        if identifier.startswith("forklift_"):
+            vertical = d > w
+            length, width = (d,w) if vertical else (w,d)
+            group.location = (x,y,0)
+            group.rotation_euler.z = math.pi/2 if vertical else 0
+            skin = shipping_skins[1]
+            parts = [
+                ("counterweight", (-length*.19,0,.28), (length*.27,width*.40,.23), skin),
+                ("cab", (-length*.11,0,.66), (length*.21,width*.32,.24), frame),
+                ("mast", (length*.14,0,.58), (.055,width*.31,.57), frame),
+            ]
+            parts.extend(("fork", (length*.30,width*side*.19,.09),
+                          (length*.19,width*.064,.034), frame) for side in (-1,1))
+            for label, position, size, material in parts:
+                box(identifier + " " + label, position, size, material).parent = group
+            continue
         if identifier.startswith(("car_", "north_car", "south_car")):
             vertical = d > w
             place(library / "derelict_suv275/model.glb", group, (x, y, 0),
@@ -176,7 +203,7 @@ def build(name):
             for label, position, half_size, material in parts:
                 box(f"{identifier} {label}", position, half_size, material).parent = group
             continue
-        if not any(part in identifier for part in ("block", "building", "_roof", "warehouse")) and identifier not in BUILDING_EXCEPTIONS:
+        if not any(part in identifier for part in ("block", "building", "_roof", "warehouse", "_factory")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
         shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
         shell.parent = group
@@ -195,6 +222,14 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
+        if industrial:
+            door_width = min(w*.48, 3.3)
+            box(identifier + " loading shutter", (x,front+direction*.07,.95),
+                (door_width/2,.08,.95), frame).parent = group
+            for slat in range(1,9):
+                box(identifier + " shutter slat", (x,front+direction*.157,slat*.20),
+                    (door_width*.48,.012,.02), wall).parent = group
+            continue
         if "billboard" not in name and i % 3 != 0:
             continue
         sign_width = min(w*.75, 4.2)

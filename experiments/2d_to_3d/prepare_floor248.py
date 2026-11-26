@@ -7,12 +7,12 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
-def prepare(source,survey):
+def prepare(source,survey,*,include_side_walls=False):
     original=np.asarray(source.convert('RGB')).copy();height,width=original.shape[:2]
     mask=np.zeros((height,width),dtype=np.uint8)
     sx=width/survey['canvas_size'][0];sy=height/survey['canvas_size'][1]
     for item in survey['walls']:
-        if item['id'] in ('west_wall','east_wall'):continue
+        if not include_side_walls and item['id'] in ('west_wall','east_wall'):continue
         if item.get('kind') == 'water':continue
         if 'polygon' in item:
             points=np.array([[round(x*sx),round(y*sy)] for x,y in item['polygon']],dtype=np.int32)
@@ -37,6 +37,7 @@ def main():
     parser.add_argument('--map',default=NAME)
     parser.add_argument('--output',type=Path,default=LAB/'generated/phase2/lab248')
     parser.add_argument('--objects',help='Comma-separated identifiers of actual 3D replacements')
+    parser.add_argument('--include-side-walls',action='store_true',help='Mask replaced east and west wall drawings')
     args=parser.parse_args()
     if Path(args.map).name!=args.map or '/' in args.map or '\\' in args.map:raise ValueError('Invalid map identifier')
     source=ROOT/f'assets/maps/{args.map}.png';raw=source.read_bytes()
@@ -48,7 +49,7 @@ def main():
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)
-    result,mask=prepare(Image.open(source),survey);result.save(out/'floor.png')
+    result,mask=prepare(Image.open(source),survey,include_side_walls=args.include_side_walls);result.save(out/'floor.png')
     Image.fromarray(mask).save(out/'replacement_mask.png')
     assert source.read_bytes()==raw
     (out/'floor.json').write_text(json.dumps({'source_sha256':hashlib.sha256(raw).hexdigest(),'method':'Inferred floor only inside surveyed replacement rectangles; original corridors retained','masked_pixels':int(np.count_nonzero(mask))},indent=2))

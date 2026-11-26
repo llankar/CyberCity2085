@@ -12,7 +12,9 @@ $env:TMP = $env:TEMP
 $env:PYTHONPYCACHEPREFIX = Join-Path $labRoot 'cache/python'
 foreach ($map in $Maps) {
     $output = Join-Path $labRoot "generated/phase2/billboard_avenues/$map"
-    python (Join-Path $PSScriptRoot 'prepare_floor248.py') --map $map --output $output
+    $floorOptions = @()
+    if ($map.EndsWith('freight_yard')) { $floorOptions += '--include-side-walls' }
+    python (Join-Path $PSScriptRoot 'prepare_floor248.py') --map $map --output $output @floorOptions
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 & (Join-Path $PSScriptRoot 'run_blender.ps1') -Script blender/billboard_avenues.py -ScriptArguments $Maps

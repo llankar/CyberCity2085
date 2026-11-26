@@ -129,8 +129,10 @@
     "map": "city_transit_freight_yard",
     "family": "transit",
     "reuse": "rails and factory cargo",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://city_transit_freight_yard.tscn",
+    "scope": "surveyed freight and industrial structures modeled; art review pending"
   },
   {
     "map": "city_industrial_security_checkpoint",
@@ -490,8 +492,10 @@
   {
     "map": "cybercity_street_12_industrial_district",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_12_industrial_district.tscn",
+    "scope": "surveyed freight and industrial structures modeled; art review pending"
   },
   {
     "map": "cybercity_street_12_transit_interchange",
@@ -512,8 +516,10 @@
   {
     "map": "cybercity_street_13_industrial_district",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_13_industrial_district.tscn",
+    "scope": "surveyed freight and industrial structures modeled; art review pending"
   },
   {
     "map": "cybercity_street_14_bridge_access",

@@ -31,3 +31,17 @@ def test_water_polygon_is_preserved_as_ground_art():
     assert not mask[:, :43].any()
     assert mask[28, 68] == 255
     assert repaired.crop((0, 0, 43, 100)).tobytes() == original.crop((0, 0, 43, 100)).tobytes()
+
+
+def test_side_wall_mask_requires_explicit_replacement():
+    original = Image.new("RGB", (40, 40), "white")
+    survey = {
+        "canvas_size": [40, 40],
+        "walls": [{"id": "west_wall", "rect": [0, 5, 4, 35]}],
+    }
+    _, retained = prepare(original, survey)
+    _, replaced = prepare(original, survey, include_side_walls=True)
+
+    assert not retained.any()
+    assert replaced[15, 2] == 255
+    assert replaced[15, 5] == 0
