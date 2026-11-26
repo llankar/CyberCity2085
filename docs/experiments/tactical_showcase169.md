@@ -1055,3 +1055,8 @@ material warmup; final mean59.61FPS,p9516.692ms. Startup36.65s is still separate
 Use --measure-live for optional post-draw measurements; E: library227/live_live.json.
 These measurements cover this experimental scene, not production. No PNG writes
 occurred in corrected live runs. Further art work remains open.
+
+232 material pass: existing acquired worn plate PBR applied to four service doors
+and utility covers, preserving geometry. Selected E: showcase232 environment.
+Actual Godot crop: ../showcase232/facade_detail.png; subtle improvement, not final.
+Existing encounter MP4 remains230; no new video was rendered for this material pass.

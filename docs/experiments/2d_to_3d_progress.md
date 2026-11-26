@@ -6222,3 +6222,20 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
 - Remaining: initial134ms hitch and long loading need future targeted improvement;
   next artistic batch remains facade wear/materials and map-specific variety.
   CHANTIER GLOBAL INCOMPLET.
+
+### SERVICE-MATERIAL-232 — DONE scoped material pass; artistic finish open
+- Reused existing acquired blue_metal_plate diffuse/roughness/normal maps on four
+  Service230 doors/utility covers, metric UV repeat2m; no new geometry, AI download,
+  tactical mutation or production change. Packed E: showcase232/environment.blend,
+  environment.glb, materials.json and facade_detail.png; selected by library227.
+- Blender export executed successfully; four-object assertion passed. Native Godot
+  full encounter1006frames then focused100frame capture both exited0. First run
+  exposed material-retint whitelist omission; corrected before second run. Four
+  placement metadata tests passed (not artistic tests). Current actual native crop
+  inspected: worn sheet visible on doors, subtle at tactical distance; large wall
+  surfaces remain flat. NOT final artistic acceptance. No new MP4 this pass; existing
+  gallery video still depicts230, new still crop is232. No claimed video equivalence.
+- Files: blender/service_material232.py, godot/materials186.gd.
+- Next: improve large facade surface treatment and source-specific silhouettes;
+  do not repeat micro-wear passes without clear combat-scale improvement.
+  CHANTIER GLOBAL INCOMPLET.
