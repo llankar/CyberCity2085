@@ -37,6 +37,8 @@ def build(name):
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
     partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
+    ballast = make_material("Track bed", (.047,.052,.053,1), .07,.93)
+    rail = make_material("Rail steel", (.18,.22,.25,1), .82,.42)
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
@@ -70,7 +72,7 @@ def build(name):
                 joint.data.materials.append(steel)
                 joint.parent = group
             continue
-        if kind == "partition":
+        if kind in {"partition", "rubble"}:
             outline = manifest["outlines"][identifier]
             outline = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px,py in outline]
             if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(outline, outline[1:]+outline[:1])) < 0:
@@ -79,7 +81,9 @@ def build(name):
             faces = [tuple(reversed(range(count))), tuple(range(count,2*count))]
             faces.extend((i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count))
             mesh = bpy.data.meshes.new(identifier)
-            mesh.from_pydata([(x,y,z) for z in (0,1.50) for x,y in outline], [], faces)
+            top = [(x,y,1.50 if kind == "partition" else .42+(i%4)*.15)
+                   for i,(x,y) in enumerate(outline)]
+            mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
             mesh.materials.append(steel)
             mesh.materials.append(partition_cap)
             mesh.polygons[1].material_index = 1
@@ -101,6 +105,30 @@ def build(name):
             build_bed(group, x, y, w, d, steel, linen, trim)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)
+        elif kind == "track":
+            box(identifier+" ballast", (x,y,.012), (w/2,d/2,.012), ballast).parent = group
+            count = max(1, round(w/.40))
+            for i in range(count):
+                offset = ((i+.5)/count-.5)*w
+                box(identifier+" sleeper", (x+offset,y,.046),
+                    (.077,d*.34,.025), partition_cap).parent = group
+            for side in (-1,1):
+                box(identifier+" rail", (x,y+side*d*.23,.104),
+                    (w/2,.044,.032), rail).parent = group
+        elif kind == "column":
+            box(identifier+" base", (x,y,.10), (w*.49,d*.49,.10), ballast).parent = group
+            box(identifier+" upright", (x,y,.88), (w*.39,d*.39,.80), steel).parent = group
+            box(identifier+" cap", (x,y,1.67), (w*.45,d*.45,.09), partition_cap).parent = group
+        elif kind == "stair":
+            direction = 1 if y > 0 else -1
+            for i in range(8):
+                offset = ((i+.5)/8-.5)*d*direction
+                height = (i+1)*.13
+                box(identifier+" tread", (x,y+offset,height/2),
+                    (w*.47,d/16,height/2), steel).parent = group
+        elif kind == "stall":
+            market = library / "market_southeast_display/shop.glb"
+            place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw)
         elif kind == "fountain":
             for label, z, depth, scale, material in (
                 ("basin", .18, .36, .47, steel), ("water", .36, .025, .39, screen),
@@ -165,6 +193,12 @@ def build(name):
                       (span,breadth,1.7), yaw=yaw)
         else:
             place(labs[kind], group, (x,y,0), (length*.97,breadth*.97,1.7), yaw=yaw)
+
+    if name == "city_transit_train_tunnel":
+        # The two continuous tracks are visible in the source texture but have
+        # no obstacle trace. Align the rails to the four painted running lines.
+        for index, fraction in enumerate((.415,.465,.551,.599)):
+            box(f"Running rail {index+1}", (0,gh*(.5-fraction),.045), (gw/2,.035,.032), rail)
 
     floor = make_material("Original interior floor", (.13,.15,.17,1), .05,.84)
     nodes = floor.node_tree.nodes

@@ -51,6 +51,12 @@ INTERIORS = (
     "wasteland_inner_11_maintenance_depot",
     "wasteland_inner_12_apartment_shelter",
     "wasteland_inner_13_data_relay_room",
+    "city_transit_train_tunnel",
+    "city_transit_metro_interchange",
+    "wasteland_inner_02_collapsed_tunnel",
+    "wasteland_inner_07_collapsed_tunnel",
+    "wasteland_inner_09_underground_market",
+    "wasteland_inner_14_underground_market",
 )
 
 
@@ -69,7 +75,17 @@ def fixtures(name):
             continue
         if not any(key in row for key in ("rect", "polygon")):
             continue
-        if "wall" in identifier or (name.endswith("penthouse_atrium") and "_edge" in identifier):
+        if identifier.endswith("_tracks"):
+            selected[identifier] = "track"
+        elif "stairs" in identifier:
+            selected[identifier] = "stair"
+        elif identifier.startswith("column_"):
+            selected[identifier] = "column"
+        elif "collapsed_span" in identifier:
+            selected[identifier] = "rubble"
+        elif "stall" in identifier:
+            selected[identifier] = "stall"
+        elif "wall" in identifier or (name.endswith("penthouse_atrium") and "_edge" in identifier):
             selected[identifier] = "wall"
         elif "bed" in identifier or identifier == "operating_table":
             selected[identifier] = "bed"
@@ -79,7 +95,7 @@ def fixtures(name):
             selected[identifier] = "crate"
         elif "server" in identifier or "cabinet" in identifier:
             selected[identifier] = "cabinet"
-        elif any(part in identifier for part in ("console", "computer", "gaming")):
+        elif any(part in identifier for part in ("console", "computer", "gaming", "_kiosk", "ticket_")):
             selected[identifier] = "console"
         elif any(part in identifier for part in ("sofa", "chair", "booth")):
             selected[identifier] = "sofa"
@@ -97,7 +113,7 @@ def fixtures(name):
             selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"
-        elif any(part in identifier for part in ("machine", "scan", "generator", "conduit", "_pipe")):
+        elif any(part in identifier for part in ("machine", "scan", "generator", "conduit", "_pipe", "_utility", "_track_box", "_valve")):
             selected[identifier] = "machine"
     return survey, selected
 
@@ -115,7 +131,8 @@ def main():
                         "--output", str(OUTPUT / name), "--objects", ",".join(selected),
                         "--include-side-walls"], check=True)
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
-                    for row in survey["walls"] if selected.get(row["id"]) == "partition"}
+                    if selected[row["id"]] == "partition" else row["polygon"]
+                    for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
         (OUTPUT / name / "fixtures.json").write_text(
             json.dumps({"selected": selected, "outlines": outlines}), encoding="utf-8"
         )

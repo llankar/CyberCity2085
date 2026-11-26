@@ -117,15 +117,19 @@
     "map": "city_transit_train_tunnel",
     "family": "transit",
     "reuse": "rail assemblies and wall services",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://city_transit_train_tunnel.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "city_transit_metro_interchange",
     "family": "transit",
     "reuse": "platform furnishings and ticket terminals",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://city_transit_metro_interchange.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "city_transit_freight_yard",
@@ -704,8 +708,10 @@
   {
     "map": "wasteland_inner_02_collapsed_tunnel",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_02_collapsed_tunnel.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "wasteland_inner_03_ruined_clinic",
@@ -750,8 +756,10 @@
   {
     "map": "wasteland_inner_07_collapsed_tunnel",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_07_collapsed_tunnel.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "wasteland_inner_08_data_relay_room",
@@ -780,8 +788,10 @@
   {
     "map": "wasteland_inner_09_underground_market",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_09_underground_market.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "wasteland_inner_10_detention_block",
@@ -834,8 +844,10 @@
   {
     "map": "wasteland_inner_14_underground_market",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_14_underground_market.tscn",
+    "scope": "partial: surveyed transit, tunnel or market fixtures"
   },
   {
     "map": "wasteland_inner_15_detention_block",

@@ -25,3 +25,6 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     _, tunnel = fixtures("city_industrial_service_tunnel")
     assert tunnel["ne_room_pipe_elbow"] == "pipe"
     assert "nw_room_floor_grate" not in tunnel
+    _, metro = fixtures("city_transit_metro_interchange")
+    assert metro["east_top_tracks"] == "track"
+    assert metro["north_stairs_w"] == "stair"
