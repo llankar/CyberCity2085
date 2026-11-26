@@ -6531,3 +6531,6 @@ Factory original examined; six survey groups replaced using retained generator/c
 
 ## Batch250 - IN_PROGRESS source-guided subway
 24 surveyed groups assembled with recessed twin escalators/112treads, seat banks, columns, bins and terminals. Source display crop and retained metal PBR used; native Godot355meshes exited0 and FullHD screenshot inspected. Four standalone modules exported/registered with actual dimensions, source/root/footprint and entry-plane anchor for descending stairs. One actual exported-GLB/floor-opening test PASS; Python compilation PASS. Plain wall/terminal detail remains artistically unfinished. E: metro250 assets, no production/save changes.
+
+## Batch251 - IN_PROGRESS environment selector
+Independent six-entry selector: four current art reviews enabled, residential/wasteland explicitly pending. Q/E rotation, wheel zoom, return button. Native button-signal roundtrip selector->metro->selector actually passed/exited0. Environment reviews do not implement combat or prove all six maps complete. Existing combat visual hooks inspected for future adapter, no alternative rules engine. Next: remaining two environments, richer meshes and actual combat/cast adapter. No campaign tests/build/new inference. CHANTIER GLOBAL INCOMPLET.
