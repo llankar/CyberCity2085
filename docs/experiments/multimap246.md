@@ -1,5 +1,12 @@
 # Experimental six-map production
 
+LATEST PRIORITY — Environment Detail Pass (attachment5f16d061,2026-11-26):
+work by reusable object families across the existing six maps. Do not expand the
+map count or treat flat art/rectangular extrusions as finished complex objects.
+Prioritize industrial machines, then compatible lab/transport/residential/ruin
+families; combat adapter work is deferred during this art pass. Preserve all six
+baseline scenes, source PNGs, tactical data and production runtime.
+
 IN_PROGRESS — 2026-11-26. Latest attached multi-map brief supersedes the earlier
 single-showcase limit. Production runtime, original maps and saves stay untouched.
 
@@ -167,3 +174,45 @@ dynamic occlusion, detailed source-specific equipment, per-map memory/live perfo
 and close tactical comparisons remain open. Hunyuan input strategy for top-down
 map props needs improvement or a different asset method; do not repeat failed
 single-view crops unchanged. CHANTIER GLOBAL INCOMPLET.
+
+## Detail pass256–258 — first reusable industrial family
+
+DONE scoped prototype: one actual source-guided Hunyuan industrial arm and one
+precise mechanical roller conveyor. Filename search of project/SourceAssets found
+no isolated industrial arm match; the real west_assembly crop supplies the original
+view. Built-in imagegen reconstructed one clean oblique reference, explicitly
+inferred (one authentic top-down view, one generated view). Prompt:
+`experiments/2d_to_3d/references/industrial_arm256.prompt.txt`.
+Reference/provenance retained on E: `sources/arm256/`.
+
+Hunyuan2mini:920440 raw triangles;57.4s;4.87GB allocated/5.42GB reserved. Blender
+optimization39993 triangles. Hunyuan paint:1024² colour;86.3s;11.03GB allocated/
+14.34GB reserved. No new weights downloaded. Native neutral geometry then coloured
+GLB reviewed. Pedestal-ground anchor normalized; model height2.1m. Roughness/metal
+masks and restrained enamel grading are artistic estimates, not measured scans.
+High-definition shape, optimized/painted stages and final BLEND/GLB/maps retained.
+
+Conveyor:22 distinct transverse rollers, bearings, structural rails, supports,
+braces and drive motor;155 parts, existing PBR metal maps. This is real rigid
+mechanical geometry, not a rectangular source projection. Both resources registered
+with dimensions/anchors/source/provenance and actual use in factory257.
+
+Factory257 preserves factory249 baseline and replaces three source assembly groups
+with6 arms and5 conveyor modules. Eleven meaningful new instances from2 reusable
+asset types; other important machine groups remain flat/unreconstructed. No final
+map acceptance. Original floor drawings removed only in experimental replacement
+regions; reviewed original clean floor sample replaces smeared inpainting beneath
+assembly lines. Original outside-mask pixels asserted identical.
+
+Native1014 environment meshes loaded. Wide/combat-scale/close screenshots inspected;
+retained Rook plays Hard stand and sits on original free cell9,19 for scale only.
+No new rules or combat engine. Two exported-resource/source-preservation tests PASS.
+Native short orbit captured with this retained agent; H2641920x1080/30FPS/6.1s
+verified by ffprobe. Offline capture is not a live performance benchmark.
+E: `generated/phase2/factory257/detail258_1080p30.mp4`, `close_agent.png`,
+`combat_scale_agent.png`; asset close view under environment-library/assets/industrial_arm256/.
+
+Next: turbine/central-machine family from source references, then pipes/platforms,
+lab wall panels/doors/consoles, metro rails, residential services and richer ruins.
+Additional generated views must remain labelled inferred. Significant total object
+coverage across six maps is not yet inventoried; final artistic acceptance0/6.

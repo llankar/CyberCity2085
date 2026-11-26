@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://laboratory247.gd" id="1"]
+[node name="IndustrialArmReview256" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/environment-library/assets/industrial_arm256/"
+review_model_name = "model.glb"
+review_size = 3.5
+review_target = Vector3(0, 1, 0)
+review_distance = 4.0
+review_elevation = 2.7

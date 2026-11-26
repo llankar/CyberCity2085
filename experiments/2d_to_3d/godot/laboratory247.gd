@@ -1,11 +1,16 @@
 extends Node3D
 ## Art import review only. This scene does not implement tactical rules.
 @export var review_folder := "E:/CyberCity2085-3d-lab/generated/phase2/lab247/"
+@export var review_model_name := "environment.glb"
+@export var review_size := 34.0
+@export var review_target := Vector3.ZERO
+@export var review_distance := 40.0
+@export var review_elevation := 34.0
 var review_camera:Camera3D
 var review_yaw:=0.663
 func update_review_camera() -> void:
- review_camera.position=Vector3(sin(review_yaw)*40,34,cos(review_yaw)*40)
- review_camera.look_at(Vector3.ZERO)
+ review_camera.position=review_target+Vector3(sin(review_yaw)*review_distance,review_elevation,cos(review_yaw)*review_distance)
+ review_camera.look_at(review_target)
 func _unhandled_input(event:InputEvent) -> void:
  if event is InputEventKey and event.pressed:
   if event.keycode==KEY_Q:review_yaw-=.25;update_review_camera()
@@ -16,7 +21,7 @@ func _unhandled_input(event:InputEvent) -> void:
 func _ready() -> void:
  var document := GLTFDocument.new()
  var state := GLTFState.new()
- assert(document.append_from_file(review_folder+"environment.glb",state)==OK)
+ assert(document.append_from_file(review_folder+review_model_name,state)==OK)
  var model := document.generate_scene(state)
  add_child(model)
  if review_folder.ends_with("/showcase245/"):
@@ -51,11 +56,10 @@ func _ready() -> void:
  var camera:=Camera3D.new()
  add_child(camera)
  camera.projection=Camera3D.PROJECTION_ORTHOGONAL
- camera.size=34
- camera.position=Vector3(25,34,32)
- camera.look_at(Vector3.ZERO)
+ camera.size=review_size
  camera.current=true
  review_camera=camera
+ update_review_camera()
  await get_tree().process_frame
  await RenderingServer.frame_post_draw
  get_viewport().get_texture().get_image().save_png(review_folder+"godot_overview.png")

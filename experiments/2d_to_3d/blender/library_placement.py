@@ -4,7 +4,7 @@ import bpy
 from mathutils import Vector,Matrix
 _cache={}
 
-def place(source,parent,center,dimensions):
+def place(source,parent,center,dimensions,*,preserve_anchor=False,yaw=0.0):
     source=Path(source).resolve()
     if source.drive.upper()!='E:':raise ValueError('Experimental library asset must remain on E:')
     if source not in _cache:
@@ -21,8 +21,8 @@ def place(source,parent,center,dimensions):
     # permission to stretch a compressor or crate into an unrelated silhouette.
     factor=min(dimensions[i]/(hi[i]-lo[i]) for i in range(3))
     scale=Vector((factor,factor,factor))
-    origin=Vector(((lo.x+hi.x)/2,(lo.y+hi.y)/2,lo.z))
-    transform=Matrix.Translation(Vector(center))@Matrix.Diagonal(Vector((*scale,1)))@Matrix.Translation(-origin)
+    origin=Vector((0,0,0)) if preserve_anchor else Vector(((lo.x+hi.x)/2,(lo.y+hi.y)/2,lo.z))
+    transform=Matrix.Translation(Vector(center))@Matrix.Rotation(yaw,4,'Z')@Matrix.Diagonal(Vector((*scale,1)))@Matrix.Translation(-origin)
     result=[]
     for data,world,name in templates:
         o=bpy.data.objects.new(parent.name+' '+name,data);bpy.context.collection.objects.link(o)
