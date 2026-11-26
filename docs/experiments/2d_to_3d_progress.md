@@ -38,12 +38,35 @@ This register is separate from the principal CyberCity 2085 GOAL.
   Previous207 turn classified progress (actual art/runtime changes and evidence).
   CHANTIER GLOBAL INCOMPLET: architecture still repetitive, bright/blank panels,
   main/medic face reuse, robot material/destruction and full-motion art open.
-- `TODO` CAST-209 next: reuse retained authored helmet/accessories to distinguish
-  the medic from the main green-jacket agent, preserving existing skeleton and
-  treatment clips; inspect idle and medical pose in the actual encounter before
-  accepting fit. Continue architecture with authored components that produce a
-  clear silhouette/material improvement, rather than repeating palette trials.
-  Hunyuan candidate improvement and final single-map art acceptance remain open.
+- `DONE` MEDIC209 / ROBOT210 scoped character art pass (2026-11-26).
+  Actual retained AuthoredProp_5028 helmet exported separately, .29m wide,
+  original texture/289vertices; head BoneAttachment follows existing medic rig.
+  Original human body, animation clips and medical pack unchanged. Short native
+  preview160frames exits0, actual preview inspected; full209capture902frames
+  inspected in medical pose0750, helmet stays on bent head. No new rig.
+  Heavy painted robot193 geometry/UV/albedo/14bones/cannon sockets/five clips
+  retained in210. Metal.55/roughness.58, emission mask from existing red pixels
+  (14690/1048576), native sensor fade20..21s accompanies existing destruction.
+  Rest-valued tracks retained on210 import, as for193; no new animation audit.
+  Final210native902frames1080p30/86s offline; package checks PASS: blocked1,
+  occlusion831, health[100,0,0,100,76,100], contact/retaliation unchanged.
+  Actual0030/0750 inspected: clear helmet silhouette, active red/orange sensors,
+  darkened wreck sensors. Full-motion art NOT VERIFIED. Gallery links PASS,
+  before/after medical and robot crops generated from native identical framing.
+  Files: medic_helmet209.py,robot_finish210.py, medic209/finish210 scenes,
+  demo167 import condition, movie/package helpers. E: medic209/helmet.blend/.glb;
+  robot210/robot_actions.blend/.glb/sensor PNG; finish210/index.html,
+  encounter_1080p30.mp4, GIF/captures/comparisons.209AVI intermediate not encoded
+  again; final210 consolidates both changes. Previous208 turn was progress.
+  No production/save change, campaign, download, push or release;205preserved.
+  CHANTIER GLOBAL INCOMPLET: architecture still repetitive/contemporary lamps,
+  class wardrobe incomplete, further Hunyuan improvement and final art open.
+- `TODO` SHOWCASE211 next visible art: replace contemporary street lamps and a
+  selected repeated facade assembly with convincing cyberpunk rigid components,
+  keeping existing map cells/paths. Reuse acquired geometry where suitable;
+  avoid another palette-only variant. Keep210 cast/robot and existing motions.
+  Then consolidate the strongest variant and inspect the representative combat
+  sequence at actual zoom, before updating the self-contained delivery.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already

@@ -821,3 +821,21 @@ state/contact checks PASS; overview/medical captures inspected, local gallery
 links PASS. No production/campaign/download/push. Stable205 preserved.
 Art remains incomplete: repeated wall kits and bright panels; distinct medic
 silhouette with retained authored accessories is the next concrete task209.
+
+
+### Medic209 and heavy robot210 ? consolidated character art preview
+
+Current preview: `E:/CyberCity2085-3d-lab/generated/phase2/finish210/index.html`.
+Build `blender/medic_helmet209.py` and `blender/robot_finish210.py` through
+`run_blender.ps1`, then `run_movie169.ps1 -Finish210` and package its folder.
+The medic reuses an actual acquired helmet (.29m wide) attached to the existing
+head bone; original body, treatment and spine-mounted case stay intact. Short
+native preview and actual medical pose inspected. Robot retains193 geometry,
+14bones/five clips, texture and sockets; metal response and red-pixel emission
+added, sensor emission shuts down during destruction. Rest tracks stay enabled.
+Final210902frames1080p30/86s offline; package contact/state checks and gallery
+links PASS, actual overview/medical captures inspected. Before/after crops use
+native identical framing. Intermediate209movie not redundantly encoded.
+Full-motion art, complete class wardrobe and finished environment remain open.
+No production, campaign, downloads or push. Stable205 preserved. Next211 targets
+contemporary lamps/repeated facade geometry rather than another palette trial.
