@@ -90,8 +90,10 @@
     "map": "city_district_tech_market",
     "family": "commerce",
     "reuse": "market stalls and signage",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://techmarket341.tscn",
+    "scope": "partial: four electronics stalls"
   },
   {
     "map": "city_exterior_billboard_avenue",
