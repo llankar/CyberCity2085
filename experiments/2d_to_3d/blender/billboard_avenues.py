@@ -19,6 +19,7 @@ BUILDING_EXCEPTIONS = {
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
     "far_northeast", "southwest_annex", "north_mid", "se_corner", "nw_tower",
     "west_middle", "east_middle",
+    "sw_corner", "north_entry_w", "north_entry_e", "north_civic", "south_civic",
 }
 
 
@@ -72,7 +73,7 @@ def build(name):
                            (length/2,width/2,.24), frame)
                 rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
             continue
-        if identifier.endswith("_ramp_island") and "polygon" in row:
+        if "polygon" in row and (name.endswith("civic_plaza") or identifier.endswith("_ramp_island")):
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["polygon"]]
             if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(points, points[1:]+points[:1])) < 0:
                 points.reverse()
@@ -80,8 +81,13 @@ def build(name):
             faces = [tuple(reversed(range(count))), tuple(range(count, 2*count))]
             faces.extend((j, (j+1)%count, (j+1)%count+count, j+count) for j in range(count))
             mesh = bpy.data.meshes.new(identifier)
-            mesh.from_pydata([(x,y,z) for z in (0,.22) for x,y in points], [], faces)
+            is_planter = "planter" in identifier
+            height = .68 if identifier.endswith("_high") else .31 if is_planter else .22
+            mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in points], [], faces)
             mesh.materials.append(wall)
+            if is_planter:
+                mesh.materials.append(foliage)
+                mesh.polygons[1].material_index = 1
             island = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(island)
             continue
@@ -91,6 +97,29 @@ def build(name):
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if identifier.startswith("market_") or identifier.endswith("_stall"):
+            market_models = (
+                LAB / "generated/phase2/techmarket341/shared_electronics_stall.glb",
+                library / "market_southeast_display/shop.glb",
+                library / "market_three_canopies/shop.glb",
+            )
+            place(market_models[i % 3], group, (x,y,0), (w*.96,d*.96,2.05))
+            continue
+        if identifier.endswith("_monument"):
+            radius = min(w,d)*.40
+            box(identifier + " base", (x,y,.20), (w*.48,d*.48,.20), wall).parent = group
+            for label, height, lower, upper, center, material in (
+                ("shaft", 1.65, radius*.56, radius*.32, 1.22, frame),
+                ("light", .12, radius*.34, radius*.34, 2.08, signs[0]),
+                ("spire", .62, radius*.34, .02, 2.45, frame),
+            ):
+                bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=lower, radius2=upper,
+                                                depth=height, location=(x,y,center))
+                piece = bpy.context.object
+                piece.name = identifier + " " + label
+                piece.data.materials.append(material)
+                piece.parent = group
+            continue
         if industrial and identifier.endswith("_wall"):
             box(identifier, (x,y,.7), (w/2,d/2,.7), wall).parent = group
             box(identifier + " coping", (x,y,1.4), (w/2,d/2,.055), frame).parent = group

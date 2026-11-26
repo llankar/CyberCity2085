@@ -45,3 +45,15 @@ def test_side_wall_mask_requires_explicit_replacement():
     assert not retained.any()
     assert replaced[15, 2] == 255
     assert replaced[15, 5] == 0
+
+
+def test_civic_planter_mask_preserves_the_adjacent_diagonal_walkway():
+    original = Image.new("RGB", (100, 100), "white")
+    survey = {
+        "canvas_size": [100, 100],
+        "walls": [{"id": "planter_nw", "polygon": [[10, 10], [70, 10], [10, 70]]}],
+    }
+    _, mask = prepare(original, survey)
+
+    assert mask[25, 25] == 255
+    assert mask[55, 55] == 0

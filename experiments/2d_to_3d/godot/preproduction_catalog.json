@@ -376,8 +376,10 @@
   {
     "map": "cybercity_street_02_neon_market_alley",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_02_neon_market_alley.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_03_elevated_freeway",
@@ -398,8 +400,10 @@
   {
     "map": "cybercity_street_05_civic_plaza",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_05_civic_plaza.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_06_downtown_intersection",
@@ -428,8 +432,10 @@
   {
     "map": "cybercity_street_07_neon_market_alley",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_07_neon_market_alley.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_08_elevated_freeway",
@@ -442,8 +448,10 @@
   {
     "map": "cybercity_street_08_neon_market_alley",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_08_neon_market_alley.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_09_elevated_freeway",
@@ -464,8 +472,10 @@
   {
     "map": "cybercity_street_10_civic_plaza",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_10_civic_plaza.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_10_waterfront_docks",
@@ -478,8 +488,10 @@
   {
     "map": "cybercity_street_11_civic_plaza",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_11_civic_plaza.tscn",
+    "scope": "surveyed civic structures and market stalls modeled; art review pending"
   },
   {
     "map": "cybercity_street_11_transit_interchange",
