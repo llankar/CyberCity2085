@@ -33,7 +33,7 @@ func load_glb(relative: String, place: Vector3) -> Node3D:
 	if doc.append_from_file(ROOT + relative, state) != OK:
 		failures.append(relative); return null
 	# Keep rest-valued tracks for the new robot: every action must reset prior poses.
-	var model := (doc.generate_scene(state,30,false,false) if relative.begins_with("robot191/") else doc.generate_scene(state)) as Node3D
+	var model := (doc.generate_scene(state,30,false,false) if (relative.begins_with("robot191/") or relative.begins_with("robot193/")) else doc.generate_scene(state)) as Node3D
 	add_child(model); model.position = place
 	for mesh in model.find_children("*","MeshInstance3D",true,false):
 		for index in mesh.mesh.get_surface_count():

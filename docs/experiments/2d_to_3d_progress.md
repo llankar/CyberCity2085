@@ -1,6 +1,18 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` CANNON-193 visible socket/aim trial (2026-11-26). Previous turn delivered
+  grounded painted robot encounter. Geometry-derived cap/axis sockets on carrying
+  bone, rigid cap weighting; robot193 realGLB/BLEND retained separately. New193
+  scene aligns cannon and shot origin using sockets, no generic muzzle offset.
+  One native902FullHD30 take/74s offline,1blockedshot/61occlusions, health same.
+  Inspected0146: barrel trace meets crate, crouching agent protected. Residual
+  axis error3.73degrees on one shot; no all-motion accuracy claim or fine tuning.
+  Inspected0750: prior grounded wreck/medical staging retained. No script/parse/
+  surface errors found; actual audio/video/GIF/gallery packaged. Next: synchronize
+  robot gait speed with authored stride/duty/period instead of generic.85m/s.
+  Global IN_PROGRESS: gait/contacts and final scene art/sequence review open.
+  No production/campaign/download/push; old192/media preserved.
 - `DONE` PAINTED-192 independent full encounter trial (2026-11-26).
   Corrected191 arms by actual mesh islands, then integrated broad painted robot
   into separate materials186-derived scene. Five full captures tracked real

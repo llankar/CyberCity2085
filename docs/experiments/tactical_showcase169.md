@@ -430,3 +430,28 @@ art still open: gait/armor contacts, precise cannon muzzle alignment, scene-wide
 material/architecture quality and complete sequence review. Next: inspect the
 whole encounter's action readability, fixing significant visible discrepancies
 rather than another battery of old import/rig checks.
+
+## Cannon193 — geometry sockets and visible aim, 2026-11-26
+
+New cannon_sockets193.py derives robot191: cap vertices of actual barrel identify
+muzzle/axis, two sockets attached to upper_arm.R; barrel cap section made rigid
+on that carrying bone. Source robot193 GLB/packedBLEND and muzzle.json on E:.
+No new geometry generated or AI run. Native cannon193 scene drives heading and
+bone aim from sockets, re-applies aim after animation advancement during the
+shot window, and uses the exact socket origin (no generic22cm clearance).
+Base hooks default to prior behavior; only experimental sources edited.
+
+Executed one native902frame1920x1080/30fps take,74seconds offline. Actual shot
+at4.8s reports3.73degree residual axis error after two aim iterations: not a
+micrometre gate or full-motion accuracy claim. Inspected cannon0146: trace starts
+at barrel and hits real crate while Rook crouches behind it. One blockedshot,
+61occlusions, same six-unit health. Final0750 inspected: grounded wreck and
+medical scene retained. No script/parse/surface errors found, existing SDL
+warning remains. Package actual recorded audio to MP4/GIF/gallery with193 sources.
+Previous192 and earlier media retained.
+
+Next significant visible discrepancy: robot's new gait uses authored stride.28,
+duty.6,period1.2, while inherited travel assumes generic nominal speed.85m/s.
+Derive cycle speed from that gait before further visual polish; do not rerun
+old import/rig gates. Global scene art/contacts and whole-sequence acceptance
+remain IN_PROGRESS, not completion.

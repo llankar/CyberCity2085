@@ -128,6 +128,12 @@ func muzzle_position(source: int) -> Vector3:
 		return equipment.attachment.global_position
 	return actors[source].position+Vector3(0,1.3,0)
 
+func muzzle_clearance(_source: int) -> float:
+	return .22
+
+func after_unit_animations(_t: float) -> void:
+	pass
+
 func fire(source: int,target_index: int) -> void:
 	face(source,actors[target_index].position)
 	clip(source,"ShootStudy" if source in [0,3] else ("Melee" if source==2 else "Pistol_Shoot"))
@@ -135,7 +141,7 @@ func fire(source: int,target_index: int) -> void:
 	var from := muzzle_position(source)
 	var target_point := actors[target_index].position+Vector3(0,1.1,0)
 	if target_index==0 and played[0]=="CoverStudy":target_point.y=.65
-	from+=(target_point-from).normalized()*.22
+	from+=(target_point-from).normalized()*muzzle_clearance(source)
 	for sample in range(1,51):
 		var point := from.lerp(target_point,float(sample)/50)
 		var cell := Vector2i(floori(point.x+20),floori(point.z+14))
@@ -205,6 +211,7 @@ func _process(delta: float) -> void:
 		rings[index].visible=health[index]>0
 		bars[index].position=actors[index].position+Vector3(0,2.05 if index!=2 else 2.5,0)
 		bars[index].scale.x=float(health[index])/100;bars[index].visible=health[index]>0
+	after_unit_animations(t)
 	raider_pistol.visible=t>=6 and t<12
 	update_camera(t)
 	for building in buildings:
