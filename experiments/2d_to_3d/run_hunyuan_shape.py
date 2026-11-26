@@ -12,7 +12,7 @@ from run_trellis_mesh import verified_existing_mesh
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt", "vehicle", "industrial_machine", "rook_unarmed"])
+    parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt", "vehicle", "industrial_machine", "rook_unarmed", "stealth_vtol"])
     args = parser.parse_args()
     lab = Path(os.environ["LAB"]).resolve()
     if str(lab) != "/mnt/e/CyberCity2085-3d-lab":
@@ -24,8 +24,12 @@ def main():
         trial = "rook_combat"
     if args.subject == "rook_unarmed":
         source = lab / "generated/phase2/reference175/rook_unarmed.png"
+    if args.subject == "stealth_vtol":
+        source = lab / "sources/vtol220/reference.png"
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     output = lab / f"generated/phase2/{'hunyuan175' if args.subject=='rook_unarmed' else 'hunyuan166'}/{trial}"
+    if args.subject == "stealth_vtol":
+        output = lab / "generated/phase2/hunyuan220/stealth_vtol"
     output.mkdir(parents=True, exist_ok=True)
     evidence = output / "result.json"
     if evidence.exists():

@@ -5946,3 +5946,21 @@ resources must not be pushed without explicit authorization.
   package_combat169.py. No production/save edit, campaign test or push.
   Next: stronger VTOL and architectural variety beyond material changes.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` VTOL-220 shape candidate (2026-11-26). Original production combat
+  illustration vehicle_aerial_military_04_vtol_stealth_dropship_512.png copied
+  to E: sources/vtol220/reference.png; production original untouched. One new
+  Hunyuan mini generation with retained local weights/offline mode:531990faces,
+  shape elapsed59.1s excluding cold imports, peak allocated4.87GB/reserved5.42GB.
+  Existing Blender reviewer exports40000face GLB and packed editable masters;
+  optimized isometric actually inspected: triangular hull, two integrated fans,
+  rear exhausts recognizable. White geometry only, not final art acceptance.
+- `IN_PROGRESS` VTOL-220 color. Local-only paint trial launched against that
+  reduced mesh and same actual reference. No new AI weights requested. Live
+  process session63484 at checkpoint; inspect authoritative handle before any
+  retry. Outputs paint220/stealth_vtol. Next: finish paint, neutral render and
+  judge at actual showcase scale before replacing VTOL178. Keep current219.
+  Files: run_hunyuan_shape.py/.ps1, run_hunyuan_paint168.py. New PS launcher
+  normalizes CRLF only in an E: temporary runner; first source-shell attempt
+  failed due to Windows line endings, corrected before generation. No campaign
+  tests, production edits or push. CHANTIER GLOBAL INCOMPLET.

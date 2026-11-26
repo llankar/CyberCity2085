@@ -12,10 +12,12 @@ LAB=Path('/mnt/e/CyberCity2085-3d-lab')
 sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat','rook_unarmed'],default='robot')
-    subject=parser.parse_args().subject
+    parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat','rook_unarmed','stealth_vtol'],default='robot')
+    parser.add_argument('--local-only',action='store_true')
+    args=parser.parse_args();subject=args.subject
     output=LAB/('generated/phase2/paint168/robot_official' if subject=='robot' else 'generated/phase2/paint171/rook_official')
     if subject=='rook_unarmed':output=LAB/'generated/phase2/paint175/rook_unarmed'
+    if subject=='stealth_vtol':output=LAB/'generated/phase2/paint220/stealth_vtol'
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
@@ -25,6 +27,9 @@ def main():
     if subject=='rook_unarmed':
         source=LAB/'generated/phase2/hunyuan175/rook_unarmed/clean.glb'
         reference=LAB/'generated/phase2/reference175/rook_unarmed.png'
+    if subject=='stealth_vtol':
+        source=LAB/'generated/phase2/hunyuan220/stealth_vtol/review/optimized.glb'
+        reference=LAB/'sources/vtol220/reference.png'
     assert source.is_file() and reference.is_file(),'Missing actual mesh/reference'
     import torch
     import custom_rasterizer as cr
@@ -39,15 +44,20 @@ def main():
     # The published safetensors contains IP-adapter weights absent from the
     # official loader architecture. Use its required BIN, retaining strict=True.
     repo='tencent/Hunyuan3D-2'
-    meta=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo))
-    revision=meta['sha']
-    files=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo+'/tree/'+revision+'?recursive=true&limit=1000'))
-    selected=[f for f in files if f['type']=='file' and f['path'].startswith(('hunyuan3d-delight-v2-0/','hunyuan3d-paint-v2-0-turbo/')) and f['path']!='hunyuan3d-paint-v2-0-turbo/unet/diffusion_pytorch_model.safetensors']
-    total=sum(f.get('size',0) for f in selected)
-    assert total<15_000_000_000
-    print('PAINT_WEIGHT_PLAN',len(selected),total,flush=True)
     local=LAB/'models/hy3dgen'/repo
-    snapshot_download(repo,revision=revision,allow_patterns=[f['path'] for f in selected],local_dir=local,max_workers=2)
+    if args.local_only:
+        revision='retained-local-weights'
+        assert (local/'hunyuan3d-paint-v2-0-turbo/unet/diffusion_pytorch_model.bin').is_file()
+    else:
+        meta=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo))
+        revision=meta['sha']
+        files=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo+'/tree/'+revision+'?recursive=true&limit=1000'))
+        selected=[f for f in files if f['type']=='file' and f['path'].startswith(('hunyuan3d-delight-v2-0/','hunyuan3d-paint-v2-0-turbo/')) and f['path']!='hunyuan3d-paint-v2-0-turbo/unet/diffusion_pytorch_model.safetensors']
+        total=sum(f.get('size',0) for f in selected)
+        assert total<15_000_000_000
+        print('PAINT_WEIGHT_PLAN',len(selected),total,flush=True)
+        local=LAB/'models/hy3dgen'/repo
+        snapshot_download(repo,revision=revision,allow_patterns=[f['path'] for f in selected],local_dir=local,max_workers=2)
     # Preserve the official state dictionary and strict key matching. Cast the
     # empty network first and memory-map the BIN to stay within WSL RAM limits.
     module=local/'hunyuan3d-paint-v2-0-turbo/unet/modules.py'
