@@ -39,7 +39,9 @@
     "map": "city_industrial_warehouse_floor",
     "family": "industry",
     "reuse": "factory cargo and service walls",
-    "status": "planned"
+    "status": "preview",
+    "scene": "res://warehouse331.tscn",
+    "scope": "partial: cargo and perimeter"
   },
   {
     "map": "city_industrial_power_substation",

@@ -22,7 +22,10 @@ func _ready() -> void:
  heading.add_theme_font_size_override("font_size",32)
  box.add_child(heading)
  var caption:=Label.new()
- caption.text="Six environment previews available. Fourteen conversions planned."
+ var available := 0
+ for entry in CATALOG.data:
+  if entry.has("scene"):available += 1
+ caption.text="%d environment previews available. %d conversions planned." % [available, CATALOG.data.size()-available]
  box.add_child(caption)
  var buttons:Array[Button]=[]
  for entry in CATALOG.data:
@@ -30,6 +33,7 @@ func _ready() -> void:
   var scene_path := str(entry.get("scene",""))
   var label := str(entry.map).replace("_"," ").capitalize()
   button.text=label if not scene_path.is_empty() else label+" // Planned"
+  if entry.has("scope"):button.text+=" // "+str(entry.scope)
   button.custom_minimum_size=Vector2(0,52)
   button.add_theme_font_size_override("font_size",24)
   button.disabled=scene_path.is_empty()
