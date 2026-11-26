@@ -3,6 +3,7 @@ extends "res://laboratory247.gd"
 const Mailbox = preload("res://tactical_mailbox.gd")
 const TacticalActor = preload("res://tactical_actor.gd")
 const Effects = preload("res://combat_effects169.gd")
+const Cutaway = preload("res://source_cutaway271.gd")
 const ALLY := "ally:0"
 @export var scenario_title := "Warehouse"
 var mailbox: Mailbox
@@ -10,6 +11,7 @@ var status: Label
 var selection: Label
 var selected_ally := ALLY
 var effects: Effects
+var cutaway := Cutaway.new()
 var actors := {}
 var last_sequence := -1
 var smoke := false
@@ -32,6 +34,7 @@ func _ready() -> void:
   get_tree().quit(1)
   return
  mailbox = Mailbox.new(session)
+ cutaway.configure(self, [], review_camera, true)
  smoke = OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1"
  var hud := CanvasLayer.new()
  add_child(hud)
@@ -48,6 +51,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+ if cutaway.camera != null:
+  cutaway.update(delta)
  if effects != null:
   effects.step(delta, effects.clock + delta)
  if mailbox == null or playing_events or mailbox.sequence == last_sequence or not mailbox.refresh():
@@ -164,6 +169,7 @@ func _process(delta: float) -> void:
     status.hide()
     selection.hide()
     update_review_camera()
+    cutaway.update(.15)
     await RenderingServer.frame_post_draw
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_squad_close.png") != OK:
      get_tree().quit(15)
@@ -230,6 +236,8 @@ func actor_at(screen_position: Vector2, side: String) -> String:
 
 
 func refresh_selection() -> void:
+ var active: TacticalActor = actors[selected_ally]
+ cutaway.actors = [] if active.fallen else [active]
  for unit: Dictionary in mailbox.state.units:
   if unit.id.begins_with("ally:"):
    actors[unit.id].ring.scale = Vector3.ONE * (1.22 if unit.id == selected_ally else 1.0)
