@@ -8,9 +8,21 @@ from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
+from run_tactical_preview import warehouse_preview
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_warehouse_uses_real_geometry_and_advances_round(self):
+        preview = warehouse_preview()
+        self.assertEqual(preview.engine.terrain_profile.source, "manual_wall_traces_v1")
+        moved = preview.action("move", "ally:0", destination=[20, 14])
+        self.assertTrue(moved["success"], moved)
+        self.assertEqual(moved["state"]["units"][0]["cell"], [20, 14])
+        result = preview.action("end_turn", "ally:0")
+        self.assertTrue(result["success"], result)
+        self.assertEqual(result["state"]["turn"], "player")
+        self.assertEqual(result["state"]["round"], 2)
+
     def test_engine_updates_position_ap_and_rejects_blocked_cell(self):
         ally = Unit(position=(64, 64), stats=PlayerStats(), health=10, action_points=3)
         enemy = Unit(position=(320, 64), stats=EnemyStats(level=1), health=10, unit_type="enemy")

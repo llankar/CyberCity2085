@@ -4,6 +4,7 @@ var directory: String
 var sequence := 0
 var pending := false
 var state: Dictionary = {}
+var message := ""
 
 func _init(session_directory: String) -> void:
  directory = session_directory
@@ -12,12 +13,16 @@ func refresh() -> bool:
  var path := directory.path_join("reply.json")
  if not FileAccess.file_exists(path):
   return false
- var reply: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+ var parser := JSON.new()
+ if parser.parse(FileAccess.get_file_as_string(path)) != OK:
+  return false
+ var reply: Variant = parser.data
  if not reply is Dictionary or not reply.get("state") is Dictionary:
   return false
  if int(reply.get("sequence", -1)) != sequence:
   return false
  state = reply.state
+ message = str(reply.get("message", ""))
  pending = false
  return true
 

@@ -39,6 +39,12 @@ class TacticalPreview:
 
     def action(self, key: str, actor_id: str, *, target_id: str | None = None,
                destination: list[int] | None = None) -> dict:
+        if key == "end_turn":
+            if self.engine.state.turn != "player" or self.engine.end_battle_check().ended:
+                return {"success": False, "message": "Turn unavailable.", "state": self.snapshot()}
+            if not self.engine.start_enemy_turn().ended:
+                self.engine.start_player_turn()
+            return {"success": True, "message": "Enemy phase resolved.", "state": self.snapshot()}
         actor = self.units.get(actor_id)
         target = self.units.get(target_id) if target_id is not None else None
         if actor is None or (target_id is not None and target is None):
