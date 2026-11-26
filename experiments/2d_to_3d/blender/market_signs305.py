@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market323"
+output = phase / "market324"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -31,11 +31,17 @@ icons = (
 tray_mat = make_material("Market food tray enamel", (.10,.12,.09,1), .2, .53)
 produce = [make_material("Market produce "+name, (*color,1), 0, .68)
            for name,color in (("citrus",(.69,.23,.023)),("greens",(.12,.29,.04)))]
+worktop_finishes = (
+    make_material("Food stall glazed worktop", (.25,.30,.24,1), .12, .31),
+    make_material("Supply stall oxidized worktop", (.18,.11,.067,1), .48, .58),
+    make_material("Electronics antistatic worktop", (.032,.069,.102,1), .20, .76),
+)
 groups = sorted((obj for obj in bpy.data.objects if obj.name.startswith("Occludable_market_")),
                 key=lambda obj: obj.name)
 count = 0
 trimmed = 0
 trays = 0
+finished_worktops = 0
 for index, group in enumerate(groups):
     mesh = next((obj for obj in group.children_recursive if obj.name.startswith("PBR_Facade_")), None)
     if mesh is None:
@@ -113,6 +119,14 @@ for index, group in enumerate(groups):
         bpy.context.collection.objects.link(bolt)
         bolt.parent = group
         bolt.matrix_parent_inverse = group.matrix_world.inverted()
+    finish = worktop_finishes[index % len(worktop_finishes)]
+    for obj in group.children_recursive:
+        if obj.type != "MESH" or not obj.name.startswith("Store197 steel worktop"):
+            continue
+        obj.data = obj.data.copy()
+        obj.data.materials.clear()
+        obj.data.materials.append(finish)
+        finished_worktops += 1
     if index % len(icons) == 0:
         stock = {}
         for obj in group.children:
@@ -156,4 +170,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET323_EXPORTED", count, "trimmed", trimmed, "food trays", trays)
+print("MARKET324_EXPORTED", count, "trimmed", trimmed, "food trays", trays, "worktops", finished_worktops)
