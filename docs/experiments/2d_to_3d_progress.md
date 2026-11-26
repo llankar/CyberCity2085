@@ -6422,3 +6422,26 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  push. Next: remaining large brick structures/street identity, retaining source
  references and tactical footprints; continue improving the whole one-map scene.
  CHANTIER GLOBAL INCOMPLET.
+
+### EAST-COVER-241 — DONE scoped visual roof; standalone placement open
+- Eastern building now follows source-context blue covering/service roof composition:
+  genuine cloth RGB crop on768quad draped mesh with thickness, four tension posts,
+  two rails, reused extractor and segmented roof; blue PBR cladding replaces brick
+  overlays.113parts added. Retained solid body is NOT a newly walkable courtyard.
+- Actual crop pixel-equality test passed; base-body vertices and polygon indices
+  preserved by executed generation assertion. Native100frame preview exit0 and final
+ 549frame movie exit0, opening inspected: covering visibly distinguishes this building.
+ Original baked highlights remain, hidden roof depths/vertical facade interpreted.
+- Current library227 FullHD30 H264/AAC movie/gallery refreshed with source/native crop.
+ State blocked1,occlusion908,health unchanged. Raw AVI removed after encoding. No
+ campaign, production/save changes, AI inference or Windows build.
+- Exported selected7-piece cover as223kB standalone GLB, normalized bottom-center:
+ environment-library/assets/east_blue_cover/cover.glb. Container check passed7meshes,
+ no building-body nodes. Registered in library, source shared241BLEND with explicit
+ object names. Map still uses identical pieces embedded in241environment; separate
+ standalone native placement NOT VERIFIED/not activated, not claimed complete.
+- Files: extract_east241.py, blender/east_cover241.py, blender/export_cover241.py,
+ materials186.gd, package_combat169.py. E: showcase241/environment.blend/.glb/roof.json.
+ Next: activate/review reusable cover placement when integrating next scene revision;
+ remaining large structure/street identity and whole-map artistic finish still open.
+ CHANTIER GLOBAL INCOMPLET.

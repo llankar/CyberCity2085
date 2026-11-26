@@ -69,31 +69,34 @@ def main():
             page+='<h2>Original-derived library placements</h2><p>Roof fan and purple paneled pair loaded from the same compiled library associations. Original map context, manual masks, Blender reconstructions; hidden sides inferred. No new Hunyuan inference.</p><p><a href="../../../environment-library/index.html">Source library and model links</a></p><img src="../../../environment-library/assets/purple_paneled_pair/reference.png"><img src="../../../environment-library/assets/purple_paneled_pair/neutral.png">'
         if OUT.name=='library227' and environment=='showcase229':
             page+='<h2>Original-derived segmented roofs</h2><p>Original contexts govern dark segmented plates and service hatch. Invented photovoltaic assemblies and roof sign removed; wall clinic signage retained. Reconstruction is interpretive, not recovered hidden geometry.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__south_building_w.png"><img src="original_roofs_detail.png">'
-        if OUT.name=='library227' and environment in ('showcase230','showcase232','showcase233','showcase234','showcase235','showcase236','showcase237','showcase239','showcase240'):
-            run('-i',OUT/'clean_0030.png','-vf',('crop=280:290:180:565' if environment in ('showcase239','showcase240') else 'crop=380:350:80:550'),'-frames:v','1',OUT/'service_facade_detail.png')
+        if OUT.name=='library227' and environment in ('showcase230','showcase232','showcase233','showcase234','showcase235','showcase236','showcase237','showcase239','showcase240','showcase241'):
+            run('-i',OUT/'clean_0030.png','-vf',('crop=280:290:180:565' if environment in ('showcase239','showcase240','showcase241') else 'crop=380:350:80:550'),'-frames:v','1',OUT/'service_facade_detail.png')
             page+='<h2>Interpreted industrial facade</h2><p>Original roof identity retained; unseen wall construction interpreted with cut-corner panels, service doors, glazing, reinforcement and supply conduits. Not an authentic recovered facade view.</p><img src="service_facade_detail.png">'
-            if environment in ('showcase233','showcase234','showcase235','showcase236','showcase237','showcase239','showcase240'):
-                run('-i',OUT/'clean_0030.png','-vf',('crop=330:220:530:220' if environment in ('showcase239','showcase240') else 'crop=420:260:470:190'),'-frames:v','1',OUT/'source_canopy_detail.png')
+            if environment in ('showcase233','showcase234','showcase235','showcase236','showcase237','showcase239','showcase240','showcase241'):
+                run('-i',OUT/'clean_0030.png','-vf',('crop=330:220:530:220' if environment in ('showcase239','showcase240','showcase241') else 'crop=420:260:470:190'),'-frames:v','1',OUT/'source_canopy_detail.png')
                 page+='<h2>Original market cloth</h2><p>The green canopy uses an unmodified RGB crop of the original market illustration on a draped mesh with thickness. One authentic view; hidden shape inferred. Existing supports and machinery retained, cap vent removed. Source lighting is baked into the cloth and remains an artistic limitation.</p><img src="../../../environment-library/assets/market_green_canopy/source_cloth.png"><img src="source_canopy_detail.png">'
-                if environment in ('showcase234','showcase235','showcase236','showcase237','showcase239','showcase240'):
+                if environment in ('showcase234','showcase235','showcase236','showcase237','showcase239','showcase240','showcase241'):
                     page+='<p>Current variant: three separate sage, green and plum cloth panels, cropped from the same original context. Complete shop exported as a reusable library GLB and actually loaded through its placement association; inferred counter/machinery retained.</p><p><a href="../../../environment-library/assets/market_three_canopies/shop.glb">Standalone shop GLB</a></p>'
-            if environment in ('showcase235','showcase236','showcase237','showcase239','showcase240'):
+            if environment in ('showcase235','showcase236','showcase237','showcase239','showcase240','showcase241'):
                 page+='<h2>Original southeast display counter</h2><p>Four real recessed trays and a blue cloth cover use original RGB crops; interpreted sides and lower counter remain. Current video includes this shop loaded from its standalone library model.</p><p><a href="../../../environment-library/assets/market_southeast_display/shop.glb">Display counter GLB</a></p>'
-            if environment in ('showcase236','showcase237','showcase239','showcase240'):
-                run('-i',OUT/'clean_0030.png','-vf',('crop=480:260:1290:300' if environment in ('showcase239','showcase240') else 'crop=520:315:1390:245'),'-frames:v','1',OUT/'roof_layout_detail.png')
+            if environment in ('showcase236','showcase237','showcase239','showcase240','showcase241'):
+                run('-i',OUT/'clean_0030.png','-vf',('crop=480:260:1290:300' if environment in ('showcase239','showcase240','showcase241') else 'crop=520:315:1390:245'),'-frames:v','1',OUT/'roof_layout_detail.png')
                 page+='<h2>Original-layout industrial roof</h2><p>Northeast roof: two unequal extractors reuse existing swept blades, a raised stepped hatch and acquired pipe runs follow the original single-view layout. Hidden depths and connections interpreted. Same tactical footprint.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__ne_building.png"><img src="roof_layout_detail.png">'
-                if environment in ('showcase237','showcase239','showcase240'):
-                    run('-i',OUT/'clean_0030.png','-vf',('crop=480:390:1290:300' if environment in ('showcase239','showcase240') else 'crop=520:450:1390:245'),'-frames:v','1',OUT/'depot_facade_detail.png')
+                if environment in ('showcase237','showcase239','showcase240','showcase241'):
+                    run('-i',OUT/'clean_0030.png','-vf',('crop=480:390:1290:300' if environment in ('showcase239','showcase240','showcase241') else 'crop=520:450:1390:245'),'-frames:v','1',OUT/'depot_facade_detail.png')
                     page+='<h2>Interpreted maintenance depot facade</h2><p>Acquired factory garage/service doors and industrial windows replace brick bays. Worn metal PBR cladding and source-inspired magenta accent. Vertical walls are inferred, not authentic recovered views. Saved-model comparison preserves98 roof/base meshes.</p><img src="depot_facade_detail.png">'
             baseline=OUT.parent/'roof226/clean_0030.png'
             if baseline.is_file():
                 run('-i',baseline,'-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_building_before.png')
                 page+='<p>Before the source roof and facade passes:</p><img src="service_building_before.png">'
-        if OUT.name=='library227' and environment in ('showcase239','showcase240'):
+        if OUT.name=='library227' and environment in ('showcase239','showcase240','showcase241'):
             page+='<h2>Original-layout northern roof</h2><p>Reused extractor blades and acquired pipe mesh; left-side machinery cluster and broad right service panel follow the original roof context. Old generic compressor removed. Equipment depth interpreted. Opening camera24.5m then returns to existing action framing. Door palette uses verified glTF factors with unchanged texture pixels.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__north_building.png"><img src="../showcase239/north_neutral.png">'
-        if OUT.name=='library227' and environment=='showcase240':
+        if OUT.name=='library227' and environment in ('showcase240','showcase241'):
             run('-i',OUT/'clean_0030.png','-vf','crop=400:340:270:0','-frames:v','1',OUT/'west_utility_detail.png')
             page+='<h2>Western utility frontage</h2><p>Acquired tall window and glazed service-door modules on dark PBR cladding; interpreted vertical frontage, genuine segmented roof/conduit layout. Old generic garage bays, compressor and walkway removed. Original tactical body vertices/faces unchanged.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__west_building.png"><img src="west_utility_detail.png">'
+        if OUT.name=='library227' and environment=='showcase241':
+            run('-i',OUT/'clean_0030.png','-vf','crop=410:465:1510:480','-frames:v','1',OUT/'east_cover_detail.png')
+            page+='<h2>Original blue covered service roof</h2><p>Genuine blue cloth crop on a768quad draped mesh with thickness, posts and rails; reused service extractor and source-context segmented roof. Solid tactical body preserved, not a new walkable courtyard. Original baked highlights remain a limitation.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__east_building.png"><img src="east_cover_detail.png">'
         (OUT/'index.html').write_text(page,encoding='utf8')
         (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,'scope':'Selected native scene; historical scratch workspaces pruned'},indent=2))
         print('CURRENT_SHOWCASE_DELIVERED',state)

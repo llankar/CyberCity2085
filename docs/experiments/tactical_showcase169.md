@@ -1112,3 +1112,10 @@ Old generic garage overlay, compressor and walkway removed after first native vi
 Final native549frame FullHD30/AAC movie/gallery refreshed; raw/backup files cleaned.
 Base body vertices/faces retained by executed checks. Unseen vertical facade remains
 interpreted; whole-map artistic finish is still open. Production unchanged.
+
+241 current video: source-context blue covered eastern roof, segmented service area,
+reused extractor and blue cladding. Base tactical body retained; covered area is not
+a newly walkable courtyard. Native549frames/H2641080p30/AAC delivered; raw AVI removed.
+Standalone7-piece cover223kB registered in library; its independent native placement
+is not yet verified/activated. Main scene uses the identical embedded covering.
+Original baked cloth highlights remain a material limitation. Production unchanged.
