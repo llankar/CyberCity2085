@@ -12,9 +12,13 @@ def prepare(source,survey):
     mask=np.zeros((height,width),dtype=np.uint8)
     sx=width/survey['canvas_size'][0];sy=height/survey['canvas_size'][1]
     for item in survey['walls']:
-        if 'rect' not in item or item['id'] in ('west_wall','east_wall'):continue
-        x1,y1,x2,y2=item['rect']
-        mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)]=255
+        if item['id'] in ('west_wall','east_wall'):continue
+        if 'polygon' in item:
+            points=np.array([[round(x*sx),round(y*sy)] for x,y in item['polygon']],dtype=np.int32)
+            cv2.fillPoly(mask,[points],255)
+        elif 'rect' in item:
+            x1,y1,x2,y2=item['rect']
+            mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)]=255
     # Inferred hidden floor, not recovered authentic art. Work at survey scale;
     # write back only masked pixels so original corridors are byte-identical.
     small=cv2.resize(original,tuple(survey['canvas_size']),interpolation=cv2.INTER_AREA)

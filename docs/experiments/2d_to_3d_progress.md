@@ -6534,3 +6534,6 @@ Factory original examined; six survey groups replaced using retained generator/c
 
 ## Batch251 - IN_PROGRESS environment selector
 Independent six-entry selector: four current art reviews enabled, residential/wasteland explicitly pending. Q/E rotation, wheel zoom, return button. Native button-signal roundtrip selector->metro->selector actually passed/exited0. Environment reviews do not implement combat or prove all six maps complete. Existing combat visual hooks inspected for future adapter, no alternative rules engine. Next: remaining two environments, richer meshes and actual combat/cast adapter. No campaign tests/build/new inference. CHANTIER GLOBAL INCOMPLET.
+
+## Batch252 - IN_PROGRESS polygon replacements and wreck trial
+Floor repair now supports exact polygon masks for irregular residential/ruin outlines, preserving pixels outside them; two focused tests PASS. No tactical or source-map edits. New Hunyuan trial started from actual wreck_e crop with retained offline weights; process still running, no generated/artistically accepted result claimed yet. Next: source-guided residential facades and ruins.

@@ -12,5 +12,11 @@ class SourcePreservation(unittest.TestCase):
   self.assertTrue(np.array_equal(np.asarray(image),pixels))
   self.assertEqual(np.count_nonzero(mask),400)
   self.assertFalse(np.array_equal(np.asarray(result)[mask>0],pixels[mask>0]))
+ def test_polygon_does_not_mask_its_whole_bounding_box(self):
+  image=Image.new('RGB',(80,80),(100,110,120))
+  result,mask=prepare(image,{'canvas_size':[80,80],'walls':[{'id':'ruin','polygon':[[10,10],[60,10],[10,60]]}]})
+  self.assertEqual(mask[15,15],255)
+  self.assertEqual(mask[55,55],0)
+  self.assertTrue(np.array_equal(np.asarray(result)[mask==0],np.asarray(image)[mask==0]))
 
 if __name__=='__main__':unittest.main()
