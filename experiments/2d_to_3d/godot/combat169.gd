@@ -21,6 +21,7 @@ var crate_bounds := AABB()
 const EVENTS := [[4.8,2,0],[7.2,1,0],[8.4,0,1],[9.6,1,0],[10.4,0,1],[11.3,0,1],[17.5,3,2],[18.5,3,2],[19.5,3,2]]
 
 func load_glb(relative: String,place: Vector3) -> Node3D:
+	if relative=="showcase174/environment.glb" and "--district183" in OS.get_cmdline_user_args():relative="showcase183/environment.glb"
 	if relative=="vtol_finish135/vtol_actions.glb" and "--vtol178" in OS.get_cmdline_user_args():relative="vtol178/vtol_actions.glb"
 	var model := super.load_glb(relative,place)
 	if model and relative.begins_with("vtol178/"):

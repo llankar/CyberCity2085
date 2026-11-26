@@ -1,6 +1,16 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` DISTRICT-183 scoped material/proportion trial (2026-11-26).
+  Previous turn progressed with action camera. New district_finish183.py derives
+  showcase174:18materials/114slots, three palettes, two valves at65percent.
+  Source and outputs E:showcase183; -DistrictFinish uses full presentation182.
+  Native902frames FullHD30, one blockedshot/61occlusions, health unchanged.
+  Inspected0030/0254: valve scale improved, color change modest; repeated bays
+  and overly bright panels remain. No major architectural art PASS claimed.
+  Video/audio/GIF/gallery packaged; no script/surface errors in native log.
+  Next: distinct authored facade assemblies, not another tint-only pass.
+  Global IN_PROGRESS. No production/campaign/download/push.
 - `DONE` PRESENTATION-182 action camera (2026-11-26). Previous turn progressed
   with fall/material correction. Added independent presentation182.gd/.tscn,
   base camera hook and -Presentation wrapper. Continuous gunfight/melee/PSI/

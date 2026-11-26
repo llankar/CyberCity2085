@@ -2,7 +2,7 @@ extends "res://neural176.gd"
 ## Presentation pass: continuous tactical overview and action framing.
 func _ready() -> void:
 	super._ready()
-	delivery_folder=ROOT+"presentation182/"
+	delivery_folder=ROOT+("district183/" if "--district183" in OS.get_cmdline_user_args() else "presentation182/")
 	DirAccess.make_dir_recursive_absolute(delivery_folder)
 
 func update_camera(t: float) -> void:

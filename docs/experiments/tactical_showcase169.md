@@ -230,3 +230,23 @@ Camera composition delivered; scene still has repeated facade modules, bright
 robot wreck and some close-up character/contact limitations. Global artistic
 acceptance remains open; next focus is environment identity/material harmony,
 not more isolated rig/loading checks.
+
+## District 183 material pass (IN_PROGRESS)
+
+Derives showcase174 without replacing it. Source district_finish183.py creates
+18 material variants across114slots and three muted cool/warm palettes from
+actual local diffuse textures; roughness/normal maps retained. Glass/signs/props
+excluded by object scope. Two repeated industrial valves reduced to65percent.
+No wall footprint changes. Source Blender/GLB/textures on E:showcase183.
+Independent -DistrictFinish uses presentation182 camera with all retained cast
+and encounter effects. Native capture in progress; material edits alone are
+not proof of final artistic improvement. Repeated facade modules remain.
+
+Final183 native902framesFullHD30 completed. One blocked shot,61occlusions,
+health unchanged. No script/parse/surface-index errors found in native log.
+Inspected0030/0254: smaller valves improve proportion; material variation is
+modest, bright facade panels and repeated modules remain. Do not claim a major
+architectural improvement from color changes alone. Packaging executed for
+video/audio/GIF/gallery; environment GLB/packedBLEND and derived textures local.
+Next: replace selected repeated facade bays with genuinely distinct assemblies
+using existing authored kit parts; avoid another tint-only iteration.

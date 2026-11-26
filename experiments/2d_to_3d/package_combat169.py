@@ -47,7 +47,7 @@ L'atterrissage et la qualité artistique finale restent à vérifier.</p>
 <a href="../vtol178/vtol_actions.blend">Source Blender</a></p>
 <img src="../vtol178/neutral.png"><img src="../vtol178/rear.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('fall181','presentation182'):
+    if OUT.name in ('fall181','presentation182','district183'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Robot : impact et chute</h2>
 <p>Impulsion PSI, chute continue hors du masque de la caisse, fumée et fragments.
@@ -57,13 +57,21 @@ La rencontre reste une séquence mise en scène indépendante.</p>
 <a href="../security_opaque137/robot_actions.glb">Robot GLB</a> ·
 <a href="../vtol178/vtol_actions.glb">VTOL GLB</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name=='presentation182':
+    if OUT.name in ('presentation182','district183'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Cadrages d’action</h2>
 <p>Vue tactique, échanges de tirs, approche et mêlée, PSI puis soins.
 La caméra se rapproche progressivement ; les bâtiments utilisent la caméra
 réelle pour leur fondu. Aucun changement des règles ou positions de combat.</p>
 <img src="clean_0460.png"><img src="clean_0750.png"></html>''')
+        (OUT/'index.html').write_text(page,encoding='utf8')
+    if OUT.name=='district183':
+        page=(OUT/'index.html').read_text(encoding='utf8')
+        page=page.replace('</html>','''<h2>Matériaux du quartier</h2>
+<p>Trois palettes dérivées des textures locales, surfaces plus sobres et valves
+réduites. La géométrie tactique et les animations restent celles de la scène précédente.</p>
+<p><a href="../showcase183/environment.glb">Décor GLB</a> ·
+<a href="../showcase183/environment.blend">Source Blender</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
     (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,
         'scope':'Native rendered visual sequence, not campaign or production AI acceptance'},indent=2))
