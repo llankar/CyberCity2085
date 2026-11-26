@@ -2,7 +2,6 @@ extends "res://laboratory247.gd"
 
 const Mailbox = preload("res://tactical_mailbox.gd")
 const ALLY := "ally:0"
-const ENEMY := "enemy:0"
 var mailbox: Mailbox
 var status: Label
 var actors := {}
@@ -50,7 +49,7 @@ func _process(_delta: float) -> void:
   model.position = Vector3(float(unit.cell[0])-19.5, .7, 13.5-float(unit.cell[1]))
   model.visible = int(unit.hp) > 0
   readout.append("%s  HP %d  AP %d" % [id, unit.hp, unit.ap])
- status.text = "Round %d   %s\n%s\nClick: move   T: end turn" % [
+ status.text = "Round %d   %s\n%s\nLeft click: move   Right click on hostile: fire   T: end turn" % [
   state.round, state.turn, "  |  ".join(readout)]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
@@ -65,8 +64,15 @@ func _process(_delta: float) -> void:
     if int(cell[0]) != 20 or int(cell[1]) != 14 or int(state.units[0].ap) >= 3:
      get_tree().quit(2)
      return
-    send({"action": "end_turn", "actor": ALLY})
+    var hostile: MeshInstance3D = actors["enemy:0"]
+    fire_at(review_camera.unproject_position(hostile.global_position))
    2:
+    if not mailbox.success or int(state.units[0].ap) != 1:
+     push_error(mailbox.message)
+     get_tree().quit(4)
+     return
+    send({"action": "end_turn", "actor": ALLY})
+   3:
     print("TACTICAL_WAREHOUSE_EXCHANGE_OK round=", state.round)
     get_tree().quit()
 
@@ -79,12 +85,29 @@ func send(command: Dictionary) -> void:
    get_tree().quit(3)
 
 
+func fire_at(screen_position: Vector2) -> void:
+ var nearest := ""
+ var radius := 26.0
+ for id: String in actors:
+  var actor: MeshInstance3D = actors[id]
+  if not id.begins_with("enemy:") or not actor.visible or review_camera.is_position_behind(actor.global_position):
+   continue
+  var distance := screen_position.distance_to(review_camera.unproject_position(actor.global_position))
+  if distance < radius:
+   nearest = id
+   radius = distance
+ if not nearest.is_empty():
+  send({"action": "fire", "actor": ALLY, "target": nearest})
+
+
 func _unhandled_input(event: InputEvent) -> void:
  super._unhandled_input(event)
  if mailbox == null or mailbox.state.get("outcome") != null:
   return
  if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_T:
   send({"action": "end_turn", "actor": ALLY})
+ if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+  fire_at(event.position)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
   var ray := review_camera.project_ray_normal(event.position)
   var origin := review_camera.project_ray_origin(event.position)

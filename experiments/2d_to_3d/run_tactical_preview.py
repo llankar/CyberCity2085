@@ -12,6 +12,9 @@ sys.path.insert(0, str(ROOT))
 
 from game.combat import CombatEngine, CombatState
 from game.combat.movement import CELL_SIZE
+from game.character import Character
+from game.cover_system import CoverNode
+from game.management.equipment import equip_starter_loadout
 from game.map_geometry import load_map_geometry
 from game.map_terrain import build_terrain_profile
 from game.stats import EnemyStats, PlayerStats
@@ -36,8 +39,17 @@ def warehouse_preview() -> TacticalPreview:
         return Unit(position=position, stats=stats, health=10, action_points=3, unit_type=team)
 
     ally = spawn((19, 14), PlayerStats(), "player")
+    ally.character = Character("Longshot", role="sniper", stats=ally.stats)
+    equip_starter_loadout(ally.character.loadout, ally.character.role)
+    ally.attack_range = ally.character.loadout.primary_weapon.range_cells
     enemy = spawn((29, 14), EnemyStats(level=1), "enemy")
-    return TacticalPreview(CombatEngine(CombatState(None, [ally], [enemy]), terrain_profile=terrain))
+    enemy.health = enemy.stats.hp = 50
+    cover = [
+        CoverNode(x // CELL_SIZE, y // CELL_SIZE, "high", passable=False)
+        for x, y in sorted(terrain.sight_blocked_cells)
+    ]
+    return TacticalPreview(CombatEngine(CombatState(None, [ally], [enemy]),
+                                        terrain_profile=terrain, cover_nodes=cover))
 
 
 def main() -> int:
@@ -58,7 +70,7 @@ def main() -> int:
             while godot.poll() is None:
                 mailbox.poll()
                 time.sleep(.03)
-        if args.smoke and (mailbox.sequence != 2 or mailbox.reply["state"]["round"] != 2):
+        if args.smoke and (mailbox.sequence != 3 or mailbox.reply["state"]["round"] != 2):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
         return godot.returncode
 

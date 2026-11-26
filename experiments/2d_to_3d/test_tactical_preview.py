@@ -4,6 +4,7 @@ import tempfile
 import unittest
 
 from game.combat import CombatEngine, CombatState
+from game.combat.movement import CELL_SIZE
 from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_preview import TacticalPreview
@@ -12,6 +13,21 @@ from run_tactical_preview import warehouse_preview
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_warehouse_fire_spends_ap_and_surveyed_cover_blocks_fire(self):
+        preview = warehouse_preview()
+        ally = preview.units["ally:0"]
+        enemy = preview.units["enemy:0"]
+        position = enemy.position
+        enemy.position = (7 * CELL_SIZE, 11 * CELL_SIZE)
+        rejected = preview.action("fire", "ally:0", target_id="enemy:0")
+        self.assertFalse(rejected["success"])
+        self.assertIn("line blocked", rejected["message"])
+        self.assertEqual(ally.action_points, 3)
+        enemy.position = position
+        fired = preview.action("fire", "ally:0", target_id="enemy:0")
+        self.assertTrue(fired["success"], fired)
+        self.assertEqual(ally.action_points, 2)
+
     def test_warehouse_uses_real_geometry_and_advances_round(self):
         preview = warehouse_preview()
         self.assertEqual(preview.engine.terrain_profile.source, "manual_wall_traces_v1")

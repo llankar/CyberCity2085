@@ -5,6 +5,7 @@ var sequence := 0
 var pending := false
 var state: Dictionary = {}
 var message := ""
+var success := false
 
 func _init(session_directory: String) -> void:
  directory = session_directory
@@ -23,6 +24,7 @@ func refresh() -> bool:
   return false
  state = reply.state
  message = str(reply.get("message", ""))
+ success = bool(reply.get("success", false))
  pending = false
  return true
 
