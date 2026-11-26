@@ -8,11 +8,13 @@ func model_bounds(model: Node3D) -> AABB:
   result=box if first else result.merge(box)
   first=false
  return result
+func aircraft_path() -> String:
+ return "paint220/stealth_vtol/review/optimized.glb"
 func load_glb(relative: String,place: Vector3) -> Node3D:
  if relative!="vtol_finish135/vtol_actions.glb":return super.load_glb(relative,place)
  var original:=super.load_glb(relative,place)
  var old_bounds:=model_bounds(original)
- var candidate:=super.load_glb("paint220/stealth_vtol/review/optimized.glb",place)
+ var candidate:=super.load_glb(aircraft_path(),place)
  candidate.rotation.y=PI/2
  var initial_bounds:=model_bounds(candidate)
  var ratio:=old_bounds.size.x/initial_bounds.size.x
@@ -20,7 +22,7 @@ func load_glb(relative: String,place: Vector3) -> Node3D:
  var fitted:=model_bounds(candidate)
  candidate.global_position+=old_bounds.get_center()-fitted.get_center()
  original.free()
- print("AIRCRAFT221_STATIC_ART_PREVIEW width=",old_bounds.size.x," scale=",ratio)
+ print("AIRCRAFT_ART_PREVIEW path=",aircraft_path()," width=",old_bounds.size.x," scale=",ratio)
  return candidate
 func _ready() -> void:
  super._ready()

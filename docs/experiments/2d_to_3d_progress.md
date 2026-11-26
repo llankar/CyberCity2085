@@ -5992,3 +5992,23 @@ resources must not be pushed without explicit authorization.
   Next: improve aircraft material readability and articulate actual fan geometry,
   or select stronger source if artistic gain stalls. No production/campaign/push.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` VTOL-222 scoped fan articulation/material pass (2026-11-26).
+  Actual generated inner fan triangles extracted at normalized centers(.155,+/-.329),
+  radius.095:5872/6017faces retain original UV/materials; no primitive blades.
+  Two pivot rotations exported as Rotor_Spin NLA,120RPM, stationary outer rings.
+  Original body vertex coordinates retained except separating inner fan faces.
+  Metal.4/roughness.55 visibly improves dark albedo response; no texture repaint.
+  Blender top/rotated actually inspected, then native Godot549frames1080p30/71s
+  offline. Final0030 and native frames5/10 comparison actually inspected:
+  distinct blade rotations inside fixed rings, no obvious tactical-scale gap,
+  brighter readable hull. Remaining soft/green texture artifacts not accepted
+  as final art; no gear animation transferred. Combat blocked1, occlusion914,
+  health[100,0,0,100,76,100]. No campaign tests or production edits.
+  E: vtol222/vtol_actions.blend/.glb, articulation.json; aircraft222 gallery,
+  FullHD30 MP4 and fan_motion.png. AVI removed after encoding. Original178,
+  source220 and standalone215 preserved. Selected lab scene advances to222.
+  Files: blender/articulate_vtol222.py, godot/aircraft221.gd, aircraft222.gd/tscn,
+  package_combat169.py. Next: broader architectural variety and effects polish;
+  do not regenerate this aircraft/rig. No experimental push.
+  CHANTIER GLOBAL INCOMPLET.

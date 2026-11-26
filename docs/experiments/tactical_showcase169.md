@@ -942,3 +942,11 @@ previous vehicle center/width. Brief wider opening shot shows its full silhouett
 This candidate is STATIC; fan/gear transfer remains open. Original animated178
 and selected scene219 are retained. Gallery: generated/phase2/aircraft221/index.html.
 The dark/soft texture is not accepted as final aircraft art.
+
+## Animated generated aircraft222
+
+Selected lab scene `res://aircraft222.tscn`: actual generated inner fans rotate
+inside stationary original rings. Same source220 UV/albedo, metallic response
+improved. No gear animation. Native movie and motion crop comparison are at
+`generated/phase2/aircraft222/`. Editable aircraft: `vtol222/vtol_actions.blend`.
+Soft texture/green marks remain; no production or standalone215 replacement.
