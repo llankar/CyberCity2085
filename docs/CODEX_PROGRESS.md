@@ -1199,3 +1199,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RESIDENTIAL-ENTRY-312 ? DONE for entrance locator fixtures. Twelve entry meshes received warm emissive fittings. Blender export and Godot capture ran with 262 meshes and three units. Selector and detail tour updated. Remaining: visual review of entrance fittings at street distance and stronger facade differentiation.
 
 - EXPERIMENTAL-RESIDENTIAL-LIGHTS-313 ? Close review of 312 showed underside lenses obscured by their housings. Added an exposed emissive band to all twelve entrance lamps. Blender and Godot capture ran (274 meshes, three agents), and selector and tour now use residential313. Next: add facade variation beyond small fixtures.
+
+- EXPERIMENTAL-RESIDENTIAL-CLADDING-314 ? Added 26 low cladding strips in three finishes across 13 facades, with a center gap for entrances. Existing lamps and vents retained. Blender export and Godot capture ran (300 meshes, three units), selector and detail tour updated. Next: inspect wide and close ensemble and address roof equipment that remains illustrated.

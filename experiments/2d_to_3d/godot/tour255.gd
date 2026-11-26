@@ -10,7 +10,7 @@ func _ready() -> void:
  selected_folders=FOLDERS.duplicate()
  if "--detail-pass" in OS.get_cmdline_user_args():
   selected_folders[0]="market308"
-  selected_folders[1]="residential313"
+  selected_folders[1]="residential314"
   selected_folders[2]="lab291"
   selected_folders[3]="factory278"
   selected_folders[4]="metro293"

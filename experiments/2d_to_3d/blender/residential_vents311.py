@@ -11,12 +11,18 @@ from library_placement import place
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "residential313"
+output = phase / "residential314"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "residential284/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
 vent = phase.parents[1] / "environment-library/assets/wall_fixtures282/vent.glb"
+cladding = [
+    make_material("Facade skirting " + label, (*color, 1), .25, .66)
+    for label, color in (("slate", (.09,.13,.18)), ("oxide", (.17,.071,.047)),
+                         ("green ceramic", (.059,.136,.12)))
+]
 count = 0
+facades = 0
 for shell in list(bpy.context.scene.objects):
     if shell.type != "MESH" or not shell.name.endswith(" shell") or not shell.parent:
         continue
@@ -30,6 +36,16 @@ for shell in list(bpy.context.scene.objects):
     face_points = [shell.matrix_world @ shell.data.vertices[i].co for i in face.vertices]
     width = max(v.dot(tangent) for v in face_points)-min(v.dot(tangent) for v in face_points)
     base = min(v.z for v in face_points)
+    # Two segments leave the center clear for the existing doorway.
+    finish = cladding[facades % len(cladding)]
+    for side in (-1, 1):
+        anchor = center + tangent*(width*.29*side) + normal*.024
+        anchor.z = base+.14
+        strip = box("Facade skirting", tuple(anchor), (width*.16,.025,.11), finish, .012)
+        strip.rotation_euler.z = math.atan2(tangent.y, tangent.x)
+        strip.parent = shell.parent
+        strip.matrix_parent_inverse = shell.parent.matrix_world.inverted()
+    facades += 1
     for offset in (-.27, .27):
         anchor = center + tangent*(width*offset) + normal*.10
         anchor.z = base+.23
@@ -59,7 +75,7 @@ for entry in entrances:
         obj.parent = entry.parent
         obj.matrix_parent_inverse = entry.parent.matrix_world.inverted()
 assert entrances
-print("RESIDENTIAL313_ENTRIES", len(entrances))
+print("RESIDENTIAL314_ENTRIES", len(entrances))
 
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
@@ -68,4 +84,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("RESIDENTIAL313_EXPORTED", count)
+print("RESIDENTIAL314_EXPORTED", count, facades)
