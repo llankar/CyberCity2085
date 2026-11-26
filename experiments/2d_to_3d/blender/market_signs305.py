@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market305"
+output = phase / "market306"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -18,6 +18,15 @@ signs = [
     make_material("Market stall sign " + name, (*color, 1), .1, .45, .65)
     for name, color in (("amber", (.61,.23,.045)), ("teal", (.02,.42,.35)), ("rose", (.48,.08,.25)))
 ]
+ink = make_material("Market sign dark lettering", (.009, .012, .016, 1), .1, .65)
+# Food, supplies, electronics. Each icon stays within its sign face.
+icons = (
+    (("fork", -.12, 0, .018, .10), ("knife", .10, 0, .024, .10),
+     ("prongs", -.12, .072, .055, .018)),
+    (("parcel", 0, 0, .13, .085),),
+    (("chip", 0, 0, .085, .07), ("pins top", 0, .092, .12, .013),
+     ("pins bottom", 0, -.092, .12, .013)),
+)
 groups = sorted((obj for obj in bpy.data.objects if obj.name.startswith("Occludable_market_")),
                 key=lambda obj: obj.name)
 count = 0
@@ -40,6 +49,11 @@ for index, group in enumerate(groups):
         obj = box(name, position, size, material, .012)
         obj.parent = group
         obj.matrix_parent_inverse = group.matrix_world.inverted()
+    for glyph, dx, dz, sx, sz in icons[index % len(icons)]:
+        icon = box("Trade icon " + glyph, (x+dx, y-.067, top+.22+dz),
+                   (sx, .005, sz), ink, .003)
+        icon.parent = group
+        icon.matrix_parent_inverse = group.matrix_world.inverted()
     count += 1
 assert count >= 3, count
 bpy.ops.file.pack_all()
@@ -49,4 +63,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET305_EXPORTED", count)
+print("MARKET306_EXPORTED", count)

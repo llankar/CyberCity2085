@@ -286,3 +286,5 @@ Latest scoped architecture delivery281: physical wall UV/normal repair in reside
 - EXPERIMENTAL-ASHFIELD-FRAME-304 ? DONE for structural upright placement. Added 18 oxidized uprights aligned with the largest existing wall faces. Blender verified the export count and Godot captured three actors with 230 meshes. Selector and tour updated. Next: compare the enlarged structures in a grouped art review and resume detail work on the market and residential environments.
 
 - EXPERIMENTAL-MARKET-SIGNS-305 ? DONE for the stall lighting pass. market_signs305.py adds seven color-coded illuminated stall markers within existing awning footprints. Blender exported seven groups and Godot loaded 1654 meshes. Selector updated. E: generated/phase2/market305/godot_overview.png. Next: differentiate trade symbols and inspect at tactical scale.
+
+- EXPERIMENTAL-MARKET-ICONS-306 ? DONE for icon geometry. Seven stall markers now show three trade pictograms for food, supplies and electronics. Blender exported and Godot imported 1671 meshes. Selector and detail tour target market306. Next: frame the new signs near units and verify tactical-scale readability.
