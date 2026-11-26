@@ -8,7 +8,7 @@ import bpy
 from mathutils import Matrix, Vector
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "wasteland296"
+output = phase / "wasteland297"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "wasteland295/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -57,6 +57,23 @@ for data in pieces:
     obj.parent = root
 for obj in imported:
     bpy.data.objects.remove(obj, do_unlink=True)
+for identifier, yaw in (("wreck_w", math.pi), ("wreck_ne", math.pi/2)):
+    a, b, c, d = next(row["rect"] for row in survey["walls"] if row["id"] == identifier)
+    footprint = ((c-a)*gw/cw, (d-b)*gh/ch)
+    fitted = extent * factor
+    spans = (fitted.y, fitted.x) if identifier == "wreck_ne" else (fitted.x, fitted.y)
+    scale = min(1, *(available*.97/used for available, used in zip(footprint, spans)))
+    assert scale >= .8, (identifier, scale)
+    group = bpy.data.objects.new("Occludable_" + identifier, None)
+    bpy.context.collection.objects.link(group)
+    group.location = ((a+c)*gw/(2*cw)-gw/2, gh/2-(b+d)*gh/(2*ch), 0)
+    group.rotation_euler.z = yaw
+    group.scale = (scale,)*3
+    for data in pieces:
+        obj = bpy.data.objects.new("Salvaged SUV fragment", data)
+        bpy.context.collection.objects.link(obj)
+        obj.parent = group
+
 floor = bpy.data.materials["Original ashfield ground"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
 texture.image = bpy.data.images.load(str(output / "floor.png"))
@@ -66,4 +83,4 @@ for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True)
-print("ASHFIELD296_EXPORTED", factor, list(extent*factor))
+print("ASHFIELD297_EXPORTED", factor, list(extent*factor))
