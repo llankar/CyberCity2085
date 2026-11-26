@@ -19,6 +19,22 @@ func _ready() -> void:
  assert(document.append_from_file(review_folder+"environment.glb",state)==OK)
  var model := document.generate_scene(state)
  add_child(model)
+ if review_folder.ends_with("/showcase245/"):
+  # The retained encounter creates its original ground at runtime; its GLB is
+  # architecture only. Recreate that visual floor in this independent review.
+  var image:=Image.load_from_file("E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png")
+  assert(image!=null)
+  image.generate_mipmaps()
+  var material:=StandardMaterial3D.new()
+  material.albedo_texture=ImageTexture.create_from_image(image)
+  material.roughness=.7
+  var ground:=MeshInstance3D.new()
+  var plane:=PlaneMesh.new()
+  plane.size=Vector2(40,28)
+  ground.mesh=plane
+  ground.material_override=material
+  ground.position.y=-.03
+  add_child(ground)
  var world := WorldEnvironment.new()
  world.environment=Environment.new()
  world.environment.background_mode=Environment.BG_COLOR

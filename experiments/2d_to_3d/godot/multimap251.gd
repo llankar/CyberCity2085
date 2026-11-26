@@ -2,11 +2,11 @@ extends Control
 ## Independent environment selector. No campaign or alternative combat engine.
 const ENTRIES := [
  ["NEON MARKET // retained environment", "res://market251.tscn"],
- ["RESIDENTIAL // reconstruction pending", ""],
+ ["RESIDENTIAL // first assembly", "res://residential253.tscn"],
  ["RESEARCH LAB // work in progress", "res://laboratory248.tscn"],
  ["FACTORY // partial reconstruction", "res://factory249.tscn"],
  ["SUBWAY // first assembly", "res://metro250.tscn"],
- ["WASTELAND // reconstruction pending", ""]
+ ["WASTELAND // partial reconstruction", "res://wasteland254.tscn"]
 ]
 func _ready() -> void:
  var backdrop:=ColorRect.new()
@@ -42,5 +42,8 @@ func _ready() -> void:
    get_tree().quit()
   else:
    get_tree().set_meta("environment_menu_test",true)
-   assert(not buttons[4].disabled)
-   buttons[4].pressed.emit()
+   var index:=4
+   for argument in OS.get_cmdline_user_args():
+    if argument.begins_with("--review-index="):index=int(argument.get_slice("=",1))
+   assert(index>=0 and index<buttons.size() and not buttons[index].disabled)
+   buttons[index].pressed.emit()

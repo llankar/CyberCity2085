@@ -156,8 +156,8 @@ Tour255 records real native camera orbits through all six environment GLBs;
 first export546frames at1920x1080/30FPS (18.2s), encoded H264 and contact sheet
 inspected. Review found that market GLB omits the ground built by its encounter
 script, so the independent viewer now restores that original visual floor.
-A corrected native recording is being finalized; this does not modify the retained
-encounter. No timing from offline capture is claimed as a live FPS benchmark.
+The corrected native recording completed546frames/18.2s and was encoded/ffprobe
+checked; its six-view contact sheet was inspected. The retained encounter is unchanged. No timing from offline capture is claimed as a live FPS benchmark.
 `package_multimap255.py` makes six FullHD original/native comparisons and a local
 HTML gallery. E: `generated/phase2/multimap255/`.
 
