@@ -1,12 +1,17 @@
 """Improve lighting of Ashfield fractures while preserving their footprints and top artwork."""
 from pathlib import Path
 
+import sys
+
 import bmesh
 import bpy
 from mathutils import Vector
 
+sys.path.insert(0, str(Path(__file__).parent))
+from create_hardsurface_crate import box
+
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "wasteland303"
+output = phase / "wasteland304"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "wasteland297/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -91,6 +96,29 @@ for group in [obj for obj in bpy.data.objects if obj.name.startswith("Occludable
     thickness = panel.modifiers.new("Sheet thickness", "SOLIDIFY")
     thickness.thickness = .024
 
+rust = bpy.data.materials["Exposed oxidized reinforcement"]
+structural_walls = [
+    obj for obj in bpy.data.objects
+    if obj.type == "MESH" and " broken wall" in obj.name
+    and obj.parent and "ruin" in obj.parent.name and obj.dimensions.z > 1.25
+]
+for wall in structural_walls:
+    corners = [wall.matrix_world @ Vector(corner) for corner in wall.bound_box]
+    center = sum(corners, Vector()) / len(corners)
+    # Follow the wall direction rather than the global axes.
+    face = max((poly for poly in wall.data.polygons if abs(poly.normal.z) < .15),
+               key=lambda poly: poly.area)
+    normal = (wall.matrix_world.to_3x3() @ face.normal).normalized()
+    plane = wall.matrix_world @ face.center
+    anchor = center + normal * ((plane-center).dot(normal) + .025)
+    height = wall.dimensions.z * .79
+    post = box("Ruined wall steel upright", (anchor.x, anchor.y, height/2),
+               (.062, .038, height/2), rust, .009)
+    post.rotation_euler.z = Vector((0, 1)).angle_signed(normal.xy)
+    post.parent = wall.parent
+
+assert structural_walls
+print("ASHFIELD304_UPRIGHTS", len(structural_walls))
 floor = bpy.data.materials["Original ashfield ground"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
 texture.image = bpy.data.images.load(str(phase / "wasteland301/floor.png"))
@@ -100,4 +128,4 @@ for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"),
                           export_format="GLB", use_selection=True, export_apply=True)
-print("ASHFIELD303_EXPORTED", count, mapped_faces)
+print("ASHFIELD304_EXPORTED", count, mapped_faces)

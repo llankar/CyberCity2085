@@ -6,4 +6,4 @@ review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/metro293/"
 reference_cells = Array[Vector2i]([Vector2i(22,24),Vector2i(24,24),Vector2i(26,24)])
 close_elevation = 4.5
 close_yaw = -2.47859
-delivery_next_scene = "res://wasteland303_cast.tscn"
+delivery_next_scene = "res://wasteland304_cast.tscn"

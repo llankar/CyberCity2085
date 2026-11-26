@@ -6,7 +6,7 @@ const ENTRIES := [
  ["RESEARCH LAB // service wall detail", "res://lab291_cast.tscn"],
  ["FACTORY // machines, service walls and cargo", "res://factory278_cast.tscn"],
  ["SUBWAY // modular walls and open railway exits", "res://metro293_cast.tscn"],
- ["WASTELAND // concrete surface repair; partial", "res://wasteland303_cast.tscn"]
+ ["WASTELAND // concrete surface repair; partial", "res://wasteland304_cast.tscn"]
 ]
 func _ready() -> void:
  var backdrop:=ColorRect.new()
