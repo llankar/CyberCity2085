@@ -163,6 +163,9 @@ func simulation_delta(delta: float) -> float:
 func presentation_time(simulation_time: float) -> float:
 	return simulation_time
 
+func encounter_duration() -> float:
+	return 30.0
+
 func _process(delta: float) -> void:
 	if effects==null:return
 	var dt := simulation_delta(delta)
@@ -233,7 +236,7 @@ func _process(delta: float) -> void:
 		if t<4 or (t>12 and t<14.5):effects.sound("step",actors[0].position,-24)
 	time_value+=dt;frame+=1;capturing=true
 	if record:RenderingServer.force_draw(false)
-	if t>=30:
+	if t>=encounter_duration():
 		FileAccess.open(delivery_folder+"audio.json",FileAccess.WRITE).store_string(JSON.stringify(effects.audio_events))
 		FileAccess.open(delivery_folder+"encounter.json",FileAccess.WRITE).store_string(JSON.stringify({"blocked_shots":blocked_shots,"occlusion_frames":occlusion_frames,"health":health,"frames":frame,"scope":"Staged local encounter, not production tactical AI"}))
 		print("COMBAT169_CAPTURE_FINISHED frames=",frame);get_tree().quit()

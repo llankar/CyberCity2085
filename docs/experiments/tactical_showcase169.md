@@ -855,3 +855,18 @@ treatment/orbit thumbnails sought at old timestamps; seeks remapped and files
 generated without full rerender/reencoding. Gallery links now PASS.
 Existing final medical recovery/IK pose remains213, global art still incomplete.
 No production/campaign/download/push. Stable205 retained.
+
+
+### Recovery213 ? actual completion drives medical recovery
+
+Preview: `E:/CyberCity2085-3d-lab/generated/phase2/recovery213/index.html`.
+Run `run_movie169.ps1 -Recovery213`, then package that folder. Source medical
+kneeling pose is held until actual100HP; IK releases, medic source rise and
+patient CoverExitStudy recover together. Source clip5.2083s/hold4.1667s selected
+with seven samples, no new rig. First take revealed unkeyed idle rest channels;
+post-crossfade bone reset/current idle fixes the lingering arm. Actual final
+close crop inspected: both upright, no arm reaching to the former target.
+Final549frames1080p30=18.3s,1.7pace retained; extra1simsecond shows recovery.
+Native/package state/contact/recovery checks and gallery links PASS. Old scene
+30s/contact defaults unchanged. Full-motion global art NOT VERIFIED. No campaign,
+production, push or release.214next: camera-facing hero facade then consolidation.

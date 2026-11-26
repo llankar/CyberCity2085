@@ -29,6 +29,9 @@ func _ready() -> void:
 	medic_rig.add_child(treatment_ik)
 	if "--contact-preview" in OS.get_cmdline_user_args():time_value=22
 
+func medical_contact_active() -> bool:
+	return time_value>=22
+
 func _process(delta: float) -> void:
 	super._process(delta)
 	if treatment_ik==null:return
@@ -44,7 +47,7 @@ func _process(delta: float) -> void:
 			var bounds: AABB=mesh.global_transform*mesh.get_aabb()
 			base_y=minf(base_y,bounds.position.y)
 		if is_finite(base_y):actors[2].position.y+=.025-base_y
-	if time_value>=22:
+	if medical_contact_active():
 		# Follow the real patient's arm, rather than a detached world-space marker.
 		var target := patient_rig.global_transform*patient_rig.get_bone_global_pose(patient_arm)
 		target.origin+=Vector3(0,-.09,0)
@@ -52,6 +55,8 @@ func _process(delta: float) -> void:
 		treatment_ik.start(true)
 		var hand := medic_rig.global_transform*medic_rig.get_bone_global_pose(wrist)
 		contact_error=hand.origin.distance_to(target.origin)
+	else:
+		treatment_ik.stop()
 	if "--contact-preview" in OS.get_cmdline_user_args():
 		camera.position=Vector3(2.5,2.7,5)
 		camera.look_at(Vector3(0,.65,1.6));camera.size=4.8

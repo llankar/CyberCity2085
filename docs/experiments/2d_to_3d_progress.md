@@ -80,12 +80,27 @@ This register is separate from the principal CyberCity 2085 GOAL.
   material/movie/package helpers. Interrupted prior turn generated211; resumed
   pending work and implemented latest speed steering. No production/save edit,
   campaign, downloads, push or release;205 unchanged. CHANTIER GLOBAL INCOMPLET.
-- `TODO` SHOWCASE213: medical recovery staging remains awkward in final orbit:
-  medic rises while arm IK still reaches crouched patient. Synchronize medical
-  clip/IK release with actual healing completion; inspect service facade from
-  useful combat angle. Preserve faster1.7 rhythm/current cast. Then consolidate
-  strongest variant. Global art/full-motion acceptance and Hunyuan improvement
-  remain open, no global artistic completion claimed.
+- `DONE` RECOVERY213 scoped medical completion (2026-11-26). Existing medical
+  clip5.2083s, seven source samples select kneeling phase4.1667s. Pose held until
+  actual healing_end29.2simseconds, then source rise and patient CoverExitStudy
+  run over1simsecond. Contact IK stops at100HP. First native take exposed idle
+  rest-valued channels omitted by import; after crossfade reset bones and apply
+  current idle. Rejected detail retained. Final close crop inspected: both stand,
+  medic no longer reaches with an outstretched arm. No new rig or healing amount.
+  Encounter ends31simseconds to include recovery, faster1.7 retained: final
+  549frames1080p30=18.3s. Native/package PASS: blocked1,occlusion498, expectedhealth,
+  retaliation/contact retained, recovery100HP/contactfalse/bothHard stand/rest
+  channels reset. Recovery strip and final detail actually inspected. Gallery
+  links PASS. Source default30s/contact behavior unchanged via small hooks.
+  Files: recovery213.gd/tscn,169duration hook,173contact hook,movie/package helpers.
+  E: recovery213 video/GIF/gallery/native recovery.json/captures. No production,
+  save, campaign, download, push/release;205preserved. Previous212 turn progress.
+  Global full-motion art acceptance NOT VERIFIED. CHANTIER GLOBAL INCOMPLET.
+- `TODO` SHOWCASE214 next: expose/reposition service facade in a useful combat
+  camera view and complete a visibly distinct hero facade assembly, then
+  consolidate the strongest map/cast/tempo/recovery into the local delivery.
+  Retain18s rhythm and source rigs, no new baseline engine/rig/campaign proofs.
+  Global environment polish/class wardrobe/Hunyuan improvements remain open.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already
