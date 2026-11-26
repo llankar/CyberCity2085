@@ -63,8 +63,10 @@
     "map": "city_industrial_dockside_terminal",
     "family": "industry",
     "reuse": "factory cargo and yard machinery",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://dockside335.tscn",
+    "scope": "partial: cargo and generators"
   },
   {
     "map": "city_interior_blacksite_lab",
