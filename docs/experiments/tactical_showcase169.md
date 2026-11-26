@@ -950,3 +950,11 @@ inside stationary original rings. Same source220 UV/albedo, metallic response
 improved. No gear animation. Native movie and motion crop comparison are at
 `generated/phase2/aircraft222/`. Editable aircraft: `vtol222/vtol_actions.blend`.
 Soft texture/green marks remain; no production or standalone215 replacement.
+
+## Service-access trial223
+
+`res://services223.tscn` adds retained authored fire-escape and utility parts to
+front facade bays, preserving map cells and building cutaway. Review media:
+`generated/phase2/services223/index.html`. Full-scene artistic gain is modest;
+this does not meet the broader architecture objective. Selected scene remains222.
+Next direction: complete cyberpunk facade assets rather than more small attachments.

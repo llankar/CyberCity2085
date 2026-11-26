@@ -6012,3 +6012,19 @@ resources must not be pushed without explicit authorization.
   package_combat169.py. Next: broader architectural variety and effects polish;
   do not regenerate this aircraft/rig. No experimental push.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` SERVICES-223 scoped acquired-access trial (2026-11-26). Retained
+  Poly Haven fire-escape deck/rail/ladder, electric box and air intake fitted
+  to two original facade bays. Original627 tactical cells unchanged; accessories
+  inherit their building's cutaway. Import naming collision fixed by matching
+  Blender's numeric suffix. First east/north placement was peripheral; selected
+  se/sw front bays and world-vertical normal selection corrected after inspection.
+  Native549frames1080p30/71s offline, final0030 inspected: detail gain is modest
+  at full scene scale, not a substantial cyberpunk architecture transformation.
+  NOT SELECTED over222 as a final art improvement. Gallery services223/index.html,
+  source showcase223/environment.blend/.glb retained for comparison. Selected222
+  and standalone215 unchanged. Next: source complete cyberpunk facade/building
+  assets rather than repeat small attachment passes. No production/campaign/push.
+  Files: blender/service_facade223.py, godot/services223.gd/tscn, materials186.gd,
+  package_combat169.py. AVI and obsolete blend1 removed after final media encode.
+  CHANTIER GLOBAL INCOMPLET.

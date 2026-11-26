@@ -42,20 +42,23 @@ def main():
 <p>Rencontre mise en scène dans le laboratoire indépendant : aucune campagne ni IA de production exécutée. La vidéo est rendue hors temps réel. Le style architectural et les contacts de soins restent perfectibles.</p>
 <img src="clean_0254.png"><img src="clean_0590.png"><img src="clean_0750.png">
 <p>Modèles humains et robot conservés. Matériaux PBR et accessoires Poly Haven, composants de toiture Kenney, sol et sons CyberCity existants. Ressources privées locales, aucune publication.</p></html>''',encoding='utf8')
-    if OUT.name in ('industry216','lighting218','counter219','aircraft221','aircraft222'):
+    if OUT.name in ('industry216','lighting218','counter219','aircraft221','aircraft222','services223'):
         # The selected gallery survives pruning historical experiment workspaces.
         recovery=json.loads((OUT/'recovery.json').read_text())
         assert recovery['health']==100 and not recovery['contact_active']
         page='<!doctype html><meta charset="utf-8"><title>CyberCity2085 ? current 3D showcase</title>\n<style>body{max-width:1400px;margin:32px auto;background:#07141a;color:#e9f4f7;font:18px system-ui}a{color:#39dce7}video,img{width:100%;margin:12px 0}p{line-height:1.6}</style>\n<h1>CYBERCITY 2085 // CURRENT SHOWCASE</h1><video controls src="encounter_1080p30.mp4"></video>\n<p>Full HD30. One staged encounter,1.7pace, retained character rigs/motions and actual game audio. Experimental scene; production runtime unchanged.</p>\n<h2>Repair / salvage / rooftops</h2><img src="clean_0030.png"><p>Acquired PBR compressor, valves and pipe elbows replace repeated stock rows. Foreground duct corners use restrained existing soft-smoke rendering.</p>\n<h2>Combat and treatment</h2><img src="clean_0590.png"><img src="clean_0750.png">\n<h2>Editable environment</h2><p><a href="../showcase216/environment.blend">Packed Blender</a> / <a href="../showcase216/environment.glb">Environment GLB</a></p>\n<h2>Selected models</h2><p><a href="../robot210/robot_actions.glb">Robot</a> / <a href="../sole_skin162/human.glb">Rook</a> / <a href="../armored203/armored_actions.glb">Armored Raider</a> / <a href="../rig177/human.glb">Textured AI human</a> / <a href="../vtol178/vtol_actions.glb">VTOL</a></p>\n<h2>Retained standalone checkpoint</h2><p><a href="../../../deliveries/tactical_demo215/index.html">Demo215 and sources</a></p><img src="../../../deliveries/tactical_demo215/media/comparison_native.png"><p>Nominal combat-scale sprite/model reference; poses/views differ and helmet addition is later. Global artistic work remains incomplete.</p>'
-        if OUT.name in ('lighting218','counter219','aircraft221','aircraft222'):
+        if OUT.name in ('lighting218','counter219','aircraft221','aircraft222','services223'):
             page+='<h2>Local shop lighting</h2><p>Seven practical lights follow the actual emissive valances and their cutaway alpha. Restrained neutral key/fill preserves tactical readability.</p>'
-        if OUT.name in ('counter219','aircraft221','aircraft222'):
+        if OUT.name in ('counter219','aircraft221','aircraft222','services223'):
             page=page.replace('../showcase216/','../showcase219/')
             page+='<h2>Worn counter cladding</h2><p>Seven existing counter bodies use metric worn PBR cladding in three muted finishes. Original silhouettes and obstacle cells are unchanged.</p>'
         if OUT.name=='aircraft221':
             page+='<h2>Static VTOL candidate</h2><p>Hunyuan mesh and color generated from the actual stealth dropship combat illustration, matched to the previous vehicle width and center. Fan/gear animation is not yet transferred. Existing animated VTOL178 is retained.</p><p><a href="../paint220/stealth_vtol/review/model.blend">Textured Blender source</a> / <a href="../paint220/stealth_vtol/mesh.glb">Textured GLB</a></p>'
-        if OUT.name=='aircraft222':
+        if OUT.name in ('aircraft222','services223'):
             page+='<h2>Articulated generated VTOL</h2><p>Two actual inner fan meshes extracted from the generated aircraft rotate inside stationary rings. Retained UV/albedo, metallic response adjusted. Landing gear is not transferred; this is a hover art trial.</p><p><a href="../vtol222/vtol_actions.blend">Animated Blender</a> / <a href="../vtol222/vtol_actions.glb">Animated GLB</a></p>'
+        if OUT.name=='services223':
+            page=page.replace('../showcase219/','../showcase223/')
+            page+='<h2>Industrial service access</h2><p>Two facade bays use acquired maintenance decks, safety rails, access ladders, power boxes and ventilation. Existing map geometry and paths retained.</p>'
         (OUT/'index.html').write_text(page,encoding='utf8')
         (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,'scope':'Selected native scene; historical scratch workspaces pruned'},indent=2))
         print('CURRENT_SHOWCASE_DELIVERED',state)
