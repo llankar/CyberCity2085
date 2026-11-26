@@ -12,15 +12,19 @@ LAB=Path('/mnt/e/CyberCity2085-3d-lab')
 sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat'],default='robot')
+    parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat','rook_unarmed'],default='robot')
     subject=parser.parse_args().subject
     output=LAB/('generated/phase2/paint168/robot_official' if subject=='robot' else 'generated/phase2/paint171/rook_official')
+    if subject=='rook_unarmed':output=LAB/'generated/phase2/paint175/rook_unarmed'
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
     source=LAB/'generated/phase2/hunyuan166'/subject/'review_upright/optimized.glb'
     reference=LAB/'generated/phase2/hunyuan166'/subject/'prepared.png'
     if not reference.exists(): reference=LAB/('sources/robot.png' if subject=='robot' else 'sources/rook_combat/00_E.png')
+    if subject=='rook_unarmed':
+        source=LAB/'generated/phase2/hunyuan175/rook_unarmed/clean.glb'
+        reference=LAB/'generated/phase2/reference175/rook_unarmed.png'
     assert source.is_file() and reference.is_file(),'Missing actual mesh/reference'
     import torch
     import custom_rasterizer as cr

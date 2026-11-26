@@ -15,6 +15,30 @@ This register is separate from the principal CyberCity 2085 GOAL.
   all166 meshes. Live WSL PID398/session64460 verified; no mesh PASS yet.
   Evidence tmp/hunyuan175-unarmed.log. Next: inspect new mesh, then colour/rig
   only if separation and silhouette are useful. No old gates/campaign/push.
+  Continuation: same shape job completed. Actual PASS503540triangles,60.48s
+  model-loading/inference excluding cold imports; torch peak allocated4.87GB.
+  Neutral front/profile/back inspected: open arms/hands and no fused weapon.
+  Optimized39995triangles; cleaned64vertices of tiny disconnected dust, retained
+  main39916face component. Originals remain unchanged. New clean.glb/.blend on
+  E:hunyuan175/rook_unarmed. Paint175 colour job live session3025/PID398; imports
+  and cached model load confirmed, no colour result yet. rig_unarmed175 draft
+  prepares one UAL automatic-binding/five-clip trial, syntax checked only; not
+  executed or claimed successful. Subsequent actual execution: Paint PASS139.24s,
+  colour1024/39916triangles, torch allocated11.03GB/reserved14.34GB. Neutral
+  textured front/profile/back inspected. Initial heat bind FAIL on split UV
+  triangle vertices; welded coincident positions preserving face-loop UVs, then
+  bound19956vertices with0unweighted. Five UAL clips baked and loaded natively.
+  First native render exposed coat pulled by arms; constrained central coat
+  weights (4996vertices) and corrected translation transfer. First failed media
+  retained as first_*; no artistic PASS inferred from weight coverage.
+  Corrected native detail and game-scale movies330frames1080p30/11s captured;
+  five poses inspected, game-scale Shoot inspected. Coat now remains below waist,
+  but underarm creases/deformations and foot contact need further work. Pistol
+  prop not yet attached. Native rendering/packaging PASS; artistic readiness OPEN.
+  Real animated GLB/BLEND, two MP4s and neutral-view gallery E:phase2/rig175.
+  Source clean_unarmed175,rig_unarmed175,unarmed175 scene/movie/package scripts.
+  Next: improve shoulder/leg fit, attach existing weapon, then evaluate in the
+  tactical scene. No production replacement. CHANTIER GLOBAL INCOMPLET.
 
 - `DONE` CITY-174 visual variant (2026-11-26). Previous turn progressed: treatment
   contact, persistent robot collapse and native media delivered. New optional
