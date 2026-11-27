@@ -277,6 +277,9 @@ func _process(delta: float) -> void:
     if not benchmark_combat and not verify_move_hover(state.units[0]):
      get_tree().quit(23)
      return
+    if not benchmark_combat and not verify_absorbed_impact():
+     get_tree().quit(24)
+     return
     if benchmark_combat:
      DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
      review_size = minf(review_size, 14.0)
@@ -596,6 +599,21 @@ func same_cell(left: Array, right: Array) -> bool:
 
 func contains_cell(cells: Array, cell: Array) -> bool:
  return cells.any(func(candidate: Array) -> bool: return same_cell(cell, candidate))
+
+
+func verify_absorbed_impact() -> bool:
+ var target := target_center(actors["enemy:0"])
+ # Replay the presentation payload for an absorbed hit without changing the battle.
+ effects.show_attack_outcome(target, true, 0)
+ var outcome := effects.get_node_or_null("AttackOutcome") as Label3D
+ var correct := outcome != null and outcome.text == "NO DAMAGE"
+ if outcome != null:
+  outcome.free()
+ if not correct:
+  push_error("Absorbed hit did not show NO DAMAGE")
+  return false
+ print("TACTICAL_ABSORBED_IMPACT_UI_OK")
+ return true
 
 
 func verify_move_hover(unit: Dictionary) -> bool:

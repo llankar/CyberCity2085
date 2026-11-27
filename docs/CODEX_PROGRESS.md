@@ -1641,3 +1641,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TARGET-HOVER / DONE for native smoke coverage. Mouse-motion input on the hostile now checks the exact Python-provided hit percentage and guide in fire mode, then verifies melee out of range hides the guide. Warehouse and Dust Road 06 reached round 2. Next: inspect the attack outcome feedback for misses and zero-damage hits.
 
 - EXPERIMENTAL-ATTACK-OUTCOME-FEEDBACK / IN_PROGRESS. Added brief in-world outcome labels driven by the Python reply: miss, no damage, or HP lost. Warehouse native smoke checked MISS and reached round 2; victory smoke checked -1 HP and the victory panel. The no-damage outcome is implemented and still needs a deterministic native fixture. Next: exercise a confirmed hit absorbed by mitigation.
+
+- EXPERIMENTAL-ABSORBED-IMPACT-UI / DONE for the presentation branch. A synthetic confirmed zero-damage hit created the expected NO DAMAGE label in Godot. The subsequent real Warehouse drill confirmed MISS and reached round 2. A naturally resolved zero-damage engine hit remains unverified. Next: inspect enemy-phase outcome reporting.
