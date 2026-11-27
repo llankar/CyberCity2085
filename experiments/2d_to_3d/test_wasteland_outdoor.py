@@ -28,6 +28,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_burned_market_block"):
+            for identifier, has_canvas in (("stall_w", False), ("stall_middle", True)):
+                stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                parts = [nodes[index]["name"] for index in stall["children"]]
+                assert sum(part.startswith("Charred stall upright") for part in parts) == 4
+                assert any(part.startswith("Torn market canvas") for part in parts) == has_canvas
         if name.endswith("_ruined_downtown"):
             for identifier in ("bus_sw", "wreck_mid_e"):
                 bus = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")

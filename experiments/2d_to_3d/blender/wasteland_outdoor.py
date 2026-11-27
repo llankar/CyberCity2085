@@ -64,13 +64,16 @@ class WastelandOutdoors:
             bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
 
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
-                 ruined_downtown=False, wrecked_highway=False, trainyard=False):
+                 ruined_downtown=False, burned_market=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
         self.city = city
         self.overpass = overpass
         self.ruined_downtown = ruined_downtown
+        self.burned_market = burned_market
+        if burned_market:
+            self.scorched_canvas = make_material("Scorched market canvas", (.23,.16,.10,1), .03,.93)
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
         self.workshop_surface = None
@@ -284,6 +287,8 @@ class WastelandOutdoors:
         elif any(part in name for part in ("pipe","tank","shelf")):
             place(self.library / "industrial_service267/model.glb", group, (x,y,0),
                   (length*.97,breadth*.97,1.42), yaw=yaw)
+        elif self.burned_market and "stall" in name:
+            self.burned_market_stall(group, name, x, y, length, breadth, yaw)
         elif "stall" in name or name.startswith("market_"):
             place(self.library / "market_southeast_display/shop.glb", group, (x,y,0),
                   (length*.96,breadth*.96,1.6), yaw=yaw, merge=True)
@@ -335,6 +340,30 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def burned_market_stall(self, group, name, x, y, length, width, yaw):
+        group.location = (x, y, 0)
+        group.rotation_euler.z = yaw
+        for side in (-1, 1):
+            box("Charred stall counter", (0, side*width*.30, .40),
+                (length*.44, width*.12, .12), self.dark).parent = group
+            box("Charred canopy rail", (0, side*width*.35, 1.07),
+                (length*.44, .038, .043), self.steel).parent = group
+            for end in (-1, 1):
+                box("Charred stall upright", (end*length*.39, side*width*.35, .54),
+                    (.045, .045, .54), self.dark).parent = group
+        if name in {"stall_w", "stall_ne", "stall_sw"}:
+            return
+        vertices = [(-length*.39,-width*.35,1.08), (length*.39,-width*.35,1.08),
+                    (length*.39,width*.35,1.08), (-length*.39,width*.35,1.08),
+                    (length*.09,0,1.22)]
+        faces = [(0,1,4), (2,3,4), (3,0,4)]
+        mesh = bpy.data.meshes.new("Torn canvas")
+        mesh.from_pydata(vertices, [], faces)
+        mesh.materials.append(self.scorched_canvas)
+        canopy = bpy.data.objects.new("Torn market canvas", mesh)
+        bpy.context.collection.objects.link(canopy)
+        canopy.parent = group
 
     def downtown_bus_wreck(self, group, x, y, length, width, yaw):
         group.location = (x, y, 0)
