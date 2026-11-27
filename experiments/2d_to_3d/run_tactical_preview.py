@@ -120,14 +120,14 @@ def scenario_preview(scenario: str) -> TacticalPreview:
             raise ValueError(f"Blocked spawn on {map_name}: {cell}")
         return Unit(position=position, stats=stats, health=stats.hp, action_points=3, unit_type=team)
 
-    ally = spawn(ally_cell, PlayerStats(), "player")
+    ally = spawn(ally_cell, PlayerStats(agi=7), "player")
     ally.character = Character("Longshot", role="sniper", stats=ally.stats)
     equip_starter_loadout(ally.character.loadout, ally.character.role)
     catalog = default_equipment_catalog()
     for slot, item_id in (("sidearm", "mono_knife"), ("utility_item", "trauma_patch")):
         ally.character.loadout.equip(slot, next(item for item in catalog[slot] if item.id == item_id))
     ally.attack_range = ally.character.loadout.primary_weapon.range_cells
-    support = spawn(support_cell, PlayerStats(psi=4), "player")
+    support = spawn(support_cell, PlayerStats(agi=3, psi=4), "player")
     support.character = Character("Oracle", role="psi", stats=support.stats)
     equip_starter_loadout(support.character.loadout, support.character.role)
     support.attack_range = support.character.loadout.primary_weapon.range_cells

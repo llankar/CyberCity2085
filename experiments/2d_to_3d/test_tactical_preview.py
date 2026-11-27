@@ -166,6 +166,8 @@ class TacticalPreviewTest(unittest.TestCase):
                 self.assertEqual(len(positions), 3)
                 self.assertTrue(positions <= terrain.walkable_cells)
                 ally = preview.units["ally:0"]
+                targeting = preview.attack_previews(ally)["enemy:0"]["fire"]
+                self.assertGreater(targeting["hit_percent"], 0)
                 options = preview.move_options(ally)
                 self.assertTrue(options, "Lead operative has no starting move")
                 move = preview.action("move", "ally:0", destination=options[0])
