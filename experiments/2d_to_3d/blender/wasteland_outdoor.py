@@ -13,6 +13,39 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
+    def add_waterfront_wrecks(self):
+        for name, stern, bow, beam in (
+            ("West basin wreck", (274,477), (340,390), 40),
+            ("East basin wreck", (537,482), (553,359), 47),
+        ):
+            ax, ay = self.coordinates(*stern)
+            bx, by = self.coordinates(*bow)
+            length = math.hypot(bx-ax,by-ay)
+            width = beam*self.gw/self.cw
+            outline = ((-.49,-.32), (.27,-.50), (.49,-.12), (.50,0),
+                       (.49,.12), (.27,.50), (-.49,.32))
+            vertices = [(x*length*taper,y*width*taper,z)
+                        for taper,z in ((.84,-.025),(1,.33)) for x,y in outline]
+            size = len(outline)
+            faces = [tuple(range(size,2*size))]
+            for i in range(size):
+                j = (i+1)%size
+                faces.append((i,j,j+size,i+size))
+            mesh = bpy.data.meshes.new(name+" hull")
+            mesh.from_pydata(vertices, [], faces)
+            mesh.materials.append(self.dark)
+            mesh.materials.append(self.steel)
+            for face in list(mesh.polygons)[1:]:
+                face.material_index = 1
+            hull = bpy.data.objects.new(name, mesh)
+            bpy.context.collection.objects.link(hull)
+            for offset in (-.28,-.02,.23):
+                frame = box("Exposed shipwreck deck frame", (length*offset,0,.38),
+                            (.044,width*.35,.042), self.steel,.012)
+                frame.parent = hull
+            hull.location = ((ax+bx)/2,(ay+by)/2,0)
+            hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
+
     def add_flooded_square_surface(self, material):
         # The water follows the central plaza between the raised sidewalks.
         shoreline = ((151,209), (114,202), (110,158), (160,141), (192,102),

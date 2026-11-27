@@ -29,6 +29,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_cratered_waterfront"):
+            for identifier in ("West basin wreck", "East basin wreck"):
+                wreck = next(node for node in nodes if node["name"] == identifier)
+                assert "mesh" in wreck
+                assert len(wreck["children"]) == 3
             surfaces = {node["name"]: node for node in nodes if node["name"].startswith("Water surface ")}
             assert surfaces.keys() == {"Water surface "+row["id"] for row in surveyed if row.get("kind") == "water"}
             assert all("mesh" in node for node in surfaces.values())

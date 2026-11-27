@@ -823,6 +823,7 @@ def build(name):
         for row in survey["walls"]:
             if row.get("kind") == "water":
                 wasteland.add_water_surface("Water surface "+row["id"], water, row["polygon"])
+        wasteland.add_waterfront_wrecks()
     if wasteland and wasteland.overpass:
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
