@@ -224,6 +224,7 @@ def build(name):
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
     freeway = name.endswith("_elevated_freeway")
+    transport_facades = freeway or name.endswith("_transit_interchange")
     deck_rails = {row["id"]: row["points"][0][1] for row in survey["walls"]
                   if row["id"] in {"highway_north_rail", "highway_south_rail"}}
     riot_square = name == "city_district_riot_square"
@@ -735,7 +736,7 @@ def build(name):
         uv = shell.data.uv_layers.active
         for face in shell.data.polygons:
             if face.normal.z < .9:
-                if (civic or freeway) and abs(face.normal.z) < .1:
+                if (civic or transport_facades) and abs(face.normal.z) < .1:
                     for loop_index in face.loop_indices:
                         point = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
                         along = point.y if abs(face.normal.x) > .5 else point.x
@@ -773,9 +774,9 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
-        if freeway and w >= 2.4 and height >= 3.2:
+        if transport_facades and w >= 2.4 and height >= 3.2:
             upper_level = height*.62
-            box(identifier + " freeway facade lintel", (x,front+direction*.035,upper_level-.09),
+            box(identifier + " transport facade lintel", (x,front+direction*.035,upper_level-.09),
                 (w*.47,.065,.055), frame,.012).parent = group
             bays = (-.23,.23) if i % 2 else (0,)
             for offset in bays:
