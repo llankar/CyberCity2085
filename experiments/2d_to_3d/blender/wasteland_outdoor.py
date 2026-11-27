@@ -305,6 +305,12 @@ class WastelandOutdoors:
             c,s = abs(math.cos(angle)),abs(math.sin(angle))
             scale = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
             self.convoy_vehicle(group, name, x, y, length*scale, breadth*scale, angle)
+        elif self.scavenger_plaza and name == "wreck_se":
+            angle = math.atan2(-48*self.gh/self.ch, 38*self.gw/self.cw)
+            breadth = min(breadth, length*.48)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.convoy_vehicle(group, name, x, y, length*fit, breadth*fit, angle)
         elif self.ruined_downtown and name in {"bus_sw", "wreck_mid_e", "truck_mid"}:
             angle = {"bus_sw": .36, "wreck_mid_e": .29, "truck_mid": -.20}[name]
             breadth = min(breadth, length*.33)

@@ -29,6 +29,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_scavenger_plaza"):
+            wreck = next(node for node in nodes if node["name"] == "Occludable_wreck_se")
+            assert "rotation" in wreck
+            assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
+                       for i in wreck["children"]) == 7
             for identifier, fabrics in (("market_n", {"sand", "olive"}), ("market_center", set())):
                 stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 parts = [nodes[i]["name"] for i in stall["children"]]
