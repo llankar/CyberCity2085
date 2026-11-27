@@ -135,6 +135,10 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert sum(part.startswith("Broken workshop frontage") for part in parts) == fragments
         assert any(part.startswith("Workshop rear wall") for part in parts)
+        assert any(part.startswith("Workshop service cabinet") for part in parts)
+        if identifier == "northwest_ruin":
+            assert any(part.startswith("Workshop parts crate") for part in parts)
+            assert any(part.startswith("Workshop fan assembly") for part in parts)
 
 
 def test_turntable_ballast_stays_inside_the_wagon_footprint():

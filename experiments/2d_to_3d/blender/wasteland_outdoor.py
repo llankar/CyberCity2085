@@ -295,8 +295,19 @@ class WastelandOutdoors:
             self.concrete_box("Broken workshop frontage",
                               (x+width*offset, y-depth*.43, .15),
                               (width*.10, depth*.05, .15)).parent = group
-        place(self.library / "industrial_service267/model.glb", group,
-              (x-width*.23, y+depth*.15, .07), (min(width*.26, 2.2), depth*.34, .58))
+        equipment = (
+            ("Workshop service cabinet", "industrial_service267/model.glb", 130, 28, 43, 35, .65),
+            ("Workshop parts crate", "cargo_crate274/model.glb", 201, 28, 29, 24, .43),
+            ("Workshop fan assembly", "roof_twin_fan/optimized.glb", 301, 21, 44, 27, .30),
+        ) if name == "northwest_ruin" else (
+            ("Workshop service cabinet", "industrial_service267/model.glb", 615, 48, 36, 29, .65),
+        )
+        for label, asset, px, py, w, d, height in equipment:
+            fixture_x, fixture_y = self.coordinates(px, py)
+            parts = place(self.library / asset, group, (fixture_x, fixture_y, .07),
+                          (w*self.gw/self.cw, d*self.gh/self.ch, height), merge=True)
+            for part in parts:
+                part.name = label
 
     def trainyard_turntable(self, x, y, yaw, wagon_width):
         bridge = bpy.data.objects.new("Trainyard turntable bridge", None)
