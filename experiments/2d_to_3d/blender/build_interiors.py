@@ -611,6 +611,17 @@ def build(name):
         elif kind == "barrier":
             box(identifier, (x,y,.24), (w*.49,d*.49,.24), steel).parent = group
             box(identifier+" coping", (x,y,.49), (w*.48,d*.48,.025), trim).parent = group
+        elif looted_vault and identifier == "sw_utility":
+            box("Looted cabinet back", (x,y+d*.42,.68), (w*.45,d*.045,.68),steel).parent = group
+            for side in (-1, 1):
+                box("Looted cabinet side", (x+side*w*.42,y,.68),
+                    (w*.035,d*.44,.68),steel).parent = group
+            for height in (.12,.47,.82,1.34):
+                box("Looted cabinet shelf", (x,y,height),
+                    (w*.44,d*.44,.027),partition_cap).parent = group
+            box("Abandoned cabinet bin", (x-w*.16,y+d*.11,.59),
+                (w*.17,d*.23,.09),trim,.021).parent = group
+            merge_fixture_meshes(group, "Looted open utility cabinet")
         elif kind == "cabinet":
             box(identifier, (x,y,.78), (w*.46,d*.44,.78), steel).parent = group
             for level in (.42,.73,1.04,1.35):
