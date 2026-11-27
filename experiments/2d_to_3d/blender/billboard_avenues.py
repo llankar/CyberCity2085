@@ -21,6 +21,18 @@ BILLBOARD_ROOF_FANS = {
     "south_west_block": ((274, 416, 301, 463), (372, 445, 421, 498)),
 }
 
+# Both street variants share the same art and surveyed building footprints.
+ALTERNATE_BILLBOARD_ROOF_FANS = {
+    "nw_block": ((31, 65, 88, 91),),
+    "north_block": ((251, 17, 286, 78),),
+    "ne_block": ((577, 61, 632, 100),),
+}
+BILLBOARD_FANS_BY_MAP = {
+    "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,
+    "cybercity_street_15_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
+    "cybercity_street_16_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
+}
+
 BUILDING_EXCEPTIONS = {
     "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
@@ -395,18 +407,18 @@ def build(name):
                 box(identifier + " roof parapet short",
                     (x+side*(w/2-thickness), y, height+parapet_height),
                     (thickness, d/2-2*thickness, parapet_height), frame).parent = group
-        if name == "city_exterior_billboard_avenue":
-            for left, top, right, bottom in BILLBOARD_ROOF_FANS.get(identifier, ()):
-                fan_x = (left+right)*gw/(2*cw)-gw/2
-                fan_y = gh/2-(top+bottom)*gh/(2*ch)
-                fan_w, fan_d = (right-left)*gw/cw, (bottom-top)*gh/ch
-                box(identifier + " roof HVAC mounting curb", (fan_x,fan_y,height+.035),
-                    (fan_w/2,fan_d/2,.035), frame).parent = group
-                fitted = place(library / "roof_twin_fan/optimized.glb", group,
-                               (fan_x,fan_y,height+.07), (max(fan_w,fan_d),min(fan_w,fan_d),.55),
-                               yaw=math.pi/2 if fan_d > fan_w else 0, merge=True)
-                for obj in fitted:
-                    obj.name = identifier + " surveyed roof HVAC"
+        roof_fans = BILLBOARD_FANS_BY_MAP.get(name, {}).get(identifier, ())
+        for left, top, right, bottom in roof_fans:
+            fan_x = (left+right)*gw/(2*cw)-gw/2
+            fan_y = gh/2-(top+bottom)*gh/(2*ch)
+            fan_w, fan_d = (right-left)*gw/cw, (bottom-top)*gh/ch
+            box(identifier + " roof HVAC mounting curb", (fan_x,fan_y,height+.035),
+                (fan_w/2,fan_d/2,.035), frame).parent = group
+            fitted = place(library / "roof_twin_fan/optimized.glb", group,
+                           (fan_x,fan_y,height+.07), (max(fan_w,fan_d),min(fan_w,fan_d),.55),
+                           yaw=math.pi/2 if fan_d > fan_w else 0, merge=True)
+            for obj in fitted:
+                obj.name = identifier + " surveyed roof HVAC"
         direction = -1 if y > 0 else 1
         front = y + direction*d/2
         angle = 0 if direction < 0 else math.pi
