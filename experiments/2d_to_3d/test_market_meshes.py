@@ -74,3 +74,17 @@ def test_neon_market_awning_is_independently_occludable():
     parts = [nodes[index]["name"] for index in awning["children"]]
     assert "West awning canopy" in parts
     assert sum(name.startswith("West awning outer pole") for name in parts) == 2
+
+
+def test_floor_detail_restores_texture_without_touching_original_aisles():
+    import numpy as np
+    from PIL import Image
+    from prepare_floor248 import restore_surface_detail
+
+    original = Image.new("RGB", (64,64), (90,80,70))
+    mask = np.zeros((64,64), dtype=np.uint8)
+    mask[12:52, 10:54] = 255
+    sample = Image.fromarray(((np.indices((16,16)).sum(axis=0) % 2) * 255).astype(np.uint8))
+    changed = np.asarray(restore_surface_detail(original, mask, sample, 16))
+    assert np.array_equal(changed[mask == 0], np.asarray(original)[mask == 0])
+    assert int(np.ptp(changed[23:41, 23:41, 0])) > 30

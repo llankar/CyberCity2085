@@ -3,7 +3,7 @@ import json,hashlib,argparse
 from pathlib import Path
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageChops, ImageFilter, ImageOps
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
@@ -32,6 +32,21 @@ def prepare(source,survey,*,include_side_walls=False):
     result=original.copy();result[mask>0]=repaired[mask>0]
     return Image.fromarray(result),mask
 
+
+def restore_surface_detail(floor, mask, sample, tile_size):
+    tile = sample.convert("L").resize((tile_size,tile_size), Image.Resampling.LANCZOS)
+    soft = tile.filter(ImageFilter.GaussianBlur(max(1, tile_size*.035)))
+    detail = ImageChops.subtract(tile, soft, scale=1.35, offset=128)
+    texture = Image.new("L", floor.size, 128)
+    for row, y in enumerate(range(0, floor.height, tile_size)):
+        for column, x in enumerate(range(0, floor.width, tile_size)):
+            piece = ImageOps.mirror(detail) if column % 2 else detail
+            texture.paste(ImageOps.flip(piece) if row % 2 else piece, (x,y))
+    textured = ImageChops.add(floor, Image.merge("RGB", (texture,texture,texture)), offset=-128)
+    mask_image = Image.fromarray(mask)
+    alpha = ImageChops.multiply(mask_image, mask_image.filter(ImageFilter.GaussianBlur(4)))
+    return Image.composite(textured, floor, alpha)
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--map',default=NAME)
@@ -40,6 +55,8 @@ def main():
     parser.add_argument('--include-side-walls',action='store_true',help='Mask replaced east and west wall drawings')
     parser.add_argument('--decorative-rects', type=json.loads, default=[],
                         help='Additional decoration footprints in survey coordinates')
+    parser.add_argument('--surface-detail', type=Path,
+                        help='Apply fine material detail inside the repaired footprints')
     args=parser.parse_args()
     if Path(args.map).name!=args.map or '/' in args.map or '\\' in args.map:raise ValueError('Invalid map identifier')
     source=ROOT/f'assets/maps/{args.map}.png';raw=source.read_bytes()
@@ -52,7 +69,10 @@ def main():
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)
-    result,mask=prepare(Image.open(source),survey,include_side_walls=args.include_side_walls);result.save(out/'floor.png')
+    result,mask=prepare(Image.open(source),survey,include_side_walls=args.include_side_walls)
+    if args.surface_detail:
+        result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    result.save(out/'floor.png')
     Image.fromarray(mask).save(out/'replacement_mask.png')
     assert source.read_bytes()==raw
     (out/'floor.json').write_text(json.dumps({'source_sha256':hashlib.sha256(raw).hexdigest(),'method':'Inferred floor only inside surveyed replacement rectangles; original corridors retained','masked_pixels':int(np.count_nonzero(mask))},indent=2))
