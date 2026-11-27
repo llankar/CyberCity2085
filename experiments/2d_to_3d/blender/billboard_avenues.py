@@ -885,6 +885,10 @@ def build(name):
         if "container" in identifier or "cargo" in identifier:
             vertical = d > w
             count = FREIGHT_CONTAINER_COUNTS.get(identifier, 1) if name == "city_transit_freight_yard" else 1
+            if name.endswith("_industrial_district") and identifier in {
+                "west_cargo", "east_cargo", "south_cargo", "south_cargo2",
+            }:
+                count = 2
             breadth = min(w,d)/count
             for index in range(count):
                 offset = (index-(count-1)/2)*breadth
