@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 from mathutils.geometry import tessellate_polygon
 
 HERE = Path(__file__).resolve().parent
@@ -217,7 +217,15 @@ def build(name):
             box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),
                   (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
-        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "vault_display"}:
+        elif kind == "vault_display":
+            angle = {"table_nw": .36, "table_ne": -.36, "table_sw": -.36, "table_se": .36}.get(identifier, 0)
+            if angle:
+                build_facility_fixture(group, kind, x, y, w*.86, d*.67, steel, partition_cap, screen)
+                pivot = Vector((x,y,0))
+                group.matrix_world = Matrix.Translation(pivot) @ Matrix.Rotation(angle,4,"Z") @ Matrix.Translation(-pivot)
+            else:
+                build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
+        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core"}:
             build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
