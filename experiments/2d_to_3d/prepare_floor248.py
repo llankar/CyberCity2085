@@ -113,6 +113,8 @@ def main():
     result,mask=prepare(original,survey,include_side_walls=args.include_side_walls)
     if args.map == "city_district_tech_market":
         result = restore_donor_pavement(result, original, survey, TECH_MARKET_DONORS)
+        concrete = Image.open(LAB / "sources/environment169/concrete_wall_001/diff.jpg")
+        ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
     result.save(out/'floor.png')

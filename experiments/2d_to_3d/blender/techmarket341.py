@@ -39,7 +39,16 @@ roof_image = roof.node_tree.nodes.new("ShaderNodeTexImage")
 roof_image.image = bpy.data.images.load(str(source.with_suffix(".png")))
 roof.node_tree.links.new(roof_image.outputs["Color"], roof.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
 cladding = make_material("Tech market dark facade", (.045,.065,.08,1), .45,.66)
+facade = make_material("Tech market weathered concrete", (.10,.13,.15,1), .12,.78)
+facade_nodes = facade.node_tree.nodes
+facade_shader = facade_nodes["Principled BSDF"]
+facade_texture = facade_nodes.new("ShaderNodeTexImage")
+facade_texture.image = bpy.data.images.load(str(output / "facade_concrete.png"))
+facade.node_tree.links.new(facade_texture.outputs["Color"], facade_shader.inputs["Base Color"])
 window = lab / "environment-library/assets/urban_facade280/window.glb"
+entrance = window.with_name("entrance.glb")
+neon = [make_material(f"Tech market facade light {index}", color, .28,.43,.42)
+        for index,color in enumerate(((.055,.46,.60,1),(.46,.06,.24,1),(.62,.25,.05,1)))]
 crate = lab / "environment-library/assets/cargo_crate274/model.glb"
 placed = []
 buildings = []
@@ -61,13 +70,17 @@ for row in survey["walls"]:
         faces.extend((i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count))
         mesh = bpy.data.meshes.new(identifier)
         mesh.from_pydata([(x,y,z) for z in (bottom,height) for x,y in outline], [], faces)
-        mesh.materials.append(cladding)
+        mesh.materials.append(facade)
         mesh.materials.append(roof)
         mesh.polygons[0].material_index = 1
         uv = mesh.uv_layers.new()
         for loop in mesh.polygons[0].loop_indices:
             x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
             uv.data[loop].uv = (x/gw+.5,y/gh+.5)
+        for edge, face in zip(edges, mesh.polygons[1:]):
+            repeats = math.dist(*edge)/2.8
+            for loop, coord in zip(face.loop_indices, ((0,0),(repeats,0),(repeats,height/2.8),(0,height/2.8))):
+                uv.data[loop].uv = coord
         shell = bpy.data.objects.new(identifier,mesh)
         bpy.context.collection.objects.link(shell)
         shell.parent = group
@@ -95,7 +108,10 @@ for row in survey["walls"]:
                     counter.parent = group
             placed.append(identifier)
             continue
-        for (ax,ay),(bx,by) in edges:
+        front = min(edges, key=lambda edge: math.hypot(
+            (edge[0][0]+edge[1][0])/2, (edge[0][1]+edge[1][1])/2))
+        for edge in edges:
+            (ax,ay),(bx,by) = edge
             dx,dy = bx-ax,by-ay
             length = math.hypot(dx,dy)
             if length < 1.4:
@@ -106,6 +122,13 @@ for row in survey["walls"]:
                        (length/2,.042,.045),cladding,.009)
             band.rotation_euler.z = yaw
             band.parent = group
+            if edge == front:
+                mx,my = (ax+bx)/2+nx*.062,(ay+by)/2+ny*.062
+                place(entrance, group, (mx,my,0), (min(2.1,length*.37),.42,1.68), yaw=yaw, merge=True)
+                light = box("Facade entrance light", (mx+nx*.073,my+ny*.073,1.74),
+                            (min(.86,length*.19),.047,.043), neon[len(buildings)%len(neon)],.009)
+                light.rotation_euler.z = yaw
+                light.parent = group
             bays = max(1,int(length/2.2))
             for index in range(bays):
                 ratio = (index+.5)/bays

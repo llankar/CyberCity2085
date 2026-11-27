@@ -60,7 +60,9 @@ def test_tech_market_buildings_export_textured_roofs_and_facade_bays():
         roof = next(part for part in parts if part["name"] == name)
         materials = [data["materials"][part["material"]]
                      for part in data["meshes"][roof["mesh"]]["primitives"]]
-        assert any("baseColorTexture" in material["pbrMetallicRoughness"] for material in materials)
+        assert len([material for material in materials
+                    if "baseColorTexture" in material["pbrMetallicRoughness"]]) == 2
+        assert any(part["name"].startswith("Facade entrance light") for part in parts)
 
 
 def test_neon_market_awning_is_independently_occludable():
