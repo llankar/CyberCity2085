@@ -908,6 +908,12 @@ def build(name):
                         box(identifier + " post", (x+sx*w*.38,y+sy*d*.37,height/2),
                             (.045,.045,height/2), frame).parent = group
                 box(identifier + " seat", (x,y+d*.24,.41), (w*.36,d*.13,.055), seat).parent = group
+                if transit_interchange:
+                    box(identifier+" shelter backrest", (x,y+d*.34,.72),
+                        (w*.36,.041,.11),seat,.012).parent = group
+                    for side in (-1,1):
+                        box(identifier+" shelter eave light", (x,y+side*d*.468,height-.015),
+                            (w*.36,.019,.017),signs[0],.006).parent = group
             else:
                 box(identifier + " chassis", (x,y,.49), (w*.46,d*.44,.31), wall).parent = group
                 box(identifier + " glazing", (x,y,.95), (w*.45,d*.43,.19), seat).parent = group
