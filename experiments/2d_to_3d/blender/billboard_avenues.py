@@ -76,10 +76,10 @@ ROOF_FANS_BY_MAP = {
     },
     "city_district_riot_square": {"east_south_building": ((1774, 950, 1882, 1008),)},
     "cybercity_street_12_industrial_district": {
-        "nw_factory": ((210, 22, 264, 49),),
+        "nw_factory": ((80, 25, 102, 46), (210, 22, 264, 49), (267, 24, 290, 47)),
         "north_factory": ((331, 21, 355, 44),),
         "ne_factory": ((655, 23, 687, 51), (699, 4, 724, 29)),
-        "sw_factory": ((207, 475, 237, 506),),
+        "sw_factory": ((207, 475, 237, 506), (160, 478, 202, 503)),
         "se_factory": ((689, 446, 718, 474), (734, 393, 793, 428)),
     },
     "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,

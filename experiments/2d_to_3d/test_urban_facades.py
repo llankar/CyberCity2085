@@ -364,3 +364,17 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
             assert sum(" industrial rear door panel" in part for part in parts) == 1
             clad += 1
     assert clad >= 2
+
+
+@pytest.mark.parametrize(("factory", "count"), [("nw_factory", 3), ("sw_factory", 2)])
+def test_industrial_surveyed_hvac_stays_with_its_building(factory, count):
+    path = catalogue_environment("cybercity_street_12_industrial_district")
+    if not path.is_file():
+        pytest.skip("Build the industrial district on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    building = next(node for node in nodes if node["name"] == f"Occludable_{factory}")
+    parts = [nodes[index]["name"] for index in building["children"]]
+    assert sum(part.startswith(f"{factory} surveyed roof HVAC") for part in parts) == count
+    assert sum(part.startswith(f"{factory} roof HVAC mounting curb") for part in parts) == count
