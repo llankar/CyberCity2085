@@ -500,6 +500,9 @@ def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
     assert not any(nodes[index]["name"].startswith("Wreck flatbed")
                    for index in groups["Occludable_wreck_sw"])
+    for identifier in ("north_collapsed_span", "south_collapsed_ramp"):
+        assert any(nodes[index]["name"].startswith("Highway exposed edge reinforcement")
+                   and "mesh" in nodes[index] for index in groups[f"Occludable_{identifier}"])
 
 
 @pytest.mark.parametrize("variant", ("04", "09"))

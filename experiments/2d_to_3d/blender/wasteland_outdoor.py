@@ -475,6 +475,18 @@ class WastelandOutdoors:
             fragment = bpy.data.objects.new(name, mesh)
             bpy.context.collection.objects.link(fragment)
             fragment.parent = group
+            if self.wrecked_highway and broken_deck:
+                for edge in range(0,n,3):
+                    following = (edge+1)%n
+                    start, end = Vector(points[edge]), Vector(points[following])
+                    run = end-start
+                    if run.length < .26:
+                        continue
+                    center = (start+end)/2
+                    rod = box("Highway exposed edge reinforcement", (*center,(crest[edge]+crest[following])*.46),
+                              (min(.29,run.length*.31),.017,.018),self.steel,.006)
+                    rod.rotation_euler.z = math.atan2(run.y,run.x)
+                    rod.parent = group
             if "span" in name or "ramp" in name:
                 # Keep the shattered roadbed visible when the camera hides
                 # the tall fragment. Its outline stays within the survey.
