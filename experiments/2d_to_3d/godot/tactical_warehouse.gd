@@ -563,8 +563,9 @@ func play_phase_events(events: Array) -> void:
     return
   var melee: bool = event.kind == "attack" and from.distance_to(cell_position(event.to_cell)) <= 1.0
   attacker.fire_at(cell_position(event.to_cell), melee)
+  var hit: Variant = event.get("hit", true if int(event.damage) > 0 else null)
   effects.tactical_attack("melee" if melee else "fire", target_center(attacker),
-   cell_position(event.to_cell) + Vector3.UP*.85, true, int(event.damage), event.actor == ALLY)
+   cell_position(event.to_cell) + Vector3.UP*.85, hit, int(event.damage), event.actor == ALLY)
   status.text = "%s  //  Enemy phase\n%s → %s   %d damage" % [
    scenario_title, event.actor, event.target, event.damage]
   await get_tree().create_timer(.42).timeout
@@ -603,15 +604,15 @@ func contains_cell(cells: Array, cell: Array) -> bool:
 
 func verify_absorbed_impact() -> bool:
  var target := target_center(actors["enemy:0"])
- # Replay the presentation payload for an absorbed hit without changing the battle.
- effects.show_attack_outcome(target, true, 0)
- var outcome := effects.get_node_or_null("AttackOutcome") as Label3D
- var correct := outcome != null and outcome.text == "NO DAMAGE"
- if outcome != null:
+ # Exercise both a confirmed hit and an event without a reported hit roll.
+ for hit: Variant in [true, null]:
+  effects.show_attack_outcome(target, hit, 0)
+  var outcome := effects.get_node_or_null("AttackOutcome") as Label3D
+  var expected := "NO DAMAGE" if hit == true else "NO HP LOST"
+  if outcome == null or outcome.text != expected:
+   push_error("Expected zero-damage feedback: " + expected)
+   return false
   outcome.free()
- if not correct:
-  push_error("Absorbed hit did not show NO DAMAGE")
-  return false
  print("TACTICAL_ABSORBED_IMPACT_UI_OK")
  return true
 

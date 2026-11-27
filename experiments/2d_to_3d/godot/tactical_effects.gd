@@ -1,11 +1,11 @@
 extends "res://combat_effects169.gd"
 
 
-func tactical_attack(action: String, from: Vector3, target: Vector3, hit: bool,
+func tactical_attack(action: String, from: Vector3, target: Vector3, hit: Variant,
   damage: int, precision: bool) -> void:
  var travel := target - from
  var miss_offset := travel.normalized().cross(Vector3.UP) * .65 + Vector3.UP * .21
- var destination := target if hit else target + miss_offset
+ var destination := target + miss_offset if hit == false else target
  match action:
   "fire":
    var color := Color(.72,.9,1) if precision else Color(1,.7,.25)
@@ -16,17 +16,18 @@ func tactical_attack(action: String, from: Vector3, target: Vector3, hit: bool,
    sound("melee", from, -12)
   "psi":
    psychic(from, destination, false)
- if hit and damage > 0:
+ if hit == true and damage > 0:
   spark(target, action == "psi")
   sound("hit", target, -15)
  show_attack_outcome(target, hit, damage)
 
 
-func show_attack_outcome(target: Vector3, hit: bool, damage: int) -> void:
+func show_attack_outcome(target: Vector3, hit: Variant, damage: int) -> void:
  var label := Label3D.new()
  label.name = "AttackOutcome"
- label.text = "MISS" if not hit else ("NO DAMAGE" if damage <= 0 else "-%d HP" % damage)
- label.modulate = Color(.82,.87,.91) if not hit else (
+ label.text = "NO HP LOST" if hit == null else (
+  "MISS" if hit == false else ("NO DAMAGE" if damage <= 0 else "-%d HP" % damage))
+ label.modulate = Color(.82,.87,.91) if hit != true else (
   Color(1,.77,.34) if damage <= 0 else Color(1,.49,.32))
  label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
  label.no_depth_test = true

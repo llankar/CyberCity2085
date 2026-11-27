@@ -118,6 +118,9 @@ class TacticalPreview:
                     "from_cell": [coordinate // CELL_SIZE for coordinate in source.position],
                     "to_cell": [coordinate // CELL_SIZE for coordinate in victim.position],
                     "damage": damage,
+                    # Enemy callbacks fire on damage. Overwatch callbacks also
+                    # fire at zero damage without exposing the hit roll.
+                    "hit": True if damage > 0 else None,
                 })
 
             def overwatch_event(source, victim, damage):
