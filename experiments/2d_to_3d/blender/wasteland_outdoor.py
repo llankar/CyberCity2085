@@ -636,6 +636,17 @@ class WastelandOutdoors:
         else:
             drain.location = (x,y,radius*.90)
             drain.rotation_euler = (math.pi/2,0,.40 if name == "west_pipe" else -.46)
+        if not tank:
+            # The dark joint at each lip makes the opening readable against
+            # bright concrete while preserving the hollow center.
+            for offset in (.09,.91):
+                bpy.ops.mesh.primitive_torus_add(major_segments=20, minor_segments=6,
+                    major_radius=radius*.97, minor_radius=radius*.075,
+                    location=(0,0,length*offset))
+                collar = bpy.context.object
+                collar.name = "Basin drain socket collar"
+                collar.data.materials.append(self.steel)
+                collar.parent = drain
 
     def waterfront_warehouse_ruin(self, group, name, x, y, width, depth):
         level = 1.96 if name == "north_ruin" else 1.54

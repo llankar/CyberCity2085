@@ -1697,3 +1697,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SCAVENGER-CANOPIES / DONE for silhouette and edge detail. The perimeter build reached round 2 in Godot. The overview showed flat-looking roofs, so raised and offset the fabric peaks and added dark bound hems. Rebuilt the shared 05/10 asset and captured its 252-mesh overview. Ten Wasteland tests passed. Next: prioritize another Wasteland family.
 
 - EXPERIMENTAL-OVERPASS-STEEL-SUPPORTS / DONE for the shared 03/08 model. Added buckled steel supports over the fallen retaining slabs within the ramp-side ruin footprints. Rebuilt on E: and rendered 97 meshes in Godot. Ten Wasteland tests passed. Next: inspect another outdoor family at tactical zoom.
+
+- EXPERIMENTAL-BASIN-DRAIN-COLLARS / DONE. Added dark socket collars to both ends of all four hollow concrete drains. Rebuilt the shared 05/10 Irradiated Basin asset and rendered 66 meshes in Godot. Ten Wasteland tests passed and the geometry test checks both collars on each drain. Next: improve the basin's larger industrial silhouettes or tackle the next outdoor family.

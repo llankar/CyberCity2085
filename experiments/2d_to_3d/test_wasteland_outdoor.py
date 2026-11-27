@@ -66,8 +66,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             assert len(shell["children"]) == 3
             for identifier in ("west_pipe", "east_pipe", "east_pipe2", "south_pipe"):
                 group = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
-                assert any(nodes[i]["name"].startswith("Hollow basin drain")
-                           for i in group["children"])
+                drain = next(nodes[i] for i in group["children"]
+                             if nodes[i]["name"].startswith("Hollow basin drain"))
+                assert len(drain["children"]) == 2
+                assert all(nodes[i]["name"].startswith("Basin drain socket collar")
+                           for i in drain["children"])
         if name.endswith("_cratered_waterfront"):
             for identifier in ("nw_ruin", "north_ruin", "ne_ruin"):
                 ruin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
