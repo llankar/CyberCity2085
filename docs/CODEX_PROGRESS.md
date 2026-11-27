@@ -1609,3 +1609,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-IRRADIATED-BASIN-WATER / DONE for four major pools per variant. Traced surfaces around the raised islands and applied a distinct roughness to the source water artwork. Tactical geometry was preserved. Both exports rebuilt on E:, ten tests passed and Godot rendered 10. Smaller wet channels still use the floor texture. Next: inspect the silhouette of the large wrecks on Salt Flat Ambush.
 
 - EXPERIMENTAL-SALT-FLAT-HEAVY-WRECKS / DONE for two vehicles. Reused the tanker and open flatbed and fit their diagonal silhouettes to the south and east survey footprints. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: compare the low fences and poles with the source.
+
+- EXPERIMENTAL-SALT-FLAT-FENCES / DONE for five surveyed polylines. Replaced solid walls with open two-rail fences, uneven posts and leaning braces; preserved source tactical boundaries. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: inspect Dust Road Ambush for distinct reference-specific cover and vehicle silhouettes.

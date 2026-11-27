@@ -245,6 +245,9 @@ class WastelandOutdoors:
         if "points" in row:
             points = [self.coordinates(*point) for point in row["points"]]
             width = row["width"] * self.gw/self.cw
+            if self.salt_flat:
+                self.salt_flat_fence(group, points, width)
+                return
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
                 length = math.hypot(bx-ax,by-ay)
@@ -517,6 +520,25 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def salt_flat_fence(self, group, points, width):
+        for index, (x, y) in enumerate(points):
+            height = (.77, .57, .66)[index % 3]
+            box("Salt flat fence post", (x,y,height/2), (width*.12,width*.12,height/2),
+                self.dark,.012).parent = group
+        for index, ((ax,ay),(bx,by)) in enumerate(zip(points,points[1:])):
+            length = math.hypot(bx-ax,by-ay)
+            yaw = math.atan2(by-ay,bx-ax)
+            for elevation in (.22,.43):
+                rail = box("Salt flat fence rail", ((ax+bx)/2,(ay+by)/2,elevation),
+                           (length*.49,width*.072,.030), self.steel,.008)
+                rail.rotation_euler.z = yaw
+                rail.parent = group
+            if index == 0:
+                brace = box("Salt flat leaning fence brace", (ax,ay,.43),
+                            (.023,.024,.44), self.steel,.007)
+                brace.rotation_euler = (0,.18,yaw)
+                brace.parent = group
 
     def basin_drain(self, group, name, x, y, width, depth):
         segments = 20
