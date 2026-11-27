@@ -322,7 +322,8 @@ def build(name):
             else:
                 build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "clinic_reception", "shelter_kitchen", "records_desk", "data_core"}:
-            build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
+            fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
+            build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, screen)
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
                 texture = artwork.node_tree.nodes.new("ShaderNodeTexImage")
