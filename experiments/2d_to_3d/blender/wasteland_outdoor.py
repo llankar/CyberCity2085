@@ -838,6 +838,21 @@ class WastelandOutdoors:
         else:
             raise ValueError(f"No wasteland object model for {name}")
 
+    def add_salt_flat_utility_poles(self):
+        timber = make_material("Salt-stained utility timber", (.105,.061,.029,1), 0,.91)
+        for px, py, height, lean in ((81,185,1.24,.07), (448,82,1.46,-.13),
+                                     (842,135,1.23,.03), (595,353,1.31,-.09)):
+            x,y = self.coordinates(px,py)
+            bpy.ops.mesh.primitive_cone_add(vertices=12, radius1=.046, radius2=.027,
+                                            depth=height, location=(x+lean*height/2,y,height/2),
+                                            rotation=(0,lean,0))
+            pole = bpy.context.object
+            pole.name = "Salt flat abandoned utility pole"
+            pole.data.materials.append(timber)
+            arm = box("Salt flat utility crossarm", (0,0,height*.40),
+                      (.133,.023,.028),timber,.008)
+            arm.parent = pole
+
     def salt_flat_fence(self, group, points, width):
         for index, (x, y) in enumerate(points):
             height = (.77, .57, .66)[index % 3]

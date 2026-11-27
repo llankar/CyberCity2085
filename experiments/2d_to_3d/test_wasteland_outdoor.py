@@ -159,6 +159,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
                            for i in wreck["children"]) == 7
         if name.endswith("_salt_flat_ambush"):
+            poles = [node for node in nodes if node["name"].startswith("Salt flat abandoned utility pole")]
+            assert len(poles) == 4
+            assert all("mesh" in pole and len(pole["children"]) == 1 for pole in poles)
             for row in surveyed:
                 if "points" not in row:
                     continue
