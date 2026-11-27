@@ -1091,6 +1091,14 @@ func _interact_with_objective() -> void:
 	active["objective_contribution"] = int(active.get("objective_contribution", 0)) + 1
 	player_units[active_player_index] = active
 	objective_progress += 1
+	var branch_note := ""
+	if objective_progress == 1 and objective.has("field_proxy_cell") and _terminal_under_guard(active):
+		objective["progress_needed"] = needed + 1
+		_move_objective_marker(objective["field_proxy_cell"], "Establish Field Proxy")
+		branch_note = "Main access blocked. Reach the field proxy."
+	elif objective_progress == 2 and label == "Establish Field Proxy":
+		objective["label"] = "Complete Download"
+		branch_note = "Field proxy established. Complete the download next squad turn."
 	if objective.get("once_per_turn", false):
 		objective["last_interaction_turn"] = turn_number
 	CombatSignals.audio_event.emit("terminal" if action_key in ["HACK", "SABOTAGE", "RETRIEVE", "PLANT", "SEARCH", "REPAIR", "ACTIVATE"] else "door_open")
@@ -1113,20 +1121,35 @@ func _interact_with_objective() -> void:
 	else:
 		var exit_cell: Array = objective.get("extraction_cell", [])
 		if exit_cell.size() == 2:
-			var destination := Vector2i(int(exit_cell[0]), int(exit_cell[1]))
-			objective["cell"] = destination
-			objective["label"] = "Reach Extraction"
-			_battlefield.objective_cell = destination
+			_move_objective_marker(exit_cell, "Reach Extraction")
 		var line := "%s: %s (%d/%d)" % [
 				str(active.get("name", "Agent")), label,
-				objective_progress, needed]
+				objective_progress, int(objective.get("progress_needed", needed))]
 		status_line = line
-		if objective.get("once_per_turn", false):
+		if not branch_note.is_empty():
+			status_line += " " + branch_note
+		elif objective.get("once_per_turn", false):
 			status_line += " Continue next squad turn."
 		if exit_cell.size() == 2:
 			status_line += " Move to the extraction marker."
 		_log_event(line)
+		if not branch_note.is_empty():
+			_log_event(branch_note)
 		_sync_display()
+
+func _terminal_under_guard(actor: Dictionary) -> bool:
+	var terminal: Vector2i = objective["cell"]
+	for enemy in enemy_units:
+		var offset := _cell_position(enemy) - terminal
+		if absi(offset.x) + absi(offset.y) <= 1 and _unit_can_see(actor, enemy):
+			return true
+	return false
+
+func _move_objective_marker(cell: Array, label: String) -> void:
+	var destination := Vector2i(int(cell[0]), int(cell[1]))
+	objective["cell"] = destination
+	objective["label"] = label
+	_battlefield.objective_cell = destination
 
 func _cycle_active_unit() -> void:
 	var count := player_units.size()

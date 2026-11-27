@@ -152,7 +152,34 @@ func run() -> void:
 	assert(not board.find_path(witness, exit).is_empty(), "extraction stays reachable")
 	assert(board.objective_cell == exit and mission.objective.label == "Reach Extraction")
 	assert(not mission.objective_completed and not mission._objective_interaction_available())
+	mission.objective = generator.build_objective("data_with_detour", 40, 28)
+	mission.objective_progress = 0
+	mission.turn_number = 1
+	mission.player_units[0].ap = 3
+	layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
+	var terminal: Vector2i = mission.objective.cell
+	mission.player_units[0].position = terminal - Vector2i(1, 0)
+	mission.enemy_units.assign([{"hp": 20, "position": terminal + Vector2i(1, 0)}])
+	mission._interact_with_objective()
+	assert(mission.objective.progress_needed == 3 and mission.objective_progress == 1)
+	assert(mission.objective.cell != terminal and mission.objective.label == "Establish Field Proxy")
+	assert(not board.find_path(terminal, mission.objective.cell).is_empty())
+	mission.turn_number += 1
+	mission.player_units[0].position = mission.objective.cell
+	mission._interact_with_objective()
+	assert(mission.objective_progress == 2 and not mission.objective_completed)
+	assert(mission.objective.label == "Complete Download")
+	var sink := ResultSink.new()
+	mission._banner = sink
+	mission._results = sink
+	mission.player_units[0]["name"] = "Witness Escort"
+	mission.player_units[0]["max_hp"] = 20
+	mission.turn_number += 1
+	mission._interact_with_objective()
+	assert(sink.outcome == "victory" and mission.objective_completed)
+	mission.enemy_units.clear()
 	mission.objective = generator.build_objective("sabotage_window", 40, 28)
+	mission.objective_completed = false
 	mission.objective_progress = 0
 	mission.player_units[0].ap = 3
 	mission._interact_with_objective()
@@ -161,11 +188,6 @@ func run() -> void:
 	mission._interact_with_objective()
 	assert(mission.player_units[0].ap == 2, "arming only spends AP once")
 	assert(not mission._elimination_objective_met(), "clearing hostiles cannot skip the hold")
-	var sink := ResultSink.new()
-	mission._banner = sink
-	mission._results = sink
-	mission.player_units[0]["name"] = "Witness Escort"
-	mission.player_units[0]["max_hp"] = 20
 	var armed_turn: int = mission.turn_number
 	for survives in [true, false]:
 		mission.turn_number = armed_turn

@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Connect the existing optional field-proxy branch to a concrete tactical trigger and preserve objective progress through checkpoint restore."
+    "next_action": "Audit Godot defend and civilian-rescue contracts against Arcade; prioritize defend, which currently falls back to elimination."
   },
   "tasks": [
+    {
+      "id": "MISSION-FIELD-PROXY",
+      "title": "Trigger the alternate download route at a visibly guarded terminal",
+      "status": "DONE",
+      "files": ["godot/combat_missions_ui/scripts/encounter_generator.gd", "godot/combat_missions_ui/scripts/map_wall_layout.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/tactical_checkpoint.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Godot native, handoff, objective branches and unified checkpoints: 36 passed, 2 subtests passed."],
+      "evidence": ["A visible enemy within one tile of the terminal triggers a reachable field proxy; three interactions culminate in victory. The direct route retains two interactions."],
+      "remaining": ["The gameplay trigger is Godot-specific."]
+    },
     {
       "id": "MISSION-SABOTAGE-HOLD",
       "title": "Survive the Godot sabotage counterpush before victory",

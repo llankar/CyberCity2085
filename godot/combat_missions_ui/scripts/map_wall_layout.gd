@@ -95,13 +95,15 @@ static func place_encounter(players: Array[Dictionary], enemies: Array[Dictionar
 			distance = candidate_distance
 	objective["cell"] = closest
 	board.objective_cell = closest
-	var offset: Array = objective.get("extraction_offset", [])
-	if offset.size() == 2:
+	for marker in ["extraction", "field_proxy"]:
+		var offset: Array = objective.get(marker + "_offset", [])
+		if offset.size() != 2:
+			continue
 		var desired_exit := closest + Vector2i(int(offset[0]), int(offset[1]))
 		var exit_distance := 99999
 		for cell in floor_cells:
 			var separation := absi(cell.x-closest.x) + absi(cell.y-closest.y)
 			var candidate_distance := absi(cell.x-desired_exit.x) + absi(cell.y-desired_exit.y)
 			if separation > int(objective.get("interact_range", 2)) and candidate_distance < exit_distance and not occupied.has(cell):
-				objective["extraction_cell"] = [cell.x, cell.y]
+				objective[marker + "_cell"] = [cell.x, cell.y]
 				exit_distance = candidate_distance
