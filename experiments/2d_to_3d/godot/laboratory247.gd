@@ -27,6 +27,9 @@ func _unhandled_input(event:InputEvent) -> void:
   if event.button_index==MOUSE_BUTTON_WHEEL_DOWN:review_camera.size=minf(60,review_camera.size+2)
 func _ready() -> void:
  if "--topdown-review" in OS.get_cmdline_user_args():review_top_down=true
+ var low_review := "--low-review" in OS.get_cmdline_user_args() and not review_top_down
+ if low_review:
+  review_elevation = 8.0
  var document := GLTFDocument.new()
  var state := GLTFState.new()
  var model_path := review_folder + review_model_name
@@ -90,7 +93,7 @@ func _ready() -> void:
  var camera:=Camera3D.new()
  add_child(camera)
  camera.projection=Camera3D.PROJECTION_ORTHOGONAL
- camera.size=review_size
+ camera.size=minf(review_size,24.0) if low_review else review_size
  camera.current=true
  review_camera=camera
  update_review_camera()
@@ -101,7 +104,12 @@ func _ready() -> void:
  await get_tree().process_frame
  await RenderingServer.frame_post_draw
  if save_review_capture:
-  get_viewport().get_texture().get_image().save_png(review_folder+("top_down.png" if review_top_down else "godot_overview.png"))
+  var capture_name := "godot_overview.png"
+  if review_top_down:
+   capture_name = "top_down.png"
+  elif low_review:
+   capture_name = "low_review.png"
+  get_viewport().get_texture().get_image().save_png(review_folder+capture_name)
  print("ENVIRONMENT_REVIEW_IMPORTED folder=",review_folder," meshes=",model.find_children("*","MeshInstance3D",true,false).size())
  var canvas:=CanvasLayer.new()
  add_child(canvas)
