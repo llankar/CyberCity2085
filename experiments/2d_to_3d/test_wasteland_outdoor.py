@@ -63,7 +63,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             tank = next(node for node in nodes if node["name"] == "Occludable_sw_tank")
             shell = nodes[tank["children"][0]]
             assert shell["name"] == "Open corroded basin tank"
-            assert len(shell["children"]) == 3
+            tank_parts = [nodes[i]["name"] for i in shell["children"]]
+            assert sum(part.startswith("Corroded tank reinforcing band") for part in tank_parts) == 3
+            assert sum(part.startswith("Torn tank mounting flange") for part in tank_parts) == 2
             for identifier in ("west_pipe", "east_pipe", "east_pipe2", "south_pipe"):
                 group = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 drain = next(nodes[i] for i in group["children"]

@@ -631,6 +631,12 @@ class WastelandOutdoors:
                 band.name = "Corroded tank reinforcing band"
                 band.data.materials.append(self.dark)
                 band.parent = drain
+            for offset in (.08,.92):
+                flange = box("Torn tank mounting flange",
+                             (radius*.84,0,length*offset),
+                             (radius*.27,radius*.18,.048), self.steel,.012)
+                flange.rotation_euler.z = math.pi/9
+                flange.parent = drain
         elif name == "south_pipe":
             drain.location = (x,y,0)
         else:

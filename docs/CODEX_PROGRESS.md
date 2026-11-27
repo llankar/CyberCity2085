@@ -1699,3 +1699,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-OVERPASS-STEEL-SUPPORTS / DONE for the shared 03/08 model. Added buckled steel supports over the fallen retaining slabs within the ramp-side ruin footprints. Rebuilt on E: and rendered 97 meshes in Godot. Ten Wasteland tests passed. Next: inspect another outdoor family at tactical zoom.
 
 - EXPERIMENTAL-BASIN-DRAIN-COLLARS / DONE. Added dark socket collars to both ends of all four hollow concrete drains. Rebuilt the shared 05/10 Irradiated Basin asset and rendered 66 meshes in Godot. Ten Wasteland tests passed and the geometry test checks both collars on each drain. Next: improve the basin's larger industrial silhouettes or tackle the next outdoor family.
+
+- EXPERIMENTAL-BASIN-TANK-MOUNTS / DONE for geometry. Added torn steel mounting flanges at both ends of the overturned tank; they inherit its rotation. Rebuilt the 05/10 shared asset on E:, rendered 68 meshes in Godot and passed ten Wasteland tests. Next: assess the new basin details at tactical zoom alongside other industrial outdoor maps.
