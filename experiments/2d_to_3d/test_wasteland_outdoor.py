@@ -165,7 +165,13 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 fence = next(node for node in nodes if node["name"] == f"Occludable_{row['id']}")
                 parts = [nodes[i]["name"] for i in fence["children"]]
                 assert sum(part.startswith("Salt flat fence post") for part in parts) == len(row["points"])
-                assert sum(part.startswith("Salt flat fence rail") for part in parts) == 2*(len(row["points"])-1)
+                wires = [nodes[i] for i in fence["children"]
+                         if nodes[i]["name"].startswith("Salt flat fence rail")]
+                assert len(wires) == 2*(len(row["points"])-1)
+                for wire in wires:
+                    primitive, = data["meshes"][wire["mesh"]]["primitives"]
+                    bounds = data["accessors"][primitive["attributes"]["POSITION"]]
+                    assert bounds["max"][1] - bounds["min"][1] > .032
             for identifier, part in (("wreck_mid_e", "Wreck flatbed crossmember"),
                                      ("wreck_south", "Convoy tanker vessel"),
                                      ("wreck_sw", "Stripped car exposed floor"),

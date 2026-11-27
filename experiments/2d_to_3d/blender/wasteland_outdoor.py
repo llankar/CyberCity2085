@@ -847,9 +847,23 @@ class WastelandOutdoors:
             length = math.hypot(bx-ax,by-ay)
             yaw = math.atan2(by-ay,bx-ax)
             for elevation in (.22,.43):
-                rail = box("Salt flat fence rail", ((ax+bx)/2,(ay+by)/2,elevation),
-                           (length*.49,width*.072,.030), self.steel,.008)
-                rail.rotation_euler.z = yaw
+                wire = bpy.data.curves.new("Salt flat sagging fence wire", "CURVE")
+                wire.dimensions = "3D"
+                wire.resolution_u = 6
+                wire.bevel_depth = min(.016,width*.062)
+                wire.bevel_resolution = 1
+                wire.materials.append(self.steel)
+                spline = wire.splines.new("BEZIER")
+                spline.bezier_points.add(2)
+                for point, coordinate in zip(spline.bezier_points, (
+                    (ax,ay,elevation),
+                    ((ax+bx)/2,(ay+by)/2,elevation-min(.11,length*.06)),
+                    (bx,by,elevation),
+                )):
+                    point.co = coordinate
+                    point.handle_left_type = point.handle_right_type = "AUTO"
+                rail = bpy.data.objects.new("Salt flat fence rail", wire)
+                bpy.context.collection.objects.link(rail)
                 rail.parent = group
             if index == 0:
                 brace = box("Salt flat leaning fence brace", (ax,ay,.43),
