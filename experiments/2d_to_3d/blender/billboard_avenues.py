@@ -814,6 +814,9 @@ def build(name):
             panel.parent = group
 
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
+    if name.endswith("_irradiated_basin"):
+        water = textured_material("Irradiated basin water", out / "floor.png", .31)
+        wasteland.add_irradiated_basin_surfaces(water)
     if wasteland and wasteland.ruined_transit:
         wasteland.add_transit_south_carriage()
     if wasteland and wasteland.flooded_square:

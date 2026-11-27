@@ -63,6 +63,25 @@ class WastelandOutdoors:
         self.add_water_surface("Flooded civic square water surface", material,
                                [(px*self.cw/960, py*self.ch/540) for px, py in shoreline])
 
+    def add_irradiated_basin_surfaces(self, material):
+        # Follow the green pools separately so the raised islands stay dry.
+        pools = (
+            ((181,87),(213,107),(261,132),(288,130),(312,177),(347,224),
+             (321,262),(275,232),(234,202),(187,207),(165,161)),
+            ((154,236),(181,237),(206,262),(196,300),(215,333),(267,361),
+             (263,389),(208,420),(174,421),(142,392),(112,352),(100,307)),
+            ((478,71),(533,72),(572,91),(632,81),(648,116),(598,153),
+             (582,194),(599,232),(645,244),(668,288),(630,304),(589,272),
+             (551,262),(523,227),(510,186),(490,151)),
+            ((802,100),(816,110),(815,157),(787,194),(810,225),(833,239),
+             (858,272),(843,304),(801,332),(775,378),(743,410),(697,380),
+             (677,351),(698,310),(738,285),(775,262),(768,231),(764,198),
+             (726,180),(712,154),(729,126),(766,111)),
+        )
+        for index, shoreline in enumerate(pools, 1):
+            self.add_water_surface(f"Irradiated basin pool {index}", material,
+                                   [(px*self.cw/960, py*self.ch/540) for px, py in shoreline])
+
     def add_water_surface(self, name, material, shoreline):
         points = [self.coordinates(*point) for point in shoreline]
         if sum(ax*by-bx*ay for (ax,ay),(bx,by) in zip(points, points[1:]+points[:1])) < 0:

@@ -29,6 +29,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_irradiated_basin"):
+            pools = [node for node in nodes if node["name"].startswith("Irradiated basin pool ")]
+            assert len(pools) == 4
+            assert all("mesh" in pool for pool in pools)
             tank = next(node for node in nodes if node["name"] == "Occludable_sw_tank")
             shell = nodes[tank["children"][0]]
             assert shell["name"] == "Open corroded basin tank"

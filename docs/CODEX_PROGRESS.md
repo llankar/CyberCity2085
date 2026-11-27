@@ -1605,3 +1605,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-IRRADIATED-BASIN-DRAINS / DONE for both variants. Replaced generic machine meshes with four hollow concrete drains per map, with horizontal outfalls and a vertical southern opening. Rebuilt both GLBs, passed ten focused tests and rendered 05 in Godot. Next: inspect the basin water and southwest tank.
 
 - EXPERIMENTAL-IRRADIATED-BASIN-TANK / DONE for the southwest tank on 05 and 10. Fitted an open corroded shell and three reinforcing bands to the original diagonal footprint. Both GLBs rebuilt on E:, ten targeted tests passed and 10 rendered in Godot. Next: trace basin-water polygons around dry islands and preserve existing tactical movement.
+
+- EXPERIMENTAL-IRRADIATED-BASIN-WATER / DONE for four major pools per variant. Traced surfaces around the raised islands and applied a distinct roughness to the source water artwork. Tactical geometry was preserved. Both exports rebuilt on E:, ten tests passed and Godot rendered 10. Smaller wet channels still use the floor texture. Next: inspect the silhouette of the large wrecks on Salt Flat Ambush.
