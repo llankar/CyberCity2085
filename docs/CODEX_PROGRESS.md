@@ -2135,3 +2135,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FLOODED-PLANTER-RELIEF / DONE for export and native loading. Recessed the planter beds, varied the coping heights and left joints between adjacent blocks. Rebuilt shared 04/09 on E:, refreshed both plates and passed eleven outdoor tests. Next: compare flat vehicle markings with the original before masking them.
 
 - EXPERIMENTAL-FLOODED-CIVIC-WRECK-ART / DONE for two traced floor repairs. Removed the painted vehicle outlines at the southwest and north curbs from the experimental floor. Rebuilt shared 04/09 on E:, loaded the scene in Godot and refreshed both catalogue plates. Eleven outdoor tests passed. Next: inspect curb continuity and any paint still suggesting false cover.
+
+- EXPERIMENTAL-FLOODED-CURB-GRAIN / DONE for export and native loading. Restored fine paving detail within both curb wreck repair polygons without stamping a separate curb line into the water. Rebuilt the shared 04/09 environment on E:, reloaded it in Godot, refreshed both plates and passed eleven outdoor tests. Next: inspect the revised curb patches and move to Ruined Transit Plaza.

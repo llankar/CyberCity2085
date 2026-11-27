@@ -287,6 +287,16 @@ def main():
         result = restore_donor_pavement(result, original, {**survey, "walls": crossings}, crossing_donors)
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
+    if args.map.endswith("_flooded_civic_square"):
+        sx = result.width / survey["canvas_size"][0]
+        sy = result.height / survey["canvas_size"][1]
+        curb_repairs = np.zeros_like(mask)
+        for row in FLOODED_CIVIC_WRECK_ART:
+            points = np.array([(round(x*sx), round(y*sy)) for x,y in row["polygon"]],
+                              dtype=np.int32)
+            cv2.fillPoly(curb_repairs, [points], 255)
+        paving = original.crop((round(436*sx), round(310*sy), round(474*sx), round(344*sy)))
+        result = restore_surface_detail(result, curb_repairs & mask, paving, round(36*sx))
     if args.map.endswith("_burned_market_block"):
         result = restore_donor_pavement(result, original, survey, {
             "stall_north_awning_art": (369,275,414,316),
