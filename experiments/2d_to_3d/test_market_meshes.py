@@ -110,6 +110,8 @@ def test_donor_pavement_is_confined_to_the_traced_polygon():
     polygon = [(8,8),(24,8),(8,24)]
     survey = {"canvas_size": (32,32), "walls": [{"id": "awning", "polygon": polygon}]}
     repaired = restore_donor_pavement(base, source, survey, {"awning": (0,0,5,5)})
-    assert repaired.getpixel((10,10))[0] > 70
+    assert repaired.getpixel((12,12))[0] > 70
+    assert repaired.getpixel((8,12)) == base.getpixel((8,12))
+    assert 20 < repaired.getpixel((10,10))[0] < 70
     assert repaired.getpixel((23,23)) == base.getpixel((23,23))
     assert repaired.getpixel((7,10)) == base.getpixel((7,10))

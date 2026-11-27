@@ -106,18 +106,16 @@ def restore_donor_pavement(floor, original, survey, donors):
                 tile = mirror if ix % 2 else donor
                 patch.paste(ImageOps.flip(tile) if iy % 2 else tile, (x,y))
         mask = Image.new("L", patch.size, 255 if points is None else 0)
-        feather = max(2, sx*2)
         if points is not None:
             ImageDraw.Draw(mask).polygon([(x-left,y-top) for x,y in points], fill=255)
-            softened = mask.filter(ImageFilter.GaussianBlur(feather))
-        else:
-            padding = round(feather*3)
-            padded = ImageOps.expand(mask, border=padding)
-            softened = padded.filter(ImageFilter.GaussianBlur(feather)).crop(
-                (padding, padding, padding+mask.width, padding+mask.height)
-            )
-        alpha = ImageChops.multiply(mask, softened)
-        alpha = alpha.point(lambda value: round(value*.82))
+        # Fade inward from the outline so the donor cannot create a sharp
+        # brightness step where its paving meets the original floor.
+        padded = np.pad(np.asarray(mask), 1)
+        distance = cv2.distanceTransform(padded, cv2.DIST_L2, 5)[1:-1, 1:-1]
+        feather = max(2, min(8*min(sx, sy), min(patch.size)/4))
+        weight = np.clip((distance-1)/feather, 0, 1)
+        weight = weight*weight*(3-2*weight)
+        alpha = Image.fromarray(np.rint(weight*(255*.82)).astype(np.uint8))
         floor.paste(patch,(left,top),alpha)
     return floor
 
