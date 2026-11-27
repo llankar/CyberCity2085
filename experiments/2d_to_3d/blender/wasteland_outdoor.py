@@ -896,6 +896,12 @@ class WastelandOutdoors:
             for offset, height in ((-.28,.27),(0,.34),(.28,.23)):
                 box("Quay salvaged crate", (length*offset,0,.20+height),
                     (length*.133,width*.32,height), self.steel,.028).parent = group
+                lid_height = .20+2*height
+                box("Quay crate fitted lid", (length*offset,0,lid_height+.014),
+                    (length*.135,width*.325,.023),self.dark,.012).parent = group
+                for side in (-1, 1):
+                    box("Quay crate lid batten", (length*(offset+side*.082),0,lid_height+.045),
+                        (length*.017,width*.315,.018),self.steel,.006).parent = group
             for side in (-1,1):
                 box("Quay cargo frame rail", (0,side*width*.39,.48),
                     (length*.44,.034,.041), self.dark,.012).parent = group
