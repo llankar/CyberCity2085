@@ -336,7 +336,8 @@ def build(name):
         elif kind in {"gym_weights", "bath_sink", "bath_shower", "bath_tub", "bath_toilet", "toilet_stalls", "stove"}:
             build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
-            build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
+            build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail,
+                                     depot=name.endswith("_maintenance_depot"))
         elif kind == "floor_grate":
             build_floor_grate(group, x, y, w, d, partition_cap, rail, steel)
         elif kind == "low_vent":

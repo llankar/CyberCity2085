@@ -442,6 +442,8 @@ def test_interior_maps_export_remaining_fixture_groups():
             "ne_tires": "Stacked spare tire",
             "east_machine_n": "Depot machine carriage stop",
             "east_machine_s": "Depot machine stop marker",
+            "nw_workbench": "Depot workbench vise base",
+            "middle_workbench": "Depot workbench parts tray",
         }
     for index in ("04", "09"):
         additions[f"wasteland_inner_{index}_bunker_command_post"] = {

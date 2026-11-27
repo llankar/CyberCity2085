@@ -242,7 +242,7 @@ def build_checkpoint_fixture(group, identifier, x, y, w, d, steel, trim, screen,
 
 
 
-def build_industrial_fixture(group, kind, x, y, w, d, steel, trim, rail):
+def build_industrial_fixture(group, kind, x, y, w, d, steel, trim, rail, *, depot=False):
     if kind == "workbench":
         box("Workbench steel top", (x,y,.78), (w*.49,d*.47,.065), rail).parent = group
         box("Workbench drawer cabinet", (x-w*.27,y,.37), (w*.18,d*.40,.36), steel).parent = group
@@ -250,6 +250,15 @@ def build_industrial_fixture(group, kind, x, y, w, d, steel, trim, rail):
             box("Workbench drawer pull", (x-w*.27,y-d*.42,z), (w*.09,.025,.019), rail).parent = group
         box("Workbench end support", (x+w*.38,y,.355), (.045,d*.39,.35), trim).parent = group
         box("Workbench lower shelf", (x+w*.10,y,.22), (w*.27,d*.37,.032), steel).parent = group
+        if depot:
+            vise_x, vise_y = x+w*.29, y-d*.24
+            box("Depot workbench vise base", (vise_x,vise_y,.875),
+                (min(.14,w*.11),min(.10,d*.14),.03),trim,.012).parent = group
+            for side in (-1, 1):
+                box("Depot workbench vise jaw", (vise_x+side*min(.065,w*.05),vise_y,.942),
+                    (min(.035,w*.028),min(.081,d*.12),.037),steel,.009).parent = group
+            box("Depot workbench parts tray", (x-w*.19,y+d*.17,.869),
+                (w*.19,d*.20,.024),trim,.009).parent = group
         return
     if kind == "drums":
         radius = min(w*.22,d*.34)
