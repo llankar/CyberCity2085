@@ -115,6 +115,7 @@ def build(name):
     looted_vault = name.endswith("_looted_vault")
     if looted_vault:
         steel = make_material("Vault oxidized steel", (.051,.045,.037,1), .46,.78)
+        vault_marker = make_material("Vault red marker lens", (.48,.025,.012,1), .14,.48,.35)
     exposed_concrete_walls = bunker or apartment_shelter or looted_vault or name.endswith(
         ("_collapsed_tunnel", "_ruined_clinic", "_maintenance_depot")
     )
@@ -278,6 +279,22 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
+            if looted_vault and identifier.startswith("vault_wall_"):
+                edges = [(a,b) for a,b in zip(outline, outline[1:]+outline[:1])
+                         if math.dist(a,b) > .65]
+                start, end = min(edges, key=lambda edge: math.hypot(
+                    (edge[0][0]+edge[1][0])/2, (edge[0][1]+edge[1][1])/2))
+                dx, dy = end[0]-start[0], end[1]-start[1]
+                span = math.hypot(dx,dy)
+                for offset in (.014,.046):
+                    midpoint = ((start[0]+end[0])/2+dy/span*offset,
+                                (start[1]+end[1])/2-dx/span*offset, .85)
+                    is_lens = offset > .02
+                    marker = box("Vault ring marker lens" if is_lens else "Vault ring marker housing",
+                                 midpoint, (.12,.02,.057) if is_lens else (.17,.034,.09),
+                                 vault_marker if is_lens else steel,.009)
+                    marker.rotation_euler.z = math.atan2(dy,dx)
+                    marker.parent = group
             if name == "city_industrial_data_vault" and identifier.startswith("north_barrier_"):
                 start, end = max(zip(outline,outline[1:]+outline[:1]), key=lambda edge: math.dist(*edge))
                 dx,dy = end[0]-start[0],end[1]-start[1]

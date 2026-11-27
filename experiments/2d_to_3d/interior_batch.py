@@ -301,7 +301,7 @@ def main():
 
             concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001/diff.jpg"
             with Image.open(concrete) as source:
-                brightness = .43 if name.endswith("_maintenance_depot") else .62
+                brightness = .43 if name.endswith(("_maintenance_depot", "_looted_vault")) else .62
                 toned = ImageEnhance.Brightness(source.convert("RGB")).enhance(brightness)
                 toned.save(OUTPUT / name / "aged_concrete_diffuse.jpg", quality=94)
         if name.endswith("_bunker_command_post"):
