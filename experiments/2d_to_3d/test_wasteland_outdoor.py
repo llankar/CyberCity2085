@@ -206,6 +206,8 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     planter = by_name[f"Occludable_{row['id']}"]
                     edges = [nodes[i] for i in planter["children"]
                              if nodes[i]["name"].startswith("Flooded planter coping")]
+                    assert any(nodes[i]["name"].startswith("Flooded planter broken masonry")
+                               for i in planter["children"])
                     assert len(edges) == len(row["polygon"])
         if name.endswith("_burned_market_block"):
             for row in surveyed:

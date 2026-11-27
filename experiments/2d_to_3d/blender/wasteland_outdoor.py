@@ -332,6 +332,21 @@ class WastelandOutdoors:
                                              (math.hypot(bx-ax,by-ay)/2,.055,.095))
                     edge.rotation_euler.z = math.atan2(by-ay,bx-ax)
                     edge.parent = group
+                triangles = tessellate_polygon([[Vector(point) for point in points]])
+                for index, triangle in enumerate(triangles):
+                    a, b, c = (Vector(points[corner]) for corner in triangle)
+                    center = (a+b+c)/3
+                    # Keep the debris inside each triangle of the surveyed bed.
+                    radius = min(abs((end-start).cross(center-start))/(end-start).length
+                                 for start,end in ((a,b),(b,c),(c,a)))
+                    if radius < .06:
+                        continue
+                    radius = min(radius,.23)
+                    fragment = self.concrete_box("Flooded planter broken masonry",
+                                                 (*center,height+.034),
+                                                 (radius*.76,radius*.53,.055),.013)
+                    fragment.rotation_euler.z = index*.79
+                    fragment.parent = group
             vertices = [(x,y,0) for x,y in points]
             vertices.extend((x,y,crest[i]*(.64+.08*(i%3))) for i,(x,y) in enumerate(points))
             vertices.extend((x,y,crest[i]) for i,(x,y) in enumerate(points))
