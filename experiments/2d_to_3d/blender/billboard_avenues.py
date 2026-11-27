@@ -518,6 +518,28 @@ def build(name):
             )
             place(market_models[i % 3], group, (x,y,0), (w*.96,d*.96,2.05), merge=True)
             continue
+        if name.endswith("_civic_plaza") and identifier.endswith("_monument"):
+            radius = min(w,d)*.47
+            accent = signs[1] if identifier == "east_monument" else signs[0]
+            height = 1.68 if identifier == "east_monument" else 2.17
+            for label, scale, z, depth, material in (
+                ("outer octagon", 1.0, .13, .26, wall),
+                ("exposed molding", .88, .275, .055, frame),
+                ("raised dais", .70, .345, .10, wall),
+                ("signal collar", .38, .44, .09, accent),
+                ("luminous core", .125, (height+.50)/2, height-.50, accent),
+                ("top cap", .16, height+.038, .076, frame),
+            ):
+                bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=radius*scale,
+                                                    depth=depth, location=(x,y,z))
+                part = bpy.context.object
+                part.name = identifier+" "+label
+                part.data.materials.append(material)
+                part.parent = group
+            for side in (-1,1):
+                box(identifier+" core frame", (x+side*radius*.19,y,(height+.51)/2),
+                    (radius*.035,radius*.057,(height-.51)/2),frame,.01).parent = group
+            continue
         if identifier.endswith("_monument") or identifier == "monument":
             radius = min(w,d)*.40
             box(identifier + " base", (x,y,.20), (w*.48,d*.48,.20), wall).parent = group

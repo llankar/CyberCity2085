@@ -126,6 +126,11 @@ def test_civic_plaza_polygon_planters_export_foliage(variant, count):
     trace_path = Path(__file__).resolve().parents[2] / "assets/maps" / f"{name}.wall-traces.json"
     traces = json.loads(trace_path.read_text())["walls"]
     assert {f"Occludable_{trace['id']}" for trace in traces} <= roots.keys()
+    monuments = {"west_monument", "east_monument"} if variant == "05" else {"center_monument"}
+    for identifier in monuments:
+        parts = [nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]["children"]]
+        for label in ("outer octagon", "raised dais", "luminous core", "top cap"):
+            assert f"{identifier} {label}" in parts
     polygons = [trace["id"] for trace in traces if "polygon" in trace]
     assert len(polygons) == count
     for identifier in polygons:
