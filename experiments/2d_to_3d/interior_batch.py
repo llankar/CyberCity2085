@@ -112,7 +112,12 @@ def fixtures(name):
         if identifier.startswith("outside_") or row.get("collision") is False:
             continue
         if "points" in row:
-            if "_pipe" in identifier:
+            if room_fixtures.get(identifier) == "cell_front" or (
+                name.startswith("wasteland_") and name.endswith("_detention_block")
+                and identifier in {"cells_n_front", "cells_s_front"}
+            ):
+                selected[identifier] = "cell_front"
+            elif "_pipe" in identifier:
                 selected[identifier] = "pipe"
             elif row.get("blocks_sight", True):
                 selected[identifier] = "partition"
@@ -153,8 +158,6 @@ def fixtures(name):
             selected[identifier] = "vault_display"
         elif name.endswith("_ruined_clinic") and identifier == "reception":
             selected[identifier] = "clinic_reception"
-        elif name.startswith("wasteland_") and name.endswith("_detention_block") and identifier in {"cells_n_front", "cells_s_front"}:
-            selected[identifier] = "cell_front"
         elif (name == "cybercity_inner_08_police_records" and identifier.startswith("desk_")) or (
             name == "city_interior_police_records" and identifier in {"sw_desk", "se_desk", "south_w_desk"}
         ):

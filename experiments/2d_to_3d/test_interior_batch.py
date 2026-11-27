@@ -366,6 +366,10 @@ def test_interior_maps_export_remaining_fixture_groups():
         },
         "cybercity_inner_14_detention_block": {
             "east_weapons": "Warehouse pallet rack", "east_tools": "Workbench steel top",
+            "north_cells_front": "Detention cell frontage", "south_cells_front": "Detention cell frontage",
+        },
+        "wasteland_inner_10_detention_block": {
+            "cells_n_front": "Detention cell frontage", "cells_s_front": "Detention cell frontage",
         },
         "cybercity_inner_09_apartment_block": {
             "sofa_s3": "sofa_s3 cushions", "chair_s3": "chair_s3 back",
