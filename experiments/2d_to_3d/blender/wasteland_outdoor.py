@@ -608,7 +608,8 @@ class WastelandOutdoors:
                                 (w*(.40 if vertical else .10),d*(.10 if vertical else .40),.17), self.dark)
                     bogie.parent = group
         elif "crane" in name:
-            build_crane(group,x,y,w,d,self.dark,self.steel,height=3.4,outreach=min(length,2.5))
+            build_crane(group,x,y,w,d,self.dark,self.steel,height=3.4,outreach=min(length,2.5),
+                        lattice_jib=self.cratered_waterfront)
         elif name in {"west_pipe", "east_pipe", "east_pipe2", "south_pipe", "sw_tank"}:
             self.basin_drain(group, name, x, y, w, d)
         elif any(part in name for part in ("pipe","tank","shelf")):
