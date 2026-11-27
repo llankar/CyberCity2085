@@ -1,7 +1,10 @@
 """Shared treatment-bed and warehouse-rack meshes."""
+import math
+
 import bpy
 
 from create_hardsurface_crate import box
+from library_placement import place
 
 
 def build_bed(group, x, y, w, d, steel, linen, pad):
@@ -67,8 +70,6 @@ def build_containment_chamber(group, x, y, w, d, steel, trim, screen):
 
 
 def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
-    from math import pi
-
     box("Scanner chassis", (x, y, .13), (w*.48, d*.47, .13), trim).parent = group
     box("Scanner patient table", (x, y-d*.09, .40),
         (w*.23, d*.34, .08), enamel).parent = group
@@ -82,9 +83,57 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
     ):
         bpy.ops.mesh.primitive_torus_add(
             major_segments=32, minor_segments=10, major_radius=radius, minor_radius=tube,
-            location=(x, gantry_y+offset, .60+radius), rotation=(pi/2, 0, 0),
+            location=(x, gantry_y+offset, .60+radius), rotation=(math.pi/2, 0, 0),
         )
         ring = bpy.context.object
         ring.name = label
         ring.data.materials.append(material)
         ring.parent = group
+
+
+
+def build_security_bay(group, identifier, x, y, w, d, wall, crate, steel, trim, screen):
+    # Side bays face the main aisle. The northern bays and guardrooms face south.
+    yaw = 0
+    if identifier.startswith(("southwest_", "west_middle_")):
+        yaw = math.pi/2
+    elif identifier.startswith(("southeast_", "east_middle_")):
+        yaw = -math.pi/2
+    front_width, depth = (w,d) if yaw == 0 else (d,w)
+    cos_yaw, sin_yaw = math.cos(yaw), math.sin(yaw)
+
+    def center(u, v, z):
+        return x+u*cos_yaw-v*sin_yaw, y+u*sin_yaw+v*cos_yaw, z
+
+    def part(label, u, v, z, dimensions, material):
+        piece = box(label, center(u,v,z), dimensions, material, .015)
+        piece.rotation_euler.z = yaw
+        piece.parent = group
+
+    part("Security bay floor pan", 0,0,.038, (front_width*.495,depth*.495,.038), trim)
+    part("Security bay doorway threshold", 0,-depth*.453,.094,
+         (front_width*.16,.065,.024), steel)
+    spans = [
+        (0,depth*.44,front_width*.94,0),
+        (-front_width*.46,0,depth*.84,math.pi/2),
+        (front_width*.46,0,depth*.84,math.pi/2),
+    ]
+    for side in (-1,1):
+        spans.append((side*front_width*.335,-depth*.44,front_width*.27,0))
+    for u,v,length,turn in spans:
+        count = max(1, math.ceil(length/2.0))
+        span = length/count
+        for i in range(count):
+            offset = ((i+.5)/count-.5)*length
+            place(wall, group, center(u+offset*math.cos(turn),v+offset*math.sin(turn),.076),
+                  (span,.36,1.37), yaw=yaw+turn, merge=True)
+    part("Security bay worktop", -front_width*.13,depth*.20,.70,
+         (front_width*.235,.32,.065), steel)
+    part("Security bay console cabinet", -front_width*.13,depth*.20,.38,
+         (front_width*.21,.28,.30), trim)
+    part("Security bay monitor enclosure", -front_width*.15,depth*.24,.90,
+         (.23,.052,.14), steel)
+    part("Security bay monitor", -front_width*.15,depth*.24-.057,.90,
+         (.19,.012,.095), screen)
+    place(crate, group, center(front_width*.28,depth*.12,.076),
+          (front_width*.26,depth*.38,.72), yaw=yaw)

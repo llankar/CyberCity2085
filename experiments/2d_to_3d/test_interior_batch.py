@@ -230,3 +230,31 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
             required_parts = {"Scanner gantry shell", "Scanner patient table"}
         fixture = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         assert required_parts <= {nodes[index]["name"] for index in fixture["children"]}
+
+
+def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    name = "city_industrial_security_checkpoint"
+    survey, selected = fixtures(name)
+    expected = {row["id"] for row in survey["walls"]}
+    assert set(selected) == expected
+    bays = {identifier for identifier, kind in selected.items() if kind == "security_bay"}
+    assert len(bays) == 10
+    model = OUTPUT / name / "environment.glb"
+    if not model.is_file():
+        pytest.skip("Build Security Checkpoint on E: first")
+    with model.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    roots = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    assert {f"Occludable_{identifier}" for identifier in expected} <= roots.keys()
+    for identifier in bays:
+        parts = [nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]]
+        for component in ("floor pan", "doorway threshold", "worktop", "monitor"):
+            assert any(part.startswith(f"Security bay {component}") for part in parts)
+        assert all("roof" not in part.lower() for part in parts)

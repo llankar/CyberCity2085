@@ -107,6 +107,10 @@ def fixtures(name):
             selected[identifier] = "planter"
         elif identifier.startswith(("gate_", "turnstile_", "scanner_")):
             selected[identifier] = "gate"
+        elif name == "city_industrial_security_checkpoint" and (
+            identifier.endswith("_bay") or identifier.startswith("guardroom_")
+        ):
+            selected[identifier] = "security_bay"
         elif identifier.startswith(("security_booth_", "guardroom_")):
             selected[identifier] = "cabinet"
         elif "barrier" in identifier:
