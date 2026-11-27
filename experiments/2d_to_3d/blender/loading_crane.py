@@ -1,4 +1,6 @@
 """Shared dockside portal crane and overhead hoist."""
+import math
+
 import bpy
 
 from create_hardsurface_crate import box
@@ -21,6 +23,21 @@ def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65
         member("Crane portal leg", (x,y+side*depth*.32,height*.5),
                (.13,.15,height*.5), beam)
     member("Crane portal beam", (x,y,height), (.16,depth*.44,.14), beam)
+    if compact_footings:
+        # Freight-yard truss members are overhead and leave the two feet unchanged.
+        chord_height = min(.46, depth*.13)
+        chord_span = depth*.64
+        member("Freight crane upper chord", (x,y,height+chord_height),
+               (.12,chord_span*.5,.085), beam)
+        bay = chord_span/4
+        for index in range(4):
+            slope = math.atan2(chord_height,bay) * (-1 if index % 2 else 1)
+            member("Freight crane diagonal web", (x,y+(index-1.5)*bay,height+chord_height/2),
+                   (.078,math.hypot(bay,chord_height)*.5,.062), beam)
+            parts[-1].rotation_euler.x = slope
+        for side in (-1, 1):
+            member("Freight crane end post", (x,y+side*chord_span*.5,height+chord_height*.5),
+                   (.105,.085,chord_height*.5), steel)
     # The jib extends toward the harbor, above ground level.
     member("Crane harbor jib", (x-outreach*.47,y,height+.23),
            (outreach*.55,.14,.18), beam)
