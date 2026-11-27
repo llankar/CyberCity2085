@@ -82,18 +82,38 @@ repo = Path(__file__).resolve().parents[3]
 survey = json.loads((repo / "experiments/2d_to_3d/residential_roofs317.json").read_text())
 gw, gh = json.loads((repo / "assets/maps/city_district_apartment_block.walls.json").read_text())["grid"]
 cw, ch = survey["canvas"]
-for identifier, (x1,y1,x2,y2), _ in survey["fans"]:
+for identifier, (x1,y1,x2,y2), _, *variant in survey["fans"]:
     group = bpy.data.objects["Occludable_" + identifier]
     roof = next(obj for obj in group.children if obj.name.endswith(" shell"))
     height = max((roof.matrix_world @ vertex.co).z for vertex in roof.data.vertices)
     center = ((x1+x2)*gw/(2*cw)-gw/2, gh/2-(y1+y2)*gh/(2*ch), height)
-    parts = place(fan, group, center, ((x2-x1)*gw/cw, (y2-y1)*gh/ch, .42))
+    width, depth = (x2-x1)*gw/cw, (y2-y1)*gh/ch
+    if variant == ["single"]:
+        x,y,z = center
+        steel = bpy.data.materials["Residential dark service trim"]
+        parts = [box("Single extractor housing", (x,y,z+.12), (width*.46,depth*.46,.12),steel,.035)]
+        radius = min(width,depth)*.37
+        bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
+            location=(x,y,z+.25), major_radius=radius, minor_radius=.022)
+        ring = bpy.context.object
+        ring.data.materials.append(cladding[0])
+        parts.append(ring)
+        for index in range(3):
+            blade = box("Single extractor rotor", (x,y,z+.25),
+                        (radius*.87,.034,.014),cladding[0],.008)
+            blade.rotation_euler.z = index*math.pi/3
+            parts.append(blade)
+        for part in parts:
+            part.parent = group
+            part.matrix_parent_inverse = group.matrix_world.inverted()
+    else:
+        parts = place(fan, group, center, (width, depth, .42))
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
         part.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]
     bpy.ops.object.join()
-    bpy.context.object.name = "Residential rooftop twin fan"
+    bpy.context.object.name = "Residential rooftop single fan" if variant else "Residential rooftop twin fan"
 
 roof_material = bpy.data.materials["Original residential roof artwork"]
 texture = next(node for node in roof_material.node_tree.nodes if node.type == "TEX_IMAGE")

@@ -14,7 +14,7 @@ cw, ch = survey["canvas"]
 result = base.copy()
 mask = Image.new("1", base.size)
 draw = ImageDraw.Draw(mask)
-for _, (x1, y1, x2, y2), (sx, sy) in survey["fans"]:
+for _, (x1, y1, x2, y2), (sx, sy), *_ in survey["fans"]:
     left, right, sx = (round(x*w/cw) for x in (x1, x2, sx))
     top, bottom, sy = (round(y*h/ch) for y in (y1, y2, sy))
     result.paste(base.crop((sx, sy, sx+right-left, sy+bottom-top)), (left, top))

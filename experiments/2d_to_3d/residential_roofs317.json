@@ -6,6 +6,7 @@
     ["east_north_building", [879, 34, 905, 62], [833, 48]],
     ["center_west_building", [257, 234, 289, 265], [247, 193]],
     ["southwest_building", [73, 294, 137, 337], [589, 363]],
+    ["southwest_building", [91, 350, 125, 383], [589, 363], "single"],
     ["south_central_building", [290, 409, 326, 445], [270, 453]],
     ["southeast_center_building", [589, 461, 655, 490], [589, 363]]
   ]
