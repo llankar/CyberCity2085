@@ -48,6 +48,7 @@ func _ready() -> void:
   if player.has_animation("AtriumWaterRipple"):
    player.get_animation("AtriumWaterRipple").loop_mode = Animation.LOOP_LINEAR
    player.play("AtriumWaterRipple")
+ var checked_map_materials := {}
  for instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
   if instance.mesh == null:
    continue
@@ -55,6 +56,22 @@ func _ready() -> void:
    var material := instance.get_active_material(surface) as BaseMaterial3D
    if material != null and material.texture_filter == BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS:
     material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+   if material == null or checked_map_materials.has(material):
+    continue
+   checked_map_materials[material] = true
+   if material.resource_name not in ["Original avenue pavement", "Original rooftop artwork"]:
+    continue
+   if material.albedo_texture == null:
+    continue
+   var pixels := material.albedo_texture.get_image()
+   if pixels == null or pixels.is_empty():
+    continue
+   var had_mipmaps := pixels.has_mipmaps()
+   if not had_mipmaps and pixels.generate_mipmaps() == OK:
+    material.albedo_texture = ImageTexture.create_from_image(pixels)
+   material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+   if low_review:
+    print("MAP_TEXTURE_FILTER %s had_mipmaps=%s has_mipmaps=%s" % [material.resource_name, had_mipmaps, pixels.has_mipmaps()])
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
   # architecture only. Recreate that visual floor in this independent review.
