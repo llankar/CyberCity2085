@@ -62,13 +62,12 @@ TECH_MARKET_DONORS = {
     "southeast_large_canopy": (1414, 836, 1460, 914),
 }
 
-# Sample clean asphalt on each original. Restrict the transferred grain to
-# vehicle footprints on the road, leaving the dirt shoulder repairs alone.
+# Sample clean asphalt on each original and restrict the grain to road vehicles.
 ROAD_GRAIN_SAMPLES = {
     "_ruined_downtown": ((453,247,483,281), (0,540)),
     "_downtown_intersection": ((449,215,472,243), (0,540)),
     "_parking_garage": ((285,213,309,239), (0,540)),
-    "_convoy_crossing": ((202,209,230,230), (221,291)),
+    "_convoy_crossing": ((202,209,230,230), (160,368)),
     "_wrecked_highway": ((453,281,484,307), (190,345)),
 }
 
@@ -278,15 +277,21 @@ def main():
             continue
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
-        road_repairs = np.zeros_like(mask)
+        vehicle_repairs = np.zeros_like(mask)
         for row in survey["walls"]:
             if row["id"].startswith(("car_", "wreck_", "bus_", "truck_", "convoy_")) and "rect" in row:
                 x1,y1,x2,y2 = row["rect"]
-                top, bottom = max(y1,road_rows[0]), min(y2,road_rows[1])
-                road_repairs[round(top*sy):round(bottom*sy), round(x1*sx):round(x2*sx)] = 255
+                vehicle_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
+        top, bottom = (round(y*sy) for y in road_rows)
+        road_repairs = np.zeros_like(mask)
+        road_repairs[top:bottom] = vehicle_repairs[top:bottom]
         x1,y1,x2,y2 = sample_rect
         road_sample = original.crop((round(x1*sx),round(y1*sy),round(x2*sx),round(y2*sy)))
         result = restore_surface_detail(result, road_repairs & mask, road_sample, round(32*sx))
+        if suffix == "_convoy_crossing":
+            shoulder_repairs = vehicle_repairs ^ road_repairs
+            gravel = original.crop((round(480*sx), round(411*sy), round(514*sx), round(445*sy)))
+            result = restore_surface_detail(result, shoulder_repairs & mask, gravel, round(34*sx))
     if args.map == "city_transit_freight_yard":
         # Recover paving grain without pasting a second set of rails or lamps.
         cw, ch = survey["canvas_size"]
