@@ -379,6 +379,16 @@ def build(name):
             for loop_index in face.loop_indices:
                 p = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
                 uv.data[loop_index].uv = ((x+p.x)/gw+.5, (y+p.y)/gh+.5)
+        if not industrial and min(w, d) >= 2.4:
+            thickness = .08
+            parapet_height = .12
+            for side in (-1, 1):
+                box(identifier + " roof parapet long",
+                    (x, y+side*(d/2-thickness), height+parapet_height),
+                    (w/2, thickness, parapet_height), frame).parent = group
+                box(identifier + " roof parapet short",
+                    (x+side*(w/2-thickness), y, height+parapet_height),
+                    (thickness, d/2-2*thickness, parapet_height), frame).parent = group
         direction = -1 if y > 0 else 1
         front = y + direction*d/2
         angle = 0 if direction < 0 else math.pi

@@ -1,4 +1,4 @@
-﻿"""Verify the urban batch exported lateral details under its occlusion roots."""
+"""Verify the urban batch exported lateral details under its occlusion roots."""
 import json
 from pathlib import Path
 import struct
@@ -29,3 +29,6 @@ def test_lateral_facade_bands_keep_building_occlusion(name):
     assert bands <= grouped
     rear_doors = {index for index, node in enumerate(nodes) if " rear service door" in node["name"]}
     assert rear_doors and rear_doors <= grouped
+    parapets = {index for index, node in enumerate(nodes) if " roof parapet" in node["name"]}
+    assert parapets and parapets <= grouped
+    assert len(parapets) % 4 == 0
