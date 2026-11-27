@@ -926,3 +926,6 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Godot : traduire les derniers libellés du HUD tactique et donner automatiquement le focus à la carte de combat prête, sans clic préalable dans Arcade. (19 novembre 2026)
 - [x] Godot : auditer tous les littéraux du projet, remplacer `JOURNAL DE COMBAT` et `interface classique`, puis retirer le titre moteur et le diagnostic `WALL TEST` de la copie joueur. (19 novembre 2026)
 - [x] Régression Godot : corriger l'indentation GDScript cassée pendant la traduction du HUD et ajouter un contrôle natif de parsing ainsi qu'un test réel de deux missions sur le runtime persistant. (19 novembre 2026)
+
+- [x] STRATEGIC-EVENT-FALLOUT — Paid crisis responses require funds before applying any effects. Named faction pressure targets the faction involved in the crisis.
+- [ ] STRATEGIC-MISSION-CLOSURES — Audit crisis closures and reopening against campaign-critical missions.

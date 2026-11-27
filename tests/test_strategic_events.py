@@ -11,6 +11,7 @@ from game.management.events import (
     EventTemplate,
     EVENT_CATEGORIES,
     apply_event_choice,
+    create_event_templates,
     expire_events,
 )
 from game.ui.command_deck import build_event_panel_lines
@@ -94,6 +95,19 @@ class StrategicEventsTest(unittest.TestCase):
         self.assertEqual(game_state.district.unrest, starting_unrest + 9)
         self.assertTrue(any("Expired event" in entry for entry in game_state.event_log))
 
+    def test_board_vote_applies_pressure_to_aegis(self):
+        game_state = GameState()
+        aegis = game_state.get_faction("Aegis Dynamics")
+        rival = max(game_state.factions, key=lambda faction: faction.hostility_to_player)
+        aegis_before, rival_before = aegis.hostility_to_player, rival.hostility_to_player
+        template = next(item for item in create_event_templates() if item.title == "Board Knife Vote")
+        day = game_state.calendar.current_day
+        game_state.active_events.append(ActiveEvent("board", template, day, day + 1))
+
+        self.assertTrue(apply_event_choice(game_state, "board", "lobby"))
+        self.assertEqual(aegis.hostility_to_player, aegis_before - 5)
+        self.assertEqual(rival.hostility_to_player, rival_before)
+
     def test_event_choice_changes_funds_agents_factions_city_and_missions(self):
         game_state = GameState()
         game_state.characters = [Character(name="Vega", stress=10)]
@@ -134,6 +148,16 @@ class StrategicEventsTest(unittest.TestCase):
                 expires_day=game_state.calendar.current_day + 1,
             )
         )
+
+        game_state.funds.current_funds = 11
+        self.assertFalse(apply_event_choice(game_state, "event-choice", "refuse"))
+        self.assertEqual(game_state.available_funds, 11)
+        self.assertEqual(len(game_state.active_events), 1)
+        self.assertEqual(game_state.characters[0].stress, 10)
+        self.assertEqual(game_state.district.stability, starting_stability)
+        self.assertEqual(hostile_faction.hostility_to_player, starting_hostility)
+        self.assertNotIn(first_mission_id, game_state.unavailable_mission_ids)
+        game_state.funds.current_funds = starting_funds
 
         applied = apply_event_choice(game_state, "event-choice", "refuse")
 

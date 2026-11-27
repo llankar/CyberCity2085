@@ -246,7 +246,7 @@ def create_event_templates() -> list[EventTemplate]:
                     "Security saves the perimeter and closes a mission window.",
                 ),
             ],
-            consequences={"city_unrest": 7, "faction_pressure": 3},
+            consequences={"city_unrest": 7, "faction_pressure": 3, "faction": "Starvers"},
         ),
         EventTemplate(
             title="Neon Market Riot",
@@ -282,7 +282,7 @@ def create_event_templates() -> list[EventTemplate]:
                 EventChoice(
                     "lobby",
                     "Lobby the board",
-                    {"funds": -20, "faction_pressure": -5},
+                    {"funds": -20, "faction_pressure": -5, "faction": "Aegis Dynamics"},
                     "Political cover dampens the attack.",
                 ),
                 EventChoice(
@@ -292,7 +292,7 @@ def create_event_templates() -> list[EventTemplate]:
                     "The budget improves and the floor feels colder.",
                 ),
             ],
-            consequences={"funds": -15, "faction_pressure": 5},
+            consequences={"funds": -15, "faction_pressure": 5, "faction": "Aegis Dynamics"},
         ),
         EventTemplate(
             title="Council Leverage Demand",
@@ -424,6 +424,10 @@ def apply_event_choice(game_state, event_id: str, choice_key: str) -> bool:
         for choice in active_event.choices:
             if choice.key != choice_key:
                 continue
+            cost = max(0, -int(choice.effects.get("funds", 0)))
+            if cost > game_state.available_funds:
+                game_state.add_event(f"Event response unavailable: {choice.label} requires {cost:,} funds.")
+                return False
             apply_event_effects(game_state, choice.effects)
             from ..relationships.impact_tracker import record_relation_impact
 
@@ -468,12 +472,13 @@ def apply_event_effects(game_state, effects: dict[str, Any]) -> None:
     if faction_pressure and game_state.factions:
         faction_name = effects.get("faction")
         faction = game_state.get_faction(faction_name) if faction_name else None
-        if faction is None:
+        if faction is None and not faction_name:
             faction = max(
                 game_state.factions, key=lambda item: item.hostility_to_player
             )
-        faction.hostility_to_player += faction_pressure
-        faction.clamp_pressure()
+        if faction is not None:
+            faction.hostility_to_player += faction_pressure
+            faction.clamp_pressure()
 
     mission_delta = int(effects.get("mission_availability", 0))
     if mission_delta < 0:
