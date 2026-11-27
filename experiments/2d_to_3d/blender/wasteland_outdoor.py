@@ -1320,6 +1320,22 @@ class WastelandOutdoors:
             tank.name = "Rail tanker cylinder"
             tank.data.materials.append(self.steel)
             tank.parent = group
+            if self.convoy_crossing:
+                radius = min(.43,width*.33)
+                for end in (-.425,.165):
+                    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12,
+                        radius=radius, location=(length*end,0,1.04))
+                    cap = bpy.context.object
+                    cap.name = "Convoy tanker dished end"
+                    cap.scale.x = min(.10,length*.025)/radius
+                    cap.data.materials.append(self.steel)
+                    cap.parent = group
+                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius*.42,
+                    depth=.072, location=(-length*.13,0,1.06+radius))
+                hatch = bpy.context.object
+                hatch.name = "Convoy tanker inspection hatch"
+                hatch.data.materials.append(self.dark)
+                hatch.parent = group
             for offset in (-.31,0,.31):
                 bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
                     major_radius=radius, minor_radius=.019,
@@ -1404,8 +1420,13 @@ class WastelandOutdoors:
         elif name == "convoy_me":
             for row in (-1,1):
                 for slot in (-1,0,1):
-                    part("Convoy strapped crate", ((-.147+slot*.19)*length,row*width*.205,.83),
+                    crate_x, crate_y = (-.147+slot*.19)*length, row*width*.205
+                    part("Convoy strapped crate", (crate_x,crate_y,.83),
                          (length*.079,width*.155,.18),self.canvas)
+                    if self.convoy_crossing:
+                        for offset in (-.047,.047):
+                            part("Convoy crate lid batten", (crate_x+length*offset,crate_y,1.02),
+                                 (length*.012,width*.15,.017),self.dark,.008)
         elif name.startswith("wreck_"):
             for side in (-1,1):
                 part("Wreck flatbed side rail", (-length*.135,side*width*.365,.75),
