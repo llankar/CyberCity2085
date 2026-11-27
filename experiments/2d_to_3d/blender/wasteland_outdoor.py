@@ -206,7 +206,7 @@ class WastelandOutdoors:
         roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
         roughness.image.colorspace_settings.name = "Non-Color"
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
-        if flooded_square or ruined_downtown:
+        if overpass or flooded_square or ruined_downtown:
             detail = nodes.new("ShaderNodeTexImage")
             detail.image = bpy.data.images.load(str(concrete_path / "nor_gl.jpg"), check_existing=True)
             detail.image.colorspace_settings.name = "Non-Color"
@@ -1091,6 +1091,17 @@ class WastelandOutdoors:
             self.concrete_box("Surviving corner pier",
                               (x+side*width*.40, y-front*depth*.09, .66),
                               (width*.08, depth*.28, .66)).parent = group
+            frame_y = y+front*depth*.25
+            span = width*.48
+            for end, height in ((-1,1.72),(1,1.32)):
+                box("Exposed overpass ruin column", (x+end*span*.5,frame_y,height*.5),
+                    (.050,.048,height*.5),self.steel,.008).parent = group
+            box("Exposed overpass ruin lintel", (x,frame_y,1.26),
+                (span*.52,.050,.049),self.steel,.008).parent = group
+            brace = box("Exposed overpass ruin diagonal", (x,frame_y,.73),
+                        (math.hypot(span,.92)*.5,.038,.036),self.steel,.008)
+            brace.rotation_euler.y = side*math.atan2(.92,span)
+            brace.parent = group
 
     def trainyard_workshop_ruin(self, group, name, x, y, width, depth):
         # The survey covers roofless workshops, with the surviving walls at
