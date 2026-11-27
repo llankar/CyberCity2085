@@ -92,6 +92,14 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     len(row["points"])-1
                 )*multiplier
         if name.endswith("_ruined_transit_plaza"):
+            for row in surveyed:
+                if "points" not in row:
+                    continue
+                boundary = next(node for node in nodes if node["name"] == f"Occludable_{row['id']}")
+                parts = [nodes[i]["name"] for i in boundary["children"]]
+                trim = ("Station stair guard rail" if row["id"].endswith("_stairs_guard")
+                        else "Station perimeter coping")
+                assert sum(part.startswith(trim) for part in parts) == len(row["points"])-1
             for direction in ("nw", "ne", "sw", "se"):
                 column = next(node for node in nodes if node["name"] == f"Occludable_column_{direction}")
                 assert sum(nodes[i]["name"].startswith("Station column blue panel")

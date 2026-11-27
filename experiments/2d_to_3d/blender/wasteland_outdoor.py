@@ -250,6 +250,9 @@ class WastelandOutdoors:
             if self.salt_flat:
                 self.salt_flat_fence(group, points, width)
                 return
+            if self.ruined_transit:
+                self.transit_boundary(group, name, points, width)
+                return
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
                 length = math.hypot(bx-ax,by-ay)
@@ -654,6 +657,31 @@ class WastelandOutdoors:
                                     (length/2,width*.48,.09))
             cap.rotation_euler.z = yaw
             cap.parent = group
+
+    def transit_boundary(self, group, name, points, width):
+        stairs = name.endswith("_stairs_guard")
+        for (ax,ay),(bx,by) in zip(points, points[1:]):
+            length = math.hypot(bx-ax,by-ay)
+            yaw = math.atan2(by-ay,bx-ax)
+            x, y = (ax+bx)/2, (ay+by)/2
+            curb = self.concrete_box("Station boundary curb", (x,y,.09),
+                                     (length/2,width*.46,.09))
+            curb.rotation_euler.z = yaw
+            curb.parent = group
+            if stairs:
+                rail = box("Station stair guard rail", (x,y,.52),
+                           (length*.48,.034,.034), self.steel,.009)
+                rail.rotation_euler.z = yaw
+                rail.parent = group
+            else:
+                cap = self.concrete_box("Station perimeter coping", (x,y,.25),
+                                        (length*.49,width*.38,.072))
+                cap.rotation_euler.z = yaw
+                cap.parent = group
+        if stairs:
+            for x,y in points:
+                box("Station stair guard post", (x,y,.33),
+                    (.041,.041,.21), self.steel,.012).parent = group
 
     def transit_column(self, group, x, y, width, depth):
         self.concrete_box("Station column stepped footing", (x,y,.13),
