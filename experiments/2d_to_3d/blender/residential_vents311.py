@@ -54,6 +54,14 @@ for shell in list(bpy.context.scene.objects):
     base = min(v.z for v in face_points)
     # Two segments leave the center clear for the existing doorway.
     finish = cladding[facades % len(cladding)]
+    top = max(v.z for v in face_points)
+    anchor = center + normal*.035
+    anchor.z = top-.16
+    cornice = box("Residential facade cornice", tuple(anchor),
+                  (width*.48,.066,.052), finish,.014)
+    cornice.rotation_euler.z = math.atan2(tangent.y, tangent.x)
+    cornice.parent = shell.parent
+    cornice.matrix_parent_inverse = shell.parent.matrix_world.inverted()
     for side in (-1, 1):
         anchor = center + tangent*(width*.29*side) + normal*.024
         anchor.z = base+.14
