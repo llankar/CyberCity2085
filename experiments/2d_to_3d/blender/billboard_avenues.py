@@ -821,7 +821,19 @@ def build(name):
                 piece.parent = group
             continue
         if industrial and identifier.endswith("_wall"):
-            box(identifier, (x,y,.7), (w/2,d/2,.7), wall).parent = group
+            if name == "city_transit_freight_yard":
+                vertical = d > w
+                length, breadth = (d,w) if vertical else (w,d)
+                wall_section = (breadth*.39,length*.5) if vertical else (length*.5,breadth*.39)
+                box(identifier, (x,y,.7), (*wall_section,.7), wall).parent = group
+                count = max(1, round(length/2.7))
+                for index in range(count):
+                    offset = ((index+.5)/count-.5)*length
+                    center = (x,y+offset,.70) if vertical else (x+offset,y,.70)
+                    size = (breadth*.49,.095,.69) if vertical else (.095,breadth*.49,.69)
+                    box("Freight perimeter buttress", center, size, frame,.019).parent = group
+            else:
+                box(identifier, (x,y,.7), (w/2,d/2,.7), wall).parent = group
             box(identifier + " coping", (x,y,1.4), (w/2,d/2,.055), frame).parent = group
             continue
         if name.endswith("_industrial_district") and identifier in {"central_w_machine", "central_e_machine"}:
