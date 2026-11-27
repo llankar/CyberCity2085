@@ -29,6 +29,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_scavenger_plaza"):
+            for row in surveyed:
+                if row["id"].endswith("_ruin"):
+                    ruin = next(node for node in nodes if node["name"] == f"Occludable_{row['id']}")
+                    parts = [nodes[i]["name"] for i in ruin["children"]]
+                    assert sum(part.startswith("Scavenger broken perimeter pier") for part in parts) == 3
+                    assert sum(part.startswith("Scavenger fallen floor panel") for part in parts) == 2
             wreck = next(node for node in nodes if node["name"] == "Occludable_wreck_se")
             assert "rotation" in wreck
             assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")

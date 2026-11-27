@@ -1581,3 +1581,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SCAVENGER-PLAZA-STALLS / DONE for twelve traced stalls per map in variants 05 and 10. Replaced repeated shop instances with open parts counters and single or paired canvas covers fitted to the source color layout. Both GLBs rebuilt on E:, ten tests passed and variant 10 rendered in Godot. Next: differentiate the vehicle hulks and preserve more of the perimeter ruin silhouettes.
 
 - EXPERIMENTAL-SCAVENGER-PLAZA-FLATBED / DONE for the southeast wreck in both variants. Fitted the existing stripped flatbed to the diagonal reference while keeping the edge cars. Both GLBs rebuilt on E:, ten tests passed and Godot rendered 10. Next: reconstruct the perimeter ruin silhouettes.
+
+- EXPERIMENTAL-SCAVENGER-PLAZA-RUINS / DONE for four perimeter groups per variant. Added fractured piers, exposed beams and slumped floor panels within their surveyed footprints. Both exports rebuilt on E:, ten tests passed and Godot rendered 10. Next: inspect Ruined Transit Plaza for distinctive structures that still use generic models.

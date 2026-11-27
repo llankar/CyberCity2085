@@ -418,12 +418,30 @@ class WastelandOutdoors:
                 self.burned_market_ruin(group, name, x, y, w, d)
             elif self.flooded_square:
                 self.flooded_square_ruin(group, x, y, w, d)
+            elif self.scavenger_plaza:
+                self.scavenger_perimeter_ruin(group, x, y, w, d)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def scavenger_perimeter_ruin(self, group, x, y, width, depth):
+        # Put the broken outer wall away from the market lanes.
+        outside = -1 if x < 0 else 1
+        for offset, height in ((-.31,1.42), (.02,2.04), (.32,1.67)):
+            self.concrete_box("Scavenger broken perimeter pier",
+                              (x+outside*width*.39,y+depth*offset,height/2),
+                              (width*.07,depth*.09,height/2)).parent = group
+        for offset, tilt in ((-.24,.22), (.19,-.37)):
+            slab = self.concrete_box("Scavenger fallen floor panel",
+                                     (x+outside*width*.08,y+depth*offset,.56),
+                                     (width*.26,depth*.13,.085))
+            slab.rotation_euler.y = outside*tilt
+            slab.parent = group
+        box("Scavenger exposed floor beam", (x+outside*width*.32,y,1.36),
+            (.055,depth*.38,.073), self.steel,.02).parent = group
 
     def flooded_square_ruin(self, group, x, y, width, depth):
         street = -1 if y > 0 else 1
