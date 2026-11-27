@@ -66,7 +66,7 @@
     "status": "preview",
     "batch": "initial",
     "scene": "res://dockside338.tscn",
-    "scope": "partial: cargo and quay infrastructure"
+    "scope": "surveyed obstacle groups: cargo, vehicles, offices and quay infrastructure"
   },
   {
     "map": "city_interior_blacksite_lab",

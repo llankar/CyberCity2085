@@ -13,6 +13,7 @@ from library_placement import place
 from shipping_container import build_container
 from loading_crane import build_crane
 from industrial_forklift import build_forklift
+from interior_furniture import build_rack
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -27,24 +28,27 @@ library = lab / "environment-library/assets"
 cargo = library / "cargo_crate274/model.glb"
 generator = library / "industrial_generator265/model.glb"
 wall = library / "service_wall269_factory/model.glb"
-selected = {"northwest_top_crates", "central_generator", "south_cargo_generator"}
+service = library / "industrial_service267/model.glb"
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.context.preferences.filepaths.save_version = 0
 skins = {key: make_material("Dockside container "+key, (*color,1), .65,.63)
          for key,color in (("green",(.062,.15,.14)),("blue",(.044,.093,.22)),("red",(.24,.063,.034)))}
 steel = make_material("Dockside door hardware", (.075,.11,.15,1), .65,.48)
 beam = make_material("Dockside locking rods", (.52,.17,.028,1), .45,.48)
+display = make_material("Dockside control display", (.014,.11,.17,1), .12,.48,.25)
 instances = containers = barriers = cranes = forklifts = 0
 converted = set()
 for row in survey["walls"]:
     identifier = row["id"]
-    is_container = "container" in identifier
+    if row.get("kind") == "water" or row.get("collision") is False:
+        continue
+    is_container = "container" in identifier or identifier in {
+        "south_cargo_west", "south_cargo_blue", "south_cargo_red", "south_cargo_bottom", "south_cargo_east",
+    }
     is_barrier = identifier.startswith("quay_barrier_")
     is_crane = identifier.startswith("crane_")
     is_forklift = identifier.endswith("_forklift")
-    is_cargo = identifier.endswith(("_crates", "_crate"))
-    if identifier not in selected and not (is_container or is_barrier or is_crane or is_forklift or is_cargo):
-        continue
+    is_cargo = identifier.endswith(("_crates", "_crate")) or identifier == "northeast_stack_small"
     converted.add(identifier)
     xs, ys = zip(*row["polygon"])
     a, c, b, d = min(xs), max(xs), min(ys), max(ys)
@@ -85,7 +89,7 @@ for row in survey["walls"]:
         place(generator, group, (x,y,0), (length*.95,thickness*.95,1.55),
               yaw=math.pi/2 if vertical else 0)
         instances += 1
-    else:
+    elif is_cargo:
         vertical = depth > width
         length, thickness = (depth,width) if vertical else (width,depth)
         count = 1 if length < thickness*1.35 else 2
@@ -95,7 +99,38 @@ for row in survey["walls"]:
             place(cargo, group, position, (length*.92/count,thickness*.92,1.05),
                   yaw=math.pi/2 if vertical else 0, merge=True)
             instances += 1
-assert containers == 9 and barriers == 3 and cranes == 2 and forklifts == 8
+    elif identifier.endswith("_wall") or "_outer_" in identifier:
+        vertical = depth > width
+        length, thickness = (depth,width) if vertical else (width,depth)
+        sections = max(1, math.ceil(length/1.7))
+        for index in range(sections):
+            shift = ((index+.5)/sections-.5)*length
+            place(wall, group, (x if vertical else x+shift, y+shift if vertical else y, 0),
+                  (length/sections,thickness,1.5), yaw=math.pi/2 if vertical else 0, merge=True)
+    elif "_rack" in identifier:
+        build_rack(group,x,y,width,depth,steel,beam)
+        for z in (.42,1.20,1.98):
+            place(cargo, group, (x,y,z), (width*.68,depth*.69,.48), merge=True)
+    elif any(key in identifier for key in ("terminal", "console", "workbench", "cabin")):
+        cabin = identifier.endswith("_cabin")
+        height = 1.50 if cabin else .82
+        box(identifier+" housing", (x,y,height/2),
+            (width*.47,depth*.46,height/2), steel).parent = group
+        if cabin:
+            box(identifier+" window", (x-width*.48,y,height*.70),
+                (width*.012,depth*.32,.19), display).parent = group
+        else:
+            box(identifier+" instrument panel", (x,y,height+.03),
+                (width*.34,depth*.31,.03), display).parent = group
+        box(identifier+" trim", (x,y,height+.008),
+            (width*.48,depth*.48,.015), beam).parent = group
+    else:
+        vertical = depth > width
+        length, thickness = (depth,width) if vertical else (width,depth)
+        model = library / "roof_twin_fan/optimized.glb" if "fan" in identifier else service
+        place(model, group, (x,y,0), (length*.94,thickness*.94,1.40),
+              yaw=math.pi/2 if vertical else 0, merge=True)
+assert containers == 14 and barriers == 3 and cranes == 2 and forklifts == 8
 floor = make_material("Dockside source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")

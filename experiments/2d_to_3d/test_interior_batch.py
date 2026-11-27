@@ -163,7 +163,7 @@ def test_factory_console_and_shelf_groups_are_native_geometry():
         group = groups[f"Occludable_{identifier}"]
         assert any("mesh" in nodes[index] for index in group["children"])
 
-def test_dockside_exports_all_surveyed_forklifts():
+def test_dockside_exports_all_surveyed_obstacle_groups():
     import json
     from pathlib import Path
     import struct
@@ -175,6 +175,12 @@ def test_dockside_exports_all_surveyed_forklifts():
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
         nodes = json.loads(model.read(size))["nodes"]
+    survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_dockside_terminal.wall-traces.json"
+    survey = json.loads(survey_path.read_text())
+    expected = {f"Occludable_{row['id']}" for row in survey["walls"]
+                if row.get("kind") != "water" and row.get("collision") is not False}
+    exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
+    assert exported == expected
     forklifts = [node for node in nodes if node["name"].startswith("Occludable_")
                  and node["name"].endswith("_forklift")]
     assert len(forklifts) == 8
