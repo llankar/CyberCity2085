@@ -185,6 +185,13 @@ class WastelandOutdoors:
         wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34,
                      "wreck_far_e": -.09, "wreck_middle5": -.12}
         if self.trainyard and ("wagon" in name or name == "north_tank"):
+            if name == "wagon_turntable":
+                yaw = math.atan2(54*self.gh/self.ch, 66*self.gw/self.cw)
+                length, breadth = w, d*.40
+                c, s = math.cos(yaw), math.sin(yaw)
+                fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+                length, breadth = length*fit, breadth*fit
+                self.trainyard_turntable(x, y, yaw, breadth)
             self.trainyard_wagon(group, name, x, y, length, breadth, yaw)
         elif self.wrecked_highway and name in wreck_yaws:
             angle = -wreck_yaws[name]
@@ -257,6 +264,22 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def trainyard_turntable(self, x, y, yaw, wagon_width):
+        bridge = bpy.data.objects.new("Trainyard turntable bridge", None)
+        bpy.context.collection.objects.link(bridge)
+        bridge.location = (x, y, 0)
+        bridge.rotation_euler.z = yaw
+        length = 2 * math.hypot(64*self.gw/self.cw, 52*self.gh/self.ch)
+        gauge = wagon_width * .63
+        for index in range(-7, 8):
+            sleeper = box("Turntable sleeper", (index*length/16, 0, .052),
+                          (length/48, gauge*.75, .030), self.dark, .008)
+            sleeper.parent = bridge
+        for side in (-1, 1):
+            rail = box("Turntable bridge rail", (0, side*gauge/2, .095),
+                       (length/2, .026, .024), self.steel, .008)
+            rail.parent = bridge
 
     def trainyard_wagon(self, group, name, x, y, length, width, yaw):
         group.location = (x,y,0)
