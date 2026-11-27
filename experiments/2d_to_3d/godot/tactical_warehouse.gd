@@ -58,6 +58,14 @@ func _ready() -> void:
  for child in get_children():
   if child is CanvasLayer:
    child.hide()
+ var actor_fill := DirectionalLight3D.new()
+ actor_fill.name = "Tactical actor fill"
+ actor_fill.rotation_degrees = Vector3(-27, 145, 0)
+ actor_fill.light_color = Color(.77, .85, 1.0)
+ actor_fill.light_energy = .34
+ actor_fill.light_cull_mask = TacticalActor.FILL_LIGHT_LAYER
+ actor_fill.shadow_enabled = false
+ add_child(actor_fill)
  mailbox = Mailbox.new(session)
  cutaway.configure(self, [], review_camera, true)
  smoke = OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1"

@@ -1,5 +1,6 @@
 extends Node3D
 
+const FILL_LIGHT_LAYER := 1 << 7
 const CAST := "E:/CyberCity2085-3d-lab/generated/phase2/"
 var animation: AnimationPlayer
 var clips: Dictionary
@@ -45,6 +46,8 @@ func configure(allied: bool, support: bool, initial: Vector3,
    mesh.hide()
  if support and not configure_support_appearance(model):
   return false
+ for mesh in model.find_children("*", "MeshInstance3D", true, false):
+  mesh.layers |= FILL_LIGHT_LAYER
  for action: String in clips:
   if not animation.has_animation(clips[action]):
    push_error("Missing retained animation %s in %s" % [clips[action], path])
