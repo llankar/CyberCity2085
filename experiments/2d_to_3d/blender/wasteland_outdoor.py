@@ -600,8 +600,16 @@ class WastelandOutdoors:
             direction = -1 if self.ruined_transit and name in {"stairs_s", "stairs_sw", "stairs_se"} else 1
             for step in range(6):
                 height = (step+1)*.12
-                box(name, (x,y+direction*d*((step+.5)/6-.5),height/2),
-                    (w*.48,d/12,height/2), self.stone).parent = group
+                tread_y = y+direction*d*((step+.5)/6-.5)
+                if self.ruined_transit:
+                    self.concrete_box(name, (x,tread_y,height/2),
+                                      (w*.48,d/12,height/2), .012).parent = group
+                    box("Station stair worn nosing",
+                        (x,tread_y-direction*d*.071,height),
+                        (w*.45,d*.012,.013), self.steel,.006).parent = group
+                else:
+                    box(name, (x,tread_y,height/2),
+                        (w*.48,d/12,height/2), self.stone).parent = group
         elif self.flooded_square and name == "monument":
             radius = min(w,d)*.46
             for label, ratio, height, elevation, material in (
@@ -907,7 +915,7 @@ class WastelandOutdoors:
                 (width*.057,depth*.027,.018), self.steel,.008).parent = group
         for bay in (-.38,-.24,-.10,.04,.32):
             box("Surviving platform warning strip", (x+rail_side*width*.32,y+bay*depth,.393),
-                (width*.026,depth*.064,.015),self.steel,.006).parent = group
+                (width*.026,depth*.064,.015),self.aggregate,.006).parent = group
 
     def add_transit_south_carriage(self):
         group = bpy.data.objects.new("South transit carriage", None)
