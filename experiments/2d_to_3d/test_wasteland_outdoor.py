@@ -10,6 +10,30 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+@pytest.mark.parametrize("name", [
+    "cybercity_street_12_industrial_district",
+    "cybercity_street_13_industrial_district",
+])
+def test_industrial_cargo_roof_details_share_the_container_mesh(name):
+    path = catalogue_environment(name)
+    if not path.is_file():
+        pytest.skip("Build the experimental industrial district on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        gltf = json.loads(model.read(size))
+    nodes = gltf["nodes"]
+    containers = [node for node in nodes if node["name"].startswith("Warehouse shipping container")]
+    assert containers
+    for container in containers:
+        primitives = gltf["meshes"][container["mesh"]]["primitives"]
+        assert len(primitives) == 3
+        roof_height = max(gltf["accessors"][part["attributes"]["POSITION"]]["max"][1]
+                          for part in primitives)
+        assert roof_height > .90
+    assert not any(node["name"].startswith(("Container roof stiffener", "Container upper corner casting"))
+                   for node in nodes)
+
+
 def test_freight_yard_has_four_complete_rail_profiles():
     path = catalogue_environment("city_transit_freight_yard")
     if not path.is_file():

@@ -10,6 +10,10 @@ def build_container(group, x, y, w, d, container_skin, steel, beam, yaw=0.0, *, 
         for offset in (-.32,-.16,0,.16,.32):
             parts.append(box("Container roof stiffener", (w*offset,0,1.765),
                              (min(.035,w*.017),d*.41,.022),container_skin,.008))
+        for end in (-1, 1):
+            for side in (-1, 1):
+                parts.append(box("Container upper corner casting", (end*w*.433,side*d*.40,1.745),
+                                 (min(.075,w*.028),min(.065,d*.06),.052),steel,.012))
     for side in (-1, 1):
         for rib in range(11):
             parts.append(box("Container corrugation", ((rib-5)*w*.078,side*d*.45,.88),

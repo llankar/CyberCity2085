@@ -11,6 +11,7 @@ $env:TEMP = Join-Path $labRoot 'tmp'
 $env:TMP = $env:TEMP
 $env:PYTHONPYCACHEPREFIX = Join-Path $labRoot 'cache/python'
 $sharedTerrain = @{
+    'cybercity_street_13_industrial_district' = 'cybercity_street_12_industrial_district'
     'cybercity_street_10_waterfront_docks' = 'cybercity_street_09_waterfront_docks'
     'cybercity_street_14_flood_prone_avenue' = 'cybercity_street_13_flood_prone_avenue'
 }
