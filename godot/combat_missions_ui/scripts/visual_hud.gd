@@ -106,7 +106,7 @@ func _reposition_buttons() -> void:
 		btn.position = Vector2(left+float(i%columns)*(width+7.0),size.y-116.0-float(i/columns)*104.0)
 		btn.size = Vector2(width,98)
 		btn.text = ""
-		btn.tooltip_text = actions[i]
+		btn.tooltip_text = str(action_tooltips.get(actions[i], actions[i]))
 		if btn.has_node("Glyph"):
 			var glyph := btn.get_node("Glyph") as TextureRect
 			glyph.position = Vector2((width-38.0)*0.5,10)

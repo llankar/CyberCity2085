@@ -12,7 +12,6 @@ def test_godot_routes_mind_spike_as_a_targeted_psi_attack() -> None:
     assert '"Psi Focus":     {"type": "PSI_HEAL"' in source
     assert '"PSI":       return "PSI"' in source
     assert '["FIRE", "MELEE", "PSI"]' in source
-    assert '"psi" if atype == "PSI"' in source
 
 
 def test_psi_fallback_roster_exposes_attack_and_support() -> None:

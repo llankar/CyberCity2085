@@ -2548,6 +2548,12 @@ func _draw_text(text: String, pos: Vector2, font_size: int, color: Color) -> voi
 
 # Presentation adapters: no damage, AP, AI or mission result mutations here.
 func _configure_visual_hud() -> void:
+	_hud.action_tooltips = {
+		"Psi Focus": "%d AP · Relieve up to %d stress per living, standing squad member." % [
+			_action_ap_cost("Psi Focus"), _ACTION_DEFS["Psi Focus"]["stress_relief"]],
+		"Trauma Patch": "%d AP · Restore up to %d HP to this agent." % [
+			_action_ap_cost("Trauma Patch"), _ACTION_DEFS["Trauma Patch"]["heal"]],
+	}
 	if not _hud.has_signal("quality_changed"): return
 	_hud.mission_title = str(_mission_data().get("title", "TACTICAL INSERTION"))
 	_hud.objective_text = str(_mission_data().get("objective_text", "Complete the objective"))

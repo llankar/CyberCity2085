@@ -40,6 +40,7 @@ var show_log          : bool   = false
 var portrait_textures : Dictionary = {}
 var status_line       : String = ""
 var gamepad_action := ""
+var action_tooltips: Dictionary = {}
 var gamepad_hints := false
 var _elapsed          : float  = 0.0
 var _hovered_portrait : int    = -1
@@ -154,6 +155,7 @@ func _reposition_buttons() -> void:
 	var by    := y0
 	for action: String in visible:
 		var btn := _action_btns[action] as Button
+		btn.tooltip_text = str(action_tooltips.get(action, ""))
 		btn.position = Vector2(rp_x, by)
 		btn.size     = Vector2(pw, btn_h)
 		by          += step

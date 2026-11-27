@@ -233,6 +233,18 @@ func run() -> void:
 	mission._apply_psi_focus()
 	assert(mission.player_units[0].ap == 2 and mission.player_units[2].stress == 0)
 	assert(mission.player_units[1].stress == 35 and "8 stress" in mission.status_line)
+	mission._hud = load("res://scripts/hud_controller.gd").new()
+	assert(mission._attack_audio_event({}, "Mind Spike", "PSI") == "psi")
+	mission._configure_visual_hud()
+	mission._hud.size = Vector2(1280, 720)
+	mission._hud._visible_actions.assign(["Psi Focus", "Trauma Patch"])
+	mission._hud._ensure_action_buttons(mission._hud._visible_actions)
+	mission._hud._reposition_buttons()
+	assert("1 AP" in mission._hud._action_btns["Psi Focus"].tooltip_text)
+	assert("25 stress per living" in mission._hud._action_btns["Psi Focus"].tooltip_text)
+	assert("12 HP to this agent" in mission._hud._action_btns["Trauma Patch"].tooltip_text)
+	mission._hud.free()
+	mission._hud = null
 	mission.player_units.assign([{"name": "Oracle", "hp": 20, "max_hp": 20, "ap": 3, "position": Vector2i(1, 1)}])
 	mission.enemy_units.clear()
 	for kind in ["civilian_rescue", "recon_scan"]:
