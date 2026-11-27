@@ -2,6 +2,30 @@ from catalogue_test_assets import catalogue_environment
 from interior_batch import INTERIORS, fixtures
 
 
+def test_underground_market_stalls_export_as_independent_meshes():
+    import json
+    import struct
+
+    import pytest
+
+    name = "wasteland_inner_09_underground_market"
+    model = catalogue_environment(name)
+    if not model.is_file():
+        pytest.skip("Local Underground Market export is unavailable")
+    with model.open("rb") as stream:
+        magic, _, _, length, chunk = struct.unpack("<4sIII4s", stream.read(20))
+        assert (magic, chunk) == (b"glTF", b"JSON")
+        nodes = json.loads(stream.read(length))["nodes"]
+    groups = {node["name"]: node for node in nodes}
+    _, selected = fixtures(name)
+    stalls = [identifier for identifier, kind in selected.items() if kind == "stall"]
+    assert stalls
+    for identifier in stalls:
+        child, = groups[f"Occludable_{identifier}"]["children"]
+        assert nodes[child]["name"].startswith("Salvage market stall")
+        assert "mesh" in nodes[child]
+
+
 def test_interior_batch_limits_replacements_to_modelled_footprints():
     for name in INTERIORS:
         survey, selected = fixtures(name)
