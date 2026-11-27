@@ -519,6 +519,7 @@ def test_extended_interior_partitions_use_worn_steel():
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
         "cybercity_inner_13_warehouse_floor",
+        "city_interior_server_room", "city_industrial_data_vault", "cybercity_inner_15_data_vault",
     ):
         path = OUTPUT / name / "environment.glb"
         if not path.is_file():

@@ -126,12 +126,11 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
-    textured_partitions = name in {
+    textured_partitions = server_map or name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
-        "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
+        "cybercity_inner_10_penthouse_atrium",
         "cybercity_inner_13_warehouse_floor",
-        "city_industrial_data_vault",
     }
     partition_meshes = []
     for row in survey["walls"] + manifest.get("decorative", []):

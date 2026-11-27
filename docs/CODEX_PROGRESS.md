@@ -1827,3 +1827,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INDUSTRIAL-VAULT-CORE / DONE. The original depicts a squat blue data terminal. Replaced the generic vertical pod with a merged armored core, inset screen and light channels inside its surveyed footprint. Rebuilt on E:, rendered in Godot and passed nineteen interior tests. Next: review the core and partition opening from tactical camera.
 
 - EXPERIMENTAL-INDUSTRIAL-VAULT-PARTITIONS / DONE. Applied world-scale worn steel UVs to the surveyed partitions and set two cyan status lights on the northern barriers. Rebuilt on E:, passed nineteen interior tests and reached round 2 in the native Data Vault skirmish. Next: carry a comparable prop pass to another distinct map.
+
+- EXPERIMENTAL-SERVER-FAMILY-PARTITIONS / DONE. Extended world-scale worn steel wall mapping to City Interior Server Room and Cybercity Inner 15 Data Vault. Rebuilt both GLBs on E:, rendered both in Godot and extended the export test to every server-map partition. Nineteen interior tests passed. Next: check distinctive room fixtures in another map family.
