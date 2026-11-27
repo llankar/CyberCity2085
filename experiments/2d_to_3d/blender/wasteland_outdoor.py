@@ -397,6 +397,8 @@ class WastelandOutdoors:
                     bogie.parent = group
         elif "crane" in name:
             build_crane(group,x,y,w,d,self.dark,self.steel,height=3.4,outreach=min(length,2.5))
+        elif name in {"west_pipe", "east_pipe", "east_pipe2", "south_pipe"}:
+            self.basin_drain(group, name, x, y, w, d)
         elif any(part in name for part in ("pipe","tank","shelf")):
             place(self.library / "industrial_service267/model.glb", group, (x,y,0),
                   (length*.97,breadth*.97,1.42), yaw=yaw)
@@ -483,6 +485,33 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def basin_drain(self, group, name, x, y, width, depth):
+        segments = 20
+        radius = min(width,depth)*(.39 if name == "south_pipe" else .33)
+        length = min(width,depth)*.55
+        rings = ((radius,0), (radius,length),
+                 (radius*.76,length), (radius*.76,0))
+        vertices = [(r*math.cos(math.tau*i/segments), r*math.sin(math.tau*i/segments), z)
+                    for r,z in rings for i in range(segments)]
+        faces = []
+        for ring in range(len(rings)):
+            start, following = ring*segments, ((ring+1)%len(rings))*segments
+            for i in range(segments):
+                j = (i+1)%segments
+                faces.append((start+i,start+j,following+j,following+i))
+        mesh = bpy.data.meshes.new("Hollow basin drain shell")
+        mesh.from_pydata(vertices, [], faces)
+        mesh.materials.append(self.aggregate)
+        self.project_concrete_uv(mesh)
+        drain = bpy.data.objects.new("Hollow basin drain", mesh)
+        bpy.context.collection.objects.link(drain)
+        drain.parent = group
+        if name == "south_pipe":
+            drain.location = (x,y,0)
+        else:
+            drain.location = (x,y,radius*.90)
+            drain.rotation_euler = (math.pi/2,0,.40 if name == "west_pipe" else -.46)
 
     def waterfront_warehouse_ruin(self, group, name, x, y, width, depth):
         level = 1.96 if name == "north_ruin" else 1.54

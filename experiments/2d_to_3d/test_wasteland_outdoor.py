@@ -28,6 +28,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_irradiated_basin"):
+            for identifier in ("west_pipe", "east_pipe", "east_pipe2", "south_pipe"):
+                group = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert any(nodes[i]["name"].startswith("Hollow basin drain")
+                           for i in group["children"])
         if name.endswith("_cratered_waterfront"):
             for identifier in ("nw_ruin", "north_ruin", "ne_ruin"):
                 ruin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
