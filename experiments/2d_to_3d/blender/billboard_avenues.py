@@ -1201,6 +1201,14 @@ def build(name):
                         (.035,d*.48,.06), frame).parent = group
             if w >= 2.4:
                 back = y - direction*d/2
+                if name.endswith("_downtown_intersection"):
+                    for offset in (-.43,.43):
+                        box(identifier+" rear facade pilaster",
+                            (x+w*offset,back-direction*.045,height*.49),
+                            (.052,.075,height*.45),frame,.014).parent = group
+                    box(identifier+" rear utility trunking",
+                        (x,back-direction*.066,.36),
+                        (w*.37,.045,.038),frame,.009).parent = group
                 service_width = min(.64, w*.15)
                 door_x = x + w*.22
                 box(identifier + " rear service frame", (door_x,back-direction*.045,.81),
