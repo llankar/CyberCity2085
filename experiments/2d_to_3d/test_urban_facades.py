@@ -8,6 +8,19 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def test_downtown_garden_kiosk_exports_roof_planting():
+    path = catalogue_environment("city_exterior_downtown_intersection")
+    if not path.is_file():
+        pytest.skip("Build Downtown Intersection on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    kiosk = next(node for node in nodes if node["name"] == "Occludable_southeast_kiosk")
+    parts = [nodes[index]["name"] for index in kiosk["children"]]
+    assert sum(part.startswith("Garden kiosk raised planter") for part in parts) == 2
+    assert sum(part.startswith("Garden kiosk roof planting") for part in parts) == 10
+
+
 def test_corporate_plaza_tower_entrances_face_the_square():
     path = catalogue_environment("city_exterior_corporate_plaza")
     if not path.is_file():

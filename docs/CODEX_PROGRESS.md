@@ -1909,3 +1909,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-CORPORATE-PLAZA-ENTRANCES / DONE. Added six plaza-facing tower entrances, with glazed surrounds, canopies and west magenta/east cyan lighting based on the source. Rebuilt the experimental GLB on E:, rendered Godot and passed 24 urban tests. Next: compare the central monument silhouette to the original.
 
 - EXPERIMENTAL-CORPORATE-PLAZA-MONUMENT / DONE. Replaced the generic spire with the original plaza landmark silhouette: a squared basin, three rotated bronze tiers and an amber crest. Kept the surveyed footprint and cutaway. Rebuilt on E:, rendered Godot and passed 24 facade tests. Next: review other skyline landmarks against their source art.
+
+- EXPERIMENTAL-DOWNTOWN-GARDEN-KIOSK / DONE. Reconstructed the southeast rooftop garden kiosk from the original footprint, using paired raised planting beds and green illuminated eaves. Preserved the surveyed cutaway group. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: compare the two long intersection barricades with the source.

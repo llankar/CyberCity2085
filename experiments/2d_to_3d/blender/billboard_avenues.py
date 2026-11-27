@@ -839,6 +839,26 @@ def build(name):
             box(identifier, (x, y, .25), (w*.45, d*.45, .25), wall).parent = group
             box(identifier + " lid", (x, y, .51), (w*.49, d*.49, .035), frame).parent = group
             continue
+        if name == "city_exterior_downtown_intersection" and identifier == "southeast_kiosk":
+            box("Garden kiosk shell", (x,y,.68), (w*.46,d*.46,.68),wall,.055).parent = group
+            box("Garden kiosk roof slab", (x,y,1.39), (w*.49,d*.49,.07),frame,.03).parent = group
+            green = make_material("Garden kiosk green canopy light", (.07,.55,.13,1), .15,.44, .88)
+            for side in (-1,1):
+                box("Garden kiosk luminous eave", (x,y+side*d*.467,1.28),
+                    (w*.44,.038,.042),green,.013).parent = group
+                terrace_y = y+side*d*.19
+                box("Garden kiosk raised planter", (x,terrace_y,1.49),
+                    (w*.31,d*.11,.067),wall,.024).parent = group
+                for offset in (-.22,-.11,0,.11,.22):
+                    bpy.ops.mesh.primitive_ico_sphere_add(
+                        subdivisions=1, radius=min(w*.059,d*.091),
+                        location=(x+offset*w,terrace_y,1.60),
+                    )
+                    shrub = bpy.context.object
+                    shrub.name = "Garden kiosk roof planting"
+                    shrub.data.materials.append(foliage)
+                    shrub.parent = group
+            continue
         if identifier.endswith(("_sign", "_kiosk", "_guard", "_terminal")) or identifier.startswith("ticket_"):
             is_kiosk = not identifier.endswith("_sign")
             height = 1.55 if is_kiosk else .95
