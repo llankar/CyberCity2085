@@ -106,6 +106,13 @@ def build(name):
             if socket == "Roughness":
                 layer.image.colorspace_settings.name = "Non-Color"
             links.new(layer.outputs["Color"], nodes["Principled BSDF"].inputs[socket])
+        normal_texture = nodes.new("ShaderNodeTexImage")
+        normal_texture.image = bpy.data.images.load(str(concrete / "nor_gl.jpg"))
+        normal_texture.image.colorspace_settings.name = "Non-Color"
+        normal = nodes.new("ShaderNodeNormalMap")
+        normal.inputs["Strength"].default_value = .8
+        links.new(normal_texture.outputs["Color"], normal.inputs["Color"])
+        links.new(normal.outputs["Normal"], nodes["Principled BSDF"].inputs["Normal"])
     if underground_market:
         stall_canvas = []
         for color in ("olive", "rust", "tan"):

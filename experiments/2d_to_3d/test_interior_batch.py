@@ -1,5 +1,22 @@
 from catalogue_test_assets import catalogue_environment
-from interior_batch import INTERIORS, fixtures
+from interior_batch import AGED_CONCRETE_INTERIORS, INTERIORS, fixtures
+
+
+def test_wasteland_concrete_exports_with_a_normal_texture():
+    import json
+    import struct
+
+    import pytest
+
+    models = {catalogue_environment(name) for name in INTERIORS if name.endswith(AGED_CONCRETE_INTERIORS)}
+    if not any(model.is_file() for model in models):
+        pytest.skip("Local Wasteland exports are unavailable")
+    for model in models:
+        with model.open("rb") as stream:
+            _, _, _, length, _ = struct.unpack("<4sIII4s", stream.read(20))
+            document = json.loads(stream.read(length))
+        material = next(item for item in document["materials"] if item["name"] == "Wasteland aged concrete")
+        assert "normalTexture" in material, model
 
 
 def test_underground_market_stalls_export_as_independent_meshes():
