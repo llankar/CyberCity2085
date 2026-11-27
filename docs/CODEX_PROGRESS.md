@@ -1773,3 +1773,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SAFEHOUSE-BOARDED-OPENINGS / DONE. Placed seven sets of salvaged boards on the north and south interior wall faces according to the original artwork. Attached them to the corresponding cutaway wall groups and retained the original collision. Rebuilt the shared 01/06 GLB on E:, rendered in Godot and passed seventeen interior tests. Next: tackle other Wasteland interiors and check the openings at combat zoom.
 
 - EXPERIMENTAL-COLLAPSED-TUNNEL-PIPEWORK / DONE. Added coupling collars to the longer surveyed pipes and reused the service valve model at the southeast valve. Rebuilt the shared 02/07 export on E:, rendered 234 meshes in Godot and passed seventeen interior tests. Next: review larger tunnel damage silhouettes at combat zoom.
+
+- EXPERIMENTAL-COLLAPSED-TUNNEL-SPANS / DONE. Triangulated the uneven tops of collapsed spans explicitly and added exposed steel supports across both rubble footprints. Rebuilt 02/07 on E:, rendered in Godot and passed seventeen interior tests. Next: move to another Wasteland interior with unmodeled signature fixtures.

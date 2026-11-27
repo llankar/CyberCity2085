@@ -6,6 +6,7 @@ import sys
 
 import bpy
 from mathutils import Vector
+from mathutils.geometry import tessellate_polygon
 
 HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(HERE), str(HERE.parent)]
@@ -142,7 +143,13 @@ def build(name):
             if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(outline, outline[1:]+outline[:1])) < 0:
                 outline.reverse()
             count = len(outline)
-            faces = [tuple(reversed(range(count))), tuple(range(count,2*count))]
+            faces = [tuple(reversed(range(count)))]
+            if kind == "rubble":
+                triangles = tessellate_polygon([[Vector((x,y,0)) for x,y in outline]])
+                faces.extend(tuple(index+count for index in triangle) for triangle in triangles)
+            else:
+                faces.append(tuple(range(count,2*count)))
+            top_face_count = len(faces)
             faces.extend((i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count))
             mesh = bpy.data.meshes.new(identifier)
             partition_height = .92 if identifier == "reception_counter" else 1.50
@@ -151,7 +158,8 @@ def build(name):
             mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
             mesh.materials.append(steel)
             mesh.materials.append(partition_cap)
-            mesh.polygons[1].material_index = 1
+            for face in mesh.polygons[1:top_face_count]:
+                face.material_index = 1
             if textured_partitions and kind == "partition":
                 uv = mesh.uv_layers.new(name="Panel UV")
                 for edge, face in enumerate(mesh.polygons[2:]):
@@ -165,6 +173,15 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
+            if kind == "rubble":
+                center_x = sum(x for x,y in outline)/count
+                center_y = sum(y for x,y in outline)/count
+                direction = 1 if identifier.endswith("_n") else -1
+                for offset, tilt in ((-.48,.22),(.38,-.31)):
+                    beam = box("Exposed collapsed tunnel support",
+                               (center_x,center_y+offset,.65),(.90,.075,.095),steel,.02)
+                    beam.rotation_euler = (0,tilt,direction*.37)
+                    beam.parent = group
             continue
         if "rect" in row:
             x1,y1,x2,y2 = row["rect"]
