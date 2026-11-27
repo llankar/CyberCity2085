@@ -1787,3 +1787,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RUINED-CLINIC-STRETCHERS / DONE. Used thin pads, steel side rails and grab handles for the clinic beds. Rebuilt the shared 03/08 model on E:, passed seventeen interior tests and reached round 2 in Godot tactical preview. Next: inspect the new clinic furniture in the capture and prioritize the next family.
 
 - EXPERIMENTAL-APARTMENT-SHELTER-KITCHEN / DONE. Reconstructed the north kitchen counter with base cabinets, a recessed basin and tap using the original footprint. Rebuilt the shared 07/12 GLB on E:, passed seventeen interior tests and rendered the overview in Godot. Next: compare the shelter's sleeping areas with the original art.
+
+- EXPERIMENTAL-APARTMENT-SHELTER-BEDDING / DONE. Rebuilt the three northeastern surveyed beds as floor mattresses with blankets and pillows, keeping their original footprints. Rebuilt the shared 07/12 GLB, passed seventeen interior tests and rendered the overview in Godot. Next: review the shelter from tactical camera and move to another interior family.

@@ -7,7 +7,7 @@ from create_hardsurface_crate import box
 from library_placement import place
 
 
-def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False):
+def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_bedding=False):
     long_y = d > w
     length, width = (d,w) if long_y else (w,d)
     parts = []
@@ -15,6 +15,13 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False):
         dx,dy = (across,along) if long_y else (along,across)
         a,b = (half_width,half_length) if long_y else (half_length,half_width)
         parts.append(box(label,(x+dx,y+dy,z),(a,b,half_height),material,.025))
+    if floor_bedding:
+        piece("Shelter floor mattress",0,0,.087,length*.46,width*.43,.086,linen)
+        piece("Shelter folded blanket",-length*.08,0,.178,length*.33,width*.415,.026,pad)
+        piece("Shelter improvised pillow",length*.33,0,.195,length*.095,width*.29,.041,linen)
+        for part in parts:
+            part.parent = group
+        return
     for end in (-1,1):
         for side in (-1,1):
             piece("Bed leg",end*length*.32,side*width*.31,.24,.05,.05,.24,steel)

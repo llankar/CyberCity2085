@@ -244,7 +244,9 @@ def build(name):
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)
         elif kind == "bed":
-            build_bed(group, x, y, w, d, steel, linen, trim, stretcher=name.endswith("_ruined_clinic"))
+            floor_bedding = name.endswith("_apartment_shelter") and identifier in {"bed_ne1", "bed_ne2", "bed_ne3"}
+            build_bed(group, x, y, w, d, steel, linen, trim,
+                      stretcher=name.endswith("_ruined_clinic"), floor_bedding=floor_bedding)
         elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_")) or identifier.endswith(("_rack", "_server"))
         )):
