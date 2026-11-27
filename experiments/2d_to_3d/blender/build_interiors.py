@@ -311,6 +311,15 @@ def build(name):
                         bags.append(bag)
                 merge_fixture_meshes(group, "Bunker flank sandbags", pieces=bags)
             if looted_vault and identifier.startswith("vault_wall_"):
+                spine = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch)) for px, py in row["points"]]
+                for first, second in zip(spine, spine[1:]):
+                    segment = second-first
+                    midpoint = (first+second)/2
+                    cap = box("Vault ring armor cap", (*midpoint,partition_height+.023),
+                              (segment.length*.46,row["width"]*gw/cw*.36,.028),
+                              partition_cap,.011)
+                    cap.rotation_euler.z = math.atan2(segment.y,segment.x)
+                    cap.parent = group
                 edges = [(a,b) for a,b in zip(outline, outline[1:]+outline[:1])
                          if math.dist(a,b) > .65]
                 start, end = min(edges, key=lambda edge: math.hypot(
