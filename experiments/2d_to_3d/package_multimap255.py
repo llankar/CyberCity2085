@@ -2,6 +2,7 @@
 from pathlib import Path
 import argparse
 import html
+import json
 from PIL import Image,ImageOps,ImageDraw
 from prepare_multimap246 import SELECTION
 from environment_library import LAB,ROOT
@@ -11,18 +12,22 @@ def main():
  parser = argparse.ArgumentParser(description=__doc__)
  parser.add_argument('--catalogue-maps', nargs='+', metavar='MAP',
                      help='Render comparison sheets for selected catalogue IDs using their latest local captures')
+ parser.add_argument('--top-down', action='store_true',
+                     help='Compare the original with a Godot top-down capture')
  args = parser.parse_args()
+ if args.top_down and not args.catalogue_maps:
+  parser.error('--top-down requires --catalogue-maps')
  if args.catalogue_maps:
   from catalogue_test_assets import catalogue_environment
-  import json
   catalogue = json.loads((Path(__file__).parent/'godot/preproduction_catalog.json').read_text())
   entries = {row['map']: row for row in catalogue}
   unknown = set(args.catalogue_maps) - entries.keys()
   if unknown:
    parser.error('Unknown map IDs: '+', '.join(sorted(unknown)))
-  selection = [(name, name, entries[name]['scope'], catalogue_environment(name).with_name('godot_overview.png'))
+  capture = 'top_down.png' if args.top_down else 'godot_overview.png'
+  selection = [(name, name, entries[name]['scope'], catalogue_environment(name).with_name(capture))
                for name in dict.fromkeys(args.catalogue_maps)]
-  out = LAB/'generated/phase2/catalogue_comparisons'
+  out = LAB/'generated/phase2'/('catalogue_top_down' if args.top_down else 'catalogue_comparisons')
   title = 'CyberCity 2085 // original and experimental 3D'
   video = ''
  else:
@@ -42,7 +47,8 @@ def main():
   for x,path in [(0,original),(960,native)]:
    thumbnail=ImageOps.contain(Image.open(path).convert('RGB'),(960,960))
    image.paste(thumbnail,(x+(960-thumbnail.width)//2,80+(960-thumbnail.height)//2))
-  draw.text((30,30),name+' // ORIGINAL 2D',fill='white');draw.text((990,30),'EXPERIMENTAL NATIVE GODOT // WORK IN PROGRESS',fill='white')
+  view = 'TOP DOWN' if args.top_down else 'ISOMETRIC'
+  draw.text((30,30),name+' // ORIGINAL 2D',fill='white');draw.text((990,30),'EXPERIMENTAL GODOT // '+view,fill='white')
   target=out/(family+'_comparison.jpg');image.save(target,quality=92)
   cards.append('<section><h2>'+html.escape(family)+'</h2><p>'+html.escape(reason)+'</p><img loading="lazy" src="'+target.name+'"></section>')
  (out/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>CyberCity multi-map review</title><style>body{background:#07141b;color:#def;font:18px system-ui;max-width:1600px;margin:30px auto}img,video{width:100%}section{margin:30px 0}</style><h1>'+title+'</h1>'+video+''.join(cards),encoding='utf8')
