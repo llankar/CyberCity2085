@@ -90,7 +90,12 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
-    showcase = name in {"city_interior_blacksite_lab", "city_interior_medical_clinic"}
+    textured_partitions = name in {
+        "city_interior_blacksite_lab", "city_interior_medical_clinic",
+        "city_interior_safehouse", "city_interior_cyber_cafe",
+        "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
+        "cybercity_inner_13_warehouse_floor",
+    }
     partition_meshes = []
     for row in survey["walls"]:
         identifier = row["id"]
@@ -135,7 +140,7 @@ def build(name):
             mesh.materials.append(steel)
             mesh.materials.append(partition_cap)
             mesh.polygons[1].material_index = 1
-            if showcase and kind == "partition":
+            if textured_partitions and kind == "partition":
                 uv = mesh.uv_layers.new(name="Panel UV")
                 for edge, face in enumerate(mesh.polygons[2:]):
                     start, end = outline[edge], outline[(edge+1) % count]
@@ -166,7 +171,7 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
-        elif kind == "floor_generator":
+        elif kind in {"floor_generator", "safehouse_generator"}:
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
         elif kind in {"gym_weights", "bath_sink", "bath_shower", "bath_tub", "bath_toilet", "toilet_stalls", "stove"}:

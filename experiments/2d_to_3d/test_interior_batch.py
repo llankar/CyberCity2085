@@ -455,3 +455,34 @@ def test_penthouse_atrium_has_physical_recess_in_export():
         mesh = data["meshes"][nodes[label]["mesh"]]
         accessor = data["accessors"][mesh["primitives"][0]["attributes"]["POSITION"]]
         assert (accessor["min"][1], accessor["max"][1]) == pytest.approx((low,high))
+
+
+def test_extended_interior_partitions_use_worn_steel():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    for name in (
+        "city_interior_safehouse", "city_interior_cyber_cafe",
+        "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
+        "cybercity_inner_13_warehouse_floor",
+    ):
+        path = OUTPUT / name / "environment.glb"
+        if not path.is_file():
+            pytest.skip(f"Build {name} on E: first")
+        with path.open("rb") as glb:
+            size = struct.unpack("<4sIII4s", glb.read(20))[3]
+            data = json.loads(glb.read(size))
+        nodes = {node["name"]: node for node in data["nodes"]}
+        _, selected = fixtures(name)
+        partitions = [identifier for identifier, kind in selected.items() if kind == "partition"]
+        assert partitions, name
+        for identifier in partitions:
+            mesh = data["meshes"][nodes[identifier]["mesh"]]
+            assert any(
+                "TEXCOORD_0" in part["attributes"]
+                and data["materials"][part["material"]]["name"] == "Wall269 worn steel PBR"
+                for part in mesh["primitives"]
+            ), (name, identifier)
