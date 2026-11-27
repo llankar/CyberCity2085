@@ -117,15 +117,21 @@ def build_containment_chamber(group, x, y, w, d, steel, trim, screen):
 
 
 def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
-    box("Scanner chassis", (x, y, .13), (w*.48, d*.47, .13), trim).parent = group
+    box("Scanner table foot", (x, y-d*.19, .065),
+        (w*.20, d*.20, .065), trim, .025).parent = group
     box("Scanner table lift", (x, y-d*.19, .35),
         (w*.16, d*.17, .22), trim).parent = group
     box("Scanner patient table", (x, y-d*.09, .63),
         (w*.23, d*.34, .08), enamel).parent = group
     box("Scanner table pad", (x, y-d*.13, .735), (w*.19, d*.22, .035), screen).parent = group
+    box("Scanner table end cap", (x, y-d*.39, .71),
+        (w*.22, d*.035, .041), enamel, .018).parent = group
+    for side in (-1, 1):
+        box("Scanner patient rail", (x+side*w*.213, y-d*.13, .741),
+            (w*.012, d*.24, .024), trim, .012).parent = group
     radius = min(w*.33, .57)
     gantry_y = y+d*.20
-    box("Scanner gantry support", (x, gantry_y, .37), (w*.43, d*.13, .24), enamel).parent = group
+    box("Scanner gantry support", (x, gantry_y, .30), (w*.43, d*.13, .30), enamel, .028).parent = group
     depth = min(.27,d*.095)
     segments = 40
     vertices = []
@@ -144,6 +150,11 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
     mesh = bpy.data.meshes.new("Scanner gantry shell")
     mesh.from_pydata(vertices, [], faces)
     mesh.materials.append(enamel)
+    mesh.materials.append(trim)
+    for face in mesh.polygons:
+        if 2*segments <= face.index < 3*segments:
+            face.material_index = 1
+            face.use_smooth = True
     shell = bpy.data.objects.new("Scanner gantry shell", mesh)
     bpy.context.collection.objects.link(shell)
     shell.parent = group
@@ -157,6 +168,14 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
     light.name = "Scanner gantry light"
     light.data.materials.append(screen)
     light.parent = group
+    # Reproduce the blue diagnostic lens on the reference's upper housing.
+    lens_center = (x, gantry_y, .60+2*radius+.105)
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12, location=lens_center)
+    lens = bpy.context.object
+    lens.name = "Scanner diagnostic lens"
+    lens.scale = (w*.15, depth*.56, .069)
+    lens.data.materials.append(screen)
+    lens.parent = group
 
 
 

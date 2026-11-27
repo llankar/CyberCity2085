@@ -344,7 +344,8 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
             required_parts = {"Containment footprint deck", "Containment specimen tray"}
         else:
             identifier = "northeast_scanner"
-            required_parts = {"Scanner gantry shell", "Scanner patient table", "Scanner table lift"}
+            required_parts = {"Scanner gantry shell", "Scanner patient table", "Scanner table lift",
+                              "Scanner table foot", "Scanner table end cap", "Scanner diagnostic lens"}
             beds = [node for node in nodes if node["name"].startswith("Clinic treatment bed")]
             assert beds
             for bed in beds:
@@ -354,6 +355,8 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
                 assert top + bed["translation"][1] > .76
         fixture = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         assert required_parts <= {nodes[index]["name"] for index in fixture["children"]}
+        if identifier == "northeast_scanner":
+            assert all(nodes[index]["name"] != "Scanner chassis" for index in fixture["children"])
 
 
 def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():

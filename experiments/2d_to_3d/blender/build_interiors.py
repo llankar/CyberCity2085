@@ -400,7 +400,9 @@ def build(name):
             wall_finish = bpy.data.materials["Wall269 worn steel PBR"]
             build_containment_chamber(group, x, y, w, d, wall_finish, partition_cap, screen)
         elif name == "city_interior_medical_clinic" and identifier == "northeast_scanner":
-            build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
+            scanner_enamel = make_material("Scanner blue steel enamel", (.16,.22,.29,1), .48,.46)
+            scanner_glass = make_material("Scanner cyan glass", (.014,.24,.33,1), .12,.33)
+            build_medical_scanner(group, x, y, w, d, scanner_enamel, partition_cap, scanner_glass)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
         elif emergency_medbay and (identifier.endswith("_desk") or kind == "console"):
