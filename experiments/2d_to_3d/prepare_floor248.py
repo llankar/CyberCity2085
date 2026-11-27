@@ -191,10 +191,14 @@ def main():
         survey["walls"].extend(WATERFRONT_WRECKS)
         for label, stern, bow, beam in SKIFFS:
             dx, dy = bow[0]-stern[0], bow[1]-stern[1]
-            half = beam*.68 / math.hypot(dx,dy)
+            span = math.hypot(dx,dy)
+            half = beam*.86 / span
+            pad = 4 / span
+            start = (stern[0]-dx*pad, stern[1]-dy*pad)
+            end = (bow[0]+dx*pad, bow[1]+dy*pad)
             survey["walls"].append({"id": f"landing_skiff_{label}_art", "polygon": [
                 (x-side*dy*half, y+side*dx*half)
-                for (x,y),side in ((stern,-1),(bow,-1),(bow,1),(stern,1))
+                for (x,y),side in ((start,-1),(end,-1),(end,1),(start,1))
             ]})
     if args.map.endswith("_ruined_downtown"):
         survey["walls"].extend(DOWNTOWN_WRECK_ART)
