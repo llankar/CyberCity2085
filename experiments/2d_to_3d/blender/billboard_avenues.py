@@ -938,6 +938,18 @@ def build(name):
             outward_back = x < 0 if vertical else y > 0
             group.rotation_euler.z = (math.pi/2 if vertical else 0) + (0 if outward_back else math.pi)
             continue
+        if flood_avenue and identifier.startswith("barrier_"):
+            bays = 3 if w >= 2 else 2
+            for index in range(bays):
+                bay_x = x+w*((index+.5)/bays-.5)
+                box("Flood barrier concrete section", (bay_x,y,.17),
+                    (w*.48/bays,d*.47,.17),wall,.035).parent = group
+                box("Flood barrier weathered steel cap", (bay_x,y,.337),
+                    (w*.43/bays,d*.34,.026),frame,.012).parent = group
+                for side in (-1,1):
+                    box("Flood barrier amber reflector", (bay_x,y+side*d*.454,.255),
+                        (w*.085/bays,.010,.022),signs[2],.004).parent = group
+            continue
         if name == "city_exterior_downtown_intersection" and identifier in {"west_barrier", "east_barrier"}:
             box("Downtown barrier concrete base", (x,y,.13),
                 (w*.49,d*.46,.13),wall,.023).parent = group

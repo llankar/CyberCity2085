@@ -47,6 +47,11 @@ def test_native_export_preserves_terrain_levels(map_name):
             name.startswith("Quay rubber fender") for name in nodes
         )
     elif map_name == FLOODED_AVENUE:
+        for identifier in ("barrier_nw", "barrier_nw2", "barrier_sw", "barrier_sw2", "barrier_e", "barrier_ne"):
+            parts = [data["nodes"][index]["name"] for index in nodes[f"Occludable_{identifier}"]["children"]]
+            sections = sum(part.startswith("Flood barrier concrete section") for part in parts)
+            assert sections in (2, 3)
+            assert sum(part.startswith("Flood barrier amber reflector") for part in parts) == 2*sections
         for building in ("nw_block", "se_block"):
             root = nodes[f"Occludable_{building}"]
             assert any(data["nodes"][index]["name"] == f"{building} surveyed roof HVAC"

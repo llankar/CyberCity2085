@@ -1929,3 +1929,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-CORPORATE-PLAZA-ROOF-DUCTS / DONE. Traced the clearly visible long rooftop housings on the two middle towers and built segmented ducts on low fitted curbs. Rebuilt on E:, rendered Godot and passed 26 urban tests. Next: identify recurring geometry issues across a broader family of maps.
 
 - EXPERIMENTAL-FLOOD-PRONE-ROOF-FANS / DONE. Traced two paired ventilation units on the northwest and southeast roofs of the shared Street 13/14 map and fitted the existing 3D fan modules. Rebuilt on E:, loaded Street 13 in Godot and passed eleven terrain tests. Next: review larger street-level features across distinct exterior families.
+
+- EXPERIMENTAL-FLOOD-PRONE-STREET-BARRIERS / DONE. Rebuilt six surveyed barriers with segmented concrete, steel caps and paired amber reflectors. Preserved cover traces and tested the shared Street 13/14 render through Street 14. Eleven terrain tests passed. Next: assess the remaining vehicle angles and larger landmarks across the family.
