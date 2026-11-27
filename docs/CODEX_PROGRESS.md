@@ -2397,3 +2397,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-VAULT-RING-ARMOR / DONE for export and native overview. Compared the original Looted Vault and reconstructed the segmented armor caps along all four curved wall runs, within their original cutaways. Rebuilt shared 05/10 on E:, passed 20 interior tests and refreshed the 122-map gallery. Next (TODO): inspect the new ring silhouette at combat zoom and compare the vault centerpiece.
 
 - EXPERIMENTAL-VAULT-CORE-LOCK / DONE for export and native overview. Raised and thickened the central handwheel and added its collar and four lid hinges. Rebuilt shared 05/10 on E:, refreshed the gallery, and passed 20 interior tests. Next (TODO): inspect vault pieces in combat, then prioritize another layout family.
+
+- EXPERIMENTAL-VAULT-DISPLAY-GUARDS / DONE for export and native overview. Added four steel corner guards per angled vault display, preserving its tray, glazing and footprint. The preceding vault core combat smoke exited successfully. Rebuilt shared 05/10 on E:, passed 20 interior tests and refreshed the gallery. Next (TODO): advance another layout family.

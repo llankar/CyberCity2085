@@ -541,6 +541,9 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Vault display cabinet", 0,0,.32,length*.41,width*.39,.32,trim)
         part("Vault display tray", 0,0,.66,length*.44,width*.43,.046,steel)
         for side in (-1,1):
+            for offset in (-.29,.29):
+                part("Vault display cabinet corner guard", offset*length,side*width*.392,.33,
+                     length*.026,.026,.255,steel)
             part("Vault case broken glass channel", 0,side*width*.40,.735,
                  length*.43,.023,.049,trim)
             part("Vault case tray divider", side*length*.16,0,.717,
