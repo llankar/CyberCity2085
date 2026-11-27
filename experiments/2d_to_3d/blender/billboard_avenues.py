@@ -143,9 +143,15 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None, shallow=
         if shallow:
             return
         rubber = make_material("Weathered quay fender rubber", (.033,.041,.045,1), 0,.91)
+        coping = make_material("Worn quay edge steel", (.082,.10,.11,1), .47,.75)
         for start, end in terrain["edges"]:
             a, b = Vector(vertex(start,deck_z)), Vector(vertex(end,deck_z))
             edge = b-a
+            yaw = math.atan2(edge.y,edge.x)
+            if edge.length > .20:
+                cap = box("Quay steel coping", a.lerp(b,.5),
+                          (edge.length*.497,.073,.038),coping,.012)
+                cap.rotation_euler.z = yaw
             if edge.length < 2.5:
                 continue
             normal = Vector((edge.y,-edge.x,0)).normalized()
@@ -154,7 +160,7 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None, shallow=
                 center = a.lerp(b,(index+.5)/slots) + normal*.11
                 center.z -= .46
                 fender = box("Quay rubber fender",center,(.23,.16,.39),rubber,.055)
-                fender.rotation_euler.z = math.atan2(edge.y,edge.x)
+                fender.rotation_euler.z = yaw
         return
     facade = bpy.data.objects.new("Canyon facade details", None)
     bpy.context.collection.objects.link(facade)
