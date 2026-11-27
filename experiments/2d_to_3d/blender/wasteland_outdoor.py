@@ -1246,6 +1246,14 @@ class WastelandOutdoors:
                             (length*.13,width*.075,.038),self.dark,.014)
                 scrap.rotation_euler = (.18,0,angle)
                 scrap.parent = group
+            tray = box("Burned stall fallen stock tray", (length*.18,-width*.16,.083),
+                       (length*.12,width*.12,.057),self.scorched_canvas,.021)
+            tray.rotation_euler.z = -.19 if name == "stall_ne" else .28
+            tray.parent = group
+            for offset in (-1, 1):
+                runner = box("Burned tray split slat", (0,offset*width*.079,.065),
+                             (length*.107,width*.022,.014),self.steel,.006)
+                runner.parent = tray
             return
         if name == "stall_se":
             box("Blue corrugated market cover", (0,0,1.105),

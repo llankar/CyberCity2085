@@ -312,6 +312,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 parts = [nodes[index]["name"] for index in stall["children"]]
                 assert sum(part.startswith("Charred stall upright") for part in parts) == 4
                 assert any(part.startswith("Torn market canvas") for part in parts) == has_canvas
+                if identifier == "stall_w":
+                    tray, = [nodes[i] for i in stall["children"]
+                             if nodes[i]["name"].startswith("Burned stall fallen stock tray")]
+                    assert len(tray["children"]) == 2
             steel = next(node for node in nodes if node["name"] == "Occludable_stall_se")
             parts = [nodes[index]["name"] for index in steel["children"]]
             assert sum(part.startswith("Corrugated cover rib") for part in parts) == 9
