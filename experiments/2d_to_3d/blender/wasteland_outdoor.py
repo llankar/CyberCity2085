@@ -3,6 +3,8 @@ import math
 
 import bpy
 import numpy as np
+from mathutils import Vector
+from mathutils.geometry import tessellate_polygon
 
 from create_hardsurface_crate import box, make_material
 from library_placement import place
@@ -114,12 +116,29 @@ class WastelandOutdoors:
                 for i in range(n):
                     j = (i+1)%n
                     faces.append((layer+i,layer+j,layer+j+n,layer+i+n))
+            broken_deck = self.overpass and ("span" in name or "ramp" in name)
+            if broken_deck:
+                # A dark intact substrate separates the lifted fragments.
+                # Each inset face stays inside the original surveyed outline.
+                for index, triangle in enumerate(tessellate_polygon([[Vector(point) for point in points]])):
+                    corners = [vertices[2*n+corner] for corner in triangle]
+                    center = tuple(sum(axis)/3 for axis in zip(*corners))
+                    start = len(vertices)
+                    for x,y,z in corners:
+                        distance = math.hypot(center[0]-x,center[1]-y)
+                        inset = min(.095,.052/max(distance,.01))
+                        vertices.append((x+(center[0]-x)*inset,y+(center[1]-y)*inset,
+                                         z+(center[2]-z)*inset+.032+(index%3)*.022))
+                    faces.append((start,start+1,start+2))
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)
             self.project_concrete_uv(mesh)
             for material in (self.stone, self.aggregate, self.seam):
                 mesh.materials.append(material)
-            mesh.polygons[1].material_index = 1
+            mesh.polygons[1].material_index = 2 if broken_deck else 1
+            if broken_deck:
+                for face in mesh.polygons[2+2*n:]:
+                    face.material_index = 1
             for i in range(n):
                 mesh.polygons[2+n+i].material_index = 2 if i%3 == 0 else 1
             fragment = bpy.data.objects.new(name, mesh)

@@ -47,6 +47,15 @@ def test_collapsed_span_export_includes_textured_fracture_faces():
                   for index in data["scenes"][data["scene"]]["nodes"]}
     for obstacle in ("collapsed_center_span", "collapsed_north_span"):
         assert f"Occludable_{obstacle}" in root_nodes
+        fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
+                        if nodes[index]["name"] == obstacle)
+        faces = data["meshes"][fragment["mesh"]]["primitives"]
+        exposed = next(part for part in faces if part["material"] == aggregate)
+        dark = next(part for part in faces
+                    if data["materials"][part["material"]]["name"] == "Dark fractured concrete edge")
+        assert data["accessors"][exposed["attributes"]["POSITION"]]["max"][1] > (
+            data["accessors"][dark["attributes"]["POSITION"]]["max"][1]
+        )
         roadbed = root_nodes[f"{obstacle} retained roadbed"]
         materials = {primitive["material"] for primitive in data["meshes"][roadbed["mesh"]]["primitives"]}
         assert aggregate in materials
