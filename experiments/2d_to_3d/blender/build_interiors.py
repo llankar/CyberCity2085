@@ -33,11 +33,13 @@ def build(name):
     }
     wall = library / "service_wall269_factory/model.glb"
     ruined = name.startswith("wasteland_")
-    steel = make_material("Interior service steel", (.13,.19,.22,1), .5,.58)
+    metro = name == "city_transit_metro_interchange"
+    steel = make_material("Interior service steel", (.038,.063,.075,1) if metro else (.13,.19,.22,1), .5,.68 if metro else .58)
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
     partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
-    ballast = make_material("Track bed", (.047,.052,.053,1), .07,.93)
+    ballast = make_material("Track bed", (.014,.018,.020,1) if metro else (.047,.052,.053,1), .07,.93)
+    sleeper_material = make_material("Carbon-stained sleepers", (.009,.014,.018,1), .02,.92) if metro else partition_cap
     rail = make_material("Rail steel", (.18,.22,.25,1), .82,.42)
     stair_nosing = make_material("Amber stair nosing", (.58,.29,.042,1), .29,.62) if (
         name == "city_transit_metro_interchange") else None
@@ -114,7 +116,7 @@ def build(name):
             for i in range(count):
                 offset = ((i+.5)/count-.5)*w
                 sleeper = box(identifier+" sleeper", (x+offset,y,.046),
-                              (.077,d*.34,.025), partition_cap)
+                              (.077,d*.34,.025), sleeper_material)
                 sleeper.parent = group
                 sleepers.append(sleeper)
             bpy.ops.object.select_all(action="DESELECT")
