@@ -15,6 +15,10 @@ def test_corporate_plaza_tower_entrances_face_the_square():
     with path.open("rb") as model:
         size = struct.unpack("<4sIII4s", model.read(20))[3]
         nodes = json.loads(model.read(size))["nodes"]
+    monument = next(node for node in nodes if node["name"] == "Occludable_monument")
+    parts = [nodes[index]["name"] for index in monument["children"]]
+    assert sum(part.startswith("Corporate monument diamond tier") for part in parts) == 3
+    assert "Corporate monument luminous crest" in parts
     for side, inward in (("west", 1), ("east", -1)):
         for position in ("north", "middle", "south"):
             label = f"{side}_tower_{position}"

@@ -1907,3 +1907,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-HOLO-SQUARE-PLINTH / DONE. Added two octagonal tiers below the emitter and lifted the projection to meet the rebuilt pedestal. Re-exported on E:, captured Godot and passed 23 facade tests. Next: inspect another underworked urban family.
 
 - EXPERIMENTAL-CORPORATE-PLAZA-ENTRANCES / DONE. Added six plaza-facing tower entrances, with glazed surrounds, canopies and west magenta/east cyan lighting based on the source. Rebuilt the experimental GLB on E:, rendered Godot and passed 24 urban tests. Next: compare the central monument silhouette to the original.
+
+- EXPERIMENTAL-CORPORATE-PLAZA-MONUMENT / DONE. Replaced the generic spire with the original plaza landmark silhouette: a squared basin, three rotated bronze tiers and an amber crest. Kept the surveyed footprint and cutaway. Rebuilt on E:, rendered Godot and passed 24 facade tests. Next: review other skyline landmarks against their source art.

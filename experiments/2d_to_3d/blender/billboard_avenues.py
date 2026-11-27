@@ -722,6 +722,26 @@ def build(name):
                 box(identifier+" core frame", (x+side*radius*.19,y,(height+.51)/2),
                     (radius*.035,radius*.057,(height-.51)/2),frame,.01).parent = group
             continue
+        if name == "city_exterior_corporate_plaza" and identifier == "monument":
+            box("Corporate monument stone basin", (x,y,.14),
+                (w*.48,d*.48,.14),wall,.065).parent = group
+            box("Corporate monument inset deck", (x,y,.29),
+                (w*.41,d*.41,.025),frame,.026).parent = group
+            radius = min(w,d)
+            bronze = make_material("Corporate monument bronze", (.30,.132,.038,1), .69,.42)
+            for size, elevation in ((.20,.54),(.16,.83),(.12,1.11)):
+                tier = box("Corporate monument diamond tier", (x,y,elevation),
+                           (radius*size,radius*size,.15),bronze,.023)
+                tier.rotation_euler.z = math.pi/4
+                tier.parent = group
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=radius*.105,
+                                                 location=(x,y,1.53))
+            crest = bpy.context.object
+            crest.name = "Corporate monument luminous crest"
+            crest.scale.z = 1.26
+            crest.data.materials.append(signs[2])
+            crest.parent = group
+            continue
         if identifier.endswith("_monument") or identifier == "monument":
             radius = min(w,d)*.40
             box(identifier + " base", (x,y,.20), (w*.48,d*.48,.20), wall).parent = group
