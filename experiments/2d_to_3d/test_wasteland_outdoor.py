@@ -581,6 +581,9 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         assert sum(part.startswith("Convoy grille louver") for part in parts) == 3
         assert sum(part.startswith("Convoy headlamp lens") for part in parts) == 2
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
+        assert sum(part.startswith("Convoy axle hub") for part in parts) == 6
+        assert sum(part.startswith("Convoy door glazing") for part in parts) == 2
+        assert sum(part.startswith("Convoy front mudguard") for part in parts) == 2
         for index in groups[f"Occludable_{identifier}"]:
             wheel = nodes[index]
             if wheel["name"].startswith("Convoy wheel"):

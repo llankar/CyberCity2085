@@ -275,6 +275,8 @@ class WastelandOutdoors:
         if convoy_crossing:
             self.convoy_steel = self.steel.copy()
             self.convoy_steel.name = "Convoy worn body steel"
+            self.convoy_rubber = make_material("Convoy dusty tire rubber", (.016,.014,.012,1), 0,.91)
+            self.convoy_glass = make_material("Convoy smoked cab glass", (.012,.025,.030,1), .14,.42)
             tree = self.convoy_steel.node_tree
             shader = tree.nodes["Principled BSDF"]
             texture_root = library.parents[1] / "sources/environment169/blue_metal_plate"
@@ -1795,18 +1797,64 @@ class WastelandOutdoors:
             obj.parent = group
             project_art(obj, source)
 
-        part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
+        def shaped_body(label, sections, material, source, min_up):
+            vertices = []
+            for rear, front, half_width, z in sections:
+                vertices.extend(((rear,-half_width,z), (front,-half_width,z),
+                                 (front,half_width,z), (rear,half_width,z)))
+            faces = [(3,2,1,0)]
+            for lower in range(0,len(vertices)-4,4):
+                for edge in range(4):
+                    first, second = lower+edge, lower+(edge+1)%4
+                    faces.append((first,second,second+4,first+4))
+            faces.append(tuple(range(len(vertices)-4,len(vertices))))
+            mesh = bpy.data.meshes.new(label)
+            mesh.from_pydata(vertices, [], faces)
+            mesh.materials.append(material)
+            mesh.uv_layers.new()
+            for face in mesh.polygons:
+                for index in face.loop_indices:
+                    point = mesh.vertices[mesh.loops[index].vertex_index].co
+                    mesh.uv_layers.active.data[index].uv = (point.x+point.y,point.z)
+            obj = bpy.data.objects.new(label, mesh)
+            bpy.context.collection.objects.link(obj)
+            obj.parent = group
+            bevel = obj.modifiers.new("Folded body edges", "BEVEL")
+            bevel.width = .038
+            bevel.segments = 2
+            project_art(obj, source, min_up)
+
+        chassis_width = .285 if self.convoy_crossing else .40
+        part("Convoy chassis", (0,0,.44), (length*.48,width*chassis_width,.13), self.dark)
         body_steel = self.convoy_steel if self.convoy_crossing else self.steel
-        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), body_steel,
-             source=cab_sources.get(name))
-        part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
-        if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
+        if self.convoy_crossing:
+            shaped_body("Convoy cab", (
+                (length*.22,length*.46,width*.32,.53),
+                (length*.21,length*.477,width*.393,.79),
+                (length*.215,length*.463,width*.365,1.21),
+                (length*.24,length*.412,width*.318,1.40),
+            ), body_steel, cab_sources.get(name), .9)
+            glass = box("Convoy windshield", (length*.439,0,1.315),
+                        (.019,width*.312,.101),self.convoy_glass,.012)
+            glass.rotation_euler.y = -math.atan2(length*.051,.19)
+            glass.parent = group
+            for side in (-1,1):
+                part("Convoy door glazing", (length*.334,side*width*.381,1.14),
+                     (length*.089,.027,.112),self.convoy_glass,.020)
+                part("Convoy front mudguard", (length*.35,side*width*.424,.688),
+                     (length*.078,width*.064,.052),body_steel,.038)
+        else:
+            part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), body_steel)
+            part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
+        if (self.salt_flat or self.dust_road or self.wrecked_highway
                 or self.scavenger_plaza or self.ruined_downtown):
             for side in (-1, 1):
                 part("Wreck side window", (length*.35,side*width*.405,.94),
                      (length*.085,.012,.102), self.dark,.012)
                 part("Wreck cab sill", (length*.35,side*width*.412,.58),
                      (length*.12,.024,.033), self.dark,.011)
+        if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
+                or self.scavenger_plaza or self.ruined_downtown):
             part("Wreck front bumper", (length*.484,0,.45),
                  (.013,width*.42,.052), self.dark,.012)
         if self.convoy_crossing:
@@ -1824,7 +1872,7 @@ class WastelandOutdoors:
                      (length*.093,.036,.025), self.dark,.009)
         part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
         # Keep the wheel tops above the chassis underside at .31 m.
-        wheel_radius = min(.30,max(.17,width*.19))
+        wheel_radius = min(.38,max(.23,width*.23)) if self.convoy_crossing else min(.30,max(.17,width*.19))
         for side in (-1,1):
             for offset in (-.35,-.19,.35):
                 bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=wheel_radius,
@@ -1832,8 +1880,18 @@ class WastelandOutdoors:
                     rotation=(math.pi/2,0,0))
                 wheel = bpy.context.object
                 wheel.name = "Convoy wheel"
-                wheel.data.materials.append(self.dark)
+                wheel.data.materials.append(self.convoy_rubber if self.convoy_crossing else self.dark)
                 wheel.parent = group
+                if self.convoy_crossing:
+                    for face in wheel.data.polygons:
+                        face.use_smooth = len(face.vertices) == 4
+                    bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=wheel_radius*.52,
+                        depth=.04, location=(length*offset,side*width*.48,wheel_radius),
+                        rotation=(math.pi/2,0,0))
+                    hub = bpy.context.object
+                    hub.name = "Convoy axle hub"
+                    hub.data.materials.append(body_steel)
+                    hub.parent = group
         if name == "convoy_mw":
             radius = min(.43,width*.33)
             bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=radius,
@@ -1904,11 +1962,20 @@ class WastelandOutdoors:
             tarp = self.canvas
             if self.convoy_crossing:
                 tarp = self.convoy_tarps["tan" if name == "convoy_e" else "olive"]
-            part("Convoy tarpaulin load", (-length*.147,0,.94),
-                 (length*.303,width*.386,.286),tarp,.112,source=tarp_sources.get(name))
-            for offset in (-.34,-.18,-.02):
-                part("Convoy tarp strap", (length*offset,0,1.23),
-                     (.024,width*.36,.018),self.dark,.007)
+            if self.convoy_crossing:
+                shaped_body("Convoy tarpaulin load", (
+                    (-length*.45,length*.156,width*.383,.66),
+                    (-length*.45,length*.156,width*.386,1.08),
+                    (-length*.43,length*.137,width*.319,1.28),
+                    (-length*.415,length*.122,width*.192,1.37),
+                ), tarp, tarp_sources.get(name), .45)
+            else:
+                part("Convoy tarpaulin load", (-length*.147,0,.94),
+                     (length*.303,width*.386,.286),tarp,.112)
+            if not self.convoy_crossing:
+                for offset in (-.34,-.18,-.02):
+                    part("Convoy tarp strap", (length*offset,0,1.23),
+                         (.024,width*.36,.018),self.dark,.007)
 
     def vehicle(self, group, name, x,y,w,d):
         vertical = d>w
