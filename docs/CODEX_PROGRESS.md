@@ -1583,3 +1583,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SCAVENGER-PLAZA-FLATBED / DONE for the southeast wreck in both variants. Fitted the existing stripped flatbed to the diagonal reference while keeping the edge cars. Both GLBs rebuilt on E:, ten tests passed and Godot rendered 10. Next: reconstruct the perimeter ruin silhouettes.
 
 - EXPERIMENTAL-SCAVENGER-PLAZA-RUINS / DONE for four perimeter groups per variant. Added fractured piers, exposed beams and slumped floor panels within their surveyed footprints. Both exports rebuilt on E:, ten tests passed and Godot rendered 10. Next: inspect Ruined Transit Plaza for distinctive structures that still use generic models.
+
+- EXPERIMENTAL-RUINED-TRANSIT-CARRIAGE / DONE for the surveyed west train. Replaced the generic container with a carriage with cab ends, open windows, bogies and roof vents. Rebuilt the GLB on E:, passed ten tests and rendered the scene in Godot. Next: reconstruct the platform edges, stair orientations and blue station cladding.

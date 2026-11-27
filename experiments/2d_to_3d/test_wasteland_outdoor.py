@@ -28,6 +28,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_ruined_transit_plaza"):
+            train = next(node for node in nodes if node["name"] == "Occludable_west_train")
+            parts = [nodes[i]["name"] for i in train["children"]]
+            assert sum(part.startswith("Transit carriage window mullion") for part in parts) == 14
+            assert sum(part.startswith("Transit roof vent") for part in parts) == 3
         if name.endswith("_scavenger_plaza"):
             for row in surveyed:
                 if row["id"].endswith("_ruin"):

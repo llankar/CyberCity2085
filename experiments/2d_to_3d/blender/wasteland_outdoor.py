@@ -334,6 +334,8 @@ class WastelandOutdoors:
         elif name.startswith(("wreck_", "truck_", "convoy_", "car_")):
             place(self.library / "derelict_suv275/model.glb", group, (x,y,0),
                   (length*.97,breadth*.97,1.55), yaw=yaw + (math.pi if x<0 else 0))
+        elif name == "west_train":
+            self.transit_train(group, x, y, length, breadth, yaw)
         elif any(part in name for part in ("wagon","container","cargo","_train")):
             base = build_container(group,x,y,length,breadth,self.steel,self.dark,self.steel,yaw=yaw)
             if "wagon" in name or "_train" in name:
@@ -426,6 +428,28 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def transit_train(self, group, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw
+        box("Transit carriage underframe", (0,0,.37),
+            (length*.48,width*.43,.14), self.dark).parent = group
+        for end in (-1,1):
+            box("Transit bogie", (end*length*.30,0,.19),
+                (length*.085,width*.39,.16), self.dark).parent = group
+            box("Transit carriage cab", (end*length*.401,0,.81),
+                (length*.077,width*.42,.35), self.steel,.065).parent = group
+        box("Transit carriage roof", (0,0,1.18),
+            (length*.38,width*.425,.085), self.steel,.054).parent = group
+        for side in (-1,1):
+            box("Transit carriage side sill", (0,side*width*.413,.58),
+                (length*.38,.055,.17), self.steel).parent = group
+            for step in range(-3,4):
+                box("Transit carriage window mullion", (step*length*.105,side*width*.413,.94),
+                    (.041,.048,.18), self.steel).parent = group
+        for offset in (-.22,0,.22):
+            box("Transit roof vent", (length*offset,0,1.29),
+                (length*.041,width*.24,.027), self.dark).parent = group
 
     def scavenger_perimeter_ruin(self, group, x, y, width, depth):
         # Put the broken outer wall away from the market lanes.
