@@ -32,3 +32,8 @@ def test_lateral_facade_bands_keep_building_occlusion(name):
     parapets = {index for index, node in enumerate(nodes) if " roof parapet" in node["name"]}
     assert parapets and parapets <= grouped
     assert len(parapets) % 4 == 0
+    if name == "city_exterior_billboard_avenue":
+        fans = {index for index, node in enumerate(nodes) if " surveyed roof HVAC" in node["name"]}
+        curbs = {index for index, node in enumerate(nodes) if " roof HVAC mounting curb" in node["name"]}
+        assert len(fans) == len(curbs) == 3
+        assert (fans | curbs) <= grouped
