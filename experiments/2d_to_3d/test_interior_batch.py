@@ -188,6 +188,12 @@ def test_substation_exports_all_surveyed_equipment_groups():
     pads = [node for node in roots if node["name"].endswith(" retained service pad")]
     assert len(pads) == 8
     by_name = {node["name"]: node for node in nodes}
+    for identifier in ("north_pipes", "central_trunk_n", "central_trunk_s", "south_pipes"):
+        group = by_name[f"Occludable_{identifier}"]
+        (bundle_index,) = group["children"]
+        bundle = nodes[bundle_index]
+        assert bundle["name"] == f"{identifier} conduit bundle"
+        assert "mesh" in bundle
     for identifier in ("west_substation", "east_substation"):
         group = by_name[f"Occludable_{identifier}"]
         assert sum(nodes[index]["name"].startswith(f"{identifier} breaker module")

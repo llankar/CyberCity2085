@@ -43,25 +43,31 @@ for row in survey["walls"]:
     group = bpy.data.objects.new("Occludable_" + identifier, None)
     bpy.context.collection.objects.link(group)
     if "points" in row:
-        radius = row["width"] * min(gw/cw, gh/ch) * .38
-        points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch, radius+.06))
+        traced_width = row["width"] * min(gw/cw, gh/ch)
+        lane_count = 4 if identifier.startswith("central_trunk") else 3
+        points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch, .09))
                   for px,py in row["points"]]
-        for start,end in zip(points, points[1:]):
-            axis = end-start
-            bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=radius,
-                                                depth=axis.length, location=(start+end)/2)
-            pipe = bpy.context.object
-            pipe.name = identifier + " conduit"
-            pipe.rotation_euler = axis.to_track_quat("Z","Y").to_euler()
-            pipe.data.materials.append(copper)
-            pipe.parent = group
-        for point in points[1:-1]:
-            bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=radius,
-                                                 location=point)
-            elbow = bpy.context.object
-            elbow.name = identifier + " elbow"
-            elbow.data.materials.append(copper)
-            elbow.parent = group
+        normals = [Vector((-axis.y, axis.x, 0)).normalized()
+                   for axis in (end-start for start,end in zip(points, points[1:]))]
+        offsets = [normals[0]]
+        for previous, following in zip(normals, normals[1:]):
+            offsets.append((previous+following)/max(.75, 1+previous.dot(following)))
+        offsets.append(normals[-1])
+        bundle = bpy.data.curves.new(identifier+" conduit bundle", "CURVE")
+        bundle.dimensions = "3D"
+        bundle.bevel_depth = traced_width*.30/lane_count
+        bundle.bevel_resolution = 2
+        bundle.use_fill_caps = True
+        for lane in range(lane_count):
+            displacement = ((lane+.5)/lane_count-.5)*traced_width
+            spline = bundle.splines.new("POLY")
+            spline.points.add(len(points)-1)
+            for control, point, offset in zip(spline.points, points, offsets):
+                control.co = (*(point+displacement*offset), 1)
+        pipe = bpy.data.objects.new(bundle.name, bundle)
+        bpy.context.collection.objects.link(pipe)
+        bundle.materials.append(copper)
+        pipe.parent = group
         accessory_count += 1
         continue
     x1, y1, x2, y2 = row["rect"]
