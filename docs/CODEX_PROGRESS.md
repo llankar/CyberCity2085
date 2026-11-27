@@ -1695,3 +1695,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SCAVENGER-PERIMETER / DONE for the fractured concrete wall meshes. Filled the gaps between existing perimeter piers with jagged wall sections inside the surveyed footprints. The shared 05/10 asset was rebuilt on E: and Godot rendered 224 meshes. Ten Wasteland tests passed. Next: assess the overall perimeter silhouette against the original artwork at tactical zoom.
 
 - EXPERIMENTAL-SCAVENGER-CANOPIES / DONE for silhouette and edge detail. The perimeter build reached round 2 in Godot. The overview showed flat-looking roofs, so raised and offset the fabric peaks and added dark bound hems. Rebuilt the shared 05/10 asset and captured its 252-mesh overview. Ten Wasteland tests passed. Next: prioritize another Wasteland family.
+
+- EXPERIMENTAL-OVERPASS-STEEL-SUPPORTS / DONE for the shared 03/08 model. Added buckled steel supports over the fallen retaining slabs within the ramp-side ruin footprints. Rebuilt on E: and rendered 97 meshes in Godot. Ten Wasteland tests passed. Next: inspect another outdoor family at tactical zoom.

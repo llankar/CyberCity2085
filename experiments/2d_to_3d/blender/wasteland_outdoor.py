@@ -988,6 +988,11 @@ class WastelandOutdoors:
                                        (width*.29, depth*.13, .08))
             debris.rotation_euler.x = front*.25
             debris.parent = group
+            beam = box("Buckled ramp-side steel support",
+                       (x-side*width*.09, y-front*depth*.10, .49),
+                       (width*.24,.056,.072), self.steel,.013)
+            beam.rotation_euler = (0,side*.26,front*.31)
+            beam.parent = group
         else:
             for offset, height in ((-.32, 1.48), (0, 1.08), (.30, .59)):
                 self.concrete_box("Fractured exterior wall",
