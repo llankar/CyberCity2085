@@ -160,7 +160,11 @@ def test_freight_yard_has_four_complete_rail_profiles():
         parts = [nodes[index]["name"] for index in wagon["children"]]
         assert sum(part.startswith("Freight wagon bogie") for part in parts) == 2
         assert sum(part.startswith("Freight wagon steel wheel") for part in parts) == 8
-        assert any(part.startswith("Warehouse shipping container") for part in parts)
+        load = next(nodes[index] for index in wagon["children"]
+                    if nodes[index]["name"].startswith("Warehouse shipping container"))
+        primitives = gltf["meshes"][load["mesh"]]["primitives"]
+        assert any(gltf["materials"][part["material"]]["name"] == "Original rooftop artwork"
+                   for part in primitives)
 
 
 @pytest.mark.parametrize(("family", "first_map"), [

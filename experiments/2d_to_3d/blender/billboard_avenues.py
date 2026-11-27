@@ -1516,7 +1516,8 @@ def build(name):
                         wheel.data.materials.append(railhead)
                         wheel.parent = wagon
             load = build_container(wagon, x, y, length*.95, width*.90,
-                                   wagon_skin, railhead, rail_web)
+                                   wagon_skin, railhead, rail_web,
+                                   roof_projection=(roof,gw,gh))
             load.scale.z = .40
             load.location.z = .29+.88*load.scale.z
     bpy.ops.file.pack_all()
