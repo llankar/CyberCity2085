@@ -77,7 +77,9 @@ def build(name):
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
     ruined_clinic = name.endswith("_ruined_clinic")
-    if ruined_clinic:
+    emergency_medbay = name.endswith("_emergency_medbay")
+    salvaged_medical = ruined_clinic or emergency_medbay
+    if salvaged_medical:
         stretcher_frame = make_material("Oxidized stretcher steel", (.048,.061,.056,1), .46,.76)
         stretcher_pad = make_material("Worn stretcher vinyl", (.032,.063,.057,1), 0,.89)
     partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
@@ -149,7 +151,7 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker or relay_room else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
-    textured_partitions = relay_room or server_map or name in {
+    textured_partitions = emergency_medbay or relay_room or server_map or name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_10_penthouse_atrium",
@@ -311,6 +313,8 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
+        elif emergency_medbay and kind in {"machine", "table"}:
+            build_diagnostic_bench(group, x, y, w, d, partition_cap, stretcher_frame, console_glass)
         elif kind == "machine" and name.endswith("_maintenance_depot"):
             place(labs[kind], group, (x,y,.11), (length*.82,breadth*.62,.82), yaw=yaw)
             for side in (-1, 1):
@@ -399,8 +403,8 @@ def build(name):
                 blanket = bedding_blankets[shelter_beds.index(identifier)]
                 build_bed(group, x, y, w, d, steel, bedding_canvas, blanket, floor_bedding=True)
             else:
-                build_bed(group, x, y, w, d, stretcher_frame if ruined_clinic else steel, linen,
-                          stretcher_pad if ruined_clinic else trim, stretcher=ruined_clinic)
+                build_bed(group, x, y, w, d, stretcher_frame if salvaged_medical else steel, linen,
+                          stretcher_pad if salvaged_medical else trim, stretcher=salvaged_medical)
         elif (relay_room and kind in {"relay_server", "rack"}) or (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
