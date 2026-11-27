@@ -236,6 +236,7 @@ def build(name):
                                    flooded_square=name.endswith("_flooded_civic_square"),
                                    scavenger_plaza=name.endswith("_scavenger_plaza"),
                                    ruined_transit=name.endswith("_ruined_transit_plaza"),
+                                   cratered_waterfront=name == "wasteland_city_12_cratered_waterfront",
                                    wrecked_highway=name.endswith("_wrecked_highway"),
                                    trainyard=name.endswith("_rusted_trainyard"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
@@ -818,7 +819,7 @@ def build(name):
     if wasteland and wasteland.flooded_square:
         water = textured_material("Flooded paving under shallow water", out / "floor.png", .29)
         wasteland.add_flooded_square_surface(water)
-    if name == "wasteland_city_12_cratered_waterfront":
+    if wasteland and wasteland.cratered_waterfront:
         water = textured_material("Cratered waterfront water", out / "floor.png", .25)
         for row in survey["walls"]:
             if row.get("kind") == "water":

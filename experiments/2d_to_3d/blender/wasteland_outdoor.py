@@ -129,7 +129,8 @@ class WastelandOutdoors:
 
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
-                 scavenger_plaza=False, ruined_transit=False, wrecked_highway=False, trainyard=False):
+                 scavenger_plaza=False, ruined_transit=False, cratered_waterfront=False,
+                 wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -140,6 +141,7 @@ class WastelandOutdoors:
         self.flooded_square = flooded_square
         self.scavenger_plaza = scavenger_plaza
         self.ruined_transit = ruined_transit
+        self.cratered_waterfront = cratered_waterfront
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
@@ -174,7 +176,7 @@ class WastelandOutdoors:
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
-        if self.ruined_downtown or self.flooded_square or self.ruined_transit:
+        if self.ruined_downtown or self.flooded_square or self.ruined_transit or self.cratered_waterfront:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
@@ -473,12 +475,31 @@ class WastelandOutdoors:
                 self.flooded_square_ruin(group, x, y, w, d)
             elif self.scavenger_plaza:
                 self.scavenger_perimeter_ruin(group, x, y, w, d)
+            elif self.cratered_waterfront:
+                self.waterfront_warehouse_ruin(group, name, x, y, w, d)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def waterfront_warehouse_ruin(self, group, name, x, y, width, depth):
+        level = 1.96 if name == "north_ruin" else 1.54
+        for offset in (-.34, .08, .35):
+            box("Waterfront warehouse steel post", (x+width*offset,y-depth*.30,level/2),
+                (.065,.065,level/2), self.steel).parent = group
+            box("Waterfront warehouse exposed joist", (x+width*offset,y,level),
+                (.052,depth*.35,.070), self.steel).parent = group
+        box("Waterfront warehouse gapped lintel", (x-width*.12,y-depth*.31,level-.12),
+            (width*.24,.055,.065), self.dark).parent = group
+        box("Waterfront warehouse facade remnant", (x+width*.30,y-depth*.486,.59),
+            (width*.11,.022,.12), self.facade_blue,.013).parent = group
+        fragment = self.concrete_box("Waterfront warehouse fallen deck",
+                                     (x+width*.16,y+depth*.11,.58),
+                                     (width*.23,depth*.21,.105))
+        fragment.rotation_euler.y = -.24
+        fragment.parent = group
 
     def waterfront_quay_segment(self, group, name, ax, ay, bx, by, width):
         length = math.hypot(bx-ax,by-ay)
