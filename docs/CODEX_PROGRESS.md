@@ -1765,3 +1765,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-BUNKER-OPERATIONS-ART / DONE. The interior build extracts the original map artwork and applies it within the table inset. Rebuilt the shared 04/09 asset on E:, rendered in Godot and passed five catalogue tests. Next: inspect the texture close-up and prioritize reconstruction gaps on other bunker fixtures.
 
 - EXPERIMENTAL-BUNKER-SERVER-BANKS / DONE. Reused the detailed server bank fixtures on both surveyed north racks. Rebuilt Bunker Command Post 04/09 on E: and ran a native tactical exchange through round 2. Next: review the command room artwork and rack readability at the tactical zoom.
+
+- EXPERIMENTAL-BUNKER-SIDE-DESKS / DONE. Both side desks now use the dedicated command workstation with input banks and display, in the original footprints. Rebuilt the shared 04/09 model on E:, refreshed the Godot overview and passed seventeen interior tests. Next: compare tactical readability across distinct bunker and hideout environments.

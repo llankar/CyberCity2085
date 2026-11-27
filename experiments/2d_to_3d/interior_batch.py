@@ -138,7 +138,10 @@ def fixtures(name):
             selected[identifier] = "spare_tires"
         elif name.endswith("_bunker_command_post") and identifier == "central_table":
             selected[identifier] = "command_table"
-        elif name.endswith("_bunker_command_post") and (identifier == "command_console" or identifier.endswith(("_map", "_control"))):
+        elif name.endswith("_bunker_command_post") and (
+            identifier in {"command_console", "west_desk", "east_desk"}
+            or identifier.endswith(("_map", "_control"))
+        ):
             selected[identifier] = "command_console"
         elif identifier.endswith("_tracks"):
             selected[identifier] = "track"
