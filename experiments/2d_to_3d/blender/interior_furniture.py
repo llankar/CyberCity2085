@@ -340,6 +340,14 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
             part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
+    elif kind == "clinic_reception":
+        part("Clinic reception cabinet", 0,0,.39,length*.45,width*.36,.39,trim)
+        part("Clinic reception worktop", 0,0,.81,length*.48,width*.44,.043,steel)
+        part("Clinic reception raised counter", 0,-width*.36,.966,length*.47,.09,.08,trim)
+        for offset in (-.28,.22):
+            part("Clinic terminal stand", length*offset,width*.14,.893,.09,.085,.04,trim)
+            part("Clinic idle terminal", length*offset,width*.13,1.045,.17,.045,.15,steel)
+        part("Clinic records tray", length*.04,width*.14,.877,.16,.11,.022,trim)
     elif kind == "vault_display":
         part("Vault display cabinet", 0,0,.32,length*.41,width*.39,.32,trim)
         part("Vault display tray", 0,0,.66,length*.44,width*.43,.046,steel)

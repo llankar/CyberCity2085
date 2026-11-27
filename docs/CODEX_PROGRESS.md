@@ -1781,3 +1781,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-LOOTED-VAULT-DISPLAYS / DONE. Replaced the six central generic tables with looted display cabinets and partitioned trays, retaining their surveyed footprints. Rebuilt the 05/10 shared GLB on E:, rendered it in Godot and passed seventeen interior tests. Next: inspect the radial layout at combat zoom and address a different Wasteland interior.
 
 - EXPERIMENTAL-LOOTED-VAULT-RADIAL-LAYOUT / DONE. Angled the four corner cases to match the illustrated radial arrangement, narrowing the rotated models to stay inside their surveyed rectangles. Rebuilt 05/10 on E:, captured a top-down view in Godot and passed seventeen interior tests. Next: compare the vault layout in play and move to another interior.
+
+- EXPERIMENTAL-RUINED-CLINIC-RECEPTION / DONE. Reconstructed the reception desk with a raised counter, two idle terminals and a records tray inside the surveyed footprint. Rebuilt shared 03/08 GLB on E:, rendered in Godot and passed seventeen interior tests. Next: reconstruct the worn treatment furniture and run a tactical preview.
