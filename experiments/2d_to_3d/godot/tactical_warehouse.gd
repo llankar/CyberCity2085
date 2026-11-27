@@ -274,6 +274,9 @@ func _process(delta: float) -> void:
     var enemy: Array = unit_state("enemy:0").cell
     smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),
                          int(start[1]) + signi(int(enemy[1]) - int(start[1]))]
+    if not benchmark_combat and not verify_move_hover(state.units[0]):
+     get_tree().quit(23)
+     return
     if benchmark_combat:
      DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
      review_size = minf(review_size, 14.0)
@@ -561,6 +564,32 @@ func actor_at(screen_position: Vector2, side: String) -> String:
  return nearest
 
 
+func same_cell(left: Array, right: Array) -> bool:
+ return right.size() == 2 and int(left[0]) == int(right[0]) and int(left[1]) == int(right[1])
+
+
+func contains_cell(cells: Array, cell: Array) -> bool:
+ return cells.any(func(candidate: Array) -> bool: return same_cell(cell, candidate))
+
+
+func verify_move_hover(unit: Dictionary) -> bool:
+ for destination: Array in unit.get("moves", []):
+  var point := review_camera.unproject_position(cell_position(destination))
+  if not actor_at(point, "").is_empty():
+   continue
+  var expected := "Move to cover" if contains_cell(unit.get("covered_moves", []), destination) else "Move"
+  var hover := InputEventMouseMotion.new()
+  hover.position = point
+  _unhandled_input(hover)
+  if not target_hint.visible or target_hint.text != expected:
+   push_error("Expected movement hover label '%s', got '%s'" % [expected, target_hint.text])
+   return false
+  print("TACTICAL_MOVE_HOVER_OK ", expected)
+  return true
+ push_error("No reachable smoke test cell outside an actor's screen hit area")
+ return false
+
+
 func refresh_target_hint(screen_point: Vector2) -> void:
  target_hint.text = ""
  target_hint.hide()
@@ -573,14 +602,14 @@ func refresh_target_hint(screen_point: Vector2) -> void:
   if ground is Vector3 and actor_at(screen_point, "ally:").is_empty():
    var cell := ground_cell(ground)
    var selected := unit_state(selected_ally)
-   if not selected.is_empty() and cell != selected.get("cell", []) and (
+   if not selected.is_empty() and not same_cell(cell, selected.get("cell", [])) and (
     cell[0] >= 0 and cell[0] < 40 and cell[1] >= 0 and cell[1] < 28
    ):
     var moves: Array = selected.get("moves", [])
     var covered: Array = selected.get("covered_moves", [])
-    if cell in covered:
+    if contains_cell(covered, cell):
      target_hint.text = "Move to cover"
-    elif cell in moves:
+    elif contains_cell(moves, cell):
      target_hint.text = "Move"
     else:
      target_hint.text = "Cannot move here"
@@ -714,7 +743,9 @@ func _unhandled_input(event: InputEvent) -> void:
      select_next_ally()
   if previous_mode != attack_mode and not playing_events:
    update_control_hints()
- if event is InputEventMouseMotion or event is InputEventKey:
+ if event is InputEventMouseMotion:
+  refresh_target_hint(event.position)
+ elif event is InputEventKey:
   refresh_target_hint(get_viewport().get_mouse_position())
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
   fire_at(event.position)
