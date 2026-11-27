@@ -71,18 +71,34 @@ def restore_donor_pavement(floor, original, survey, donors):
             continue
         x1,y1,x2,y2 = donors[row["id"]]
         donor = original.crop((*pixel((x1,y1)), *pixel((x2,y2))))
-        points = [pixel(point) for point in row["polygon"]]
-        xs, ys = zip(*points)
-        left, top = min(xs), min(ys)
-        patch = Image.new("RGB", (max(xs)-left+1,max(ys)-top+1))
+        points = None
+        if "rect" in row:
+            x1, y1, x2, y2 = row["rect"]
+            left, top = pixel((x1, y1))
+            right, bottom = pixel((x2, y2))
+        else:
+            points = [pixel(point) for point in row["polygon"]]
+            xs, ys = zip(*points)
+            left, top = min(xs), min(ys)
+            right, bottom = max(xs)+1, max(ys)+1
+        patch = Image.new("RGB", (right-left,bottom-top))
         mirror = ImageOps.mirror(donor)
         for iy,y in enumerate(range(0,patch.height,donor.height)):
             for ix,x in enumerate(range(0,patch.width,donor.width)):
                 tile = mirror if ix % 2 else donor
                 patch.paste(ImageOps.flip(tile) if iy % 2 else tile, (x,y))
-        mask = Image.new("L", patch.size)
-        ImageDraw.Draw(mask).polygon([(x-left,y-top) for x,y in points], fill=255)
-        alpha = ImageChops.multiply(mask, mask.filter(ImageFilter.GaussianBlur(max(2, sx*2))))
+        mask = Image.new("L", patch.size, 255 if points is None else 0)
+        feather = max(2, sx*2)
+        if points is not None:
+            ImageDraw.Draw(mask).polygon([(x-left,y-top) for x,y in points], fill=255)
+            softened = mask.filter(ImageFilter.GaussianBlur(feather))
+        else:
+            padding = round(feather*3)
+            padded = ImageOps.expand(mask, border=padding)
+            softened = padded.filter(ImageFilter.GaussianBlur(feather)).crop(
+                (padding, padding, padding+mask.width, padding+mask.height)
+            )
+        alpha = ImageChops.multiply(mask, softened)
         alpha = alpha.point(lambda value: round(value*.82))
         floor.paste(patch,(left,top),alpha)
     return floor
@@ -117,6 +133,8 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map.endswith("_rusted_trainyard"):
+        result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
     result.save(out/'floor.png')
     Image.fromarray(mask).save(out/'replacement_mask.png')
     assert source.read_bytes()==raw

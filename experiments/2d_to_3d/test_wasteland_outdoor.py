@@ -131,3 +131,17 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
     assert any(part.startswith("Turntable circular rim") for part in parts)
     assert sum(part.startswith("Turntable bridge rail") for part in parts) == 2
     assert sum(part.startswith("Turntable sleeper") for part in parts) == 15
+
+
+def test_turntable_ballast_stays_inside_the_wagon_footprint():
+    from PIL import Image
+    from prepare_floor248 import restore_donor_pavement
+
+    floor = Image.new("RGB", (24, 24))
+    source = Image.new("RGB", floor.size, (180, 140, 90))
+    survey = {"canvas_size": floor.size, "walls": [
+        {"id": "wagon_turntable", "rect": [4, 5, 18, 20]},
+    ]}
+    result = restore_donor_pavement(floor, source, survey, {"wagon_turntable": (0, 0, 4, 4)})
+    assert result.getbbox() == (4, 5, 18, 20)
+    assert result.getpixel((11, 12))[0] > result.getpixel((4, 5))[0] > 0
