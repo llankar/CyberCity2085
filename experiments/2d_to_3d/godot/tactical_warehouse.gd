@@ -160,6 +160,9 @@ func _process(delta: float) -> void:
      get_tree().quit(20)
      return
     focus_selected()
+    # Let the initial actors and materials render before driving input.
+    for frame in 3:
+     await get_tree().process_frame
     var start: Array = state.units[0].cell
     var enemy: Array = unit_state("enemy:0").cell
     smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),

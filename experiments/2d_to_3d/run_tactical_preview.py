@@ -147,7 +147,7 @@ def open_mailbox(directory: Path, map_key: str, smoke: bool) -> TacticalMailbox:
         # A ranged drill exercises playback without waiting for the enemy to approach.
         preview.units["enemy:0"].attack_range = 10
         random.seed(4)
-    mailbox = TacticalMailbox(directory, preview)
+    mailbox = TacticalMailbox(directory, preview, trace_timing=smoke)
     atomic_json(directory / "battlefield.json", battlefield_presentation(map_key))
     return mailbox
 

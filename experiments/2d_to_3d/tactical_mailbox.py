@@ -1,6 +1,7 @@
 """Local command exchange for a single experimental combat session."""
 import json
 from pathlib import Path
+from time import perf_counter
 
 from game.combat.session_protocol import atomic_json
 from tactical_preview import TacticalPreview
@@ -9,9 +10,10 @@ from tactical_preview import TacticalPreview
 class TacticalMailbox:
     """Run one command per sequence and publish an atomic Python snapshot."""
 
-    def __init__(self, directory: Path, preview: TacticalPreview) -> None:
+    def __init__(self, directory: Path, preview: TacticalPreview, *, trace_timing: bool = False) -> None:
         self.directory = directory
         self.preview = preview
+        self.trace_timing = trace_timing
         self.sequence = 0
         self.reply = {"sequence": 0, "state": preview.snapshot()}
         self._publish_reply()
@@ -35,9 +37,15 @@ class TacticalMailbox:
             target is not None and not isinstance(target, str)
         ):
             return False
+        started = perf_counter() if self.trace_timing else 0.0
         result = self.preview.action(action, actor, target_id=target,
                                      destination=command.get("destination"))
+        resolved = perf_counter() if self.trace_timing else 0.0
         self.sequence += 1
         self.reply = {"sequence": self.sequence, **result}
         self._publish_reply()
+        if self.trace_timing:
+            print(f"TACTICAL_ENGINE action={action} sequence={self.sequence} "
+                  f"resolve_ms={(resolved-started)*1000:.2f} "
+                  f"publish_ms={(perf_counter()-resolved)*1000:.2f}", flush=True)
         return True
