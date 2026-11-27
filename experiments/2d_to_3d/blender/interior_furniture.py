@@ -660,10 +660,17 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             spoke.parent = group
     elif kind == "inspection_pit":
         part("Inspection trench inset", 0,0,.006,length*.48,width*.48,.015,trim)
+        part("Inspection pit drain channel", 0,0,.029,length*.219,width*.142,.019,trim)
+        for tread in range(-4,5):
+            part("Inspection pit drain grate bar", tread*length*.044,0,.046,
+                 length*.010,width*.134,.009,steel)
         for side in (-1,1):
             part("Inspection pit curb", 0,side*width*.44,.097,length*.48,width*.052,.097,steel)
             part("Inspection pit curb warning strip", 0,side*width*.44,.200,
                  length*.45,width*.025,.009,screen)
+            for seam in (-.3, 0, .3):
+                part("Inspection pit curb joint", seam*length,side*width*.44,.212,
+                     length*.006,width*.049,.006,trim)
             part("Inspection pit end cap", side*length*.463,0,.078,
                  length*.025,width*.385,.078,steel)
             for i in range(4):

@@ -529,6 +529,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             assert parts
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
+        if name.endswith("_maintenance_depot"):
+            for identifier in ("west_pit_n", "west_pit_s"):
+                pit = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+                assert sum(part.startswith("Inspection pit drain grate bar") for part in pit) == 9
+                assert sum(part.startswith("Inspection pit curb joint") for part in pit) == 6
         if name.endswith("_bunker_command_post"):
             for side in ("w", "e"):
                 wall_parts = [nodes[index]["name"]
