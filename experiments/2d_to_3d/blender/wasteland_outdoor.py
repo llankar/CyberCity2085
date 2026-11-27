@@ -1387,20 +1387,24 @@ class WastelandOutdoors:
                 wheel.data.materials.append(self.dark)
                 wheel.parent = group
         if name == "convoy_mw":
-            bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=min(.43,width*.33),
+            radius = min(.43,width*.33)
+            bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=radius,
                 depth=length*.59, location=(-length*.13,0,1.04), rotation=(0,math.pi/2,0))
             tank = bpy.context.object
             tank.name = "Convoy tanker vessel"
             tank.data.materials.append(self.steel)
             tank.parent = group
-            if self.convoy_crossing:
-                radius = min(.43,width*.33)
+            for face in tank.data.polygons:
+                face.use_smooth = len(face.vertices) == 4
+            if self.convoy_crossing or self.salt_flat or self.dust_road or self.wrecked_highway:
                 for end in (-.425,.165):
                     bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12,
                         radius=radius, location=(length*end,0,1.04))
                     cap = bpy.context.object
                     cap.name = "Convoy tanker dished end"
                     cap.scale.x = min(.10,length*.025)/radius
+                    for face in cap.data.polygons:
+                        face.use_smooth = True
                     cap.data.materials.append(self.steel)
                     cap.parent = group
                 bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius*.42,
@@ -1411,7 +1415,7 @@ class WastelandOutdoors:
                 hatch.parent = group
             for offset in (-.31,.03):
                 bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
-                    major_radius=min(.43,width*.33), minor_radius=.023,
+                    major_radius=radius, minor_radius=.023,
                     location=(length*offset,0,1.04), rotation=(0,math.pi/2,0))
                 band = bpy.context.object
                 band.name = "Convoy tank band"
