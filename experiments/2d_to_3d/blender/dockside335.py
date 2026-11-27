@@ -146,6 +146,7 @@ assert containers == 14 and barriers == 3 and cranes == 2 and forklifts == 8
 
 # Trace the two vessels in source-image space so they stay outside the playable quay.
 floor_deck = make_material("Cargo vessel deck", (.095,.105,.10,1), .48,.78)
+deckhouse = make_material("Weathered cargo deckhouse", (.15,.14,.11,1), .54,.69)
 for label, outline in VESSEL_OUTLINES.items():
     deck = [(px*gw/960-gw/2, gh/2-py*gh/540) for px, py in reversed(outline)]
     mx = sum(x for x, _ in deck)/len(deck)
@@ -162,14 +163,30 @@ for label, outline in VESSEL_OUTLINES.items():
     mesh.polygons[0].material_index = 1
     hull = bpy.data.objects.new(label, mesh)
     bpy.context.collection.objects.link(hull)
-    cargo_x = (83 if label.startswith("North") else 73)*gw/960-gw/2
-    center_y = gh/2-(199 if label.startswith("North") else 444)*gh/540
+    north = label.startswith("North")
+    cargo_x = (83 if north else 73)*gw/960-gw/2
+    center_y = gh/2-(199 if north else 444)*gh/540
     for index, color in enumerate(("green","red","blue")):
         offset = index-1
         load = build_container(hull, cargo_x+offset*.30, center_y+offset*1.18, 1.42, .90,
                                skins[color], steel, beam, yaw=math.radians(74))
         load.scale.z = .32
         load.location.z = .47+.88*load.scale.z
+    for part, px, py, z, sizes, material in (
+        ("Wheelhouse", 105 if north else 98, 126 if north else 365,
+         .81, (.78,.64,.34), deckhouse),
+        ("Bridge glazing", 105 if north else 98, 126 if north else 365,
+         1.11, (.80,.66,.065), steel),
+        ("Wheelhouse roof", 105 if north else 98, 126 if north else 365,
+         1.20, (.85,.70,.043), deckhouse),
+        ("Forward hatch", 133 if north else 112, 38 if north else 330,
+         .57, (.68,.56,.10), steel),
+        ("Aft mooring winch", 54 if north else 41, 266 if north else 518,
+         .59, (.34,.32,.12), deckhouse),
+    ):
+        detail = box(part, (px*gw/960-gw/2,gh/2-py*gh/540,z), sizes, material, .026)
+        detail.rotation_euler.z = math.radians(74)
+        detail.parent = hull
 
 floor = make_material("Dockside source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes

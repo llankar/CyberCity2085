@@ -244,7 +244,10 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
     for label in ("North moored cargo vessel", "South moored cargo vessel"):
         vessel = next(node for node in nodes if node["name"] == label)
         assert "mesh" in vessel
-        assert len(vessel["children"]) == 3
+        parts = [nodes[index]["name"] for index in vessel["children"]]
+        assert sum(part.startswith("Warehouse shipping container") for part in parts) == 3
+        for component in ("Bridge glazing", "Forward hatch", "Aft mooring winch"):
+            assert any(part.startswith(component) for part in parts)
     for identifier in ("east_upper_cabin", "east_lower_cabin"):
         cabin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         parts = [nodes[index]["name"] for index in cabin["children"]]
