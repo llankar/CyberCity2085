@@ -29,9 +29,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
 
-def test_collapsed_span_export_includes_textured_fracture_faces():
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
-                "wasteland_city_03_collapsed_overpass/environment.glb")
+@pytest.mark.parametrize("variant", ("03", "08"))
+def test_collapsed_span_export_includes_textured_fracture_faces(variant):
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
+        f"wasteland_city_{variant}_collapsed_overpass"
+    ) / "environment.glb"
     if not path.is_file():
         pytest.skip("Run the local Overpass Blender batch first")
     with path.open("rb") as model:
