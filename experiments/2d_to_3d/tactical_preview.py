@@ -96,7 +96,7 @@ class TacticalPreview:
                     if key.startswith("ally:") and state.turn == "player" and unit.health > 0 and not battle.ended else {},
                     "covered_moves": self.covered_moves(unit, move_options.get(key, [])),
                     "actions": [action.key for action in available_combat_actions(unit)]
-                    if key.startswith("ally:") and state.turn == "player" and unit.health > 0
+                    if key.startswith("ally:") and state.turn == "player" and unit.health > 0 and not battle.ended
                     else [],
                 }
                 for key, unit in self.units.items()

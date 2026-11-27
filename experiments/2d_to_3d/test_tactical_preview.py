@@ -1,4 +1,4 @@
-import json
+﻿import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -14,6 +14,20 @@ from run_tactical_preview import CATALOG, SCENARIOS, battlefield_presentation, s
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_lethal_attack_reports_victory_and_disables_actions(self):
+        preview = scenario_preview("warehouse")
+        ally, enemy = preview.units["ally:0"], preview.units["enemy:0"]
+        ally.stats.agi = 10
+        enemy.stats.hp = enemy.health = 1
+        with patch("game.combat.attack_resolution.random.random", return_value=0.0):
+            result = preview.action("fire", "ally:0", target_id="enemy:0")
+        self.assertTrue(result["success"])
+        self.assertEqual(result["state"]["outcome"], "victory")
+        self.assertEqual(result["state"]["units"][0]["moves"], [])
+        self.assertEqual(result["state"]["units"][0]["actions"], [])
+        self.assertEqual(result["state"]["units"][0]["targeting"], {})
+        self.assertFalse(preview.action("end_turn", "ally:0")["success"])
+
     def test_attack_replies_distinguish_hit_miss_and_rejection(self):
         preview = scenario_preview("warehouse")
         preview.units["ally:0"].stats.agi = 10

@@ -11,6 +11,9 @@ var status: Label
 var selection: Label
 var target_hint: Label
 var target_line: MeshInstance3D
+var outcome_panel: PanelContainer
+var outcome_title: Label
+var outcome_details: Label
 var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
@@ -105,6 +108,25 @@ func _ready() -> void:
   move_markers.append(marker)
 
 
+ outcome_panel = PanelContainer.new()
+ outcome_panel.position = Vector2(20, 110)
+ outcome_panel.custom_minimum_size = Vector2(330, 145)
+ outcome_panel.hide()
+ hud.add_child(outcome_panel)
+ var results := VBoxContainer.new()
+ results.add_theme_constant_override("separation", 10)
+ outcome_panel.add_child(results)
+ outcome_title = Label.new()
+ outcome_title.add_theme_font_size_override("font_size", 32)
+ results.add_child(outcome_title)
+ outcome_details = Label.new()
+ results.add_child(outcome_details)
+ var leave := Button.new()
+ leave.text = "Close skirmish"
+ leave.pressed.connect(close_battlefield)
+ results.add_child(leave)
+
+
 func apply_presentation(config: Dictionary) -> bool:
  var scene := load(config.preview_scene) as PackedScene
  if scene == null:
@@ -186,7 +208,7 @@ func _process(delta: float) -> void:
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
  if state.outcome != null:
-  status.text += "\n%s" % str(state.outcome).capitalize()
+  show_outcome(state)
  if last_sequence == 0 and OS.get_environment("CYBERCITY_TACTICAL_BENCHMARK") == "1":
   run_render_benchmark()
  if smoke:
@@ -320,6 +342,24 @@ func _process(delta: float) -> void:
 func _notification(what: int) -> void:
  if what == NOTIFICATION_WM_CLOSE_REQUEST and is_inside_tree():
   close_battlefield()
+
+
+func show_outcome(state: Dictionary) -> void:
+ var standing := 0
+ var squad_size := 0
+ for unit: Dictionary in state.units:
+  if str(unit.id).begins_with("ally:"):
+   squad_size += 1
+   standing += int(unit.hp > 0)
+ outcome_title.text = "Victory" if state.outcome == "victory" else "Defeat"
+ outcome_title.modulate = Color(.28,.88,.71) if state.outcome == "victory" else Color(1,.35,.30)
+ outcome_details.text = "%s  //  Round %d\nAgents standing: %d / %d" % [
+  scenario_title, state.round, standing, squad_size]
+ status.hide()
+ selection.hide()
+ target_hint.hide()
+ target_line.hide()
+ outcome_panel.show()
 
 
 func close_battlefield() -> void:
