@@ -84,3 +84,22 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert any(part.startswith(load) for part in parts), identifier
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
+
+
+@pytest.mark.parametrize("variant", ("03", "08"))
+def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
+        f"wasteland_outdoor_{variant}_wrecked_highway"
+    ) / "environment.glb"
+    if not path.is_file():
+        pytest.skip("Build Wrecked Highway on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    for identifier in ("wreck_mid_w", "wreck_mid_e", "wreck_far_e", "wreck_middle5"):
+        parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+        assert sum(part.startswith("Wreck flatbed crossmember") for part in parts) == 7
+        assert sum(part.startswith("Convoy wheel") for part in parts) == 6
+    assert not any(nodes[index]["name"].startswith("Wreck flatbed")
+                   for index in groups["Occludable_wreck_sw"])

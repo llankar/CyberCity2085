@@ -13,12 +13,13 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
-    def __init__(self, library, grid, canvas, *, city=False, overpass=False):
+    def __init__(self, library, grid, canvas, *, city=False, overpass=False, wrecked_highway=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
         self.city = city
         self.overpass = overpass
+        self.wrecked_highway = wrecked_highway
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
         concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
@@ -180,7 +181,14 @@ class WastelandOutdoors:
         vertical = d > w
         length, breadth = (d,w) if vertical else (w,d)
         yaw = math.pi/2 if vertical else 0
-        if name.startswith("convoy_"):
+        wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34,
+                     "wreck_far_e": -.09, "wreck_middle5": -.12}
+        if self.wrecked_highway and name in wreck_yaws:
+            angle = -wreck_yaws[name]
+            c,s = abs(math.cos(angle)),abs(math.sin(angle))
+            scale = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.convoy_vehicle(group, name, x, y, length*scale, breadth*scale, angle)
+        elif name.startswith("convoy_"):
             self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
         elif self.city and name.startswith(("bus_", "truck_")):
             self.vehicle(group, name, x,y,w,d)
@@ -287,6 +295,13 @@ class WastelandOutdoors:
                 for slot in (-1,0,1):
                     part("Convoy strapped crate", ((-.147+slot*.19)*length,row*width*.205,.83),
                          (length*.079,width*.155,.18),self.canvas)
+        elif name.startswith("wreck_"):
+            for side in (-1,1):
+                part("Wreck flatbed side rail", (-length*.135,side*width*.365,.75),
+                     (length*.291,.036,.081),self.steel,.012)
+            for slot in range(7):
+                part("Wreck flatbed crossmember", ((-.395+slot*.085)*length,0,.668),
+                     (length*.021,width*.348,.028),self.dark,.009)
         else:
             part("Convoy tarpaulin load", (-length*.147,0,.94),
                  (length*.303,width*.386,.286),self.canvas,.112)
