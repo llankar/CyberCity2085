@@ -1015,6 +1015,15 @@ def build(name):
                 for slot in range(3):
                     parts.append(("service vent", (0,-depth*.281,height*(.17+slot*.05)),
                                   (width*.25,depth*.012,.012), frame))
+            if transit_interchange and identifier.startswith("ticket_"):
+                parts.extend([
+                    ("ticket reader", (width*.22,-depth*.451,height*.47),
+                     (width*.072,depth*.027,.034), signs[0]),
+                    ("ticket tray surround", (0,-depth*.288,height*.34),
+                     (width*.18,depth*.035,.042), frame),
+                    ("ticket tray opening", (0,-depth*.326,height*.34),
+                     (width*.15,depth*.011,.021), wall),
+                ])
             for label, position, half_size, material in parts:
                 box(f"{identifier} {label}", position, half_size, material).parent = group
             group.location = (x,y,0)
