@@ -1607,3 +1607,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-IRRADIATED-BASIN-TANK / DONE for the southwest tank on 05 and 10. Fitted an open corroded shell and three reinforcing bands to the original diagonal footprint. Both GLBs rebuilt on E:, ten targeted tests passed and 10 rendered in Godot. Next: trace basin-water polygons around dry islands and preserve existing tactical movement.
 
 - EXPERIMENTAL-IRRADIATED-BASIN-WATER / DONE for four major pools per variant. Traced surfaces around the raised islands and applied a distinct roughness to the source water artwork. Tactical geometry was preserved. Both exports rebuilt on E:, ten tests passed and Godot rendered 10. Smaller wet channels still use the floor texture. Next: inspect the silhouette of the large wrecks on Salt Flat Ambush.
+
+- EXPERIMENTAL-SALT-FLAT-HEAVY-WRECKS / DONE for two vehicles. Reused the tanker and open flatbed and fit their diagonal silhouettes to the south and east survey footprints. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: compare the low fences and poles with the source.

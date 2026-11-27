@@ -28,6 +28,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_salt_flat_ambush"):
+            for identifier, part in (("wreck_mid_e", "Wreck flatbed crossmember"),
+                                     ("wreck_south", "Convoy tanker vessel")):
+                wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert "rotation" in wreck
+                assert any(nodes[i]["name"].startswith(part) for i in wreck["children"])
         if name.endswith("_irradiated_basin"):
             pools = [node for node in nodes if node["name"].startswith("Irradiated basin pool ")]
             assert len(pools) == 4

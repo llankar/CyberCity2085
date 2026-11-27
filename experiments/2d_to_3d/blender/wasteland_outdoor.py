@@ -1,4 +1,4 @@
-"""Build the surveyed props shared by the original outdoor wasteland maps."""
+﻿"""Build the surveyed props shared by the original outdoor wasteland maps."""
 import math
 
 import bpy
@@ -149,7 +149,7 @@ class WastelandOutdoors:
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
                  scavenger_plaza=False, ruined_transit=False, cratered_waterfront=False,
-                 wrecked_highway=False, trainyard=False):
+                 salt_flat=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -161,6 +161,7 @@ class WastelandOutdoors:
         self.scavenger_plaza = scavenger_plaza
         self.ruined_transit = ruined_transit
         self.cratered_waterfront = cratered_waterfront
+        self.salt_flat = salt_flat
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
@@ -369,6 +370,18 @@ class WastelandOutdoors:
                 length, breadth = length*fit, breadth*fit
                 self.trainyard_turntable(x, y, yaw, breadth)
             self.trainyard_wagon(group, name, x, y, length, breadth, yaw)
+        elif self.salt_flat and name in {"wreck_mid_e", "wreck_south"}:
+            if name == "wreck_mid_e":
+                axis, tanker = (30, -32), False
+            else:
+                axis, tanker = (72, -31), True
+            angle = math.atan2(-axis[1]*self.gh/self.ch, axis[0]*self.gw/self.cw)
+            breadth = min(breadth, length*.34)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            # Counter the convoy placement half-turn so the cab follows the reference axis.
+            self.convoy_vehicle(group, "convoy_mw" if tanker else name,
+                                x, y, length*fit, breadth*fit, angle+math.pi)
         elif self.wrecked_highway and name in wreck_yaws:
             angle = -wreck_yaws[name]
             c,s = abs(math.cos(angle)),abs(math.sin(angle))
