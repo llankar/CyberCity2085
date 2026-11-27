@@ -151,10 +151,10 @@ cw, ch = street["canvas_size"]
 library = phase.parents[1] / "environment-library/assets"
 vehicle = library / "derelict_suv275/model.glb"
 crate = library / "cargo_crate274/model.glb"
-concrete = make_material("Planter concrete", (.15,.17,.16,1), .04,.84)
+concrete = make_material("Planter concrete", (.075,.083,.080,1), .04,.84)
 bark = make_material("Street tree bark", (.095,.057,.035,1), 0,.93)
 leaves = [make_material("Street foliage " + str(i), color, 0,.88) for i, color in enumerate(
-    ((.05,.13,.038,1), (.094,.19,.055,1), (.145,.24,.074,1))
+    ((.024,.043,.017,1), (.036,.057,.021,1), (.054,.071,.027,1))
 )]
 for row in street["walls"]:
     identifier = row["id"]
@@ -190,11 +190,15 @@ for row in street["walls"]:
             trunk.parent = group
         for i,offset in enumerate((-.25,0,.25)):
             cx,cy = (x,y+d*offset) if vertical else (x+w*offset,y)
-            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1,
-                                                location=(cx,cy,1.48 if tree else .39))
+            crown_height = (1.40,1.65,1.47)[i] if tree else (.36,.41,.37)[i]
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=3, radius=1,
+                                                location=(cx,cy,crown_height))
             shrub = bpy.context.object
             shrub.name = "Street foliage crown"
-            shrub.scale = (min(w*.29,.64),min(d*.29,.64),.58 if tree else .24)
+            shrub.scale = (min(w*.29,.64),min(d*.29,.64),
+                           (.47,.62,.53)[i] if tree else (.19,.24,.21)[i])
+            for face in shrub.data.polygons:
+                face.use_smooth = True
             shrub.data.materials.append(leaves[i])
             shrub.parent = group
 roof_crate = next(row for row in json.loads(
