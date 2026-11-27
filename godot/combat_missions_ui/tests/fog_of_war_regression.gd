@@ -253,9 +253,14 @@ func run() -> void:
 	assert(mission._attack_audio_event({}, "Mind Spike", "PSI") == "psi")
 	mission._configure_visual_hud()
 	mission._hud.size = Vector2(1280, 720)
-	mission._hud._visible_actions.assign(["Psi Focus", "Trauma Patch"])
-	mission._hud._ensure_action_buttons(mission._hud._visible_actions)
-	mission._hud._reposition_buttons()
+	mission._hud.player_units.assign([{"available_actions": [
+		"Move", "Psi Focus", "Trauma Patch", "VTOL Heavy Strike",
+		"Adrenaline Shot", "Smoke Grenade", "Tactical Scanner", "Stim Pack", "Hacking Module",
+	]}])
+	mission._hud._rebuild_agent_actions()
+	assert(mission._hud._visible_actions == [
+		"Move", "Psi Focus", "Trauma Patch", "VTOL Heavy Strike", "RETREAT", "NEXT", "END TURN",
+	])
 	assert("1 AP" in mission._hud._action_btns["Psi Focus"].tooltip_text)
 	assert("25 stress per living" in mission._hud._action_btns["Psi Focus"].tooltip_text)
 	assert("12 HP to this agent" in mission._hud._action_btns["Trauma Patch"].tooltip_text)

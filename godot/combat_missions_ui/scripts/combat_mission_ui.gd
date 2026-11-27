@@ -17,8 +17,8 @@ const ROLE_SAMURAI := Color(0.28, 1.0,  0.74, 1.0)
 
 const ACTIONS: Array[String] = ["MOVE", "MELEE", "FIRE", "PSI", "DEFEND", "OVERWATCH", "END TURN"]
 
-# Named action → mechanics. Covers every action name that can appear in
-# a squad member's available_actions list from the handoff JSON.
+# Named actions implemented by the tactical client. The handoff can also
+# contain equipment names whose bonuses are already included in agent stats.
 const _ACTION_DEFS: Dictionary = {
 	"Precision Shot": {"type":"FIRE","range":36,"damage":11,"heal":0,"ap":2},
 	"Shotgun Blast": {"type":"FIRE","range":8,"damage":9,"heal":0,"ap":1},
@@ -1346,6 +1346,8 @@ func _execute_action(action_name: String) -> void:
 		_cycle_active_unit()
 		return
 	var atype := _action_type(action_name)
+	if atype == "SYSTEM":
+		return
 	if atype == "OVERWATCH":
 		if active_player_index in overwatch_indices:
 			overwatch_indices.erase(active_player_index)
@@ -2552,6 +2554,7 @@ func _draw_text(text: String, pos: Vector2, font_size: int, color: Color) -> voi
 
 # Presentation adapters: no damage, AP, AI or mission result mutations here.
 func _configure_visual_hud() -> void:
+	_hud.supported_actions = _ACTION_DEFS.keys()
 	_hud.action_tooltips = {
 		"Psi Focus": "%d AP · Relieve up to %d stress per living, standing squad member." % [
 			_action_ap_cost("Psi Focus"), _ACTION_DEFS["Psi Focus"]["stress_relief"]],

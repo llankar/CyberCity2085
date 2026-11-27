@@ -41,6 +41,7 @@ var portrait_textures : Dictionary = {}
 var status_line       : String = ""
 var gamepad_action := ""
 var action_tooltips: Dictionary = {}
+var supported_actions: Array = []
 var gamepad_hints := false
 var _elapsed          : float  = 0.0
 var _hovered_portrait : int    = -1
@@ -106,7 +107,9 @@ func _rebuild_agent_actions() -> void:
 		var raw: Variant = agent.get("available_actions", null)
 		if typeof(raw) == TYPE_ARRAY:
 			for a: Variant in raw as Array:
-				agent_actions.append(str(a))
+				var action := str(a)
+				if supported_actions.is_empty() or action in supported_actions:
+					agent_actions.append(action)
 	if agent_actions.is_empty():
 		agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
 	# Always append system actions at the bottom.

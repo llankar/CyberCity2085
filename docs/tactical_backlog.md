@@ -1599,3 +1599,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-SUPPORT-TOOLTIPS — Explain squad stress relief and self-healing in the Godot action buttons.
 
 - [x] TACTICAL-MEDICAL-UTILITIES — Route the three equipped medical utilities to AP-based self-healing in Godot.
+
+- [x] TACTICAL-PASSIVE-UTILITY-BUTTONS — Show implemented equipment commands in the Godot HUD.
