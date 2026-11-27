@@ -407,7 +407,7 @@ def build(name):
     weathered_facades = civic or industrial or waterfront
     facade_surface = textured_material(
         "Civic weathered concrete" if civic else "Industrial weathered concrete",
-        LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
+        out / "facade_concrete.png", .83
     ) if weathered_facades else wall
     if weathered_facades:
         nodes = facade_surface.node_tree.nodes
