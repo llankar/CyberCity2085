@@ -52,6 +52,17 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_ruined_downtown"):
+            prefixes = {"wall": "Downtown fractured road barrier",
+                        "barrier": "Downtown fractured road barrier",
+                        "rubble": "Downtown fallen masonry"}
+            groups = {node["name"]: node.get("children", []) for node in nodes}
+            for row in surveyed:
+                identifier = row["id"]
+                prefix = prefixes.get(identifier.split("_", 1)[0])
+                if prefix:
+                    parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+                    assert sum(part.startswith(prefix) for part in parts) == 3, identifier
         if name.endswith("_dust_road_ambush"):
             for row in surveyed:
                 if "points" in row or "sandbag" in row["id"]:
