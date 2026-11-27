@@ -569,6 +569,22 @@ func refresh_target_hint(screen_point: Vector2) -> void:
   return
  var id := actor_at(screen_point, "enemy:")
  if id.is_empty():
+  var ground: Variant = ground_under_cursor(screen_point)
+  if ground is Vector3 and actor_at(screen_point, "ally:").is_empty():
+   var cell := ground_cell(ground)
+   var selected := unit_state(selected_ally)
+   if not selected.is_empty() and cell != selected.get("cell", []) and (
+    cell[0] >= 0 and cell[0] < 40 and cell[1] >= 0 and cell[1] < 28
+   ):
+    var moves: Array = selected.get("moves", [])
+    var covered: Array = selected.get("covered_moves", [])
+    if cell in covered:
+     target_hint.text = "Move to cover"
+    elif cell in moves:
+     target_hint.text = "Move"
+    else:
+     target_hint.text = "Cannot move here"
+    target_hint.show()
   return
  var enemy := unit_state(id)
  var targets: Dictionary = unit_state(selected_ally).get("targeting", {})
@@ -651,6 +667,10 @@ func focus_selected() -> void:
  update_review_camera()
 
 
+func ground_cell(ground: Vector3) -> Array:
+ return [floori(ground.x + 20), floori(14 - ground.z)]
+
+
 func ground_under_cursor(screen_point: Vector2) -> Variant:
  return Plane(Vector3.UP, 0).intersects_ray(
   review_camera.project_ray_origin(screen_point), review_camera.project_ray_normal(screen_point))
@@ -708,4 +728,4 @@ func _unhandled_input(event: InputEvent) -> void:
   var ground: Variant = ground_under_cursor(event.position)
   if ground is Vector3:
    send({"action": "move", "actor": selected_ally,
-    "destination": [floori(ground.x + 20), floori(14 - ground.z)]})
+    "destination": ground_cell(ground)})
