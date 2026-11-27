@@ -489,6 +489,15 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             tin.data.materials.append(trim)
             tin.parent = group
         merge_fixture_meshes(group, "Salvaged shelter table")
+    elif kind == "shelter_pantry":
+        part("Pantry backing", 0,width*.40,.70,length*.46,width*.04,.70,steel)
+        for end in (-1, 1):
+            part("Pantry side plank", end*length*.43,0,.70,length*.035,width*.44,.70,steel)
+        for height in (.11,.48,.88,1.38):
+            part("Pantry plank shelf", 0,0,height,length*.43,width*.43,.032,steel)
+        part("Pantry supply sack", -length*.20,-width*.06,.64,length*.118,width*.24,.125,screen)
+        part("Pantry salvage box", length*.19,width*.08,1.015,length*.127,width*.25,.10,trim)
+        merge_fixture_meshes(group, "Shelter improvised pantry")
     elif kind == "shelter_kitchen":
         part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)
         for offset in (-.31,.31):

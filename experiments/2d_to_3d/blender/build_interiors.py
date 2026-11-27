@@ -652,6 +652,9 @@ def build(name):
             box("Abandoned cabinet bin", (x-w*.16,y+d*.11,.59),
                 (w*.17,d*.23,.09),trim,.021).parent = group
             merge_fixture_meshes(group, "Looted open utility cabinet")
+        elif apartment_shelter and identifier == "west_cabinet":
+            build_facility_fixture(group, "shelter_pantry", x, y, w, d,
+                                   shelter_wood, shelter_iron, bedding_canvas)
         elif kind == "cabinet":
             box(identifier, (x,y,.78), (w*.46,d*.44,.78), steel).parent = group
             for level in (.42,.73,1.04,1.35):
