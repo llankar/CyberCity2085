@@ -145,7 +145,8 @@ def build(name):
             texture.image = bpy.data.images.load(str(out / f"stall_canvas_{color}.png"))
             material.node_tree.links.new(texture.outputs["Color"], nodes["Principled BSDF"].inputs["Base Color"])
             stall_canvas.append(material)
-    server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker else None
+    relay_room = name.endswith("_data_relay_room")
+    server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker or relay_room else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
     textured_partitions = server_map or name in {
@@ -398,7 +399,7 @@ def build(name):
             else:
                 build_bed(group, x, y, w, d, stretcher_frame if ruined_clinic else steel, linen,
                           stretcher_pad if ruined_clinic else trim, stretcher=ruined_clinic)
-        elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
+        elif (relay_room and kind in {"relay_server", "rack"}) or (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
             build_server_bank(group, x, y, w, d, server_housing, steel, screen)
