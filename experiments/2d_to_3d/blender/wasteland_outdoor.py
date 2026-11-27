@@ -1535,6 +1535,12 @@ class WastelandOutdoors:
                     uv.data[index].uv = (.5+(x+point.x)/self.gw, .5+(y+point.y)/self.gh)
         self.concrete_box("Workshop rear wall", (x-width*.06, y+depth*.42, .38),
                           (width*.41, depth*.055, .38)).parent = group
+        high_side = -1 if name == "northwest_ruin" else 1
+        coping = self.concrete_box("Workshop broken rear wall crest",
+                                   (x+high_side*width*.23,y+depth*.42,.845),
+                                   (width*.16,depth*.048,.105),.040)
+        coping.rotation_euler.y = high_side*.08
+        coping.parent = group
         for side in (-1, 1):
             self.concrete_box("Workshop return wall",
                               (x+side*width*.44, y+depth*.14, .28),

@@ -512,6 +512,7 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
     assert sum(part.startswith("Turntable sleeper") for part in parts) == 15
     for identifier, fragments in (("northwest_ruin", 3), ("northeast_ruin", 2)):
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+        assert sum(part.startswith("Workshop broken rear wall crest") for part in parts) == 1
         assert sum(part.startswith("Broken workshop frontage") for part in parts) == fragments
         assert any(part.startswith("Workshop rear wall") for part in parts)
         assert any(part.startswith("Workshop service cabinet") for part in parts)
