@@ -1405,15 +1405,22 @@ def build(name):
                 rail_y = gh/2-row*gh/ch
                 box("Freight yard rail foot", (center_x,rail_y,-.013),
                     (half_length,.037,.012),rail_web,.006)
-                box("Freight yard rail web", (center_x,rail_y,.012),
+                web = box("Freight yard rail web", (center_x,rail_y,.012),
                     (half_length,.012,.015),rail_web,.003)
                 box("Freight yard running rail", (center_x,rail_y,.033),
                     (half_length,.022,.008),railhead,.005)
+                splice_plates = []
                 for offset in (-.66,-.22,.22,.66):
                     for side in (-1,1):
-                        box("Freight yard rail splice plate",
+                        splice_plates.append(box("Freight yard rail splice plate",
                             (center_x+half_length*offset,rail_y+side*.017,.009),
-                            (.092,.007,.014),rail_web,.003)
+                            (.092,.007,.014),rail_web,.003))
+                # The splice plates use the same material and never move independently.
+                bpy.ops.object.select_all(action="DESELECT")
+                for part in [web, *splice_plates]:
+                    part.select_set(True)
+                bpy.context.view_layer.objects.active = web
+                bpy.ops.object.join()
         wagon_skin = make_material("Freight wagon faded red", (.22,.052,.033,1), .55,.72)
         for index, (left, top, right, bottom) in enumerate(SOUTH_SIDING_LOADS, 1):
             wagon = bpy.data.objects.new(f"South siding cargo wagon {index}", None)

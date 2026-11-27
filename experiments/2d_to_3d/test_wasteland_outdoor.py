@@ -16,11 +16,18 @@ def test_freight_yard_has_four_complete_rail_profiles():
         pytest.skip("Build the experimental Freight Yard on E: first")
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-        nodes = json.loads(model.read(size))["nodes"]
+        gltf = json.loads(model.read(size))
+    nodes = gltf["nodes"]
     for component in ("running rail", "rail web", "rail foot"):
         rails = [node for node in nodes if node["name"].startswith(f"Freight yard {component}")]
         assert len(rails) == 4
         assert all("mesh" in rail for rail in rails)
+    assert not any(node["name"].startswith("Freight yard rail splice plate") for node in nodes)
+    webs = [node for node in nodes if node["name"].startswith("Freight yard rail web")]
+    for web in webs:
+        primitives = gltf["meshes"][web["mesh"]]["primitives"]
+        assert len(primitives) == 1
+        assert gltf["accessors"][primitives[0]["attributes"]["POSITION"]]["count"] > 100
     wagons = [node for node in nodes if node["name"].startswith("South siding cargo wagon")]
     assert len(wagons) == 3
     for wagon in wagons:
