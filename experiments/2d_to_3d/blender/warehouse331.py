@@ -31,6 +31,7 @@ bpy.context.preferences.filepaths.save_version = 0
 steel = make_material("Warehouse rack steel", (.075,.11,.15,1), .65,.48)
 beam = make_material("Warehouse rack safety beam", (.52,.17,.028,1), .45,.48)
 container_skin = make_material("Weathered container green", (.062,.15,.14,1), .65,.63)
+service_rooms = {"east_office", "east_stair", "east_bay"}
 cargo_count = wall_count = rack_count = container_count = rack_cargo_count = forklift_count = 0
 for row in survey["walls"]:
     identifier = row["id"]
@@ -38,7 +39,8 @@ for row in survey["walls"]:
     is_rack = identifier.startswith("row")
     is_container = identifier.startswith("west_container_")
     is_forklift = identifier.startswith("forklift_")
-    if not (is_wall or is_rack or is_container or is_forklift or "crate" in identifier):
+    if not (is_wall or is_rack or is_container or is_forklift or identifier in service_rooms
+            or "crate" in identifier):
         continue
     x1, y1, x2, y2 = row["rect"]
     w, d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
@@ -77,6 +79,35 @@ for row in survey["walls"]:
                     item.name = identifier + " shelf cargo"
                 rack_cargo_count += 1
                 cargo_count += 1
+    elif identifier == "east_office":
+        for side in (-1,1):
+            box(identifier+" partition", (x,y+side*d*.47,.56),
+                (w*.47,.06,.56), steel).parent = group
+        box(identifier+" inner partition", (x-w*.46,y+d*.18,.56),
+            (.055,d*.28,.56), steel).parent = group
+        box(identifier+" worktop", (x+w*.10,y+d*.28,.59),
+            (w*.31,d*.09,.055), beam).parent = group
+        for side in (-1,1):
+            box(identifier+" desk pedestal", (x+w*side*.14,y+d*.28,.29),
+                (w*.075,d*.064,.29), steel).parent = group
+        box(identifier+" console housing", (x,y+d*.31,.79),
+            (w*.10,.035,.14), steel).parent = group
+    elif identifier == "east_stair":
+        for step in range(8):
+            z = (step+1)*.105
+            tread_y = y+((step+.5)/8-.5)*d
+            box(identifier+" tread", (x,tread_y,z/2),
+                (w*.46,d/16,z/2), steel).parent = group
+            box(identifier+" nosing", (x,tread_y-d*.047,z+.01),
+                (w*.45,d*.01,.01), beam, .004).parent = group
+    elif identifier == "east_bay":
+        box(identifier+" loading deck", (x,y,.068),
+            (w*.47,d*.47,.068), steel).parent = group
+        box(identifier+" dock lip", (x-w*.45,y,.145),
+            (.037,d*.45,.022), beam).parent = group
+        for offset in (-.24,.24):
+            place(cargo, group, (x+w*.10,y+d*offset,.14), (w*.54,d*.32,.53), merge=True)
+            cargo_count += 1
     else:
         nx, ny = max(1,round(w/1.4)), max(1,round(d/1.4))
         for ix in range(nx):
@@ -101,6 +132,6 @@ elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
     "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count, "rack_cargo_instances":rack_cargo_count, "container_instances":container_count,
     "reused_model_families":2, "new_model_families":2, "blender_seconds":elapsed,
-    "forklift_instances":forklift_count, "remaining":"office, stairs and loading bay"
+    "forklift_instances":forklift_count, "service_room_instances": len(service_rooms)
 }, indent=2))
 print("WAREHOUSE333_EXPORTED", cargo_count, wall_count, elapsed)

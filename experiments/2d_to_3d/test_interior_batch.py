@@ -117,3 +117,7 @@ def test_warehouse_racks_export_stock_under_each_rack_occluder():
         parts = [nodes[index]["name"] for index in forklift["children"]]
         assert sum(" fork" in part for part in parts) == 2
         assert sum(" wheel" in part for part in parts) == 4
+    by_name = {node["name"]: node for node in nodes}
+    for room, feature in (("east_office", " worktop"), ("east_stair", " nosing"), ("east_bay", " dock lip")):
+        group = by_name[f"Occludable_{room}"]
+        assert any(feature in nodes[index]["name"] for index in group["children"])
