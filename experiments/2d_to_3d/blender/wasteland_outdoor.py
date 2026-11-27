@@ -678,10 +678,14 @@ class WastelandOutdoors:
             self.trainyard_workshop_ruin(group, name, x, y, w, d)
         elif self.overpass and name.endswith("_ruin"):
             self.overpass_ruin(group, name, x, y, w, d)
+        elif self.scavenger_plaza and ("ruin" in name or name == "ne_corner"):
+            self.scavenger_perimeter_ruin(group, x, y, w, d)
         elif self.city and ("ruin" in name or name == "ne_corner"):
             self.concrete_box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16)).parent = group
             for side in (-1,1):
                 for index in range(3):
+                    if self.ruined_downtown and index == 1:
+                        continue
                     height = .75+.22*((index+(side>0))%3)
                     self.concrete_box(name+" fractured facade", (x+(index-1)*w*.31,y+side*d*.41,height/2),
                         (w*.154,d*.075,height/2), .065).parent = group
@@ -692,8 +696,6 @@ class WastelandOutdoors:
                 self.burned_market_ruin(group, name, x, y, w, d)
             elif self.flooded_square:
                 self.flooded_square_ruin(group, x, y, w, d)
-            elif self.scavenger_plaza:
-                self.scavenger_perimeter_ruin(group, x, y, w, d)
             elif self.cratered_waterfront:
                 self.waterfront_warehouse_ruin(group, name, x, y, w, d)
         elif self.irradiated_basin and name in {"west_ruin", "east_ruin"}:
@@ -1168,6 +1170,8 @@ class WastelandOutdoors:
         height = 2.35 if name in {"nw_ruin", "se_ruin"} else 1.75
         facade_y = y+street_side*depth*.486
         missing_bay = -1 if name.startswith(("nw", "se")) else 1
+        box("Downtown exposed storefront lintel", (x,facade_y,1.29),
+            (width*.24,.058,.071), self.steel,.018).parent = group
         for bay in (-1, 0, 1):
             if bay == missing_bay:
                 continue
