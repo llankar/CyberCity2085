@@ -960,6 +960,13 @@ class WastelandOutdoors:
                 (.080, .080, level/2), self.dark).parent = group
         box("Surviving market crossbeam", (x, y-street*depth*.31, level),
             (width*.37, .060, .080), self.steel).parent = group
+        shutter = box("Buckled market storefront shutter",
+                      (x-width*.16,y+street*depth*.25,.52),
+                      (width*.13,.038,.42),self.blue_sheet,.018)
+        shutter.rotation_euler.x = street*.24
+        shutter.parent = group
+        box("Charred market storefront jamb", (x-width*.31,y+street*depth*.25,.67),
+            (.055,.055,.67),self.dark,.012).parent = group
         for offset, height in ((-.25,.17), (.03,.28), (.30,.12)):
             piece = self.concrete_box("Fallen market floor fragment",
                                       (x+width*offset, y+street*depth*.08, .32+height),
