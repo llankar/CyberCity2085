@@ -44,3 +44,6 @@ def test_apartment_block_exports_street_fixtures_in_cutaway_groups():
     roots = {node["name"] for node in nodes if node.get("children")}
     assert len(traces) == 20
     assert {f"Occludable_{row['id']}" for row in traces} <= roots
+
+    northwest = next(node for node in nodes if node["name"] == "Occludable_northwest_building")
+    assert any(nodes[index]["name"] == "Northwest rooftop cargo" for index in northwest["children"])

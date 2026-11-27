@@ -5,6 +5,8 @@ from pathlib import Path
 import sys
 
 import bpy
+from mathutils import Vector
+from mathutils.geometry import tessellate_polygon
 
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
@@ -172,12 +174,17 @@ def build(name):
             continue
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
+            group = None
+            if name == "city_district_civic_center":
+                group = bpy.data.objects.new("Occludable_" + identifier, None)
+                bpy.context.collection.objects.link(group)
             for (ax,ay),(bx,by) in zip(points, points[1:]):
                 width = row["width"] * gw/cw
                 length = math.hypot(bx-ax, by-ay)
                 rail = box(identifier, ((ax+bx)/2,(ay+by)/2,.24),
                            (length/2,width/2,.24), frame)
                 rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
+                rail.parent = group
             continue
         if name == "city_district_holo_square" and identifier.startswith("bench_"):
             xs, ys = zip(*row["polygon"])
@@ -197,13 +204,36 @@ def build(name):
             mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in points], [], faces)
             mesh.materials.append(wall)
             if is_planter:
-                mesh.materials.append(foliage)
+                mesh.materials.append(gravel if name == "city_district_civic_center" else foliage)
                 mesh.polygons[1].material_index = 1
             island = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(island)
             group = bpy.data.objects.new("Occludable_" + identifier, None)
             bpy.context.collection.objects.link(group)
             island.parent = group
+            if name == "city_district_civic_center" and (is_planter or "_tree" in identifier):
+                if "_tree" in identifier or identifier == "monument_planter":
+                    x = sum(px for px,_ in points)/count
+                    y = sum(py for _,py in points)/count
+                    box(identifier + " central support", (x,y,.58), (.10,.10,.36), frame).parent = group
+                    if identifier == "monument_planter":
+                        box("Civic monument pedestal", (x,y,.47), (.58,.54,.19), frame).parent = group
+                        box("Civic monument beacon", (x,y,1.02), (.14,.14,.11), signs[2]).parent = group
+                vertices = [Vector((x,y,0)) for x,y in points]
+                for triangle in tessellate_polygon([vertices]):
+                    a,b,c = (vertices[index] for index in triangle)
+                    area = (b-a).cross(c-a).length/2
+                    if area < .022:
+                        continue
+                    x,y,_ = (a+b+c)/3
+                    radius = min(.32,math.sqrt(area)*.53)
+                    z = 1.03 if "_tree" in identifier else height+.12
+                    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1, location=(x,y,z))
+                    shrub = bpy.context.object
+                    shrub.name = identifier + " foliage"
+                    shrub.scale = (radius,radius,radius*.82)
+                    shrub.data.materials.append(foliage if len(group.children)%3 else leaf_tips)
+                    shrub.parent = group
             if is_building:
                 mesh.materials.append(roof)
                 mesh.polygons[1].material_index = 1

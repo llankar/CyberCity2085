@@ -22,6 +22,9 @@ for _, (x1, y1, x2, y2), (sx, sy) in survey["fans"]:
 assert Image.composite(Image.new("RGB", base.size), ImageChops.difference(base, result), mask).getbbox() is None
 out = Path("E:/CyberCity2085-3d-lab/generated/phase2/residential317")
 out.mkdir(exist_ok=True)
+wall_survey = json.loads((here.parents[1] / "assets/maps/city_district_apartment_block.wall-traces.json").read_text())
+roof_crate = next(row for row in wall_survey["walls"] if row["id"] == "northwest_crate")
+result, _ = prepare(result, {**wall_survey, "walls": [roof_crate]})
 result.save(out / "roof.png")
 
 

@@ -84,6 +84,13 @@ def test_civic_kiosk_exports_controls_under_the_occlusion_group():
     parts = {nodes[index]["name"] for index in kiosk["children"]}
     assert {f"northwest_kiosk {part}" for part in ("screen", "screen bezel", "hood", "control shelf")} <= parts
     assert sum(" service vent" in part for part in parts) == 3
+    survey = Path(__file__).resolve().parents[2] / "assets/maps/city_district_civic_center.wall-traces.json"
+    expected = {f"Occludable_{row['id']}" for row in json.loads(survey.read_text())["walls"]}
+    roots = {node["name"]: node for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
+    assert roots.keys() == expected
+    landmark = [nodes[index]["name"] for index in roots["Occludable_monument_planter"]["children"]]
+    assert "Civic monument beacon" in landmark
+    assert any(" foliage" in part for part in landmark)
 
 
 def test_holo_square_exports_occludable_obstacles_and_landmark():

@@ -151,6 +151,16 @@ for row in street["walls"]:
             shrub.scale = (min(w*.29,.64),min(d*.29,.64),.58 if tree else .24)
             shrub.data.materials.append(leaves[i])
             shrub.parent = group
+roof_crate = next(row for row in json.loads(
+    (repo / "assets/maps/city_district_apartment_block.wall-traces.json").read_text()
+)["walls"] if row["id"] == "northwest_crate")
+x1,y1,x2,y2 = roof_crate["rect"]
+roof_group = bpy.data.objects["Occludable_northwest_building"]
+roof_shell = next(obj for obj in roof_group.children if obj.name.endswith(" shell"))
+height = max((roof_shell.matrix_world @ vertex.co).z for vertex in roof_shell.data.vertices)
+center = ((x1+x2)*gw/(2*cw)-gw/2, gh/2-(y1+y2)*gh/(2*ch), height)
+place(crate, roof_group, center, ((x2-x1)*gw/cw,(y2-y1)*gh/ch,.66))[0].name = "Northwest rooftop cargo"
+
 floor = bpy.data.materials["Residential original street floor"]
 next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE").image = bpy.data.images.load(
     str(output / "street_floor.png")
