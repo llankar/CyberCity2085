@@ -805,6 +805,12 @@ def build(name):
                 place(library / "urban_facade280/window.glb", group,
                       (x-w*.23, back-direction*.035, 1.10),
                       (min(1.65,w*.34), .28, 1.52), yaw=angle+math.pi, merge=True)
+                if freeway and height >= 3.2:
+                    place(library / "urban_facade280/window.glb", group,
+                          (door_x, back-direction*.05, height*.65),
+                          (min(1.6,w*.35), .28, .72), yaw=angle+math.pi, merge=True)
+                    box(identifier + " rear utility conduit", (x-w*.40,back-direction*.06,height*.46),
+                        (.035,.045,height*.40), frame,.01).parent = group
         if industrial:
             door_width = min(w*.48, 3.3)
             box(identifier + " loading shutter", (x,front+direction*.07,.95),
