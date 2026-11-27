@@ -77,3 +77,11 @@ def test_metro_column_and_stair_details_keep_independent_visibility():
         parts = [nodes[index]["name"] for index in stair["children"]]
         assert sum(" tread nosing" in name for name in parts) == 8
         assert sum(" handrail" in name and " post" not in name for name in parts) == 2
+    tracks = [node for node in nodes if node["name"].startswith("Occludable_")
+              and node["name"].endswith("_tracks")]
+    assert len(tracks) == 6
+    for track in tracks:
+        parts = [nodes[index]["name"] for index in track["children"]]
+        assert len(parts) == 4
+        assert sum(" sleeper bed" in name for name in parts) == 1
+        assert sum(" rail" in name for name in parts) == 2

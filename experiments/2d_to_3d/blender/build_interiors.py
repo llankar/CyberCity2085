@@ -110,10 +110,21 @@ def build(name):
         elif kind == "track":
             box(identifier+" ballast", (x,y,.012), (w/2,d/2,.012), ballast).parent = group
             count = max(1, round(w/.40))
+            sleepers = []
             for i in range(count):
                 offset = ((i+.5)/count-.5)*w
-                box(identifier+" sleeper", (x+offset,y,.046),
-                    (.077,d*.34,.025), partition_cap).parent = group
+                sleeper = box(identifier+" sleeper", (x+offset,y,.046),
+                              (.077,d*.34,.025), partition_cap)
+                sleeper.parent = group
+                sleepers.append(sleeper)
+            bpy.ops.object.select_all(action="DESELECT")
+            for sleeper in sleepers:
+                sleeper.select_set(True)
+            bpy.context.view_layer.objects.active = sleepers[0]
+            bpy.ops.object.convert(target="MESH")
+            if len(sleepers) > 1:
+                bpy.ops.object.join()
+            bpy.context.object.name = identifier + " sleeper bed"
             for side in (-1,1):
                 box(identifier+" rail", (x,y+side*d*.23,.104),
                     (w/2,.044,.032), rail).parent = group
