@@ -30,8 +30,13 @@ class WastelandOutdoors:
              ((617,428),(671,489)), ((620,493),(684,523)), ((657,540),(704,540))),
         )
         for number, ramp in enumerate(shoulders, 1):
-            vertices = [(*self.coordinates(px*self.cw/960, py*self.ch/540), z)
-                        for z in (.20, .035) for pair in ramp for px, py in pair]
+            # Bring both approaches down to meet the painted junctions.
+            heights = [.008 + .192*min(index/2, (len(ramp)-1-index)/2, 1)
+                       for index in range(len(ramp))]
+            vertices = [(*self.coordinates(px*self.cw/960, py*self.ch/540),
+                         -.024 if underside else heights[index])
+                        for underside in (False, True)
+                        for index, pair in enumerate(ramp) for px, py in pair]
             bottom = len(vertices)//2
             faces = []
             for index in range(0, bottom-2, 2):

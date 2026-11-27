@@ -1549,3 +1549,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-COLLAPSED-OVERPASS-08 / DONE for parity with variant 03. Re-exported 08 on E: with raised deck fragments, aggregate, seams and retained roadbed. Ten targeted tests passed, with both variants covered. Godot imported 85 meshes for 08 and the new overview was inspected. The curved ramps remain painted. Next: trace the curved ramps for raised geometry following the illustrated roadbeds.
 
 - EXPERIMENTAL-COLLAPSED-OVERPASS-RAMPS / IN_PROGRESS. Reconstructed four curved road ribbons with textured surfaces and raised edges on variants 03 and 08. Both GLBs were rebuilt on E: and ten targeted tests passed. Godot rendered variant 08. Next: review the ramp junctions against the source and refine the relief without changing tactical elevations.
+
+- EXPERIMENTAL-COLLAPSED-OVERPASS-APPROACHES / DONE for the ramp junction slopes. Tapered the eight approaches toward the original road surface in variants 03 and 08. Both exports rebuilt on E: and ten tests passed. Inspected the refreshed 08 Godot overview. Next: address the repeated bare ruin silhouettes around the ramps.

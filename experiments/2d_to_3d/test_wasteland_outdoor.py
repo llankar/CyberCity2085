@@ -52,6 +52,9 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
         primitives = data["meshes"][ramp["mesh"]]["primitives"]
         assert len(primitives) == 2
         assert all("TEXCOORD_0" in part["attributes"] for part in primitives)
+        surface = data["accessors"][primitives[0]["attributes"]["POSITION"]]
+        assert surface["min"][1] == pytest.approx(.008)
+        assert surface["max"][1] == pytest.approx(.20)
     for obstacle in ("collapsed_center_span", "collapsed_north_span"):
         assert f"Occludable_{obstacle}" in root_nodes
         fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
