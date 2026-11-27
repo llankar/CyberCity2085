@@ -258,3 +258,13 @@ def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():
         for component in ("floor pan", "doorway threshold", "worktop", "monitor"):
             assert any(part.startswith(f"Security bay {component}") for part in parts)
         assert all("roof" not in part.lower() for part in parts)
+
+    for identifier in expected:
+        parts = [nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]]
+        if identifier.startswith("barrier_"):
+            assert sum(part.startswith("Barrier anchor post") for part in parts) >= 3
+        elif identifier.startswith("scanner_"):
+            assert sum(part.startswith("Scanner conveyor slat") for part in parts) == 8
+            assert sum(part.startswith("Scanner arch upright") for part in parts) == 2
+        elif identifier.startswith("security_booth_"):
+            assert any(part.startswith("Checkpoint reader display") for part in parts)

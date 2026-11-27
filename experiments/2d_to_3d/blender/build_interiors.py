@@ -13,6 +13,7 @@ from interior_batch import INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
+    build_checkpoint_fixture,
 )
 from library_placement import place, reset_library_cache
 
@@ -51,6 +52,8 @@ def build(name):
     shader = screen.node_tree.nodes["Principled BSDF"]
     shader.inputs["Emission Color"].default_value = (.035,.52,.67,1)
     shader.inputs["Emission Strength"].default_value = .4
+    checkpoint = name == "city_industrial_security_checkpoint"
+    warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
     showcase = name in {"city_interior_blacksite_lab", "city_interior_medical_clinic"}
     partition_meshes = []
     for row in survey["walls"]:
@@ -125,6 +128,8 @@ def build(name):
             build_containment_chamber(group, x, y, w, d, wall_finish, partition_cap, screen)
         elif name == "city_interior_medical_clinic" and identifier == "northeast_scanner":
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
+        elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
+            build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)

@@ -137,3 +137,41 @@ def build_security_bay(group, identifier, x, y, w, d, wall, crate, steel, trim, 
          (.19,.012,.095), screen)
     place(crate, group, center(front_width*.28,depth*.12,.076),
           (front_width*.26,depth*.38,.72), yaw=yaw)
+
+
+
+def build_checkpoint_fixture(group, identifier, x, y, w, d, steel, trim, screen, warning):
+    vertical = d > w
+    length, width = (d,w) if vertical else (w,d)
+
+    def part(label, along, across, z, half_length, half_width, half_height, material):
+        dx,dy = (across,along) if vertical else (along,across)
+        a,b = (half_width,half_length) if vertical else (half_length,half_width)
+        box(label, (x+dx,y+dy,z), (a,b,half_height), material, .018).parent = group
+
+    if identifier.startswith("barrier_"):
+        segments = max(2, round(length/1.6))
+        span = length*.94/segments
+        for index in range(segments):
+            offset = ((index+.5)-segments/2)*span
+            part("Barrier inset panel", offset,0,.41,span*.45,min(width*.25,.24),.23,trim)
+            part("Barrier top rail", offset,0,.66,span*.46,min(width*.31,.28),.033,steel)
+        for index in range(segments+1):
+            offset = (index-segments/2)*span
+            part("Barrier anchor post", offset,0,.43,.062,min(width*.36,.32),.43,warning)
+            part("Barrier mounting foot", offset,0,.058,.11,min(width*.46,.38),.058,steel)
+    elif identifier.startswith("scanner_"):
+        part("Scanner conveyor bed", 0,0,.26,length*.44,width*.31,.24,trim)
+        for index in range(8):
+            offset = (index-3.5)*length*.10
+            part("Scanner conveyor slat", offset,0,.514,length*.036,width*.27,.024,steel)
+        for side in (-1,1):
+            part("Scanner arch upright", length*.05,side*width*.37,.64,length*.13,width*.095,.57,steel)
+            part("Scanner status strip", length*.05,side*width*.469,.79,length*.074,.017,.16,screen)
+        part("Scanner arch cap", length*.05,0,1.22,length*.132,width*.465,.06,steel)
+    else:
+        part("Checkpoint terminal plinth", 0,0,.09,length*.47,width*.47,.09,trim)
+        part("Checkpoint terminal housing", 0,0,.51,length*.34,width*.38,.40,steel)
+        part("Checkpoint terminal fascia", 0,0,.91,length*.30,width*.33,.053,trim)
+        part("Checkpoint reader display", -length*.12,0,.975,length*.104,width*.24,.020,screen)
+        part("Checkpoint terminal warning panel", length*.17,0,.967,length*.077,width*.23,.016,warning)
