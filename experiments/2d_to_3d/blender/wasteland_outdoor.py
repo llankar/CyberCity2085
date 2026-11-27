@@ -149,7 +149,7 @@ class WastelandOutdoors:
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
                  scavenger_plaza=False, ruined_transit=False, cratered_waterfront=False,
-                 salt_flat=False, wrecked_highway=False, trainyard=False):
+                 salt_flat=False, dust_road=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -162,6 +162,7 @@ class WastelandOutdoors:
         self.ruined_transit = ruined_transit
         self.cratered_waterfront = cratered_waterfront
         self.salt_flat = salt_flat
+        self.dust_road = dust_road
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
@@ -373,6 +374,14 @@ class WastelandOutdoors:
                 length, breadth = length*fit, breadth*fit
                 self.trainyard_turntable(x, y, yaw, breadth)
             self.trainyard_wagon(group, name, x, y, length, breadth, yaw)
+        elif self.dust_road and name in {"wreck_se", "wreck_south", "truck_e"}:
+            kind, angle = {"wreck_se": ("convoy_mw", .03),
+                           "wreck_south": ("wreck_south", .34),
+                           "truck_e": ("wreck_truck_e", .52)}[name]
+            breadth = min(breadth, length*.32)
+            c, s = math.cos(angle), math.sin(angle)
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.convoy_vehicle(group, kind, x, y, length*fit, breadth*fit, angle)
         elif self.salt_flat and name in {"wreck_mid_e", "wreck_south"}:
             if name == "wreck_mid_e":
                 axis, tanker = (30, -32), False

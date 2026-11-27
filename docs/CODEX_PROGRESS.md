@@ -1611,3 +1611,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SALT-FLAT-HEAVY-WRECKS / DONE for two vehicles. Reused the tanker and open flatbed and fit their diagonal silhouettes to the south and east survey footprints. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: compare the low fences and poles with the source.
 
 - EXPERIMENTAL-SALT-FLAT-FENCES / DONE for five surveyed polylines. Replaced solid walls with open two-rail fences, uneven posts and leaning braces; preserved source tactical boundaries. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: inspect Dust Road Ambush for distinct reference-specific cover and vehicle silhouettes.
+
+- EXPERIMENTAL-DUST-ROAD-HEAVY-WRECKS / DONE for three surveyed vehicles per map. Differentiated the large southeast tanker and two flatbeds, matching their dominant axes and retaining the original survey. Both GLBs rebuilt on E:, ten tests passed and 06 rendered in Godot. Next: refine roadside barricades and sandbag silhouettes.

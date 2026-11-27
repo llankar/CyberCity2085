@@ -238,6 +238,7 @@ def build(name):
                                    ruined_transit=name.endswith("_ruined_transit_plaza"),
                                    cratered_waterfront=name == "wasteland_city_12_cratered_waterfront",
                                    salt_flat=name.endswith("_salt_flat_ambush"),
+                                   dust_road=name.endswith("_dust_road_ambush"),
                                    wrecked_highway=name.endswith("_wrecked_highway"),
                                    trainyard=name.endswith("_rusted_trainyard"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
