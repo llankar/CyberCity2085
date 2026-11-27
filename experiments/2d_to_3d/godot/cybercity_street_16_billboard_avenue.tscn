@@ -2,5 +2,5 @@
 [ext_resource type="Script" path="res://laboratory247.gd" id="1"]
 [node name="BillboardAvenueReview" type="Node3D"]
 script = ExtResource("1")
-review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/cybercity_street_16_billboard_avenue/"
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/cybercity_street_15_billboard_avenue/"
 review_size = 38.0

@@ -2,5 +2,5 @@
 [ext_resource type="Script" path="res://laboratory247.gd" id="1"]
 [node name="InteriorReview" type="Node3D"]
 script = ExtResource("1")
-review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/interiors/wasteland_inner_10_looted_vault/"
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/interiors/wasteland_inner_05_looted_vault/"
 review_size = 38.0
