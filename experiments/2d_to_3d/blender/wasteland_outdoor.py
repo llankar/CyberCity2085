@@ -174,7 +174,18 @@ class WastelandOutdoors:
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
                 length = math.hypot(bx-ax,by-ay)
-                if self.overpass:
+                if name in {"northeast_barricade", "southwest_barricade"}:
+                    midpoint = ((ax+bx)/2, (ay+by)/2)
+                    yaw = math.atan2(by-ay,bx-ax)
+                    segment = box("Scavenger scrap barricade", (*midpoint,height/2),
+                                  (length*.48,width*.42,height*.45), self.steel,.035)
+                    for offset in (-.36,.0,.36):
+                        post = box("Scavenger barricade brace",
+                                   (midpoint[0]+offset*(bx-ax), midpoint[1]+offset*(by-ay), height*.49),
+                                   (min(.055,length*.06),width*.48,height*.49), self.dark,.012)
+                        post.rotation_euler.z = yaw
+                        post.parent = group
+                elif self.overpass:
                     segment = self.concrete_guardrail(name,length,width,height)
                     segment.location = ((ax+bx)/2,(ay+by)/2,0)
                 else:
