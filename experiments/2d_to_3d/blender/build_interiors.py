@@ -110,8 +110,11 @@ def build(name):
             make_material("Shelter faded teal blanket", (.034,.063,.065,1), 0,.94),
             make_material("Shelter patched brown blanket", (.079,.055,.041,1), 0,.96),
         )
-    exposed_concrete_walls = apartment_shelter or name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
-    continuous_wall_uvs = exposed_concrete_walls or name.endswith(("_looted_vault", "_maintenance_depot"))
+    looted_vault = name.endswith("_looted_vault")
+    if looted_vault:
+        steel = make_material("Vault oxidized steel", (.051,.045,.037,1), .46,.78)
+    exposed_concrete_walls = apartment_shelter or looted_vault or name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
+    continuous_wall_uvs = exposed_concrete_walls or name.endswith("_maintenance_depot")
     concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
     if concrete_partitions:
         aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
