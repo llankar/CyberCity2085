@@ -184,8 +184,8 @@ class WastelandOutdoors:
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
-                for label, color in (("rust", (.28,.12,.08)), ("sand", (.31,.24,.15)),
-                                     ("blue", (.065,.14,.19)), ("olive", (.14,.16,.09)))
+                for label, color in (("rust", (.13,.056,.041)), ("sand", (.15,.116,.078)),
+                                     ("blue", (.038,.073,.094)), ("olive", (.072,.082,.047)))
             }
         if burned_market:
             self.scorched_canvas = make_material("Scorched market canvas", (.23,.16,.10,1), .03,.93)
@@ -987,7 +987,8 @@ class WastelandOutdoors:
             mesh = bpy.data.meshes.new("Salvaged canvas")
             mesh.from_pydata([(center-half,-depth,1.14), (center+half,-depth,1.16),
                               (center+half,depth,1.12), (center-half,depth,1.15),
-                              (center+half*.14,0,1.43)], [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
+                              (center+half*.14,width*.06,1.23+index*.035)],
+                             [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
             mesh.materials.append(self.stall_fabric[fabric])
             cloth = bpy.data.objects.new("Salvaged canopy "+fabric, mesh)
             bpy.context.collection.objects.link(cloth)

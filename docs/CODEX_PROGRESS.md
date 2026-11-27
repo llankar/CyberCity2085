@@ -2061,3 +2061,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RUINED-TRANSIT-PLATFORM-EDGE / DONE for export and native loading. Added broken warning strips on the existing platform decks, set back from the track edge and confined to each surveyed platform. Rebuilt the GLB on E:, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: inspect nearby stair and railing profiles at tactical zoom.
 
 - EXPERIMENTAL-RUINED-TRANSIT-STAIR-GUARDS / DONE for export and native loading. Added lower rails and intermediate uprights to the longer surveyed stair guards, within the existing curb trace. Rebuilt on E:, refreshed the Godot overview and gallery, and passed eleven outdoor tests. Next: review larger silhouettes on other outdoor urban maps.
+
+- EXPERIMENTAL-SCAVENGER-PLAZA-CANOPIES / DONE for export and native loading. Matched the source's muted salvage fabrics and lowered and offset the canopy peaks within their existing footprints. Rebuilt 05/10 on E:, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: compare market counter cargo and perimeter rubble at combat zoom.
