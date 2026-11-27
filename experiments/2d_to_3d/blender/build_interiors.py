@@ -15,7 +15,8 @@ from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
     build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture, build_server_bank,
-    build_facility_fixture, build_floor_grate, build_operating_table, merge_fixture_meshes,
+    build_diagnostic_bench, build_facility_fixture, build_floor_grate, build_operating_table,
+    merge_fixture_meshes,
 )
 from library_placement import place, reset_library_cache
 
@@ -332,6 +333,8 @@ def build(name):
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)
+        elif kind == "diagnostic_bench":
+            build_diagnostic_bench(group, x, y, w, d, partition_cap, steel, screen)
         elif kind == "operating_table":
             build_operating_table(group, x, y, w, d, partition_cap, steel, screen)
         elif kind == "bed":

@@ -352,7 +352,10 @@ def test_interior_maps_export_remaining_fixture_groups():
     }
     additions.update({
         "city_interior_medical_clinic": {"east_operating_table": "Surgery operating table"},
-        "cybercity_inner_04_medical_clinic": {"operating_table": "Surgery operating table"},
+        "cybercity_inner_04_medical_clinic": {
+            "operating_table": "Surgery operating table",
+            "west_scan": "Clinic diagnostic bench", "west_scan_s": "Clinic diagnostic bench",
+        },
         "city_interior_command_deck": {"north_display": "Command vertical display"},
         "city_interior_police_records": {"south_control": "Command map display"},
         "cybercity_inner_11_cyber_cafe": {"east_office_counter": "Workbench steel top"},

@@ -98,6 +98,9 @@ def fixtures(name):
             "bath_sinks": "bath_sink", "bath_cubicles": "toilet_stalls", "west_storage": "rack",
         },
         "cybercity_inner_06_blacksite_lab": {"nw_sink": "bath_sink"},
+        "cybercity_inner_04_medical_clinic": {
+            "west_scan": "diagnostic_bench", "west_scan_s": "diagnostic_bench",
+        },
     }.get(name, {})
     safehouse_fixtures = {
         "west_gym_weight": "gym_weights", "south_tools": "workbench",

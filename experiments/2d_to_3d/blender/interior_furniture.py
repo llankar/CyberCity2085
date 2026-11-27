@@ -116,6 +116,19 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
 
 
 
+def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen):
+    box("Diagnostic housing", (x,y,.37), (w*.45,d*.47,.37), housing, .035).parent = group
+    box("Diagnostic steel rim", (x,y,.75), (w*.48,d*.48,.055), steel, .025).parent = group
+    panel_count = 3 if d > w*2 else 2
+    for panel in range(panel_count):
+        panel_y = y+d*((panel+.5)/panel_count-.5)*.87
+        box("Diagnostic screen", (x-w*.065,panel_y,.81),
+            (w*.28,d*.33/panel_count,.016), screen, .012).parent = group
+        box("Diagnostic button bank", (x+w*.30,panel_y,.81),
+            (w*.075,d*.22/panel_count,.025), housing, .012).parent = group
+    merge_fixture_meshes(group, "Clinic diagnostic bench")
+
+
 def build_operating_table(group, x, y, w, d, housing, steel, screen):
     vertical = d > w
     length, width = (d, w) if vertical else (w, d)
