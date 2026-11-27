@@ -1861,15 +1861,22 @@ class WastelandOutdoors:
                              (length*offset,side*radius*.66,.725),
                              (length*.023,radius*.27,.105), self.dark,.018)
         elif name == "convoy_me":
+            # Sample the four main crate lids and the smaller crate at the tail.
+            crate_lids = {
+                (-1, 1): (518,238,531,249), (1, 1): (520,252,533,262),
+                (-1, 0): (541,236,552,247), (1, 0): (542,251,553,261),
+                (-1,-1): (576,251,586,257), (1,-1): (576,251,586,257),
+            }
             for row in (-1,1):
                 for slot in (-1,0,1):
                     crate_x, crate_y = (-.147+slot*.19)*length, row*width*.205
                     part("Convoy strapped crate", (crate_x,crate_y,.83),
-                         (length*.079,width*.155,.18),self.canvas)
+                         (length*.079,width*.155,.18),self.canvas,
+                         source=crate_lids[row,slot])
                     if self.convoy_crossing:
                         for offset in (-.047,.047):
                             part("Convoy crate lid batten", (crate_x+length*offset,crate_y,1.02),
-                                 (length*.012,width*.15,.017),self.dark,.008)
+                                 (length*.006,width*.15,.013),self.dark,.006)
         elif name.startswith("wreck_"):
             for side in (-1,1):
                 part("Wreck flatbed side rail", (-length*.135,side*width*.365,.75),
