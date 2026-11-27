@@ -1000,6 +1000,16 @@ def build(name):
         bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
         bpy.context.object.scale = (gw/2, gh/2, 1)
         bpy.context.object.data.materials.append(floor)
+    if name == "city_transit_freight_yard":
+        railhead = make_material("Freight yard worn rail steel", (.14,.16,.17,1), .72,.48)
+        # Railheads are visual only and sit on the two painted tracks.
+        for left, right, rows in ((83,901,(133,153)), (128,868,(331,349))):
+            center_x = (left+right)*gw/(2*cw)-gw/2
+            half_length = (right-left)*gw/(2*cw)
+            for row in rows:
+                rail_y = gh/2-row*gh/ch
+                box("Freight yard running rail", (center_x,rail_y,.006),
+                    (half_length,.024,.024),railhead,.008)
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")
