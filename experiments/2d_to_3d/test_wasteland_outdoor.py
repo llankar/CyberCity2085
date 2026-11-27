@@ -239,6 +239,8 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                            for i in column["children"]) == 3
             south = next(node for node in nodes if node["name"] == "South transit carriage")
             parts = [nodes[i]["name"] for i in south["children"]]
+            assert sum(part.startswith("Transit carriage recessed coupler") for part in parts) == 2
+            assert sum(part.startswith("Transit carriage dead lamp") for part in parts) == 4
             assert sum(part.startswith("Exposed transit roof rib") for part in parts) == 3
             assert not any(part.startswith("Transit carriage roof") for part in parts)
             train = next(node for node in nodes if node["name"] == "Occludable_west_train")

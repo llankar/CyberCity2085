@@ -1033,6 +1033,11 @@ class WastelandOutdoors:
                 (length*.077,width*.42,.35), self.steel,.065).parent = group
             box("Transit cab broken glazing", (end*length*.476,0,.96),
                 (.018,width*.32,.095), self.dark,.014).parent = group
+            box("Transit carriage recessed coupler", (end*length*.479,0,.35),
+                (length*.018,width*.12,.074),self.dark,.025).parent = group
+            for side in (-1, 1):
+                box("Transit carriage dead lamp", (end*length*.478,side*width*.27,.69),
+                    (.020,width*.058,.037),self.facade_blue,.011).parent = group
             for offset in (-.043,.043):
                 for side in (-1,1):
                     bpy.ops.mesh.primitive_cylinder_add(
