@@ -28,8 +28,19 @@ func sound(key: String, position_value: Vector3, gain := -10.0, pitch := 1.0) ->
 	player.pitch_scale = pitch
 	player.unit_size=20
 	add_child(player); player.global_position = position_value; player.play()
-	player.finished.connect(player.queue_free)
+	player.finished.connect(release_sound.bind(player), CONNECT_ONE_SHOT)
 	audio_events.append({"time":clock,"file":path,"gain_db":gain})
+
+func release_sound(player: AudioStreamPlayer3D) -> void:
+	player.stop()
+	player.stream = null
+	player.queue_free()
+
+func stop_sounds() -> void:
+	for child in get_children():
+		if child is AudioStreamPlayer3D and not child.is_queued_for_deletion():
+			release_sound(child)
+	sound_streams.clear()
 
 func line(a: Vector3, b: Vector3, color: Color, radius: float, life: float) -> MeshInstance3D:
 	var node := MeshInstance3D.new(); var mesh := CylinderMesh.new()

@@ -15,6 +15,7 @@ var cutaway := Cutaway.new()
 var actors := {}
 var last_sequence := -1
 var smoke := false
+var closing := false
 var pending_command := {}
 var smoke_command_sent_usec := 0
 var smoke_destination: Array[int]
@@ -83,6 +84,8 @@ func apply_presentation(config: Dictionary) -> bool:
 
 
 func _process(delta: float) -> void:
+ if closing:
+  return
  if cutaway.camera != null:
   cutaway.update(delta)
  if effects != null:
@@ -99,6 +102,8 @@ func _process(delta: float) -> void:
   playing_events = true
   await play_phase_events(mailbox.events)
   playing_events = false
+  if closing:
+   return
  var readout: Array[String] = []
  for unit: Dictionary in state.units:
   var id: String = unit.id
@@ -250,9 +255,19 @@ func _process(delta: float) -> void:
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_squad_close.png") != OK:
      get_tree().quit(15)
      return
-    await get_tree().create_timer(.7).timeout
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
-    get_tree().quit()
+    close_battlefield()
+
+
+func close_battlefield() -> void:
+ if closing:
+  return
+ closing = true
+ if effects != null:
+  effects.stop_sounds()
+  # Allow the audio server to process the stop before its shutdown.
+  await get_tree().create_timer(.12).timeout
+ get_tree().quit()
 
 
 func run_render_benchmark() -> void:
@@ -300,11 +315,15 @@ func cell_position(cell: Array) -> Vector3:
 
 func play_phase_events(events: Array) -> void:
  for event: Dictionary in events:
+  if closing:
+   return
   var attacker: TacticalActor = actors[event.actor]
   var from := cell_position(event.from_cell)
   attacker.update_state(from, 1)
   if attacker.movement != null and attacker.movement.is_running():
    await attacker.movement.finished
+   if closing:
+    return
   var melee: bool = event.kind == "attack" and from.distance_to(cell_position(event.to_cell)) <= 1.0
   attacker.fire_at(cell_position(event.to_cell), melee)
   effects.tactical_attack("melee" if melee else "fire", target_center(attacker),
@@ -391,8 +410,10 @@ func ground_under_cursor(screen_point: Vector2) -> Variant:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+ if closing:
+  return
  if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-  get_tree().quit()
+  close_battlefield()
   return
  if review_camera == null:
   return
