@@ -128,6 +128,8 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None, shallow=
     retaining = make_material("Canyon retaining concrete", (.046,.062,.078,1), .15,.86)
     mesh.materials.append(retaining)
     label = "Waterfront quay retaining walls" if water else "Rooftop canyon retaining walls"
+    if shallow:
+        label = "Flooded avenue curb edges"
     bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
     if water:
         if shallow:
@@ -319,7 +321,8 @@ def build(name):
         terrain = json.loads((out / "rooftop_terrain.json").read_text())
         basin_triangles = [tuple(Vector(p) for p in triangle) for triangle in terrain["street"]]
     freeway = name.endswith("_elevated_freeway")
-    transport_facades = freeway or name.endswith("_transit_interchange")
+    flood_avenue = name.endswith("_flood_prone_avenue")
+    transport_facades = freeway or name.endswith("_transit_interchange") or flood_avenue
     deck_rails = {row["id"]: row["points"][0][1] for row in survey["walls"]
                   if row["id"] in {"highway_north_rail", "highway_south_rail"}}
     riot_square = name == "city_district_riot_square"
@@ -957,7 +960,7 @@ def build(name):
     elif waterfront:
         water = textured_material("Waterfront basin water", out / "floor.png", .32)
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water)
-    elif name.endswith("_flood_prone_avenue"):
+    elif flood_avenue:
         water = textured_material("Shallow avenue floodwater", out / "floor.png", .26)
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water, shallow=True)
     elif bridge_access:
