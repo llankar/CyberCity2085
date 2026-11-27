@@ -125,6 +125,19 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
     label = "Waterfront quay retaining walls" if water else "Rooftop canyon retaining walls"
     bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
     if water:
+        rubber = make_material("Weathered quay fender rubber", (.033,.041,.045,1), 0,.91)
+        for start, end in terrain["edges"]:
+            a, b = Vector(vertex(start,deck_z)), Vector(vertex(end,deck_z))
+            edge = b-a
+            if edge.length < 2.5:
+                continue
+            normal = Vector((edge.y,-edge.x,0)).normalized()
+            slots = max(1, int(edge.length/3.4))
+            for index in range(slots):
+                center = a.lerp(b,(index+.5)/slots) + normal*.11
+                center.z -= .46
+                fender = box("Quay rubber fender",center,(.23,.16,.39),rubber,.055)
+                fender.rotation_euler.z = math.atan2(edge.y,edge.x)
         return
     facade = bpy.data.objects.new("Canyon facade details", None)
     bpy.context.collection.objects.link(facade)
