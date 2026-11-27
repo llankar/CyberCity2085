@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 from blender.dockside_vessels import VESSEL_OUTLINES
+from blender.freight_stock import SOUTH_SIDING_LOADS
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
@@ -147,6 +148,11 @@ def main():
         survey["walls"].extend(
             {"id": label, "polygon": [(2*x, 2*y) for x,y in outline]}
             for label, outline in VESSEL_OUTLINES.items()
+        )
+    if args.map == "city_transit_freight_yard":
+        survey["walls"].extend(
+            {"id": f"south_siding_load_{index}", "rect": bounds}
+            for index, bounds in enumerate(SOUTH_SIDING_LOADS, 1)
         )
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')

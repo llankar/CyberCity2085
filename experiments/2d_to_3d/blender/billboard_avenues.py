@@ -13,6 +13,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place, reset_library_cache
 from loading_crane import build_crane
 from shipping_container import build_container
+from freight_stock import SOUTH_SIDING_LOADS
 from wasteland_outdoor import WastelandOutdoors
 from industrial_forklift import build_forklift
 
@@ -1017,6 +1018,22 @@ def build(name):
                     (half_length,.012,.015),rail_web,.003)
                 box("Freight yard running rail", (center_x,rail_y,.033),
                     (half_length,.022,.008),railhead,.005)
+        wagon_skin = make_material("Freight wagon faded red", (.22,.052,.033,1), .55,.72)
+        for index, (left, top, right, bottom) in enumerate(SOUTH_SIDING_LOADS, 1):
+            wagon = bpy.data.objects.new(f"South siding cargo wagon {index}", None)
+            bpy.context.collection.objects.link(wagon)
+            x = (left+right)*gw/(2*cw)-gw/2
+            y = gh/2-(top+bottom)*gh/(2*ch)
+            length, width = (right-left)*gw/cw, (bottom-top)*gh/ch
+            box("Freight wagon underframe", (x,y,.20),
+                (length*.48,width*.44,.09),rail_web,.018).parent = wagon
+            for side in (-1,1):
+                box("Freight wagon bogie", (x+side*length*.29,y,.095),
+                    (length*.105,width*.38,.095),rail_web,.028).parent = wagon
+            load = build_container(wagon, x, y, length*.95, width*.90,
+                                   wagon_skin, railhead, rail_web)
+            load.scale.z = .40
+            load.location.z = .29+.88*load.scale.z
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")

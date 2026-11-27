@@ -20,6 +20,12 @@ def test_freight_yard_has_four_complete_rail_profiles():
         rails = [node for node in nodes if node["name"].startswith(f"Freight yard {component}")]
         assert len(rails) == 4
         assert all("mesh" in rail for rail in rails)
+    wagons = [node for node in nodes if node["name"].startswith("South siding cargo wagon")]
+    assert len(wagons) == 3
+    for wagon in wagons:
+        parts = [nodes[index]["name"] for index in wagon["children"]]
+        assert sum(part.startswith("Freight wagon bogie") for part in parts) == 2
+        assert any(part.startswith("Warehouse shipping container") for part in parts)
 
 
 @pytest.mark.parametrize(("family", "first_map"), [

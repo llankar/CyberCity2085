@@ -1863,3 +1863,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DOCKSIDE-VESSEL-DECKS / DONE. Inspected the harbor overview and built a wheelhouse, bridge glazing, hatch and mooring winch on each previously sparse deck. Re-exported, captured the revised scene in Godot and passed nineteen interior tests. Next: move to a different environment family with visible flat scenic elements.
 
 - EXPERIMENTAL-FREIGHT-RAIL-PROFILES / DONE. Compared the original artwork and realigned the four visual rails to the two painted track beds. Added raised heads, webs and feet while retaining the illustrated sleepers. Rebuilt the GLB on E:, captured the Godot overview and passed eleven outdoor export tests. Next: review the original rolling-stock silhouettes.
+
+- EXPERIMENTAL-FREIGHT-SOUTH-SIDING-CARGO / DONE. Converted three painted south siding loads to visual-only wagons with chassis, bogies and corrugated cargo. The experimental floor mask uses the same source bounds as the models. Rebuilt on E:, imported in Godot and passed eleven outdoor tests. Next: review wagon integration at tactical zoom and select the next map family.
