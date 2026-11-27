@@ -333,6 +333,20 @@ def build(name):
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)
+        elif kind == "rail_service_room":
+            inward = -1 if identifier.startswith("north") else 1
+            box("Rail service room rear wall", (x,y-inward*d*.45,.56),
+                (w*.47,d*.047,.56),steel,.02).parent = group
+            for side in (-1,1):
+                box("Rail service room side wall", (x+side*w*.43,y,.56),
+                    (w*.055,d*.43,.56),steel,.02).parent = group
+            box("Rail service desk", (x,y-inward*d*.25,.36),
+                (w*.34,d*.14,.36),partition_cap,.025).parent = group
+            box("Rail service display", (x-w*.18,y-inward*d*.25,.75),
+                (w*.115,d*.081,.03),screen,.009).parent = group
+            box("Rail service threshold", (x,y+inward*d*.43,.021),
+                (w*.33,d*.035,.022),rail,.008).parent = group
+            merge_fixture_meshes(group, "Open rail service room")
         elif kind == "rail_signal":
             panel_y = y+(.13 if identifier.startswith("south") else -.13)*d
             box("Rail signal armored cabinet", (x,y,.31),

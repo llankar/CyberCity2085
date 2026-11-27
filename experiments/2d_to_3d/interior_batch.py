@@ -101,6 +101,9 @@ def fixtures(name):
         "cybercity_inner_04_medical_clinic": {
             "west_scan": "diagnostic_bench", "west_scan_s": "diagnostic_bench",
         },
+        "city_transit_train_tunnel": {
+            "north_utility_w": "rail_service_room", "south_utility_e": "rail_service_room",
+        },
     }.get(name, {})
     safehouse_fixtures = {
         "west_gym_weight": "gym_weights", "south_tools": "workbench",

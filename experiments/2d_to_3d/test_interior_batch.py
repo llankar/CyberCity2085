@@ -91,6 +91,11 @@ def test_train_tunnel_exports_edge_to_edge_rails_and_two_sleeper_beds():
     signals = [node for node in data["nodes"] if node["name"].startswith("Trackside signal cabinet")]
     assert len(signals) == 5
     assert all("mesh" in signal for signal in signals)
+    nodes = data["nodes"]
+    for identifier in ("north_utility_w", "south_utility_e"):
+        group = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        assert any(nodes[index]["name"].startswith("Open rail service room")
+                   for index in group["children"])
     decks = [node for node in data["nodes"] if node["name"].startswith("Maintenance crossing ")
              and node["name"].endswith(" deck")]
     assert len(decks) == 2
