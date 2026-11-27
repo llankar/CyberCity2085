@@ -206,7 +206,18 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
             pytest.skip(f"Build {name} on E: first")
         with path.open("rb") as model:
             _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-            nodes = json.loads(model.read(size))["nodes"]
+            data = json.loads(model.read(size))
+        nodes = data["nodes"]
         groups = {node["name"] for node in nodes
                   if node["name"].startswith("Occludable_") and node.get("children")}
         assert groups == {f"Occludable_{identifier}" for identifier in expected}
+
+        for node in nodes:
+            if selected.get(node["name"]) != "partition":
+                continue
+            primitives = data["meshes"][node["mesh"]]["primitives"]
+            assert any(
+                "TEXCOORD_0" in part["attributes"]
+                and "baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]
+                for part in primitives
+            ), node["name"]

@@ -49,6 +49,8 @@ def build(name):
     shader = screen.node_tree.nodes["Principled BSDF"]
     shader.inputs["Emission Color"].default_value = (.035,.52,.67,1)
     shader.inputs["Emission Strength"].default_value = .4
+    showcase = name in {"city_interior_blacksite_lab", "city_interior_medical_clinic"}
+    partition_meshes = []
     for row in survey["walls"]:
         identifier = row["id"]
         kind = selected.get(identifier)
@@ -85,12 +87,23 @@ def build(name):
             faces = [tuple(reversed(range(count))), tuple(range(count,2*count))]
             faces.extend((i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count))
             mesh = bpy.data.meshes.new(identifier)
-            top = [(x,y,1.50 if kind == "partition" else .42+(i%4)*.15)
+            partition_height = .92 if identifier == "reception_counter" else 1.50
+            top = [(x,y,partition_height if kind == "partition" else .42+(i%4)*.15)
                    for i,(x,y) in enumerate(outline)]
             mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
             mesh.materials.append(steel)
             mesh.materials.append(partition_cap)
             mesh.polygons[1].material_index = 1
+            if showcase and kind == "partition":
+                uv = mesh.uv_layers.new(name="Panel UV")
+                for edge, face in enumerate(mesh.polygons[2:]):
+                    start, end = outline[edge], outline[(edge+1) % count]
+                    repeats = math.dist(start, end) / 1.7
+                    for loop, coord in zip(face.loop_indices, (
+                        (0, 0), (repeats, 0), (repeats, 1), (0, 1)
+                    )):
+                        uv.data[loop].uv = coord
+                partition_meshes.append(mesh)
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
@@ -238,6 +251,11 @@ def build(name):
                       (span,breadth,1.7), yaw=yaw)
         else:
             place(labs[kind], group, (x,y,0), (length*.97,breadth*.97,1.7), yaw=yaw)
+
+    if partition_meshes:
+        wall_finish = bpy.data.materials["Wall269 worn steel PBR"]
+        for mesh in partition_meshes:
+            mesh.materials[0] = wall_finish
 
     if name == "city_transit_train_tunnel":
         # The two continuous tracks are visible in the source texture but have
