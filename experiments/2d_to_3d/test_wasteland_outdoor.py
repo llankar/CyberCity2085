@@ -70,6 +70,11 @@ def test_freight_yard_has_four_complete_rail_profiles():
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
         gltf = json.loads(model.read(size))
     nodes = gltf["nodes"]
+    cladding = [node for node in nodes if " freight cladding inset" in node["name"]]
+    trays = [node for node in nodes if " freight cable tray" in node["name"]
+             and " clamp" not in node["name"]]
+    assert trays and len(cladding) == 2 * len(trays)
+    assert all("mesh" in node for node in cladding + trays)
     cranes = [node for node in nodes if node["name"].startswith("Dockside loading crane")]
     assert len(cranes) == 3
     for crane in cranes:

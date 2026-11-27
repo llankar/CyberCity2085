@@ -1322,6 +1322,18 @@ def build(name):
                     flank = x+side*(w/2+.025)
                     box(identifier + " service wall sill", (flank,y,.46),
                         (.028,d*.46,.12),frame,.012).parent = group
+                    for bay in (-.155, .155):
+                        box(identifier + " freight cladding bay", (flank,y+bay*d,height*.43),
+                            (.031,d*.134,height*.29),frame,.014).parent = group
+                        box(identifier + " freight cladding inset",
+                            (flank+side*.035,y+bay*d,height*.43),
+                            (.014,d*.116,height*.26),wall,.012).parent = group
+                    box(identifier + " freight cable tray", (flank+side*.056,y,height*.79),
+                        (.039,d*.407,.028),frame,.008).parent = group
+                    for offset in (-.27, .27):
+                        box(identifier + " freight cable tray clamp",
+                            (flank+side*.073,y+offset*d,height*.79),
+                            (.030,.036,.045),wall,.008).parent = group
                     for offset in (-.31, 0, .31):
                         box(identifier + " service wall mullion", (flank,y+offset*d,height*.46),
                             (.035,.055,height*.38),frame,.012).parent = group
