@@ -459,6 +459,8 @@ def test_interior_maps_export_remaining_fixture_groups():
         additions[f"wasteland_inner_{index}_bunker_command_post"] = {
             identifier: "Command map display" for identifier in ("north_map", "west_control", "east_control")
         }
+    for index in ("05", "10"):
+        additions[f"wasteland_inner_{index}_looted_vault"] = {"core": "Vault lid locking boss"}
     for name, fixtures_to_check in additions.items():
         path = (catalogue_environment(name) if name.startswith("wasteland_inner_")
                 else OUTPUT / name / "environment.glb")

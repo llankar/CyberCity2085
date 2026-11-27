@@ -585,6 +585,12 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Vault foundation", 0,0,.14,length*.48,width*.47,.14,trim)
         part("Vault armored housing", 0,0,.49,length*.41,width*.40,.34,steel)
         part("Vault locking plate", 0,0,.86,length*.36,width*.35,.06,trim)
+        for end in (-1, 1):
+            for side in (-1, 1):
+                part("Vault lid locking boss", end*length*.295,side*width*.278,.94,
+                     length*.036,width*.038,.025,steel)
+            part("Vault case reinforcing rib", end*length*.417,0,.45,
+                 length*.022,width*.32,.075,trim)
         radius = width*.18
         bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
                                          major_radius=radius, minor_radius=.034, location=(x,y,.99))
