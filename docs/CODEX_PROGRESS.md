@@ -2037,3 +2037,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SALT-FLAT-REPAIRS / DONE for export and native loading. Reintroduced high-frequency salt crust detail sampled from the original map only within the replacement mask. Rebuilt the artwork floor and environment on E:, refreshed the Godot overview and 122-map gallery, and passed eleven outdoor tests. Next: inspect the updated wreck footprints at combat zoom.
 
 - EXPERIMENTAL-SALT-FLAT-WRECK-CABS / DONE for export and native loading. Low-angle review showed solid-sided cabs. Added dark side windows, sills and a bumper to both truck wrecks within their existing footprint. Rebuilt on E:, refreshed Godot and the comparison gallery, and passed eleven outdoor tests. Next: identify the next major mismatch in the outdoor catalogue.
+
+- EXPERIMENTAL-ASHFIELD-LIGHTING / DONE for native overview. Matched both Ashfield scene light presets to reduce the warm cast and recover the original charcoal palette. Captured the shared model via scene 07, refreshed both catalogue plates, and passed two framing tests. Next: compare the exposed roof structures to the original at combat zoom.
