@@ -3,6 +3,10 @@ import json
 from pathlib import Path
 import re
 
+import pytest
+
+from catalogue_test_assets import catalogue_environment
+
 
 def test_selector_contains_a_preview_for_each_original_tactical_map():
     experiment = Path(__file__).resolve().parent
@@ -40,3 +44,13 @@ def test_identical_map_variants_share_visual_assets():
         folders = [re.search(r'^review_folder = "([^"]+)"$', (godot / catalogue[name]).read_text(),
                              re.MULTILINE).group(1) for name in (variant, original)]
         assert folders[0] == folders[1], variant
+
+
+def test_local_catalogue_exports_exist():
+    godot = Path(__file__).resolve().parent / "godot"
+    entries = json.loads((godot / "preproduction_catalog.json").read_text())
+    if not Path("E:/CyberCity2085-3d-lab/generated/phase2").is_dir():
+        pytest.skip("Local experimental exports are unavailable")
+    missing = [entry["map"] for entry in entries
+               if not catalogue_environment(entry["map"]).is_file()]
+    assert not missing, missing

@@ -25,7 +25,7 @@ func _ready() -> void:
  var available := 0
  for entry in CATALOG.data:
   if entry.has("scene"):available += 1
- caption.text="%d 3D previews available. %d original maps pending conversion." % [available, CATALOG.data.size()-available]
+ caption.text="%d 3D environments available" % available
  box.add_child(caption)
  var buttons:Array[Button]=[]
  for entry in CATALOG.data:
@@ -40,7 +40,7 @@ func _ready() -> void:
   box.add_child(button)
   buttons.append(button)
   if not button.disabled:
-   button.pressed.connect(func():assert(get_tree().change_scene_to_file(scene_path)==OK))
+   button.pressed.connect(func():open_environment(scene_path, caption))
  if "--menu-smoke" in OS.get_cmdline_user_args():
   await get_tree().process_frame
   if get_tree().has_meta("environment_menu_returned"):
@@ -53,3 +53,9 @@ func _ready() -> void:
     if argument.begins_with("--review-index="):index=int(argument.get_slice("=",1))
    assert(index>=0 and index<buttons.size() and not buttons[index].disabled)
    buttons[index].pressed.emit()
+
+func open_environment(scene_path: String, caption: Label) -> void:
+ var result := get_tree().change_scene_to_file(scene_path)
+ if result != OK:
+  caption.text = "Could not open this environment: %s" % error_string(result)
+  push_error("Could not load %s: %s" % [scene_path, error_string(result)])
