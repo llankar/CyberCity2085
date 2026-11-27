@@ -1875,3 +1875,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRAIN-TUNNEL-SIGNAL-CABINETS / DONE. Compared the source and modeled the five surveyed track boxes as armored low cabinets with paired indicators and mirrored control faces. Each cabinet exports as one mesh in its existing cutaway group. Rebuilt on E:, captured in Godot and passed nineteen interior tests. Next: compare the tunnel end rooms and preserve all rail openings.
 
 - EXPERIMENTAL-TRAIN-TUNNEL-SERVICE-ROOMS / DONE. Replaced generic machinery in the two surveyed end rooms with roofless steel rooms, open platform-facing fronts and lit workstations. The export preserves their original footprints and four continuous rails. Rebuilt on E:, captured in Godot and passed nineteen interior tests. Next: compare high-impact fixtures across another transit or exterior family.
+
+- EXPERIMENTAL-RUINED-TRANSIT-BENCH-BACKS / DONE. Added blue backrests and steel uprights to both surveyed station benches, oriented toward the plaza. Rebuilt the GLB on E:, rendered Godot and passed eleven outdoor export tests. Next: prioritize an environment outside the transport family.

@@ -528,12 +528,17 @@ class WastelandOutdoors:
                 self.concrete_box("Station planter rubble", (x+w*dx,y+d*dy,.26),
                                   (w*.095,d*.085,.07)).parent = group
         elif self.ruined_transit and name in {"bench_n", "bench_s"}:
+            rear = 1 if name == "bench_n" else -1
             for side in (-1,1):
                 self.concrete_box("Station bench support", (x+side*w*.34,y,.19),
                                   (w*.065,d*.34,.19)).parent = group
+                box("Station bench back upright", (x+side*w*.34,y+rear*d*.32,.57),
+                    (.027,d*.045,.19), self.steel,.010).parent = group
             for slat in (-1,0,1):
                 box("Station bench slat", (x,y+slat*d*.23,.405),
                     (w*.46,d*.10,.033), self.facade_blue,.014).parent = group
+            box("Station bench backrest", (x,y+rear*d*.34,.695),
+                (w*.43,d*.062,.064), self.facade_blue,.012).parent = group
         elif any(part in name for part in ("platform","planter","bench","table")):
             height = .52 if name.startswith(("table","bench")) else .20
             box(name, (x,y,height/2), (w*.48,d*.48,height/2), self.stone).parent = group
