@@ -2,7 +2,16 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 44c9b5c6
+## Current Windows candidate · ee240a3e
+
+- [x] Production build and silent installation on E:. The standalone installed executable reports build `ee240a3e`, starts bundled Godot, reads 122 maps, and passes the test-save round trip.
+- [x] Targeted release gate: 92 tests passed. The full-campaign test was excluded.
+- [x] Production bundle excludes Godot test drivers and combat source sheets.
+- [ ] Human listening and physical controller acceptance remain open.
+
+Setup and its three BIN files are in `E:/CyberCity2085-builds/cybercity-build-fa0884b7dc3f4a45b3c35a732a144ea6/dist/installer`.
+
+## Previous Windows candidate · 44c9b5c6
 
 - [x] Standalone build and separate silent installation on E:. Installed executable passes headless resource, test-save and Godot startup checks.
 - [x] Installed Godot restores checkpoints in both phases and exports containment victory and defeat. The checkout's campaign resolver applies each result once across save/reload.
