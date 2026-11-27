@@ -2167,3 +2167,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-WATERFRONT-LARGE-HULL-MASKS / DONE for export and native loading. Extended three water-only repair outlines to reduce painted hull edges protruding beside the 3D wrecks. Rebuilt on E:, refreshed the comparison and passed eleven outdoor tests. Next: compare the revised wreck joins and progress remaining map families.
 
 - EXPERIMENTAL-WATERFRONT-CRANE-FLOOR / DONE for export and native loading. Traced the long painted lattice jib at the southeast edge and removed it from the experimental floor beside the 3D crane. Rebuilt on E:, loaded in Godot, refreshed the catalogue and passed eleven outdoor tests. Next: inspect the shoreline transitions in the edited strip, then compare the next map family.
+
+- EXPERIMENTAL-WATERFRONT-CRANE-PAVING / DONE for export and native loading. Inspected the repaired crane strip and restored sampled dock paving on its land section, stopping before the shoreline. Rebuilt on E:, loaded in Godot, refreshed the comparison and passed eleven outdoor tests. Next: prioritize remaining large visual gaps outside the waterfront.

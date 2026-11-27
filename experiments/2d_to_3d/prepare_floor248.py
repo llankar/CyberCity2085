@@ -349,6 +349,13 @@ def main():
             for label, *_ in SKIFFS
         })
         result = restore_donor_pavement(result, original, survey, water_donors)
+        # Keep the dock repair on the land side of the shoreline.
+        dock = {"id": "crane_dock_paving", "polygon": [
+            (810,447), (872,383), (913,333), (959,293), (959,321),
+            (926,353), (891,403), (839,458), (806,466),
+        ]}
+        result = restore_donor_pavement(result, original, {**survey, "walls": [dock]},
+                                        {"crane_dock_paving": (861,145,902,176)})
     if args.map == "city_industrial_dockside_terminal":
         result = restore_donor_pavement(result, original, survey, {
             "North moored cargo vessel": (264, 444, 322, 604),
