@@ -595,6 +595,9 @@ def build(name):
             box("Metro kiosk reader", (x,y-d*.30,.84), (w*.22,d*.061,.025),
                 console_glass,.012).parent = group
             merge_fixture_meshes(group, "Metro information kiosk")
+        elif metro and (kind == "table" or identifier.startswith("ticket_")):
+            fixture = "metro_bench" if kind == "table" else "metro_ticket_machine"
+            build_facility_fixture(group, fixture, x, y, w, d, steel, partition_cap, console_glass)
         elif apartment_shelter and kind == "table":
             build_facility_fixture(group, "shelter_table", x, y, w, d, shelter_wood, shelter_iron, screen)
         elif relay_room and kind in {"table", "console"}:

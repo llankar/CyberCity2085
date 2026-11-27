@@ -426,6 +426,19 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Records workstation keyboard", 0,-width*.16,.82,length*.142,width*.12,.018,trim)
         part("Records desk file stack", length*.31,0,.836,length*.09,width*.20,.033,steel)
         merge_fixture_meshes(group, "Records consultation workstation")
+    elif kind == "metro_bench":
+        for end in (-1, 1):
+            part("Platform bench pedestal", end*length*.29,0,.23,length*.075,width*.29,.23,trim)
+        part("Platform bench seat", 0,0,.49,length*.46,width*.40,.047,steel)
+        part("Platform bench backrest", 0,width*.32,.71,length*.45,width*.075,.21,steel)
+        merge_fixture_meshes(group, "Metro platform bench")
+    elif kind == "metro_ticket_machine":
+        part("Ticket machine plinth", 0,0,.08,length*.45,width*.43,.08,trim)
+        part("Ticket machine enclosure", 0,0,.61,length*.38,width*.35,.55,steel)
+        part("Ticket machine face", 0,-width*.35,.80,length*.31,width*.046,.28,trim)
+        part("Ticket machine display", 0,-width*.405,.94,length*.24,width*.018,.105,screen)
+        part("Ticket machine collection slot", 0,-width*.405,.66,length*.16,width*.018,.026,steel)
+        merge_fixture_meshes(group, "Metro ticket machine")
     elif kind == "shelter_table":
         for strip in (-1, 0, 1):
             part("Shelter tabletop plank", 0,strip*width*.285,.72,length*.46,width*.138,.045,steel)
