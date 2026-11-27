@@ -30,7 +30,7 @@ bpy.ops.export_scene.gltf(filepath=str(stall), export_format="GLB", use_selectio
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.context.preferences.filepaths.save_version = 0
 
-selected = {
+shared_stalls = {
     "northwestern_shop", "western_small_stall", "center_north_stall", "southeast_bottom_stall",
     "north_stall_purple", "western_stall_extensions", "west_alley_canopy", "northeast_blue_stall",
 }
@@ -40,21 +40,27 @@ roof_image.image = bpy.data.images.load(str(source.with_suffix(".png")))
 roof.node_tree.links.new(roof_image.outputs["Color"], roof.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
 cladding = make_material("Tech market dark facade", (.045,.065,.08,1), .45,.66)
 window = lab / "environment-library/assets/urban_facade280/window.glb"
-buildings = []
+crate = lab / "environment-library/assets/cargo_crate274/model.glb"
 placed = []
+buildings = []
 for row in survey["walls"]:
     identifier = row["id"]
-    if identifier.startswith("building_"):
+    group = bpy.data.objects.new("Occludable_" + identifier, None)
+    bpy.context.collection.objects.link(group)
+    if "polygon" in row:
         outline = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["polygon"]]
         if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(outline, outline[1:]+outline[:1])) < 0:
             outline.reverse()
-        height = (3.1, 3.6, 2.9)[len(buildings)%3]
+        building = identifier.startswith("building_")
+        bench = identifier == "north_bench"
+        height = (3.1, 3.6, 2.9)[len(buildings)%3] if building else .48 if bench else 2.05
+        bottom = 0 if building else height - (.12 if bench else .18)
         count = len(outline)
         edges = list(zip(outline, outline[1:]+outline[:1]))
         faces = [tuple(range(count, 2*count))]
         faces.extend((i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count))
         mesh = bpy.data.meshes.new(identifier)
-        mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in outline], [], faces)
+        mesh.from_pydata([(x,y,z) for z in (bottom,height) for x,y in outline], [], faces)
         mesh.materials.append(cladding)
         mesh.materials.append(roof)
         mesh.polygons[0].material_index = 1
@@ -62,11 +68,33 @@ for row in survey["walls"]:
         for loop in mesh.polygons[0].loop_indices:
             x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
             uv.data[loop].uv = (x/gw+.5,y/gh+.5)
-        group = bpy.data.objects.new("Occludable_"+identifier,None)
-        bpy.context.collection.objects.link(group)
         shell = bpy.data.objects.new(identifier,mesh)
         bpy.context.collection.objects.link(shell)
         shell.parent = group
+        if not building:
+            for i,(x,y) in enumerate(outline):
+                if i and math.dist(outline[i-1], (x,y)) < .40:
+                    continue
+                box("Bench leg" if bench else "Canopy post", (x,y,bottom/2),
+                    (.039,.039,bottom/2), cladding,.008).parent = group
+            if not bench:
+                for (ax,ay),(bx,by) in edges:
+                    length = math.hypot(bx-ax,by-ay)
+                    beam = box("Canopy edge rail", ((ax+bx)/2,(ay+by)/2,bottom-.034),
+                               (length/2,.033,.042),cladding,.009)
+                    beam.rotation_euler.z = math.atan2(by-ay,bx-ax)
+                    beam.parent = group
+                if "canopy" not in identifier:
+                    (ax,ay),(bx,by) = max(edges, key=lambda edge: math.dist(*edge))
+                    length = math.hypot(bx-ax, by-ay)
+                    dx,dy = (bx-ax)/length,(by-ay)/length
+                    cx,cy = (ax+bx)/2-dy*.27,(ay+by)/2+dx*.27
+                    counter = box("Market counter", (cx,cy,.43),
+                                  (min(length*.25,1.15),.18,.43),cladding,.03)
+                    counter.rotation_euler.z = math.atan2(dy,dx)
+                    counter.parent = group
+            placed.append(identifier)
+            continue
         for (ax,ay),(bx,by) in edges:
             dx,dy = bx-ax,by-ay
             length = math.hypot(dx,dy)
@@ -85,16 +113,34 @@ for row in survey["walls"]:
                 place(window, group, (x,y,height*.63), (1.36,.30,.69), yaw=yaw, merge=True)
         buildings.append(identifier)
         continue
-    if identifier not in selected:
-        continue
     x1,y1,x2,y2 = row["rect"]
     w,d = (x2-x1)*gw/cw,(y2-y1)*gh/ch
     x,y = (x1+x2)*gw/(2*cw)-gw/2,gh/2-(y1+y2)*gh/(2*ch)
-    group = bpy.data.objects.new("Occludable_"+identifier,None)
-    bpy.context.collection.objects.link(group)
-    place(stall,group,(x,y,0),(w*.96,d*.96,2.5))
+    if identifier in shared_stalls:
+        box("Stall raised deck", (x,y,.052), (w*.49,d*.49,.052), cladding).parent = group
+        place(stall,group,(x,y,.10),(w*.96,d*.96,2.5))
+    elif identifier == "northeast_crates":
+        for offset in (-.24,.24):
+            place(crate,group,(x+offset*w,y,0),(w*.43,d*.87,.78))
+    elif identifier == "northwestern_barrels":
+        radius = min(w,d)*.22
+        for dx,dy in ((-.24,-.19),(.24,-.19),(0,.25)):
+            bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=radius, depth=.81,
+                                                location=(x+w*dx,y+d*dy,.405))
+            barrel = bpy.context.object
+            barrel.name = "Market service drum"
+            barrel.data.materials.append(cladding)
+            barrel.parent = group
+            bpy.ops.mesh.primitive_torus_add(major_segments=20, minor_segments=6, major_radius=radius,
+                                             minor_radius=.025, location=(x+w*dx,y+d*dy,.73))
+            rim = bpy.context.object
+            rim.name = "Market service drum rim"
+            rim.data.materials.append(cladding)
+            rim.parent = group
+    else:
+        raise ValueError(f"Unclassified Tech Market trace: {identifier}")
     placed.append(identifier)
-assert set(placed) == selected
+assert len(placed) + len(buildings) == len(survey["walls"])
 floor = make_material("Tech market source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")
@@ -108,7 +154,7 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB")
 elapsed = round(time.perf_counter()-started,2)
 (output / "assembly.json").write_text(json.dumps({
-    "map": name, "stall_groups": placed, "building_groups": buildings, "reused_model_families": 2,
-    "new_model_families": 0, "blender_seconds": elapsed
+    "map": name, "fixture_groups": placed, "building_groups": buildings, "reused_model_families": 3,
+    "new_model_families": 2, "blender_seconds": elapsed
 },indent=2))
 print("TECHMARKET341_EXPORTED", len(placed), elapsed)

@@ -42,7 +42,17 @@ def test_tech_market_buildings_export_textured_roofs_and_facade_bays():
         data = json.loads(model.read(size))
     nodes = data["nodes"]
     roots = {node["name"]: node for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
-    assert len(roots) == 14
+    survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_district_tech_market.wall-traces.json"
+    traces = json.loads(survey_path.read_text())["walls"]
+    assert roots.keys() == {f"Occludable_{trace['id']}" for trace in traces}
+    for trace in traces:
+        identifier = trace["id"]
+        if "polygon" not in trace or identifier.startswith("building_") or identifier == "north_bench":
+            continue
+        parts = {nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]["children"]}
+        assert identifier in parts
+        assert any(part.startswith("Canopy post") for part in parts)
+        assert any(part.startswith("Canopy edge rail") for part in parts)
     for direction in ("nw", "west", "sw", "ne", "east", "se"):
         name = f"building_{direction}"
         parts = [nodes[index] for index in roots[f"Occludable_{name}"]["children"]]
