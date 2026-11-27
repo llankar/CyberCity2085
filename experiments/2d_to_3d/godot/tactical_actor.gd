@@ -10,16 +10,30 @@ var ring: MeshInstance3D
 var pistol_parts: Array[Node3D] = []
 
 
-func configure(allied: bool, support: bool, initial: Vector3) -> bool:
+func configure(allied: bool, support: bool, initial: Vector3,
+ model_cache: Dictionary[String, PackedScene]) -> bool:
  var path := "support167/human.glb" if allied else "armored203/armored_actions.glb"
  clips = {"idle": "Hard stand", "walk": "Walk (1_24)", "fire": "ShootStudy", "death": "DeathStudy",
   "melee": "MeleeStudy", "psi": "PsiCast", "aid": "MedicalAidPrototype"} if allied else {
   "idle": "Idle", "walk": "Walk", "fire": "Pistol_Attack_Study", "death": "Death", "melee": "Attack"}
- var document := GLTFDocument.new()
- var state := GLTFState.new()
- if document.append_from_file(CAST + path, state) != OK:
+ var packed := model_cache.get(path) as PackedScene
+ if packed == null:
+  var document := GLTFDocument.new()
+  var state := GLTFState.new()
+  if document.append_from_file(CAST + path, state) != OK:
+   return false
+  var imported := document.generate_scene(state)
+  if imported == null:
+   return false
+  packed = PackedScene.new()
+  var pack_error := packed.pack(imported)
+  imported.free()
+  if pack_error != OK:
+   return false
+  model_cache[path] = packed
+ var model := packed.instantiate() as Node3D
+ if model == null:
   return false
- var model := document.generate_scene(state)
  add_child(model)
  var players := model.find_children("*", "AnimationPlayer", true, false)
  if players.is_empty():

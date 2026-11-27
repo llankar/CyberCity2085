@@ -13,6 +13,7 @@ var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
 var actors := {}
+var actor_models: Dictionary[String, PackedScene] = {}
 var last_sequence := -1
 var smoke := false
 var closing := false
@@ -112,7 +113,7 @@ func _process(delta: float) -> void:
   if not actors.has(id):
    var actor := TacticalActor.new()
    add_child(actor)
-   if not actor.configure(id.begins_with("ally:"), id == "ally:1", point):
+   if not actor.configure(id.begins_with("ally:"), id == "ally:1", point, actor_models):
     push_error("Could not load retained tactical actor: " + id)
     get_tree().quit(5)
     return
@@ -150,6 +151,10 @@ func _process(delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
+    if actor_models.size() != 2 or actors["ally:0"].animation == actors["ally:1"].animation:
+     push_error("Tactical allies must share their import and own separate animation players")
+     get_tree().quit(22)
+     return
     focus_selected()
     if not review_target.is_equal_approx(cell_position(state.units[0].cell)):
      push_error("Camera did not focus the active operative")
