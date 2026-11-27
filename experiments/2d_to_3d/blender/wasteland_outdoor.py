@@ -933,6 +933,18 @@ class WastelandOutdoors:
                 (length*.085,width*.39,.16), self.dark).parent = group
             box("Transit carriage cab", (end*length*.401,0,.81),
                 (length*.077,width*.42,.35), self.steel,.065).parent = group
+            box("Transit cab broken glazing", (end*length*.476,0,.96),
+                (.018,width*.32,.095), self.dark,.014).parent = group
+            for offset in (-.043,.043):
+                for side in (-1,1):
+                    bpy.ops.mesh.primitive_cylinder_add(
+                        vertices=12, radius=.16, depth=.085,
+                        location=((end*.30+offset)*length,side*width*.33,.16),
+                        rotation=(math.pi/2,0,0))
+                    wheel = bpy.context.object
+                    wheel.name = "Transit carriage wheel"
+                    wheel.data.materials.append(self.steel)
+                    wheel.parent = group
         if roofless:
             for offset in (-.28,.06,.29):
                 box("Exposed transit roof rib", (offset*length,0,1.13),
