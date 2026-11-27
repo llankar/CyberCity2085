@@ -1208,7 +1208,10 @@ def build(name):
                             (.052,.075,height*.45),frame,.014).parent = group
                     box(identifier+" rear utility trunking",
                         (x,back-direction*.066,.36),
-                        (w*.37,.045,.038),frame,.009).parent = group
+                        (w*.18,.045,.038),frame,.009).parent = group
+                    place(library / "wall_fixtures282/vent.glb", group,
+                          (x-w*.38,back-direction*.075,.53),
+                          (min(.60,w*.13),.14,.28),yaw=angle+math.pi,merge=True)
                 service_width = min(.64, w*.15)
                 door_x = x + w*.22
                 box(identifier + " rear service frame", (door_x,back-direction*.045,.81),
