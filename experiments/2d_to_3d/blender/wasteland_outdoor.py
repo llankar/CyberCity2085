@@ -1040,6 +1040,16 @@ class WastelandOutdoors:
         self.concrete_box("Broken upper floor remnant",
                           (x-width*.22, y-street_side*depth*.18, height-.11),
                           (width*.125, depth*.20, .10)).parent = group
+        # Leave the missing bays open while showing the collapse below them.
+        for offset, distance, angle in ((-.17,.12,-.28),(.06,.25,.36),(.24,-.12,-.19)):
+            fragment = self.concrete_box(
+                "Downtown collapsed floor fragment",
+                (x+offset*width,y+street_side*distance*depth,.39),
+                (width*.085,depth*.088,.074),.028,
+            )
+            fragment.rotation_euler.x = angle
+            fragment.rotation_euler.z = street_side*angle
+            fragment.parent = group
 
     def overpass_ruin(self, group, name, x, y, width, depth):
         self.concrete_box("Ruined foundation", (x, y, .065),
