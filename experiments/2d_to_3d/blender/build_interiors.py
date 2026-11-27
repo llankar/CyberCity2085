@@ -282,6 +282,21 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
+            if kind == "rubble" and name.endswith("_collapsed_tunnel"):
+                # Seat exposed reinforcement along the longest break in each slab.
+                edge = max(range(count), key=lambda i: math.dist(outline[i],outline[(i+1)%count]))
+                start = Vector(top[edge])
+                end = Vector(top[(edge+1)%count])
+                center = sum((Vector(point) for point in top), Vector((0,0,0)))/count
+                for fraction in (.26,.48,.70):
+                    lip = start.lerp(end,fraction)
+                    inset = lip.lerp(center,.07)
+                    tip = inset.lerp(lip,2.45)
+                    tip.z = inset.z+.085
+                    bar = box("Tunnel exposed slab reinforcement", (inset+tip)/2,
+                              ((tip-inset).length/2,.024,.024),steel,.008)
+                    bar.rotation_euler = (tip-inset).to_track_quat("X","Z").to_euler()
+                    bar.parent = group
             if bunker and identifier in {"central_wall_w", "central_wall_e"}:
                 start, end = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch))
                               for px, py in row["points"][:2]]

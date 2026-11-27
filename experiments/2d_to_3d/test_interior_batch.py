@@ -514,6 +514,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             "west_cabinet": "Shelter improvised pantry",
             "sofa_center": "Shelter patched sofa",
         }
+    for index in ("02", "07"):
+        additions[f"wasteland_inner_{index}_collapsed_tunnel"] = {
+            "collapsed_span_n": "Tunnel exposed slab reinforcement",
+            "collapsed_span_s": "Tunnel exposed slab reinforcement",
+        }
     for name, fixtures_to_check in additions.items():
         path = (catalogue_environment(name) if name.startswith("wasteland_inner_")
                 else OUTPUT / name / "environment.glb")
@@ -539,6 +544,10 @@ def test_interior_maps_export_remaining_fixture_groups():
             for side in ("nw", "ne", "sw", "se"):
                 parts = [nodes[index]["name"] for index in groups[f"Occludable_vault_wall_{side}"]]
                 assert sum(part.startswith("Vault ring armor cap") for part in parts) == 4
+        if name.endswith("_collapsed_tunnel"):
+            for identifier in ("collapsed_span_n", "collapsed_span_s"):
+                parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+                assert sum(part.startswith("Tunnel exposed slab reinforcement") for part in parts) == 3
         if name.endswith("_maintenance_depot"):
             for identifier in ("west_pit_n", "west_pit_s"):
                 pit = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
