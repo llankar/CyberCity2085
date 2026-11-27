@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 5522203a
+## Current Windows candidate · 183ee50c
+
+- [x] Standalone build, Inno Setup compilation and silent installation on E:. The installed executable reports `183ee50c` and passes bundled Godot startup and test-save checks.
+- [x] Four targeted source tests passed. The external native fog regression passed against the installed project, including the blocked patrol sector. The installed combat script matches source and the QA scripts are excluded.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-29400c3d2d15436292c1f8298ef9e1bb/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `33567BF626A858C667ED11375FEFF48077FEF62B3392F217506F74AD2585EDF4` |
+| CyberCity2085-Setup-1.bin | `3F5DD8CEC509D1F6CABC5E588BD88039921C8A70884A8CD983CDEB22C520D869` |
+| CyberCity2085-Setup-2.bin | `F1F6C476EA7FA8D45A766F0DD9B08E43239E4DE35A1742ADC6846256B39484CA` |
+| CyberCity2085-Setup-3.bin | `381CBFCB187DA527FEFBA85E101F2BFE973192B45E71E8E292F3BC5D7D4BBA92` |
+
+## Previous Windows candidate · 5522203a
 
 - [x] PyInstaller build, Inno Setup compilation and separate silent installation on E:. The installed executable reports `5522203a`, starts bundled Godot, reads 122 maps and passes the test-save round trip.
 - [x] Eleven targeted tests passed. The installed Godot also passed the external fog and tactical support regression. The three changed installed HUD/combat scripts match the checkout by SHA-256 and the bundle excludes Godot QA scripts.
