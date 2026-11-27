@@ -147,6 +147,7 @@ assert containers == 14 and barriers == 3 and cranes == 2 and forklifts == 8
 # Trace the two vessels in source-image space so they stay outside the playable quay.
 floor_deck = make_material("Cargo vessel deck", (.095,.105,.10,1), .48,.78)
 deckhouse = make_material("Weathered cargo deckhouse", (.15,.14,.11,1), .54,.69)
+hold_panel = make_material("Cargo hold anti-slip steel", (.045,.055,.058,1), .40,.86)
 for label, outline in VESSEL_OUTLINES.items():
     deck = [(px*gw/960-gw/2, gh/2-py*gh/540) for px, py in reversed(outline)]
     mx = sum(x for x, _ in deck)/len(deck)
@@ -183,12 +184,26 @@ for label, outline in VESSEL_OUTLINES.items():
     north = label.startswith("North")
     cargo_x = (83 if north else 73)*gw/960-gw/2
     center_y = gh/2-(199 if north else 444)*gh/540
+    cargo_heading = math.radians(74)
     for index, color in enumerate(("green","red","blue")):
         offset = index-1
-        load = build_container(hull, cargo_x+offset*.30, center_y+offset*1.18, 1.42, .90,
-                               skins[color], steel, beam, yaw=math.radians(74))
+        bay_x, bay_y = cargo_x+offset*.30, center_y+offset*1.18
+        panel = box("Vessel cargo hold cover", (bay_x,bay_y,.492),
+                    (.55,.63,.025),hold_panel,.014)
+        panel.rotation_euler.z = cargo_heading
+        panel.parent = hull
+        for side in (-1, 1):
+            margin = side*.60
+            guide = box("Vessel cargo guide rail",
+                        (bay_x-math.sin(cargo_heading)*margin,
+                         bay_y+math.cos(cargo_heading)*margin,.537),
+                        (.53,.028,.022),beam,.008)
+            guide.rotation_euler.z = cargo_heading
+            guide.parent = hull
+        load = build_container(hull, bay_x, bay_y, 1.42, .90,
+                               skins[color], steel, beam, yaw=cargo_heading)
         load.scale.z = .32
-        load.location.z = .47+.88*load.scale.z
+        load.location.z = .517+.88*load.scale.z
     for part, px, py, z, sizes, material in (
         ("Wheelhouse", 105 if north else 98, 126 if north else 365,
          .81, (.78,.64,.34), deckhouse),
