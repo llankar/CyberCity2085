@@ -878,6 +878,17 @@ class WastelandOutdoors:
                                   (width*.23,depth*.20,.09))
         floor.rotation_euler.y = street*.28
         floor.parent = group
+        for offset_x, offset_y, size, tilt in (
+            (.18,.08,.11,.31), (.34,-.15,.075,-.24), (.06,.24,.065,-.42),
+        ):
+            fragment = self.concrete_box(
+                "Flooded ruin interior rubble",
+                (x+width*offset_x,y+street*depth*offset_y,.37),
+                (width*size,depth*size*.75,.068), .021,
+            )
+            fragment.rotation_euler.y = tilt
+            fragment.rotation_euler.z = street*tilt
+            fragment.parent = group
         # Anchor exposed reinforcement to the tilted slab so it follows the
         # fracture rather than floating above the flooded ground.
         for offset, reach, bend in ((-.13,.16,-.17), (.02,.23,.09), (.14,.12,.22)):

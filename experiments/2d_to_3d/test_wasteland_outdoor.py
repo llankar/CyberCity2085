@@ -202,6 +202,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     parts = [nodes[i]["name"] for i in ruin["children"]]
                     assert sum(part.startswith("Flooded ruin blue plinth panel") for part in parts) == 3
                     assert any(part.startswith("Flooded ruin fallen upper floor") for part in parts)
+                    assert sum(part.startswith("Flooded ruin interior rubble") for part in parts) == 3
                 if row["id"].startswith("planter_"):
                     planter = by_name[f"Occludable_{row['id']}"]
                     edges = [nodes[i] for i in planter["children"]
