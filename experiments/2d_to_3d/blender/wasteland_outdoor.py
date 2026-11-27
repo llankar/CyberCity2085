@@ -198,6 +198,9 @@ class WastelandOutdoors:
                                    (min(.055,length*.06),width*.48,height*.49), self.dark,.012)
                         post.rotation_euler.z = yaw
                         post.parent = group
+                elif name in {"quay_west", "quay_east", "quay_crater_w"}:
+                    self.waterfront_quay_segment(group, name, ax, ay, bx, by, width)
+                    continue
                 elif self.overpass:
                     segment = self.concrete_guardrail(name,length,width,height)
                     segment.location = ((ax+bx)/2,(ay+by)/2,0)
@@ -437,6 +440,28 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def waterfront_quay_segment(self, group, name, ax, ay, bx, by, width):
+        length = math.hypot(bx-ax,by-ay)
+        yaw = math.atan2(by-ay,bx-ax)
+        x, y = (ax+bx)/2, (ay+by)/2
+        broken = name == "quay_crater_w"
+        wall = self.concrete_box("Quay masonry footing", (x,y,.13),
+                                 (length/2,width*.48,.15))
+        wall.rotation_euler.z = yaw
+        wall.parent = group
+        if broken:
+            for offset, tilt, elevation in ((-.30,.34,.32), (.03,-.26,.29), (.31,.49,.35)):
+                slab = self.concrete_box("Slumped crater quay block",
+                                         (x+(bx-ax)*offset,y+(by-ay)*offset,elevation),
+                                         (length*.125,width*.38,.12))
+                slab.rotation_euler = (0,tilt,yaw)
+                slab.parent = group
+        else:
+            cap = self.concrete_box("Intact quay coping", (x,y,.35),
+                                    (length/2,width*.48,.09))
+            cap.rotation_euler.z = yaw
+            cap.parent = group
 
     def transit_platform(self, group, name, x, y, width, depth):
         rail_side = -1 if name == "west_platform" else 1

@@ -32,6 +32,16 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             surfaces = {node["name"]: node for node in nodes if node["name"].startswith("Water surface ")}
             assert surfaces.keys() == {"Water surface "+row["id"] for row in surveyed if row.get("kind") == "water"}
             assert all("mesh" in node for node in surfaces.values())
+            for identifier, part, multiplier in (
+                ("quay_west", "Intact quay coping", 1),
+                ("quay_east", "Intact quay coping", 1),
+                ("quay_crater_w", "Slumped crater quay block", 3),
+            ):
+                row = next(row for row in surveyed if row["id"] == identifier)
+                quay = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert sum(nodes[i]["name"].startswith(part) for i in quay["children"]) == (
+                    len(row["points"])-1
+                )*multiplier
         if name.endswith("_ruined_transit_plaza"):
             south = next(node for node in nodes if node["name"] == "South transit carriage")
             parts = [nodes[i]["name"] for i in south["children"]]
