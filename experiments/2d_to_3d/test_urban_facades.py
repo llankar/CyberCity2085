@@ -27,3 +27,5 @@ def test_lateral_facade_bands_keep_building_occlusion(name):
     grouped = {index for node in nodes if node["name"].startswith("Occludable_")
                for index in node.get("children", [])}
     assert bands <= grouped
+    rear_doors = {index for index, node in enumerate(nodes) if " rear service door" in node["name"]}
+    assert rear_doors and rear_doors <= grouped
