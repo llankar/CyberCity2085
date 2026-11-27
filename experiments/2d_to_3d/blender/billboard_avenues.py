@@ -235,6 +235,7 @@ def build(name):
                                    burned_market=name.endswith("_burned_market_block"),
                                    flooded_square=name.endswith("_flooded_civic_square"),
                                    scavenger_plaza=name.endswith("_scavenger_plaza"),
+                                   ruined_transit=name.endswith("_ruined_transit_plaza"),
                                    wrecked_highway=name.endswith("_wrecked_highway"),
                                    trainyard=name.endswith("_rusted_trainyard"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)

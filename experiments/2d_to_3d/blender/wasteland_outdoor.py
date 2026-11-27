@@ -85,7 +85,7 @@ class WastelandOutdoors:
 
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
-                 scavenger_plaza=False, wrecked_highway=False, trainyard=False):
+                 scavenger_plaza=False, ruined_transit=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -95,6 +95,7 @@ class WastelandOutdoors:
         self.burned_market = burned_market
         self.flooded_square = flooded_square
         self.scavenger_plaza = scavenger_plaza
+        self.ruined_transit = ruined_transit
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
@@ -129,7 +130,7 @@ class WastelandOutdoors:
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
-        if self.ruined_downtown or self.flooded_square:
+        if self.ruined_downtown or self.flooded_square or self.ruined_transit:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
@@ -334,7 +335,7 @@ class WastelandOutdoors:
         elif name.startswith(("wreck_", "truck_", "convoy_", "car_")):
             place(self.library / "derelict_suv275/model.glb", group, (x,y,0),
                   (length*.97,breadth*.97,1.55), yaw=yaw + (math.pi if x<0 else 0))
-        elif name == "west_train":
+        elif self.ruined_transit and name == "west_train":
             self.transit_train(group, x, y, length, breadth, yaw)
         elif any(part in name for part in ("wagon","container","cargo","_train")):
             base = build_container(group,x,y,length,breadth,self.steel,self.dark,self.steel,yaw=yaw)
@@ -360,10 +361,13 @@ class WastelandOutdoors:
         elif "crate" in name:
             place(self.library / "cargo_crate274/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,.8), yaw=yaw)
+        elif self.ruined_transit and name in {"west_platform", "east_platform"}:
+            self.transit_platform(group, name, x, y, w, d)
         elif name.startswith("stairs_"):
+            direction = -1 if self.ruined_transit and name in {"stairs_s", "stairs_sw", "stairs_se"} else 1
             for step in range(6):
                 height = (step+1)*.12
-                box(name, (x,y+d*((step+.5)/6-.5),height/2),
+                box(name, (x,y+direction*d*((step+.5)/6-.5),height/2),
                     (w*.48,d/12,height/2), self.stone).parent = group
         elif self.flooded_square and name == "monument":
             radius = min(w,d)*.46
@@ -428,6 +432,19 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def transit_platform(self, group, name, x, y, width, depth):
+        rail_side = -1 if name == "west_platform" else 1
+        self.concrete_box("Station platform deck", (x,y,.19),
+                          (width*.48,depth*.49,.19)).parent = group
+        self.concrete_box("Station platform track edge", (x+rail_side*width*.42,y,.37),
+                          (width*.058,depth*.49,.08)).parent = group
+        for bay in (-.39,-.25,-.11,.17,.31):
+            box("Blue station cladding panel", (x-rail_side*width*.26,y+bay*depth,.418),
+                (width*.18,depth*.062,.047), self.facade_blue,.018).parent = group
+        for bay in (-.43,-.22,.02,.24,.43):
+            box("Station platform trim", (x+rail_side*width*.42,y+bay*depth,.455),
+                (width*.057,depth*.027,.018), self.steel,.008).parent = group
 
     def transit_train(self, group, x, y, length, width, yaw):
         group.location = (x,y,0)

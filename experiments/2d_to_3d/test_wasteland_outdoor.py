@@ -33,6 +33,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             parts = [nodes[i]["name"] for i in train["children"]]
             assert sum(part.startswith("Transit carriage window mullion") for part in parts) == 14
             assert sum(part.startswith("Transit roof vent") for part in parts) == 3
+            for identifier in ("west_platform", "east_platform"):
+                platform = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert sum(nodes[i]["name"].startswith("Blue station cladding panel")
+                           for i in platform["children"]) == 5
         if name.endswith("_scavenger_plaza"):
             for row in surveyed:
                 if row["id"].endswith("_ruin"):
