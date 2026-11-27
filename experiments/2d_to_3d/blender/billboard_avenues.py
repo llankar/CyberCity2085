@@ -1224,6 +1224,13 @@ def build(name):
                     (service_width,.065,.81), frame).parent = group
                 box(identifier + " rear service door", (door_x,back-direction*.111,.77),
                     (service_width*.82,.022,.73), wall).parent = group
+                if name.endswith("_transit_interchange"):
+                    box(identifier+" transit rear service hood",
+                        (door_x,back-direction*.15,1.72),
+                        (service_width*1.12,.18,.046),frame,.012).parent = group
+                    place(library / "wall_fixtures282/vent.glb", group,
+                          (x-w*.37,back-direction*.075,.54),
+                          (min(.60,w*.13),.14,.28),yaw=angle+math.pi,merge=True)
                 box(identifier + " rear facade band", (x,back,height-.20),
                     (w*.48,.035,.06), frame).parent = group
                 place(library / "urban_facade280/window.glb", group,
