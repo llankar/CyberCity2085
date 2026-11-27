@@ -1883,3 +1883,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RESIDENTIAL-SILL-CONSOLIDATION / DONE. Baked and merged sills within each building, retaining existing window meshes and cutaway parents. Export dropped from 511 to 368 mesh instances in Godot. Three outdoor tests passed and the capture recorded three actors with one group hidden. Frame-time impact unmeasured. Next: apply visible improvements to another residential facade family.
 
 - EXPERIMENTAL-INTERCHANGE-STREET-ENTRIES / DONE. Added framed doors and shallow canopies centered between the ground-floor windows of eligible Interchange facades. Rebuilt the two distinct exports on E: for Street 06, 11 and 12. Four focused tests passed and Street 11 rendered in Godot. Next: review facade composition in a different urban family.
+
+- EXPERIMENTAL-CIVIC-ROOF-COPING / DONE. Added low roof coping fitted to the rectangular and polygonal civic building shells. Rebuilt Riot Square, Civic Center and Civic Plaza 05/10/11 on E:. Twenty-two facade tests passed and Riot Square rendered in Godot. Next: inspect the roof silhouettes and record any remaining large flat fixtures.

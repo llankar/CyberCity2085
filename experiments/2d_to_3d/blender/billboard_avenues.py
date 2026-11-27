@@ -549,6 +549,11 @@ def build(name):
                             continue
                         yaw = math.atan2(dy,dx)
                         nx,ny = dy/length,-dx/length
+                        parapet = box(identifier+" civic roof coping",
+                                     ((ax+bx)/2-nx*.045,(ay+by)/2-ny*.045,height+.046),
+                                     (length*.496,.055,.052),frame,.012)
+                        parapet.rotation_euler.z = yaw
+                        parapet.parent = group
                         for z in (.28,height-.25):
                             band = box(identifier+" civic facade band",
                                        ((ax+bx)/2+nx*.038,(ay+by)/2+ny*.038,z),
@@ -899,6 +904,12 @@ def build(name):
         direction = -1 if y > 0 else 1
         front = y + direction*d/2
         angle = 0 if direction < 0 else math.pi
+        if civic:
+            for side in (-1,1):
+                box(identifier+" civic roof coping", (x,y+side*(d/2-.055),height+.046),
+                    (w*.496,.055,.052),frame,.012).parent = group
+                box(identifier+" civic roof coping", (x+side*(w/2-.055),y,height+.046),
+                    (.055,max(.05,d/2-.11),.052),frame,.012).parent = group
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
