@@ -444,8 +444,13 @@ class WastelandOutdoors:
             if broken_deck:
                 # A dark intact substrate separates the lifted fragments.
                 # Each inset face stays inside the original surveyed outline.
+                substrate = min(crest)-.06
                 for index, triangle in enumerate(tessellate_polygon([[Vector(point) for point in points]])):
                     corners = [vertices[2*n+corner] for corner in triangle]
+                    # The cap must face up for Godot's back-face culling.
+                    a, b, c = (Vector(corner[:2]) for corner in corners)
+                    if (b-a).cross(c-a) < 0:
+                        corners[1], corners[2] = corners[2], corners[1]
                     center = tuple(sum(axis)/3 for axis in zip(*corners))
                     start = len(vertices)
                     for x,y,z in corners:
@@ -453,11 +458,14 @@ class WastelandOutdoors:
                         inset = min(.095,.052/max(distance,.01))
                         vertices.append((x+(center[0]-x)*inset,y+(center[1]-y)*inset,
                                          z+(center[2]-z)*inset+.032+(index%3)*.022))
-                    vertices.extend((x,y,z-.105) for x,y,z in vertices[start:start+3])
+                    vertices.extend((x,y,substrate) for x,y,_ in vertices[start:start+3])
                     faces.append((start,start+1,start+2))
                     for edge in range(3):
                         a, b = start+edge, start+(edge+1)%3
                         faces.append((a,a+3,b+3,b))
+                # A separately triangulated, nonplanar cap can hide the textured fragments.
+                for index, (x,y) in enumerate(points):
+                    vertices[2*n+index] = (x,y,substrate)
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)
             self.project_concrete_uv(mesh)
