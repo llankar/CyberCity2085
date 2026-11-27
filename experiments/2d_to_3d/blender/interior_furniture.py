@@ -175,3 +175,47 @@ def build_checkpoint_fixture(group, identifier, x, y, w, d, steel, trim, screen,
         part("Checkpoint terminal fascia", 0,0,.91,length*.30,width*.33,.053,trim)
         part("Checkpoint reader display", -length*.12,0,.975,length*.104,width*.24,.020,screen)
         part("Checkpoint terminal warning panel", length*.17,0,.967,length*.077,width*.23,.016,warning)
+
+
+
+def build_industrial_fixture(group, kind, x, y, w, d, steel, trim, rail):
+    if kind == "workbench":
+        box("Workbench steel top", (x,y,.78), (w*.49,d*.47,.065), rail).parent = group
+        box("Workbench drawer cabinet", (x-w*.27,y,.37), (w*.18,d*.40,.36), steel).parent = group
+        for z in (.23,.42,.61):
+            box("Workbench drawer pull", (x-w*.27,y-d*.42,z), (w*.09,.025,.019), rail).parent = group
+        box("Workbench end support", (x+w*.38,y,.355), (.045,d*.39,.35), trim).parent = group
+        box("Workbench lower shelf", (x+w*.10,y,.22), (w*.27,d*.37,.032), steel).parent = group
+        return
+    if kind == "drums":
+        radius = min(w*.22,d*.34)
+        for side in (-1,1):
+            center_x = x + side*w*.24
+            bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=radius, depth=.75,
+                                                location=(center_x,y,.375))
+            drum = bpy.context.object
+            drum.name = "Warehouse service drum"
+            drum.data.materials.append(steel)
+            drum.parent = group
+            for z in (.12,.63):
+                bpy.ops.mesh.primitive_torus_add(major_segments=20, minor_segments=6,
+                                                 major_radius=radius, minor_radius=.025,
+                                                 location=(center_x,y,z))
+                rim = bpy.context.object
+                rim.name = "Warehouse service drum rim"
+                rim.data.materials.append(rail)
+                rim.parent = group
+        return
+    box("Valve pedestal", (x,y,.36), (w*.34,d*.32,.36), trim).parent = group
+    radius = min(w,d)*.33
+    bpy.ops.mesh.primitive_torus_add(major_segments=20, minor_segments=6,
+                                     major_radius=radius, minor_radius=.037,
+                                     location=(x,y,.82))
+    wheel = bpy.context.object
+    wheel.name = "Service valve handwheel"
+    wheel.data.materials.append(rail)
+    wheel.parent = group
+    for angle in (0,math.pi/2):
+        spoke = box("Service valve spoke", (x,y,.82), (radius,.027,.028), steel)
+        spoke.rotation_euler.z = angle
+        spoke.parent = group

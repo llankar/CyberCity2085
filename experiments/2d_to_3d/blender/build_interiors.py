@@ -13,7 +13,7 @@ from interior_batch import INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
-    build_checkpoint_fixture,
+    build_checkpoint_fixture, build_industrial_fixture,
 )
 from library_placement import place, reset_library_cache
 
@@ -45,7 +45,7 @@ def build(name):
     sleeper_material = make_material("Carbon-stained sleepers", (.009,.014,.018,1), .02,.92) if metro else partition_cap
     rail = make_material("Rail steel", (.18,.22,.25,1), .82,.42)
     stair_nosing = make_material("Amber stair nosing", (.58,.29,.042,1), .29,.62) if (
-        name == "city_transit_metro_interchange") else None
+        name in {"city_transit_metro_interchange", "cybercity_inner_13_warehouse_floor"}) else None
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
@@ -130,6 +130,12 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
+        elif kind in {"workbench", "drums", "service_valve"}:
+            build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
+        elif kind == "vent_fan":
+            box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
+            place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),
+                  (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)

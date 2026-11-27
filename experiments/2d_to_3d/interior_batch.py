@@ -79,7 +79,19 @@ def fixtures(name):
             continue
         if identifier.endswith("_tracks"):
             selected[identifier] = "track"
-        elif "stairs" in identifier:
+        elif name == "cybercity_inner_13_warehouse_floor" and identifier.startswith("bench_"):
+            selected[identifier] = "workbench"
+        elif name == "cybercity_inner_13_warehouse_floor" and identifier == "barrel_s":
+            selected[identifier] = "drums"
+        elif name == "city_industrial_service_tunnel" and identifier == "nw_room_corner_fan":
+            selected[identifier] = "vent_fan"
+        elif name == "city_industrial_service_tunnel" and identifier.endswith("_valve"):
+            selected[identifier] = "service_valve"
+        elif name == "city_industrial_service_tunnel" and identifier.endswith("_terminal"):
+            selected[identifier] = "console"
+        elif name == "city_industrial_service_tunnel" and "equipment" in identifier:
+            selected[identifier] = "machine"
+        elif "stairs" in identifier or identifier == "stair_e" and name == "cybercity_inner_13_warehouse_floor":
             selected[identifier] = "stair"
         elif identifier.startswith("column_"):
             selected[identifier] = "column"

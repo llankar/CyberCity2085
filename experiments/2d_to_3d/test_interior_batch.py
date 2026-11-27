@@ -268,3 +268,40 @@ def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():
             assert sum(part.startswith("Scanner arch upright") for part in parts) == 2
         elif identifier.startswith("security_booth_"):
             assert any(part.startswith("Checkpoint reader display") for part in parts)
+
+
+def test_service_tunnel_and_warehouse_export_remaining_fixture_groups():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    additions = {
+        "cybercity_inner_13_warehouse_floor": {
+            "bench_mid": "Workbench steel top", "bench_e": "Workbench steel top",
+            "bench_w": "Workbench steel top", "bench_sw": "Workbench steel top",
+            "barrel_s": "Warehouse service drum", "stair_e": "stair_e tread nosing",
+        },
+        "city_industrial_service_tunnel": {
+            "nw_room_corner_fan": "Vent fan deck",
+            "central_north_equipment_alcove": None,
+            "ne_room_west_terminal": "ne_room_west_terminal display",
+            "east_outer_equipment": None,
+            "southeast_terminal": "southeast_terminal display",
+            "south_inner_room_valve": "Service valve handwheel",
+        },
+    }
+    for name, fixtures_to_check in additions.items():
+        path = OUTPUT / name / "environment.glb"
+        if not path.is_file():
+            pytest.skip(f"Build {name} on E: first")
+        with path.open("rb") as glb:
+            size = struct.unpack("<4sIII4s", glb.read(20))[3]
+            nodes = json.loads(glb.read(size))["nodes"]
+        groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+        for identifier, component in fixtures_to_check.items():
+            parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+            assert parts
+            if component:
+                assert any(part.startswith(component) for part in parts), identifier
