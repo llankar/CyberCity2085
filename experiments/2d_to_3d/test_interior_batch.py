@@ -52,7 +52,7 @@ def test_train_tunnel_exports_edge_to_edge_rails_and_two_sleeper_beds():
         assert min(p["min"][0] for p in positions) <= -19.99
         assert max(p["max"][0] for p in positions) >= 19.99
 
-def test_metro_column_details_keep_independent_visibility():
+def test_metro_column_and_stair_details_keep_independent_visibility():
     import json
     from pathlib import Path
     import struct
@@ -71,3 +71,9 @@ def test_metro_column_details_keep_independent_visibility():
         parts = [nodes[index]["name"] for index in column["children"]]
         assert sum(" station marker" in name for name in parts) == 1
         assert sum(" cooling louver" in name for name in parts) == 3
+    stairs = [node for node in nodes if node["name"].startswith(("Occludable_north_stairs_", "Occludable_south_stairs_"))]
+    assert len(stairs) == 4
+    for stair in stairs:
+        parts = [nodes[index]["name"] for index in stair["children"]]
+        assert sum(" tread nosing" in name for name in parts) == 8
+        assert sum(" handrail" in name and " post" not in name for name in parts) == 2

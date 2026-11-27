@@ -39,6 +39,8 @@ def build(name):
     partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
     ballast = make_material("Track bed", (.047,.052,.053,1), .07,.93)
     rail = make_material("Rail steel", (.18,.22,.25,1), .82,.42)
+    stair_nosing = make_material("Amber stair nosing", (.58,.29,.042,1), .29,.62) if (
+        name == "city_transit_metro_interchange") else None
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
@@ -136,6 +138,26 @@ def build(name):
                 height = (i+1)*.13
                 box(identifier+" tread", (x,y+offset,height/2),
                     (w*.47,d/16,height/2), steel).parent = group
+                if stair_nosing is not None:
+                    edge = y+offset-direction*d*.048
+                    box(identifier+" tread nosing", (x,edge,height+.009),
+                        (w*.45,d*.010,.009), stair_nosing, .004).parent = group
+            if stair_nosing is not None:
+                for side in (-1,1):
+                    rail_x = x+side*w*.425
+                    end_points = []
+                    for step in (1,6):
+                        rail_y = y+((step+.5)/8-.5)*d*direction
+                        tread_z = (step+1)*.13
+                        box(identifier+" handrail post", (rail_x,rail_y,tread_z+.27),
+                            (.019,.019,.27), rail, .006).parent = group
+                        end_points.append(Vector((rail_x,rail_y,tread_z+.54)))
+                    start, end = end_points
+                    axis = end-start
+                    handrail = box(identifier+" handrail", (start+end)/2,
+                                   (.024,.024,axis.length/2), rail, .006)
+                    handrail.rotation_euler = axis.to_track_quat("Z", "Y").to_euler()
+                    handrail.parent = group
         elif kind == "stall":
             market = library / "market_southeast_display/shop.glb"
             place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw, merge=True)
