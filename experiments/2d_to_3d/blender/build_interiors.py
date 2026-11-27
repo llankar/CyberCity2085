@@ -759,7 +759,7 @@ def build(name):
         elif kind in {"table","console"}:
             desktop = box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop)
             desktop.parent = group
-            if cafe and kind == "console":
+            if cafe:
                 mesh = desktop.data
                 mesh.materials.append(cafe_worktop)
                 uv = mesh.uv_layers.active

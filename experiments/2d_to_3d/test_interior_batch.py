@@ -747,6 +747,9 @@ def test_extended_interior_partitions_use_worn_steel():
                 group = nodes[f"Occludable_{identifier}"]
                 parts = {data["nodes"][index]["name"] for index in group["children"]}
                 assert {f"{identifier} monitor foot", f"{identifier} monitor stand"} <= parts
+            for identifier, kind in selected.items():
+                if kind not in {"table", "console"}:
+                    continue
                 desktop = nodes[f"{identifier} worktop"]
                 surfaces = data["meshes"][desktop["mesh"]]["primitives"]
                 assert {data["materials"][surface["material"]]["name"] for surface in surfaces} == {
