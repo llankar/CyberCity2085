@@ -115,7 +115,7 @@ def build(name):
     looted_vault = name.endswith("_looted_vault")
     if looted_vault:
         steel = make_material("Vault oxidized steel", (.051,.045,.037,1), .46,.78)
-    exposed_concrete_walls = apartment_shelter or looted_vault or name.endswith(
+    exposed_concrete_walls = bunker or apartment_shelter or looted_vault or name.endswith(
         ("_collapsed_tunnel", "_ruined_clinic", "_maintenance_depot")
     )
     concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
@@ -351,7 +351,8 @@ def build(name):
             build_facility_fixture(group, "relay_core", x, y, w, d, server_housing, partition_cap, console_glass)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "clinic_reception", "shelter_kitchen", "records_desk", "data_core"}:
             fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
-            build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, screen)
+            fixture_display = console_glass if bunker else screen
+            build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, fixture_display)
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
                 texture = artwork.node_tree.nodes.new("ShaderNodeTexImage")
