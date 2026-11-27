@@ -596,6 +596,8 @@ class WastelandOutdoors:
                   (length*.97,breadth*.97,1.55), yaw=yaw + (math.pi if x<0 else 0))
         elif self.ruined_transit and name == "west_train":
             self.transit_train(group, x, y, length, breadth, yaw)
+        elif self.cratered_waterfront and name in {"cargo_e", "cargo_e2"}:
+            self.waterfront_cargo(group, name, x, y, length, breadth, yaw)
         elif any(part in name for part in ("wagon","container","cargo","_train")):
             base = build_container(group,x,y,length,breadth,self.steel,self.dark,self.steel,yaw=yaw)
             if "wagon" in name or "_train" in name:
@@ -857,6 +859,25 @@ class WastelandOutdoors:
                                      (width*.23,depth*.21,.105))
         fragment.rotation_euler.y = -.24
         fragment.parent = group
+
+    def waterfront_cargo(self, group, name, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw
+        box("Quay cargo skid", (0,0,.10),
+            (length*.46,width*.43,.10), self.dark).parent = group
+        if name == "cargo_e2":
+            box("Quay tarped load", (0,0,.44),
+                (length*.43,width*.40,.27), self.facade_blue,.085).parent = group
+            for offset in (-.23,.18):
+                box("Quay tarp lashing", (length*offset,0,.714),
+                    (.022,width*.37,.016), self.dark,.006).parent = group
+        else:
+            for offset, height in ((-.28,.27),(0,.34),(.28,.23)):
+                box("Quay salvaged crate", (length*offset,0,.20+height),
+                    (length*.133,width*.32,height), self.steel,.028).parent = group
+            for side in (-1,1):
+                box("Quay cargo frame rail", (0,side*width*.39,.48),
+                    (length*.44,.034,.041), self.dark,.012).parent = group
 
     def waterfront_quay_segment(self, group, name, ax, ay, bx, by, width):
         length = math.hypot(bx-ax,by-ay)
