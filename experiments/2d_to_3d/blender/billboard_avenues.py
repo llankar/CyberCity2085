@@ -1273,6 +1273,19 @@ def build(name):
                 (door_width*1.12,.115,.052),frame,.012).parent = group
             box(identifier+" industrial rear door lamp", (x,rear-direction*.20,1.77),
                 (door_width*.55,.018,.025),signs[2],.007).parent = group
+            if w >= 3.2:
+                for side in (-1,1):
+                    bay_x = x+side*w*.307
+                    bay_half = w*.157
+                    box(identifier+" industrial rear cladding frame",
+                        (bay_x,rear-direction*.033,height*.44),
+                        (bay_half,.046,height*.31),frame,.012).parent = group
+                    box(identifier+" industrial rear cladding insert",
+                        (bay_x,rear-direction*.078,height*.44),
+                        (bay_half*.91,.016,height*.28),wall,.010).parent = group
+                    box(identifier+" industrial rear service stripe",
+                        (bay_x,rear-direction*.097,height*.33),
+                        (bay_half*.91,.010,.027),frame,.006).parent = group
             for side in (-1,1):
                 flank = x+side*w/2
                 box(identifier+" industrial side lintel", (flank,y,height-.24),

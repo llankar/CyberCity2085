@@ -356,6 +356,7 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
             assert "East cooling manifold" in names
         assert sum("mesh" in part for part in parts) >= 3
     clad = 0
+    rear_clad = 0
     for node in nodes:
         parts = [nodes[index]["name"] for index in node.get("children", [])]
         if any(" industrial side pilaster" in part for part in parts):
@@ -364,8 +365,13 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
             assert sum(" industrial rear door panel" in part for part in parts) == 1
             assert sum(" industrial rear door lamp" in part for part in parts) == 1
             assert sum(" industrial side vent" in part for part in parts) == 2
+            if any(" industrial rear cladding insert" in part for part in parts):
+                assert sum(" industrial rear cladding insert" in part for part in parts) == 2
+                assert sum(" industrial rear service stripe" in part for part in parts) == 2
+                rear_clad += 1
             clad += 1
     assert clad >= 2
+    assert rear_clad >= 2
 
 
 @pytest.mark.parametrize(("factory", "count"), [
