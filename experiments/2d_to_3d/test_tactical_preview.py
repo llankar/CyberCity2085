@@ -1,5 +1,7 @@
 import json
+from math import dist
 from pathlib import Path
+import random
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -178,6 +180,43 @@ class TacticalPreviewTest(unittest.TestCase):
                 self.assertIsNone(phase["state"]["outcome"])
                 self.assertEqual((phase["state"]["turn"], phase["state"]["round"]), ("player", 2))
         self.assertEqual(map_names, {entry["map"] for entry in catalogue})
+
+    def test_catalogue_skirmishes_can_be_won_with_default_stats(self):
+        rng_state = random.getstate()
+        self.addCleanup(random.setstate, rng_state)
+        enemy_id = "enemy:0"
+        for key in scenario_maps():
+            with self.subTest(map=key):
+                random.seed(4)
+                preview = scenario_preview(key)
+                enemy = preview.units[enemy_id]
+                battle = preview.engine.end_battle_check()
+                for _ in range(16):
+                    for actor_id in ("ally:0", "ally:1"):
+                        actor = preview.units[actor_id]
+                        while actor.health > 0 and actor.action_points > 0 and not battle.ended:
+                            targeting = preview.attack_previews(actor).get(enemy_id, {})
+                            attack = next((kind for kind in ("psi", "fire") if kind in targeting
+                                           and targeting[kind]["in_range"] and targeting[kind]["can_pay"]
+                                           and not targeting[kind]["line_blocked"]), None)
+                            if attack:
+                                reply = preview.action(attack, actor_id, target_id=enemy_id)
+                            else:
+                                options = preview.move_options(actor)
+                                distance = lambda cell: dist([axis * CELL_SIZE for axis in cell], enemy.position)
+                                destination = min(options, key=distance, default=None)
+                                if destination is None or distance(destination) >= actor.distance_to(enemy):
+                                    break
+                                reply = preview.action("move", actor_id, destination=destination)
+                            self.assertTrue(reply["success"], reply["message"])
+                            battle = preview.engine.end_battle_check()
+                    if battle.ended:
+                        break
+                    self.assertTrue(preview.action("end_turn", "ally:0")["success"])
+                    battle = preview.engine.end_battle_check()
+                    if battle.ended:
+                        break
+                self.assertEqual(battle.outcome, "victory")
 
     def test_scenarios_use_original_geometry_and_advance_round(self):
         for name, (map_name, (x, y), _) in SCENARIOS.items():
