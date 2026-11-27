@@ -95,6 +95,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     assert sum(part.startswith("Bus wreck grounded tire") for part in parts) == 4
                     assert sum(part.startswith("Bus wreck hub") for part in parts) == 4
         if name.endswith("_ruined_downtown"):
+            for identifier in ("wreck_nw", "wreck_mid_w"):
+                wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert any(nodes[i]["name"].startswith("Stripped car exposed floor")
+                           for i in wreck["children"]), identifier
             prefixes = {"wall": "Downtown fractured road barrier",
                         "barrier": "Downtown fractured road barrier",
                         "rubble": "Downtown fallen masonry"}

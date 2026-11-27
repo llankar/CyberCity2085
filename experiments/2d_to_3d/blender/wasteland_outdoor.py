@@ -571,6 +571,12 @@ class WastelandOutdoors:
             c, s = abs(math.cos(angle)), abs(math.sin(angle))
             fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
             self.convoy_vehicle(group, name, x, y, length*fit, breadth*fit, angle)
+        elif self.ruined_downtown and name in {"wreck_nw", "wreck_mid_w"}:
+            angle = {"wreck_nw": -1.04, "wreck_mid_w": -.26}[name]
+            breadth = min(breadth, length*.45)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.stripped_car(group, x, y, length*fit, breadth*fit, angle)
         elif self.ruined_downtown and name in {"bus_sw", "wreck_mid_e", "truck_mid"}:
             angle = {"bus_sw": .36, "wreck_mid_e": .29, "truck_mid": -.20}[name]
             breadth = min(breadth, length*.33)
