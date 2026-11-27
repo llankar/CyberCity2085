@@ -442,6 +442,9 @@ def test_interior_maps_export_remaining_fixture_groups():
         "bed_center": "Clinic treatment bed",
         "west_n_table": "Medbay triage supply table",
         "ne_table": "Medbay triage supply table",
+        "north_e_desk": "Medbay care desk",
+        "east_desk": "Medbay care desk",
+        "south_console": "Medbay care desk",
     }
     for index in ("06", "11"):
         additions[f"wasteland_inner_{index}_maintenance_depot"] = {

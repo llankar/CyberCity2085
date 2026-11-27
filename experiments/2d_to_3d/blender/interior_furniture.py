@@ -510,6 +510,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+    elif kind == "medbay_care_desk":
+        part("Care desk drawer cabinet", -length*.28,0,.36,length*.17,width*.40,.36,trim)
+        for z in (.24,.45,.62):
+            part("Care desk drawer pull", -length*.28,-width*.41,z,length*.084,.025,.014,steel)
+        part("Care desk end support", length*.395,0,.36,.035,width*.39,.36,trim)
+        part("Care desk worktop", 0,0,.75,length*.48,width*.45,.050,steel)
+        part("Care desk terminal housing", length*.19,width*.25,.96,length*.18,width*.12,.17,trim)
+        part("Care desk display", length*.19,width*.119,.97,length*.147,width*.016,.119,screen)
+        part("Care desk input panel", length*.18,-width*.17,.818,length*.14,width*.125,.024,trim)
+        merge_fixture_meshes(group, "Medbay care desk")
     elif kind == "medbay_supply_table":
         for end in (-1, 1):
             for side in (-1, 1):

@@ -315,6 +315,9 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
+        elif emergency_medbay and (identifier.endswith("_desk") or kind == "console"):
+            build_facility_fixture(group, "medbay_care_desk", x, y, w, d,
+                                   stretcher_frame, partition_cap, console_glass)
         elif emergency_medbay and kind == "table":
             build_facility_fixture(group, "medbay_supply_table", x, y, w, d,
                                    stretcher_frame, partition_cap, linen)
