@@ -110,7 +110,8 @@ def test_holo_square_exports_occludable_obstacles_and_landmark():
     assert all(any(" seat panel" in nodes[index]["name"] for index in children) for children in benches)
     platform = nodes[roots["Occludable_holo_platform"][0]]
     parts = {nodes[index]["name"] for index in platform["children"]}
-    assert {"Holo Square emitter", "Holo Square projection core"} <= parts
+    assert {"Holo Square emitter", "Holo Square projection core",
+            "Holo Square lower plinth", "Holo Square upper plinth"} <= parts
     assert sum(part.startswith("Holo Square projection ring ") for part in parts) == 4
     for corner in ("nw", "ne", "sw", "se"):
         label = f"sign_{corner}_base"

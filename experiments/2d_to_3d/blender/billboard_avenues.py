@@ -595,22 +595,32 @@ def build(name):
                 depth = [py for _,py in points]
                 if identifier == "holo_platform":
                     radius = min(max(widths)-min(widths), max(depth)-min(depth))*.27
+                    for tier, scale, elevation, material in (
+                        ("lower plinth", 1.36, .28, wall),
+                        ("upper plinth", 1.12, .39, frame),
+                    ):
+                        bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=radius*scale,
+                                                           depth=.12, location=(sx,sy,elevation))
+                        plinth = bpy.context.object
+                        plinth.name = "Holo Square "+tier
+                        plinth.data.materials.append(material)
+                        plinth.parent = island
                     bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=radius, depth=.28,
-                                                        location=(sx,sy,.36))
+                                                        location=(sx,sy,.57))
                     emitter = bpy.context.object
                     emitter.name = "Holo Square emitter"
                     emitter.data.materials.append(frame)
                     emitter.parent = island
-                    for i, (scale,z) in enumerate(((.94,.55),(.84,.90),(.68,1.25),(.50,1.60))):
+                    for ring_index, (scale,z) in enumerate(((.94,.75),(.84,1.12),(.68,1.49),(.50,1.86)), 1):
                         bpy.ops.mesh.primitive_torus_add(major_segments=8, minor_segments=6,
                                                         major_radius=radius*scale, minor_radius=.024,
                                                         location=(sx,sy,z))
                         halo = bpy.context.object
-                        halo.name = f"Holo Square projection ring {i+1}"
+                        halo.name = f"Holo Square projection ring {ring_index}"
                         halo.data.materials.append(signs[0])
                         halo.parent = island
                     bpy.ops.mesh.primitive_cone_add(vertices=8, radius1=radius*.60, radius2=radius*.25,
-                                                    depth=1.35, location=(sx,sy,1.18))
+                                                    depth=1.35, location=(sx,sy,1.40))
                     core = bpy.context.object
                     core.name = "Holo Square projection core"
                     core.data.materials.append(signs[0])

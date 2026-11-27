@@ -1903,3 +1903,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INDUSTRIAL-MACHINERY-ISLANDS / DONE. Differentiated both surveyed machinery islands in the shared Street 12/13 environment. The east island now has two twin-fan units, and the west uses two service modules with a conduit trunk. Reused existing meshes and rebuilt on E:. Twenty-three facade tests passed and Street 12 rendered in Godot. Next: inspect street furnishings on a contrasting map family.
 
 - EXPERIMENTAL-HOLO-SQUARE-SIGN-KIOSKS / DONE. Compared the four original kiosks and replaced single planar displays with taller angled housings and two lit faces each. Matched the southwest magenta accent and retained the original cutaway roots. Rebuilt on E:, captured Godot and passed 23 urban tests. Next: inspect the central hologram silhouette against its original plinth.
+
+- EXPERIMENTAL-HOLO-SQUARE-PLINTH / DONE. Added two octagonal tiers below the emitter and lifted the projection to meet the rebuilt pedestal. Re-exported on E:, captured Godot and passed 23 facade tests. Next: inspect another underworked urban family.
