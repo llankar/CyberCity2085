@@ -926,6 +926,12 @@ def build(name):
             height = 1.8 if identifier.startswith("pillar_") else .22 if identifier.startswith("platform_") else .48
             box(identifier, (x,y,height/2), (w*.49,d*.49,height/2), wall).parent = group
             box(identifier + " trim", (x,y,height), (w*.49,d*.49,.035), frame).parent = group
+            if transit_interchange and identifier.startswith("platform_"):
+                for side in (-1,1):
+                    for offset in (-.30,0,.30):
+                        box(identifier+" platform edge marker",
+                            (x+w*offset,y+side*d*.449,height+.038),
+                            (w*.12,d*.025,.012),signs[2],.005).parent = group
             continue
         if "crate" in identifier:
             place(library / "cargo_crate274/model.glb", group, (x, y, 0), (w, d, .55))
