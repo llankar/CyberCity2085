@@ -139,7 +139,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 parts = [nodes[i]["name"] for i in stall["children"]]
                 assert sum(part.startswith("Scavenger parts bin") for part in parts) == 3
                 assert {part.split()[2].split(".")[0] for part in parts
-                        if part.startswith("Salvaged canopy ") and "post" not in part} == fabrics
+                        if part.startswith("Salvaged canopy ")
+                        and not part.startswith(("Salvaged canopy post", "Salvaged canopy bound hem"))} == fabrics
+                assert sum(part.startswith("Salvaged canopy bound hem") for part in parts) == 2*len(fabrics)
             for row in surveyed:
                 if row["id"] not in {"northeast_barricade", "southwest_barricade"}:
                     continue

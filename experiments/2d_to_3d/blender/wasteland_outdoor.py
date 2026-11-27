@@ -864,11 +864,14 @@ class WastelandOutdoors:
             mesh = bpy.data.meshes.new("Salvaged canvas")
             mesh.from_pydata([(center-half,-depth,1.14), (center+half,-depth,1.16),
                               (center+half,depth,1.12), (center-half,depth,1.15),
-                              (center,0,1.32)], [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
+                              (center+half*.14,0,1.43)], [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
             mesh.materials.append(self.stall_fabric[fabric])
             cloth = bpy.data.objects.new("Salvaged canopy "+fabric, mesh)
             bpy.context.collection.objects.link(cloth)
             cloth.parent = group
+            for side, hem_z in ((-1,1.14), (1,1.12)):
+                box("Salvaged canopy bound hem", (center,side*depth,hem_z),
+                    (half,.022,.021), self.dark,.008).parent = group
 
     def burned_market_stall(self, group, name, x, y, length, width, yaw):
         group.location = (x, y, 0)
