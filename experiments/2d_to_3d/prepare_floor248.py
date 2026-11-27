@@ -50,6 +50,9 @@ def restore_surface_detail(floor, mask, sample, tile_size):
 
 TECH_MARKET_DONORS = {
     "western_canopy": (750, 228, 818, 318),
+    "western_red_stall": (458, 493, 508, 550),
+    "north_eastern_shops": (1309, 147, 1356, 207),
+    "east_corner_shop": (1475, 403, 1520, 461),
     "central_market_stall": (1010, 356, 1076, 436),
     "east_center_market": (1320, 616, 1414, 648),
     "south_center_market": (1062, 904, 1120, 980),
