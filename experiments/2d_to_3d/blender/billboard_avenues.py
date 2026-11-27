@@ -58,6 +58,9 @@ TRANSIT_11_ROOF_FANS = {
     "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
+    "city_exterior_parking_garage": {
+        "north_roof_w": ((182, 47, 251, 88),),
+    },
     "city_district_riot_square": {"east_south_building": ((1774, 950, 1882, 1008),)},
     "cybercity_street_12_industrial_district": {
         "nw_factory": ((210, 22, 264, 49),),

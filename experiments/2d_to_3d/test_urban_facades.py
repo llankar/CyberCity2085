@@ -20,6 +20,8 @@ def test_parking_garage_retains_angled_vehicle_placements():
         parts = [nodes[index]["name"] for index in stair["children"]]
         assert sum(part.startswith("Garage stair nosing") for part in parts) == 7
         assert sum(part.startswith("Garage stair cheek wall") for part in parts) == 2
+    roof = next(node for node in nodes if node["name"] == "Occludable_north_roof_w")
+    assert any(nodes[index]["name"] == "north_roof_w surveyed roof HVAC" for index in roof["children"])
     for identifier, angle in (("car_n4", -57), ("car_w", 19), ("car_mideast", -22)):
         import math
         car = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
