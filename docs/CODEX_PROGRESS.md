@@ -1917,3 +1917,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DOWNTOWN-VEHICLE-ORIENTATION / DONE. Matched seven vehicle angles to the original intersection artwork while fitting their rotated bounds to their surveyed footprints. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: inspect the catalogue for other repeated placement artifacts.
 
 - EXPERIMENTAL-PARKING-GARAGE-VEHICLE-ANGLES / DONE. Reused the Downtown fitted-yaw logic for three diagonally parked cars, preserving their surveyed bounds. Rebuilt the Parking Garage on E:, rendered Godot and passed 26 urban tests. Next: compare other recurring large visual defects across the catalogue.
+
+- EXPERIMENTAL-PARKING-GARAGE-STAIRWELLS / DONE. Modeled cheek walls and seven visible nosings on each surveyed stairwell, with the central flight turned to follow the original layout. Rebuilt on E:, captured Godot and passed 26 facade tests. Next: review another family with highly visible roof or street geometry gaps.

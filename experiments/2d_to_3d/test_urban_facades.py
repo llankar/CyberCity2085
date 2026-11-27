@@ -15,6 +15,11 @@ def test_parking_garage_retains_angled_vehicle_placements():
     with path.open("rb") as model:
         size = struct.unpack("<4sIII4s", model.read(20))[3]
         nodes = json.loads(model.read(size))["nodes"]
+    for identifier in ("west_stair", "center_stair", "east_stair"):
+        stair = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        parts = [nodes[index]["name"] for index in stair["children"]]
+        assert sum(part.startswith("Garage stair nosing") for part in parts) == 7
+        assert sum(part.startswith("Garage stair cheek wall") for part in parts) == 2
     for identifier, angle in (("car_n4", -57), ("car_w", 19), ("car_mideast", -22)):
         import math
         car = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")

@@ -684,6 +684,22 @@ def build(name):
                 mount.parent = group
             continue
         if identifier.endswith("_stair"):
+            if name == "city_exterior_parking_garage":
+                across_x = identifier == "center_stair"
+                length, width = (w,d) if across_x else (d,w)
+                group.location = (x,y,0)
+                group.rotation_euler.z = -math.pi/2 if across_x else 0
+                for step in range(7):
+                    rise = (step+1)*.15
+                    along = ((step+.5)/7-.5)*length
+                    box("Garage stair tread", (0,along,rise/2),
+                        (width*.38,length/14,rise/2),frame).parent = group
+                    box("Garage stair nosing", (0,along-length*.064,rise+.01),
+                        (width*.36,length*.013,.016),signs[2],.006).parent = group
+                for side in (-1,1):
+                    box("Garage stair cheek wall", (side*width*.437,0,.58),
+                        (width*.039,length*.49,.58),wall,.02).parent = group
+                continue
             for step in range(7):
                 rise = (step+1)*.15
                 box(identifier, (x,y+(((step+.5)/7)-.5)*d,rise/2),
