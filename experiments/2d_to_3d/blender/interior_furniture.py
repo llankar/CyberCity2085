@@ -116,6 +116,25 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
 
 
 
+def build_operating_table(group, x, y, w, d, housing, steel, screen):
+    vertical = d > w
+    length, width = (d, w) if vertical else (w, d)
+
+    def section(label, offset, height, half_length, half_width, half_height, material):
+        center = (x, y + offset * length, height) if vertical else (x + offset * length, y, height)
+        along, across = half_length * length, half_width * width
+        footprint = (across, along) if vertical else (along, across)
+        box(label, center, (*footprint, half_height), material, .025).parent = group
+
+    section("Surgery pedestal foot", 0, .08, .29, .35, .08, housing)
+    section("Surgery lift housing", 0, .39, .17, .24, .25, steel)
+    section("Surgery articulated deck", 0, .70, .46, .46, .08, housing)
+    for offset, size in ((-.35, .10), (-.08, .15), (.24, .15)):
+        section("Surgery patient pad", offset, .82, size, .35, .04, steel)
+    section("Surgery control strip", .43, .79, .025, .30, .018, screen)
+    merge_fixture_meshes(group, "Surgery operating table")
+
+
 def build_security_bay(group, identifier, x, y, w, d, wall, crate, steel, trim, screen):
     # Side bays face the main aisle. The northern bays and guardrooms face south.
     yaw = 0

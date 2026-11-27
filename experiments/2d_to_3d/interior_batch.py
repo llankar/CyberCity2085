@@ -201,7 +201,9 @@ def fixtures(name):
             selected[identifier] = "partition"
         elif "wall" in identifier or (name.endswith("penthouse_atrium") and "_edge" in identifier):
             selected[identifier] = "wall"
-        elif "bed" in identifier or identifier.endswith("operating_table"):
+        elif identifier.endswith("operating_table"):
+            selected[identifier] = "operating_table"
+        elif "bed" in identifier:
             selected[identifier] = "bed"
         elif "pods" in identifier or identifier.endswith("_core") or identifier.startswith("core_") or identifier in {"central_chamber", "central_cryo", "core"}:
             selected[identifier] = "pod"
