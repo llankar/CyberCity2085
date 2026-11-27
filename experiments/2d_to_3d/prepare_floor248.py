@@ -153,6 +153,19 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map == "city_transit_freight_yard":
+        # Recover paving grain without pasting a second set of rails or lamps.
+        cw, ch = survey["canvas_size"]
+        sx, sy = result.width/cw, result.height/ch
+        crane_mask = np.zeros_like(mask)
+        for row in survey["walls"]:
+            if row["id"].startswith("crane_"):
+                x1,y1,x2,y2 = row["rect"]
+                crane_mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)] = 255
+        for top, bottom in ((130,156), (328,352)):
+            crane_mask[round(top*sy):round(bottom*sy)] = 0
+        sample = original.crop((round(455*sx),round(176*sy),round(489*sx),round(214*sy)))
+        result = restore_surface_detail(result, crane_mask & mask, sample, round(34*sx))
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
     if args.map == "wasteland_city_12_cratered_waterfront":
