@@ -911,6 +911,9 @@ def build(name):
                 if transit_interchange:
                     box(identifier+" shelter backrest", (x,y+d*.34,.72),
                         (w*.36,.041,.11),seat,.012).parent = group
+                    for offset in (-.34,0,.34):
+                        box(identifier+" shelter roof rib", (x+w*offset,y,height+.078),
+                            (.036,d*.43,.023),wall,.009).parent = group
                     for side in (-1,1):
                         box(identifier+" shelter eave light", (x,y+side*d*.468,height-.015),
                             (w*.36,.019,.017),signs[0],.006).parent = group
