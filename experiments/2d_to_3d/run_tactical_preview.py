@@ -141,12 +141,16 @@ def selected_map(directory: Path) -> str | None:
     return selected
 
 
-def open_mailbox(directory: Path, map_key: str, smoke: bool) -> TacticalMailbox:
+def open_mailbox(directory: Path, map_key: str, smoke: bool, *, victory: bool = False) -> TacticalMailbox:
     preview = scenario_preview(map_key)
     if smoke:
         # A ranged drill exercises playback without waiting for the enemy to approach.
         preview.units["enemy:0"].attack_range = 10
         random.seed(4)
+    if victory:
+        ally, enemy = preview.units["ally:0"], preview.units["enemy:0"]
+        ally.stats.agi = 100
+        enemy.stats.hp = enemy.health = 1
     mailbox = TacticalMailbox(directory, preview, trace_timing=smoke)
     atomic_json(directory / "battlefield.json", battlefield_presentation(map_key))
     return mailbox
@@ -163,39 +167,44 @@ def main() -> int:
     parser.add_argument("--map", choices=scenario_maps(), help="Skip the map selection screen")
     checks = parser.add_mutually_exclusive_group()
     checks.add_argument("--smoke", action="store_true")
+    checks.add_argument("--smoke-victory", action="store_true")
     checks.add_argument("--benchmark", action="store_true", help="Measure an uncapped camera orbit")
     args = parser.parse_args()
+    smoke = args.smoke or args.smoke_victory
     temp_root = LAB / "tmp"
     temp_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="tactical-", dir=temp_root) as temp:
         directory = Path(temp)
         map_key = args.map
-        mailbox = open_mailbox(directory, map_key, args.smoke) if map_key else None
+        mailbox = open_mailbox(directory, map_key, smoke, victory=args.smoke_victory) if map_key else None
         if not map_key:
             atomic_json(directory / "scenarios.json", {
                 "maps": [{"id": key, "title": title} for key, title in scenario_maps().items()],
             })
         scene = "tactical_battlefield" if map_key else "tactical_menu"
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,
-                   CYBERCITY_TACTICAL_SMOKE="1" if args.smoke else "0",
+                   CYBERCITY_TACTICAL_SMOKE="1" if smoke else "0",
+                   CYBERCITY_TACTICAL_SMOKE_VICTORY="1" if args.smoke_victory else "0",
                    CYBERCITY_TACTICAL_BENCHMARK="1" if args.benchmark else "0")
         command = ["powershell.exe", "-NoProfile", "-File", str(Path(__file__).with_name("run_godot.ps1")),
                    "-Scene", f"res://{scene}.tscn", "-RenderingMethod", "gl_compatibility"]
-        if args.smoke:
+        if smoke:
             command.extend(["-QuitAfter", "1500"])
         with subprocess.Popen(command, env=env) as godot:
             while godot.poll() is None:
                 if mailbox is None:
                     map_key = selected_map(directory)
                     if map_key:
-                        mailbox = open_mailbox(directory, map_key, args.smoke)
+                        mailbox = open_mailbox(directory, map_key, smoke, victory=args.smoke_victory)
                 else:
                     mailbox.poll()
                 time.sleep(.01 if mailbox is not None else .03)
         if godot.returncode:
             return godot.returncode
-        if args.smoke and mailbox is None:
+        if smoke and mailbox is None:
             raise RuntimeError("The map selector did not start a scenario")
+        if args.smoke_victory and (mailbox.sequence != 2 or mailbox.reply["state"]["outcome"] != "victory"):
+            raise RuntimeError(f"Unexpected Godot victory exchange: {mailbox.reply}")
         if args.smoke and (mailbox.sequence != 6 or mailbox.reply["state"]["round"] != 2
                            or not mailbox.reply["state"]["units"][0]["defending"]):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")

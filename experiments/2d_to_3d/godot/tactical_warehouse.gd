@@ -14,6 +14,7 @@ var target_line: MeshInstance3D
 var outcome_panel: PanelContainer
 var outcome_title: Label
 var outcome_details: Label
+var outcome_close: Button
 var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
@@ -121,10 +122,10 @@ func _ready() -> void:
  results.add_child(outcome_title)
  outcome_details = Label.new()
  results.add_child(outcome_details)
- var leave := Button.new()
- leave.text = "Close skirmish"
- leave.pressed.connect(close_battlefield)
- results.add_child(leave)
+ outcome_close = Button.new()
+ outcome_close.text = "Close skirmish"
+ outcome_close.pressed.connect(close_battlefield)
+ results.add_child(outcome_close)
 
 
 func apply_presentation(config: Dictionary) -> bool:
@@ -277,6 +278,21 @@ func _process(delta: float) -> void:
     if recorded.size() != 2 + hit_audio or not str(recorded[1].file).ends_with("fire_pistol_01.wav"):
      push_error("Unexpected tactical shot audio")
      get_tree().quit(17)
+     return
+    if OS.get_environment("CYBERCITY_TACTICAL_SMOKE_VICTORY") == "1":
+     if not outcome_panel.visible or outcome_title.text != "Victory" or not outcome_details.text.ends_with("2 / 2"):
+      push_error("The victory outcome did not reach the skirmish panel")
+      get_tree().quit(24)
+      return
+     await RenderingServer.frame_post_draw
+     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_victory.png") != OK:
+      get_tree().quit(25)
+      return
+     outcome_close.pressed.emit()
+     if not closing:
+      get_tree().quit(26)
+      return
+     print("TACTICAL_VICTORY_PANEL_OK map=", scenario_title)
      return
     await RenderingServer.frame_post_draw
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
