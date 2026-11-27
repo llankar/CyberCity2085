@@ -573,21 +573,36 @@ func contains_cell(cells: Array, cell: Array) -> bool:
 
 
 func verify_move_hover(unit: Dictionary) -> bool:
- for destination: Array in unit.get("moves", []):
-  var point := review_camera.unproject_position(cell_position(destination))
-  if not actor_at(point, "").is_empty():
-   continue
-  var expected := "Move to cover" if contains_cell(unit.get("covered_moves", []), destination) else "Move"
+ var candidates := {}
+ var moves: Array = unit.get("moves", [])
+ var covered: Array = unit.get("covered_moves", [])
+ for row in range(28):
+  for column in range(40):
+   var cell := [column, row]
+   if same_cell(cell, unit.cell):
+    continue
+   var point := review_camera.unproject_position(cell_position(cell))
+   if not get_viewport().get_visible_rect().has_point(point) or not actor_at(point, "").is_empty():
+    continue
+   var expected := "Cannot move here"
+   if contains_cell(covered, cell):
+    expected = "Move to cover"
+   elif contains_cell(moves, cell):
+    expected = "Move"
+   if not candidates.has(expected):
+    candidates[expected] = point
+ if not candidates.has("Cannot move here") or candidates.size() < 2:
+  push_error("No visible smoke test cells for both reachable and unreachable ground")
+  return false
+ for expected: String in candidates:
   var hover := InputEventMouseMotion.new()
-  hover.position = point
+  hover.position = candidates[expected]
   _unhandled_input(hover)
   if not target_hint.visible or target_hint.text != expected:
    push_error("Expected movement hover label '%s', got '%s'" % [expected, target_hint.text])
    return false
   print("TACTICAL_MOVE_HOVER_OK ", expected)
-  return true
- push_error("No reachable smoke test cell outside an actor's screen hit area")
- return false
+ return true
 
 
 func refresh_target_hint(screen_point: Vector2) -> void:
