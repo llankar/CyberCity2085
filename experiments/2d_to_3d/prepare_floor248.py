@@ -193,17 +193,19 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
-    if args.map.endswith("_scavenger_plaza"):
+    if args.map.endswith(("_scavenger_plaza", "_burned_market_block")):
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
         plaza_repairs = np.zeros_like(mask)
         for row in survey["walls"]:
             identifier = row["id"]
-            if (identifier.startswith("market_") or "ruin" in identifier
-                    or identifier == "ne_corner") and "rect" in row:
+            if (identifier.startswith(("market_", "stall_")) or "ruin" in identifier
+                    or identifier in {"ne_corner", "south_stall"}) and "rect" in row:
                 x1,y1,x2,y2 = row["rect"]
                 plaza_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
-        paving = original.crop((round(443*sx),round(309*sy),round(488*sx),round(350*sy)))
+        sample = (443,309,488,350) if args.map.endswith("_scavenger_plaza") else (369,275,414,316)
+        left, top, right, bottom = sample
+        paving = original.crop((round(left*sx),round(top*sy),round(right*sx),round(bottom*sy)))
         result = restore_surface_detail(result, plaza_repairs & mask, paving, round(42*sx))
     if args.map == "wasteland_outdoor_12_salt_flat_ambush":
         cw, ch = survey["canvas_size"]
