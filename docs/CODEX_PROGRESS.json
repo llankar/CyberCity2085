@@ -5,14 +5,23 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "ENEMY-TACTICAL-COORDINATION"
+    "MISSION-OBJECTIVE-DIVERSITY"
   ],
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit objective-specific behavior from mission handoff through Godot combat and campaign result, starting with extraction."
+    "next_action": "Compare objective aliases and multi-stage progress in Godot and Arcade, starting with data retrieval and detours."
   },
   "tasks": [
+    {
+      "id": "MISSION-INTERACTIVE-VICTORY",
+      "title": "Require the marked objective action in Godot missions",
+      "status": "DONE",
+      "files": ["godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Godot handoff, fog and containment: 21 passed, 2 subtests passed."],
+      "evidence": ["Native regression verifies extraction, rescue and hack still require an interaction after all enemies die. Kill-all still resolves on elimination."],
+      "remaining": ["Compare objective aliases and multi-stage progress against Arcade contracts."]
+    },
     {
       "id": "ENEMY-CORPORATE-FOCUS",
       "title": "Coordinate corporate target selection without sharing hidden targets",

@@ -109,6 +109,12 @@ func run() -> void:
 	var link_wall: Array[Dictionary] = [{"cell": Vector2i(5, 6), "solid": true}]
 	board.configure(Vector2(1280, 720), null, link_wall, center)
 	assert(mission._linked_enemy_commander(0) == -1, "opaque wall breaks commander link")
+	mission.enemy_units.clear()
+	for action in ["EXTRACT", "RESCUE", "HACK"]:
+		mission.objective = {"needs_marker": true, "action_key": action}
+		assert(not mission._elimination_objective_met(), "an interactive objective still requires its action")
+	mission.objective = {"needs_marker": false, "type": "kill_all"}
+	assert(mission._elimination_objective_met(), "elimination missions still reward clearing the board")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")

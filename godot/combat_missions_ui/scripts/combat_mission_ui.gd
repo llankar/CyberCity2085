@@ -2363,6 +2363,8 @@ func _elimination_objective_met() -> bool:
 		objective_completed = true
 		objective_progress = int(objective.get("progress_needed", 1))
 		return true
+	if objective.get("needs_marker", false) and not str(objective.get("action_key", "")).is_empty():
+		return false
 	var eliminated := _enemy_alive_count() == 0
 	if eliminated and objective.get("type", "") == "containment":
 		objective_completed = true
