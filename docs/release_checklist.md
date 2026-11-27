@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] PyInstaller build, Inno Setup compilation and separate silent installation on E:. The installed executable reports `5522203a`, starts bundled Godot, reads 122 maps and passes the test-save round trip.
 - [x] Eleven targeted tests passed. The installed Godot also passed the external fog and tactical support regression. The three changed installed HUD/combat scripts match the checkout by SHA-256 and the bundle excludes Godot QA scripts.
+- [x] External fixtures on installed Godot passed WASAPI signal checks for movement, sniper fire and music, plus injected controller selection, movement, targeting and turn confirmation.
 - [ ] Physical controller and human listening remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-436012bb1c7a47508e09b37e14dc2b31/dist/installer`.
