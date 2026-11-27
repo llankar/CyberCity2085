@@ -345,6 +345,13 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
         else:
             identifier = "northeast_scanner"
             required_parts = {"Scanner gantry shell", "Scanner patient table", "Scanner table lift"}
+            beds = [node for node in nodes if node["name"].startswith("Clinic treatment bed")]
+            assert beds
+            for bed in beds:
+                primitives = data["meshes"][bed["mesh"]]["primitives"]
+                top = max(data["accessors"][part["attributes"]["POSITION"]]["max"][1]
+                          for part in primitives)
+                assert top + bed["translation"][1] > .76
         fixture = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         assert required_parts <= {nodes[index]["name"] for index in fixture["children"]}
 

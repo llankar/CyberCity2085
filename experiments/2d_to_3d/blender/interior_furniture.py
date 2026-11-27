@@ -55,6 +55,12 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_be
         piece("Bed mattress",0,0,.57,length*.44,width*.4,.075,linen)
         piece("Bed pillow",length*.30,0,.66,length*.105,width*.31,.045,linen)
         piece("Bed cover",-length*.13,0,.644,length*.29,width*.405,.021,pad)
+        piece("Bed folded cover edge",length*.145,0,.673,length*.021,width*.39,.016,linen)
+        for side in (-1, 1):
+            across = side*width*.441
+            piece("Bed safety rail",0,across,.76,length*.22,.024,.023,steel)
+            for end in (-1, 1):
+                piece("Bed safety rail post",end*length*.195,across,.63,.023,.024,.13,steel)
     bpy.ops.object.select_all(action="DESELECT")
     for obj in parts:
         obj.select_set(True)
