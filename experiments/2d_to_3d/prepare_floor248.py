@@ -193,6 +193,16 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map.endswith("_scavenger_plaza"):
+        cw, ch = survey["canvas_size"]
+        sx, sy = result.width/cw, result.height/ch
+        market_repairs = np.zeros_like(mask)
+        for row in survey["walls"]:
+            if row["id"].startswith("market_") and "rect" in row:
+                x1,y1,x2,y2 = row["rect"]
+                market_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
+        paving = original.crop((round(443*sx),round(309*sy),round(488*sx),round(350*sy)))
+        result = restore_surface_detail(result, market_repairs & mask, paving, round(42*sx))
     if args.map == "wasteland_outdoor_12_salt_flat_ambush":
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
