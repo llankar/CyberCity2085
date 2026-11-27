@@ -186,7 +186,12 @@ def test_substation_exports_all_surveyed_equipment_groups():
     assert surveyed == exported
     roots = [nodes[index] for index in data["scenes"][data["scene"]]["nodes"]]
     pads = [node for node in roots if node["name"].endswith(" retained service pad")]
-    assert len(pads) == 6
+    assert len(pads) == 8
+    by_name = {node["name"]: node for node in nodes}
+    for identifier in ("west_substation", "east_substation"):
+        group = by_name[f"Occludable_{identifier}"]
+        assert sum(nodes[index]["name"].startswith(f"{identifier} breaker module")
+                   for index in group["children"]) == 3
 
 def test_factory_console_and_shelf_groups_are_native_geometry():
     import json

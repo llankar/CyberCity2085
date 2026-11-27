@@ -112,6 +112,21 @@ for row in survey["walls"]:
                 tank.name = identifier + " reservoir"
                 tank.data.materials.append(steel)
                 tank.parent = group
+        elif identifier in {"west_substation", "east_substation"}:
+            # The source banks flank the central aisle, with service panels facing it.
+            inward = 1 if identifier == "west_substation" else -1
+            box(identifier+" retained service pad", (x,y,.021),
+                (w*.499,d*.499,.026), pad, .008)
+            box(identifier+" switchgear base", (x,y,.18),
+                (w*.46,d*.45,.13), steel).parent = group
+            box(identifier+" bus duct", (x-inward*w*.18,y,.55),
+                (w*.12,d*.40,.27), steel).parent = group
+            for offset in (-.28, 0, .28):
+                bay_y = y+offset*d
+                box(identifier+" breaker module", (x+inward*w*.12,bay_y,.46),
+                    (w*.16,d*.105,.30), steel, .025).parent = group
+                box(identifier+" breaker indicator", (x+inward*w*.22,bay_y,.77),
+                    (w*.05,d*.035,.012), display, .005).parent = group
         else:
             place(service, group, (x,y,0), (length*.94,depth*.94,1.60),
                   yaw=math.pi/2 if vertical else 0, merge=True)
