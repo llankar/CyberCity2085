@@ -362,6 +362,8 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
             assert node["name"].startswith("Occludable_")
             assert sum(" industrial side pilaster" in part for part in parts) == 6
             assert sum(" industrial rear door panel" in part for part in parts) == 1
+            assert sum(" industrial rear door lamp" in part for part in parts) == 1
+            assert sum(" industrial side vent" in part for part in parts) == 2
             clad += 1
     assert clad >= 2
 

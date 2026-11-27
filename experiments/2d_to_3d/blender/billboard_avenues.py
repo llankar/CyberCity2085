@@ -1250,6 +1250,8 @@ def build(name):
                 (door_width*.83,.021,.81),wall,.010).parent = group
             box(identifier+" industrial rear door hood", (x,rear-direction*.11,1.82),
                 (door_width*1.12,.115,.052),frame,.012).parent = group
+            box(identifier+" industrial rear door lamp", (x,rear-direction*.20,1.77),
+                (door_width*.55,.018,.025),signs[2],.007).parent = group
             for side in (-1,1):
                 flank = x+side*w/2
                 box(identifier+" industrial side lintel", (flank,y,height-.24),
@@ -1258,6 +1260,11 @@ def build(name):
                     box(identifier+" industrial side pilaster",
                         (flank,y+d*offset,height*.48),
                         (.062,.05,height*.43),frame,.012).parent = group
+                vents = place(library / "wall_fixtures282/vent.glb", group,
+                              (flank+side*.05,y+d*.155,height*.63),
+                              (min(.75,d*.20),.13,.36), yaw=side*math.pi/2, merge=True)
+                for vent in vents:
+                    vent.name = identifier+" industrial side vent"
         if not industrial and height >= 2.4:
             if d >= 2.4:
                 for side in (-1, 1):
