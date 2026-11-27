@@ -3,10 +3,28 @@ from pathlib import Path
 import argparse
 import html
 import json
-from PIL import Image,ImageOps,ImageDraw
+from PIL import Image,ImageOps,ImageDraw,ImageChops
 from prepare_multimap246 import SELECTION
 from environment_library import LAB,ROOT
 FOLDERS=['showcase245','residential253','lab248','factory249','metro250','wasteland254']
+
+
+def frame_isometric_capture(panel):
+    """Trim flat review-camera margins without cropping scenes that touch a corner."""
+    width, height = panel.size
+    background = panel.getpixel((0, 0))
+    corners = ((width-1, 0), (0, height-1), (width-1, height-1))
+    if any(panel.getpixel(point) != background for point in corners):
+        return panel
+    difference = ImageChops.difference(panel, Image.new("RGB", panel.size, background))
+    bounds = difference.getbbox()
+    if bounds is None:
+        return panel
+    left, top, right, bottom = bounds
+    padding = max(4, min(width, height)//40)
+    return panel.crop((max(0,left-padding),max(0,top-padding),
+                       min(width,right+padding),min(height,bottom+padding)))
+
 
 def main():
  parser = argparse.ArgumentParser(description=__doc__)
@@ -69,6 +87,8 @@ def main():
      left, top = (panel.width-map_width)//2, (panel.height-map_height)//2
      panel = panel.crop((left, top, left+map_width, top+map_height))
     panel = panel.resize((960, round(960*grid_height/grid_width)), Image.Resampling.LANCZOS)
+   elif path == native:
+    panel = frame_isometric_capture(panel)
    thumbnail=ImageOps.contain(panel,(960,960))
    image.paste(thumbnail,(x+(960-thumbnail.width)//2,80+(960-thumbnail.height)//2))
   view = 'TOP DOWN' if args.top_down else 'ISOMETRIC'
