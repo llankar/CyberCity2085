@@ -12,6 +12,11 @@ OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
 ROOFTOPS = {"city_exterior_rooftop_access", "city_rooftop_skybridge_spine"}
 WATERFRONTS = {"city_exterior_waterfront_docks", "cybercity_street_04_waterfront_docks",
                "cybercity_street_09_waterfront_docks"}
+FLOODED_AVENUE = "cybercity_street_13_flood_prone_avenue"
+# Art-only water footprint. The original roads remain walkable in combat.
+AVENUE_FLOOD_OUTLINE = [(424,0),(539,0),(542,138),(570,172),(960,184),
+                        (960,284),(570,290),(550,319),(539,540),(419,540),
+                        (418,327),(391,300),(0,293),(0,185),(390,177),(421,147)]
 
 
 def terrain(survey):
@@ -44,9 +49,11 @@ def terrain(survey):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("map", choices=sorted(ROOFTOPS | WATERFRONTS))
+    parser.add_argument("map", choices=sorted(ROOFTOPS | WATERFRONTS | {FLOODED_AVENUE}))
     args = parser.parse_args()
     survey = json.loads((MAPS / f"{args.map}.wall-traces.json").read_text())
+    if args.map == FLOODED_AVENUE:
+        survey["walls"].append({"kind": "water", "polygon": AVENUE_FLOOD_OUTLINE})
     (OUTPUT / args.map / "rooftop_terrain.json").write_text(json.dumps(terrain(survey)))
 
 

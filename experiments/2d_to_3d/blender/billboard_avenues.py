@@ -86,11 +86,13 @@ def textured_material(name, image, roughness):
     return material
 
 
-def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
+def build_rooftop_ground(out, floor, grid, canvas, library, water=None, shallow=False):
     terrain = json.loads((out / "rooftop_terrain.json").read_text())
     gw,gh = grid
     cw,ch = canvas
     deck_z, street_z = -.025, -DOCK_BASIN_DEPTH if water else -3.6
+    if shallow:
+        street_z = -.075
 
     def vertex(point, height):
         x,y = point
@@ -112,6 +114,8 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
             x,y,_ = vertices[loop.vertex_index]
             uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
         label = {"deck": "Waterfront quay deck", "street": "Waterfront basin surface"}[surface] if water else "Rooftop "+surface
+        if shallow:
+            label = "Flooded avenue water surface" if surface == "street" else "Flooded avenue sidewalk"
         bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
 
     vertices, faces = [], []
@@ -126,6 +130,8 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
     label = "Waterfront quay retaining walls" if water else "Rooftop canyon retaining walls"
     bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
     if water:
+        if shallow:
+            return
         rubber = make_material("Weathered quay fender rubber", (.033,.041,.045,1), 0,.91)
         for start, end in terrain["edges"]:
             a, b = Vector(vertex(start,deck_z)), Vector(vertex(end,deck_z))
@@ -951,6 +957,9 @@ def build(name):
     elif waterfront:
         water = textured_material("Waterfront basin water", out / "floor.png", .32)
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water)
+    elif name.endswith("_flood_prone_avenue"):
+        water = textured_material("Shallow avenue floodwater", out / "floor.png", .26)
+        build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water, shallow=True)
     elif bridge_access:
         rivers = {row["id"]: row["polygon"] for row in survey["walls"] if row.get("kind") == "water"}
         water = textured_material("Bridge river water", out / "floor.png", .32)
