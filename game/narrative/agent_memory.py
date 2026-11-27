@@ -10,6 +10,7 @@ _TACTICAL_MARKERS = (
     " decisive objective actions",
     " stayed in the fight after taking ",
     " under fire",
+    " was downed during ",
     " fell during ",
     " lost an activation to panic during ",
 )

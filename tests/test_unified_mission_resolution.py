@@ -55,7 +55,7 @@ def test_real_mission_driver_cannot_force_terminal_state():
     )
     assert not any(token in source for token in forbidden)
     assert "scene._move_active_unit_to(destination)" in source
-    assert "scene._interact_with_objective()" in source
+    assert "scene._on_cell_clicked(objective_cell)" in source
     assert "scene._resolve_enemy_turn()" in source
 
 
@@ -354,10 +354,10 @@ def test_godot_downed_agent_and_witness_remember_a_survived_injury(tmp_path):
         resolve_godot_result(state, mission, result, session["session_id"])
     recovered, observer = state.characters
     assert recovered.stats.hp > 0
-    assert any("Vera fell during" in line for line in recovered.history)
-    assert any("saw Vera fall under fire" in line for line in observer.history)
+    assert any("Vera was downed during" in line for line in recovered.history)
+    assert any("saw Vera go down under fire" in line for line in observer.history)
     assert resolve_godot_result(state, mission, result, session["session_id"]) is None
-    assert sum("saw Vera fall under fire" in line for line in observer.history) == 1
+    assert sum("saw Vera go down under fire" in line for line in observer.history) == 1
 
 
 def test_real_support_damage_updates_maintenance_once(tmp_path):

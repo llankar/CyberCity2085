@@ -104,7 +104,7 @@ def record_rescue(state, actor, target, *, before_hp, cleared_bleeding):
 
 
 def record_losses(state, participants):
-    """Retain loss memories even when AI has removed a fallen unit from its list."""
+    """Remember units downed in combat before campaign survival is resolved."""
     seen = state.tactical_flags.setdefault("remembered_losses", set())
     for unit in participants:
         character = unit.character
@@ -112,7 +112,7 @@ def record_losses(state, participants):
             continue
         seen.add(id(character))
         mission = getattr(state.mission, "title", None) or "Tactical engagement"
-        text = f"{character.name} fell during {mission}."
+        text = f"{character.name} was downed during {mission}."
         character.history.append(text)
         survivors = [other for other in participants if other.health > 0 and isinstance(other.character, Character)]
         if survivors:
@@ -121,7 +121,7 @@ def record_losses(state, participants):
             witness = survivor.character
             bond = witness.relationships.get(character.name, 0)
             line = f"{character.name}, stay with me!" if bond > 0 else f"{character.name} is down. We need to finish this."
-            witness.history.append(f"{mission}: saw {character.name} fall under fire.")
+            witness.history.append(f"{mission}: saw {character.name} go down under fire.")
             state.logs.append(f'{witness.name}: "{line}"')
         state.tactical_flags.setdefault("agent_moments", []).append(
             {"kind": "downed", "agent_name": character.name, "text": text})

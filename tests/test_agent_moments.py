@@ -285,9 +285,9 @@ def test_real_enemy_kill_is_remembered_after_ai_removes_the_fallen_agent():
     with patch("game.combat.attack_resolution.random.random",return_value=0):
         engine.start_enemy_turn()
     assert actor.health<=0
-    assert any("Rook fell" in line for line in character.history)
+    assert any("Rook was downed" in line for line in character.history)
     assert any("stay with me" in line for line in state.logs)
-    assert any("saw Rook fall under fire" in line for line in friend.history)
+    assert any("saw Rook go down under fire" in line for line in friend.history)
     count=len(character.history)
     engine.end_battle_check()
     assert len(character.history)==count
