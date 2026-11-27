@@ -188,6 +188,16 @@ def build_bridge_surfaces(floor, water, retaining, grid, canvas, north, south):
         mesh.from_pydata(vertices, [], [(i,i+1,i+1+count,i+count) for i in range(count-1)])
         mesh.materials.append(retaining)
         bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
+        # The longest bank stretch along the water is the bridge edge.
+        start, end = max(zip(bank, bank[1:]), key=lambda edge: math.dist(*edge))
+        a, b = point(start, deck_z), point(end, deck_z)
+        edge = b-a
+        normal = Vector((-edge.y, edge.x, 0)).normalized()
+        for height in (.22, .87):
+            center = (a+b)/2 + normal*.045
+            center.z -= height
+            rib = box(label+" structural rib", center, (edge.length/2,.075,.064), retaining,.02)
+            rib.rotation_euler.z = math.atan2(edge.y,edge.x)
 
 
 def build_freeway_deck(floor, wall, frame, grid, canvas, rail_rows):
