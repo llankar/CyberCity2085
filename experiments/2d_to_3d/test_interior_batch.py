@@ -63,7 +63,7 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     assert lobby["planter_nw"] == "planter"
     _, vault = fixtures("city_industrial_data_vault")
     assert vault["west_server_rack"] == "cabinet"
-    assert vault["vault_core"] == "pod"
+    assert vault["vault_core"] == "data_core"
     _, tunnel = fixtures("city_industrial_service_tunnel")
     assert tunnel["ne_room_pipe_elbow"] == "pipe"
     assert tunnel["nw_room_floor_grate"] == "floor_grate"

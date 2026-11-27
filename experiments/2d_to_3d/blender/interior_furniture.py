@@ -413,6 +413,14 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+    elif kind == "data_core":
+        part("Data core floor plinth", 0,0,.14,length*.47,width*.47,.14,trim)
+        part("Armored data core chassis", 0,0,.56,length*.34,width*.35,.40,steel)
+        part("Data core inset blue panel", 0,0,.979,length*.20,width*.21,.027,screen)
+        for side in (-1,1):
+            part("Data core upper frame", 0,side*width*.28,.975,length*.31,width*.054,.04,trim)
+            part("Data core light channel", side*length*.35,0,.62,.022,width*.18,.18,screen)
+        merge_fixture_meshes(group, "Industrial data core")
     elif kind == "vault_core":
         part("Vault foundation", 0,0,.14,length*.48,width*.47,.14,trim)
         part("Vault armored housing", 0,0,.49,length*.41,width*.40,.34,steel)

@@ -1823,3 +1823,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-POLICE-RECORDS-FIXTURE-MERGE / DONE. Baked bevels and merged each workstation within its own cutaway group, reusing the market fixture merge. Re-exported both Police Records scenes to E:. Cybercity Inner 08 went from 356 to 308 mesh instances, reached round 2, and nineteen interior tests passed. Next: move to another family with substantial coverage gaps.
 
 - EXPERIMENTAL-INDUSTRIAL-VAULT-SERVER-BANKS / DONE. Replaced four generic server cabinets with detailed joined rack banks, retaining each surveyed cutaway group. Verified all four groups in the GLB, rendered the 58-mesh scene in Godot and passed nineteen interior tests. Next: compare the vault's barrier and central equipment silhouettes against source art.
+
+- EXPERIMENTAL-INDUSTRIAL-VAULT-CORE / DONE. The original depicts a squat blue data terminal. Replaced the generic vertical pod with a merged armored core, inset screen and light channels inside its surveyed footprint. Rebuilt on E:, rendered in Godot and passed nineteen interior tests. Next: review the core and partition opening from tactical camera.

@@ -78,6 +78,7 @@ def fixtures(name):
     room_fixtures = {
         "city_interior_command_deck": {"north_display": "command_wall"},
         "city_interior_police_records": {"south_control": "command_console"},
+        "city_industrial_data_vault": {"vault_core": "data_core"},
         "cybercity_inner_11_cyber_cafe": {"east_office_counter": "workbench"},
         "wasteland_inner_05_looted_vault": {"sw_utility": "cabinet", "core": "vault_core"},
         "wasteland_inner_10_looted_vault": {"sw_utility": "cabinet", "core": "vault_core"},
