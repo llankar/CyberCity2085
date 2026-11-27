@@ -302,6 +302,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 if row["id"].endswith("_ruin") or row["id"] == "ne_corner":
                     ruin = next(node for node in nodes if node["name"] == f"Occludable_{row['id']}")
                     parts = [nodes[index]["name"] for index in ruin["children"]]
+                    canopy, = [nodes[index] for index in ruin["children"]
+                               if nodes[index]["name"].startswith("Charred market roof remnant")]
+                    assert len(canopy["children"]) == 4
                     assert sum(part.startswith("Exposed market roof joist") for part in parts) == 2
                     assert sum(part.startswith("Fallen market floor fragment") for part in parts) == 3
             for identifier, has_canvas in (("stall_w", False), ("stall_middle", True)):

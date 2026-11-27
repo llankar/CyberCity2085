@@ -1137,6 +1137,16 @@ class WastelandOutdoors:
                 (.080, .080, level/2), self.dark).parent = group
         box("Surviving market crossbeam", (x, y-street*depth*.31, level),
             (width*.37, .060, .080), self.steel).parent = group
+        canopy = box("Charred market roof remnant",
+                     (x-width*.215,y-street*depth*.245,level+.09),
+                     (width*.15,depth*.133,.026),self.dark,.012)
+        canopy.rotation_euler.x = street*.19
+        canopy.parent = group
+        for index in range(4):
+            rib = box("Charred market roof seam",
+                      (width*(index-1.5)*.068,0,.037),
+                      (.016,depth*.124,.014),self.steel,.005)
+            rib.parent = canopy
         shutter = box("Buckled market storefront shutter",
                       (x-width*.16,y+street*depth*.25,.52),
                       (width*.13,.038,.42),self.blue_sheet,.018)
