@@ -99,7 +99,7 @@ def main(argv=None):
             case=output/outcome;case.mkdir(exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='cybercity-unified-') as tmp:
                 sandbox=Path(tmp);_link_directory(sandbox/'assets',root/'assets');_link_directory(sandbox/'godot',root/'godot');os.chdir(sandbox)
-                mission=MissionTemplate(id='unified_'+outcome,title='Unified '+outcome,objective_text='Protocol validation',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='hack')
+                mission=MissionTemplate(id='unified_'+outcome,title='Unified '+outcome,objective_text='Retrieve the cache',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='data_theft')
                 names = ['Vera', 'Rook', 'Oracle', 'Mantis'] if args.real_mission else ['Vera']
                 state=GameState(characters=[Character(name) for name in names],selected_agent_names=names,mission_templates=[mission])
                 state.mission_board_generated_day=state.calendar.current_day;state.mission_board_version=2

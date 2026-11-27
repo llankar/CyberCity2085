@@ -20,14 +20,17 @@ func _advance_objective(scene) -> bool:
 	var objective_cell: Vector2i = scene.objective.get("cell", Vector2i.ZERO)
 	var position: Vector2i = scene._cell_position(active)
 	var interact_range := int(scene.objective.get("interact_range", 2))
+	var ap := int(active.get("ap", 0))
+	if ap <= 0:
+		return false
 	if absi(position.x - objective_cell.x) + absi(position.y - objective_cell.y) <= interact_range:
-		scene._interact_with_objective()
-		return true
+		var previous_progress: int = scene.objective_progress
+		scene._on_cell_clicked(objective_cell)
+		return scene.objective_progress > previous_progress
 	var route: Array[Vector2i] = scene._battlefield.find_path(position, objective_cell)
 	if route.size() <= 1:
 		return false
-	var ap := int(active.get("ap", 0))
-	var destination_index := mini(route.size() - 1, maxi(1, ap))
+	var destination_index := mini(route.size() - 1, ap)
 	# The marker itself may be occupied/blocked; stop at the furthest legal cell.
 	while destination_index > 0:
 		var destination := route[destination_index]
