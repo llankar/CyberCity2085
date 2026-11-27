@@ -91,6 +91,12 @@ def build(name):
         "cybercity_inner_05_server_room", "cybercity_inner_15_data_vault", "city_interior_server_room",
     }
     bunker = name.endswith("_bunker_command_post")
+    underground_market = name.endswith("_underground_market")
+    if underground_market:
+        stall_canvas = [make_material(label, color, 0,.95) for label,color in (
+            ("Worn olive canvas", (.14,.17,.11,1)), ("Faded rust canvas", (.26,.10,.062,1)),
+            ("Dusty tan canvas", (.29,.22,.13,1)),
+        )]
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
@@ -316,6 +322,25 @@ def build(name):
                     handrail.rotation_euler = axis.to_track_quat("Z", "Y").to_euler()
                     handrail.parent = group
         elif kind == "stall":
+            if underground_market:
+                box("Salvage market counter", (x,y,.39), (w*.45,d*.44,.39), partition_cap).parent = group
+                for index, (dx,dy) in enumerate(((-.27,.20),(.03,-.18),(.29,.14))):
+                    box("Salvage display bin", (x+w*dx,y+d*dy,.84),
+                        (w*.115,d*.115,.064), steel if index == 1 else trim,.016).parent = group
+                if identifier not in {"stall_center_e", "stall_sc", "south_stall_mid", "south_stall_far"}:
+                    for dx in (-.42,.42):
+                        for dy in (-.41,.41):
+                            box("Salvage canopy upright", (x+w*dx,y+d*dy,.89),
+                                (.036,.036,.89), steel,.008).parent = group
+                    eaves = [(-.44,-.43),(.44,-.43),(.44,.43),(-.44,.43)]
+                    vertices = [(x+w*dx,y+d*dy,1.78) for dx,dy in eaves] + [(x+w*.07,y,1.98)]
+                    canopy = bpy.data.meshes.new("Patched market canopy")
+                    canopy.from_pydata(vertices, [], [(i,(i+1)%4,4) for i in range(4)])
+                    canopy.materials.append(stall_canvas[sum(map(ord,identifier))%len(stall_canvas)])
+                    cloth = bpy.data.objects.new(canopy.name,canopy)
+                    bpy.context.collection.objects.link(cloth)
+                    cloth.parent = group
+                continue
             market = library / "market_southeast_display/shop.glb"
             place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw, merge=True)
         elif kind == "fountain":
