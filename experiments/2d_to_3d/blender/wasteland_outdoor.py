@@ -975,6 +975,9 @@ class WastelandOutdoors:
         for offset in (-.32, 0, .30):
             box("Scavenger parts bin", (length*offset,0,.64),
                 (length*.085,width*.15,.075), self.dark).parent = group
+        for offset, cross, height in ((-.34,-.05,.05),(-.29,.065,.031),(.02,.045,.064),(.31,-.052,.045)):
+            box("Scavenger recovered machine part", (length*offset,width*cross,.715+height),
+                (length*.024,width*.041,height), self.steel,.011).parent = group
         fabrics = covers.get(name, ())
         for index, fabric in enumerate(fabrics):
             half = length*(.20 if len(fabrics) == 2 else .26)
