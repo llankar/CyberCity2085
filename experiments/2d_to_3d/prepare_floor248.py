@@ -291,13 +291,25 @@ def main():
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
         crane_mask = np.zeros_like(mask)
+        paving_repairs = []
+        paving_donors = {}
+        paving_sample = (455,176,489,214)
         for row in survey["walls"]:
             if row["id"].startswith("crane_"):
                 x1,y1,x2,y2 = row["rect"]
                 crane_mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)] = 255
+                for low, high in ((0,130),(156,328),(352,ch)):
+                    top, bottom = max(y1,low), min(y2,high)
+                    if top < bottom:
+                        label = f"{row['id']}_paving_{low}"
+                        paving_repairs.append({"id": label, "rect": [x1,top,x2,bottom]})
+                        paving_donors[label] = paving_sample
         for top, bottom in ((130,156), (328,352)):
             crane_mask[round(top*sy):round(bottom*sy)] = 0
-        sample = original.crop((round(455*sx),round(176*sy),round(489*sx),round(214*sy)))
+        result = restore_donor_pavement(result, original, {**survey, "walls": paving_repairs},
+                                        paving_donors)
+        left, top, right, bottom = paving_sample
+        sample = original.crop((round(left*sx),round(top*sy),round(right*sx),round(bottom*sy)))
         result = restore_surface_detail(result, crane_mask & mask, sample, round(34*sx))
         # Continue the original sleeper pattern through the masked crossings.
         # Match the source row so both sides of each track stay aligned.
