@@ -1262,6 +1262,14 @@ class WastelandOutdoors:
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
         part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel)
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
+        if self.salt_flat:
+            for side in (-1, 1):
+                part("Salt flat wreck side window", (length*.35,side*width*.405,.94),
+                     (length*.085,.012,.102), self.dark,.012)
+                part("Salt flat wreck cab sill", (length*.35,side*width*.412,.58),
+                     (length*.12,.024,.033), self.dark,.011)
+            part("Salt flat wreck front bumper", (length*.484,0,.45),
+                 (.013,width*.42,.052), self.dark,.012)
         part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
         for side in (-1,1):
             for offset in (-.35,-.19,.35):
