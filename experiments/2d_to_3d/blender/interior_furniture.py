@@ -27,8 +27,10 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_be
             piece("Bed leg",end*length*.32,side*width*.31,.24,.05,.05,.24,steel)
     piece("Bed frame",0,0,.48,length*.46,width*.43,.065,steel)
     if stretcher:
-        piece("Worn stretcher pad",0,0,.566,length*.42,width*.34,.046,pad)
+        piece("Stretcher body pad",-length*.08,0,.566,length*.32,width*.34,.046,pad)
+        piece("Stretcher headrest",length*.335,0,.58,length*.08,width*.32,.056,pad)
         for side in (-1,1):
+            piece("Stretcher undercarriage brace",0,side*width*.31,.19,length*.32,.025,.025,steel)
             piece("Stretcher side rail",0,side*width*.425,.62,length*.31,.025,.026,steel)
             for end in (-1,1):
                 piece("Stretcher rail upright",end*length*.29,side*width*.425,.57,.025,.025,.06,steel)

@@ -76,6 +76,10 @@ def build(name):
     steel = make_material("Interior service steel", (.038,.063,.075,1) if metro else (.13,.19,.22,1), .5,.68 if metro else .58)
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
     trim = make_material("Equipment enamel", (.24,.15,.075,1) if ruined else (.05,.21,.28,1), .18,.65)
+    ruined_clinic = name.endswith("_ruined_clinic")
+    if ruined_clinic:
+        stretcher_frame = make_material("Oxidized stretcher steel", (.048,.061,.056,1), .46,.76)
+        stretcher_pad = make_material("Worn stretcher vinyl", (.032,.063,.057,1), 0,.89)
     partition_cap = make_material("Partition cap", (.047,.030,.018,1) if ruined else (.017,.032,.044,1), .28,.79)
     ballast = make_material("Track bed", (.014,.018,.020,1) if metro else (.047,.052,.053,1), .07,.93)
     sleeper_material = make_material("Carbon-stained sleepers", (.009,.014,.018,1), .02,.92) if metro else partition_cap
@@ -366,8 +370,9 @@ def build(name):
             build_operating_table(group, x, y, w, d, partition_cap, steel, screen)
         elif kind == "bed":
             floor_bedding = name.endswith("_apartment_shelter") and identifier in {"bed_ne1", "bed_ne2", "bed_ne3"}
-            build_bed(group, x, y, w, d, steel, linen, trim,
-                      stretcher=name.endswith("_ruined_clinic"), floor_bedding=floor_bedding)
+            build_bed(group, x, y, w, d, stretcher_frame if ruined_clinic else steel, linen,
+                      stretcher_pad if ruined_clinic else trim,
+                      stretcher=ruined_clinic, floor_bedding=floor_bedding)
         elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
