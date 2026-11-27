@@ -6,27 +6,7 @@ import struct
 import pytest
 
 
-@pytest.mark.parametrize(("first_id", "second_id", "family", "first_scene"), [
-    ("01", "06", "dust_road_ambush", None),
-    ("02", "07", "ashfield_ruins", "wasteland320_cast"),
-    ("03", "08", "wrecked_highway", None),
-    ("04", "09", "rusted_trainyard", None),
-    ("05", "10", "irradiated_basin", None),
-])
-def test_identical_outdoor_variants_share_the_environment(first_id, second_id, family, first_scene):
-    import re
-
-    experiment = Path(__file__).resolve().parent
-    maps = experiment.parents[1] / "assets/maps"
-    first, second = (f"wasteland_outdoor_{variant}_{family}" for variant in (first_id, second_id))
-    surveys = [json.loads((maps / (name+".wall-traces.json")).read_text()) for name in (first,second)]
-    assert surveys[0]["canvas_size"] == surveys[1]["canvas_size"]
-    assert surveys[0]["walls"] == surveys[1]["walls"]
-    assert (maps / (first+".png")).read_bytes() == (maps / (second+".png")).read_bytes()
-    scenes = (first_scene or first, second)
-    folders = [re.search(r'^review_folder = "(.+)"$', (experiment / "godot" / (scene+".tscn")).read_text(),
-                         re.MULTILINE).group(1) for scene in scenes]
-    assert folders[0] == folders[1]
+from catalogue_test_assets import catalogue_environment
 
 
 @pytest.mark.parametrize(("family", "first_map"), [
@@ -34,8 +14,7 @@ def test_identical_outdoor_variants_share_the_environment(first_id, second_id, f
     ("city", "wasteland_city_01_ruined_downtown"),
 ])
 def test_generated_models_include_every_surveyed_group(family, first_map):
-    output = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
-    if not (output / first_map / "environment.glb").is_file():
+    if not catalogue_environment(first_map).is_file():
         pytest.skip("Run this Wasteland Blender batch on E: first")
     maps = Path(__file__).resolve().parents[2] / "assets/maps"
     surveys = sorted(maps.glob(f"wasteland_{family}_*.wall-traces.json"))
@@ -43,7 +22,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         name = survey_path.name.split(".")[0]
         if name == "wasteland_outdoor_02_ashfield_ruins":
             continue
-        with (output / name / "environment.glb").open("rb") as model:
+        with catalogue_environment(name).open("rb") as model:
             magic, _, _, size, chunk = struct.unpack("<4sIII4s", model.read(20))
             assert (magic, chunk) == (b"glTF", b"JSON")
             nodes = json.loads(model.read(size))["nodes"]
@@ -202,9 +181,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
 
 @pytest.mark.parametrize("variant", ("03", "08"))
 def test_collapsed_span_export_includes_textured_fracture_faces(variant):
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
-        f"wasteland_city_{variant}_collapsed_overpass"
-    ) / "environment.glb"
+    path = catalogue_environment(f"wasteland_city_{variant}_collapsed_overpass")
     if not path.is_file():
         pytest.skip("Run the local Overpass Blender batch first")
     with path.open("rb") as model:
@@ -276,9 +253,7 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
 
 @pytest.mark.parametrize("variant", ("03", "08"))
 def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
-        f"wasteland_outdoor_{variant}_wrecked_highway"
-    ) / "environment.glb"
+    path = catalogue_environment(f"wasteland_outdoor_{variant}_wrecked_highway")
     if not path.is_file():
         pytest.skip("Build Wrecked Highway on E: first")
     with path.open("rb") as model:
@@ -295,9 +270,7 @@ def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
 
 @pytest.mark.parametrize("variant", ("04", "09"))
 def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
-        f"wasteland_outdoor_{variant}_rusted_trainyard"
-    ) / "environment.glb"
+    path = catalogue_environment(f"wasteland_outdoor_{variant}_rusted_trainyard")
     if not path.is_file():
         pytest.skip("Build Rusted Trainyard on E: first")
     with path.open("rb") as model:

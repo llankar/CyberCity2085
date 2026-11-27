@@ -1,3 +1,4 @@
+from catalogue_test_assets import catalogue_environment
 from interior_batch import INTERIORS, fixtures
 
 
@@ -358,7 +359,8 @@ def test_interior_maps_export_remaining_fixture_groups():
             identifier: "Command map display" for identifier in ("north_map", "west_control", "east_control")
         }
     for name, fixtures_to_check in additions.items():
-        path = OUTPUT / name / "environment.glb"
+        path = (catalogue_environment(name) if name.startswith("wasteland_inner_")
+                else OUTPUT / name / "environment.glb")
         if not path.is_file():
             pytest.skip(f"Build {name} on E: first")
         with path.open("rb") as glb:
@@ -423,7 +425,8 @@ def test_clinic_and_shelter_plumbing_is_exported_as_geometry():
         ) for index in variants},
     }
     for name, expected in maps.items():
-        path = OUTPUT / name / "environment.glb"
+        path = (catalogue_environment(name) if name.startswith("wasteland_inner_")
+                else OUTPUT / name / "environment.glb")
         if not path.is_file():
             pytest.skip(f"Build {name} on E: first")
         with path.open("rb") as glb:
