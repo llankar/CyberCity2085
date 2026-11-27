@@ -1747,7 +1747,7 @@ func _enemy_act(enemy_index: int) -> void:
 	var subtype := str(enemy.get("enemy_subtype", "grunt")).to_lower()
 	var ap: int = int(enemy.get("ap", 2))
 	var rng: int = _subtype_attack_range(subtype)
-	var ti: int = _nearest_visible_player_to(enemy)
+	var ti: int = _select_visible_player_target(enemy, subtype, rng)
 	var occupied := _enemy_known_occupied_cells(enemy_index)
 	# Search without using hidden player coordinates. Enemies reserve one AP so
 	# discovery during movement can still lead to an attack this turn.
@@ -1767,7 +1767,7 @@ func _enemy_act(enemy_index: int) -> void:
 			var search_key := "e%d" % enemy_index
 			if _unit_tokens.has(search_key):
 				_visual_move_token(search_key, start, destination, enemy)
-		ti = _nearest_visible_player_to(enemy)
+		ti = _select_visible_player_target(enemy, subtype, rng)
 		if ti < 0:
 			enemy["ap"] = 0
 			enemy_units[enemy_index] = enemy
@@ -2228,18 +2228,26 @@ func _visible_enemy_units_for_hud() -> Array[Dictionary]:
 			visible.append(enemy_units[index])
 	return visible
 
-func _nearest_visible_player_to(enemy: Dictionary) -> int:
+func _select_visible_player_target(enemy: Dictionary, subtype: String, attack_range: int) -> int:
 	var ep := _cell_position(enemy)
 	var best := -1
-	var best_distance := 99999
+	var best_score := -INF
 	for index in range(player_units.size()):
 		var player := player_units[index] as Dictionary
 		if not _unit_can_see(enemy, player):
 			continue
 		var position := _cell_position(player)
 		var distance := absi(ep.x - position.x) + absi(ep.y - position.y)
-		if distance < best_distance:
-			best_distance = distance
+		var score := -float(distance)
+		if distance <= attack_range and subtype in ["sniper", "elite", "commander"]:
+			# Prefer an available shot at an exposed target over a slightly closer guard.
+			score -= 1.5 * int(player.get("defense", 4))
+			if index in defend_indices:
+				score -= 6.0
+		elif distance > attack_range:
+			score -= 100.0
+		if score > best_score:
+			best_score = score
 			best = index
 	return best
 

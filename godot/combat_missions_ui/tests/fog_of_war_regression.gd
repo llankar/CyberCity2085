@@ -61,6 +61,16 @@ func run() -> void:
 	assert(mission.enemy_units[0]["position"] == Vector2i(17, 14), "a blocked search goal still permits movement")
 	assert(mission.player_units[0]["hp"] == 20, "search cannot attack a hidden target")
 	assert(board.find_path(Vector2i(19, 14), center).is_empty(), "exact paths still reject blocked destinations")
+	board.configure(Vector2(1280, 720), null, no_walls, center)
+	var shooter := {"hp": 20, "position": Vector2i(5, 5)}
+	mission.player_units.assign([
+		{"hp": 20, "defense": 10, "position": Vector2i(6, 5)},
+		{"hp": 20, "defense": 3, "position": Vector2i(9, 5)},
+		{"hp": 20, "defense": 0, "position": Vector2i(22, 5)},
+	])
+	assert(mission._select_visible_player_target(shooter, "grunt", 10) == 0, "grunt prioritizes proximity")
+	assert(mission._select_visible_player_target(shooter, "elite", 24) == 1, "elite prioritizes the exposed visible target")
+	assert(mission._select_visible_player_target(shooter, "elite", 3) == 0, "elite prefers an available shot")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")
