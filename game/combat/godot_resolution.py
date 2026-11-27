@@ -74,7 +74,10 @@ def resolve_godot_result(game_state,mission,result,session_id):
     def resolve_outcome(victory):
         context.triggered_complication=resolve_mission_outcome(shadow,context.mission,victory,None)
     context.resolve_mission_outcome=resolve_outcome
-    survivors,units=resolve_campaign_battle(context,result['outcome']=='victory',defeated_override=result['enemies_killed'])
+    survivors,units=resolve_campaign_battle(
+        context, result['outcome']=='victory', defeated_override=result['enemies_killed'],
+        objective_progress=result.get('objective_progress'),
+    )
     shadow.latest_mission_debrief.setdefault('deployment_vehicle', {})['heavy_strike_used'] = bool(
         result.get('heavy_strike_used', False)
     )

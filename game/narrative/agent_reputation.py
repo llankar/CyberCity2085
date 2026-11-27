@@ -76,7 +76,9 @@ def _award_for_agent(
             "" if character.nickname else "Keymaker",
             f"completed {objective_contribution} decisive objective actions during {reason_mission}",
         )
-    if saved_civilian or objective_type in {"civilian_rescue", "rescue"}:
+    if saved_civilian or (
+        objective_type in {"civilian_rescue", "rescue"} and not performance.get("civilian_rescue_reported")
+    ):
         return AgentReputationAward(
             character.name,
             "civilian_shield",

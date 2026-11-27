@@ -168,6 +168,9 @@ def build_battle_debrief_summary(
         ])
     objective_text=("Objective completed" if external.get("objective_completed") is True else
                     "Objective not completed" if external.get("objective_completed") is False else "Objective completion not reported")
+    civilian_rescue = debrief_raw.get("civilian_rescue") if isinstance(debrief_raw, dict) else None
+    if isinstance(civilian_rescue, dict):
+        objective_text = f"{civilian_rescue['rescued']}/{civilian_rescue['total']} civilian groups rescued"
     equipment_lines = []
     equipment_report = debrief_raw.get("equipment_recovery", {}) if isinstance(debrief_raw, dict) else {}
     if isinstance(equipment_report, dict):
@@ -187,7 +190,7 @@ def build_battle_debrief_summary(
                     if isinstance(quantity, int) and quantity > 0
                 )
     return {
-        "objective_result": objective_text if external else (
+        "objective_result": objective_text if external or civilian_rescue else (
             "All objectives completed" if victory else "Mission objectives failed"
         ),
         "outcome": external.get("outcome", "victory" if victory else "defeat"),

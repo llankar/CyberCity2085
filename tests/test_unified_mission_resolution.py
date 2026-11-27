@@ -70,15 +70,32 @@ def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
     assert '_end_combat("retreat")' in scene
 
 
-def scenario(tmp_path, fund_reward=0):
+def scenario(tmp_path, fund_reward=0, objective_type="extract"):
     agent=Character('Vera',role='sniper')
     state=GameState(characters=[agent],selected_agent_names=['Vera'])
-    mission=MissionTemplate(id='unified_test',title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='extract',fund_reward=fund_reward)
+    mission=MissionTemplate(id='unified_test',title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type=objective_type,fund_reward=fund_reward)
     state.active_mission=mission
     path=write_godot_combat_handoff(state,mission,handoff_path=tmp_path/'handoff.json')
     path,session=create_session(state,mission,path)
     result=dict(protocol_version=2,session_id=session['session_id'],mission_id=mission.id,phase='confirmed',outcome='victory',turn_reached=4,initial_enemy_count=3,enemies_killed=1,agents=[dict(name='Vera',hp=7,max_hp=agent.stats.max_hp,stress=8)],support=[])
     return state,mission,session,result
+
+
+@pytest.mark.parametrize("rescued", [0, 1])
+def test_rescue_progress_survives_retreat_and_credits_real_contributors(tmp_path, rescued):
+    from game.ui.screens.battle_debrief_view import build_battle_debrief_summary
+
+    state, mission, session, result = scenario(tmp_path, objective_type="civilian_rescue")
+    result.update(outcome="retreat", objective_progress=rescued, objective_completed=False)
+    result["agents"][0]["objective_contribution"] = rescued
+    resolve_godot_result(state, mission, result, session["session_id"])
+    line = f"{rescued}/3 civilian groups rescued"
+    assert state.latest_mission_debrief["civilian_rescue"] == {"rescued": rescued, "total": 3}
+    assert build_battle_debrief_summary(state, False, mission, [])["objective_result"] == line
+    assert sum(line in event for event in state.event_log) == 1
+    assert ("civilian_shield" in state.characters[0].reputation) == bool(rescued)
+    assert resolve_godot_result(state, mission, result, session["session_id"]) is None
+    assert sum(line in event for event in state.event_log) == 1
 
 
 def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tmp_path):

@@ -103,6 +103,10 @@ def validate_result(result, record, session_id):
     initial=integer(result.get('initial_enemy_count'),'initial_enemy_count',0,10000)
     spawned=integer(result.get('enemies_spawned_total',initial),'enemies_spawned_total',initial,10000)
     integer(result.get('enemies_killed'),'enemies_killed',0,spawned)
+    if 'objective_progress' in result:
+        integer(result['objective_progress'], 'objective_progress', 0, 100000)
+    if 'objective_completed' in result and type(result['objective_completed']) is not bool:
+        raise ValueError('objective_completed must be a boolean')
     if 'heavy_strike_used' in result and type(result['heavy_strike_used']) is not bool:
         raise ValueError('heavy_strike_used must be a boolean')
     for group,expected,identity in [('agents',record['expected_agents'],'name'),('support',record['expected_support'],'id')]:

@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit whether tactical objective progress affects the campaign debrief and consequences on partial rescue and mission failure."
+    "next_action": "Audit strategic fallout for district crises and faction decisions, then connect missing consequences through existing campaign rules."
   },
   "tasks": [
+    {
+      "id": "MISSION-PARTIAL-RESCUE-DEBRIEF",
+      "title": "Recognize partial civilian rescue in the campaign debrief",
+      "status": "DONE",
+      "files": ["game/combat/mission_resolution.py", "game/combat/godot_resolution.py", "game/combat/session_protocol.py", "game/narrative/agent_reputation.py", "game/ui/screens/battle_debrief_view.py", "tests/test_unified_mission_resolution.py"],
+      "tests": ["Unified mission resolution, battle debrief and narrative debrief: 51 passed."],
+      "evidence": ["Retreat after zero or one rescue produces accurate counts in the debrief and one campaign event. Civilian reputation requires actual contribution when stage progress is available. Result replay remains idempotent."],
+      "remaining": []
+    },
     {
       "id": "MISSION-RESCUE-RECON-STAGES",
       "title": "Deliver three sequential civilian rescue and recon markers in Godot",

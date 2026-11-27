@@ -8,7 +8,7 @@ from game.narrative.debrief import build_mission_debrief_report
 from game.narrative.relationship_consequences import apply_tactical_relationship_consequences
 
 
-def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
+def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, objective_progress=None):
     funds_before=self.game_state.available_funds
     transaction_start = len(self.game_state.funds.transaction_history)
     remaining_enemies = len(getattr(self, "enemy_units", []))
@@ -77,6 +77,15 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
     self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
     performance_by_agent = {}
     combat_state = getattr(self, "combat_state", None)
+    objective = getattr(self, "battle_objective", None)
+    if objective_progress is None and objective is not None:
+        objective_progress = objective.progress
+    civilian_report = None
+    if getattr(self.mission, "objective_type", "") == "civilian_rescue" and type(objective_progress) is int:
+        from game.mission_objectives import create_battle_objective
+
+        total = create_battle_objective(self.mission).required_interactions
+        civilian_report = {"rescued": max(0, min(objective_progress, total)), "total": total}
     objective_contributions = (
         combat_state.tactical_flags.get("objective_contributions", {})
         if combat_state is not None
@@ -92,7 +101,10 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
             "kia": unit.health <= 0,
             "xp_gained": getattr(unit.character, "_mission_xp_gained", 0),
             "objective_type": getattr(self.mission, "objective_type", ""),
-            "saved_civilian": bool(getattr(unit, "_saved_civilian", False)),
+            "civilian_rescue_reported": civilian_report is not None,
+            "saved_civilian": bool(getattr(unit, "_saved_civilian", False)) or bool(
+                civilian_report and civilian_report["rescued"] and objective_contributions.get(unit.character.name, 0)
+            ),
             "objective_contribution": int(
                 objective_contributions.get(unit.character.name, 0)
             ),
@@ -162,6 +174,11 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         debrief_report.reputation_awards,
     )
     self.game_state.latest_mission_debrief = debrief_report.to_dict()
+    if civilian_report is not None:
+        self.game_state.latest_mission_debrief["civilian_rescue"] = civilian_report
+        self.game_state.add_event(
+            f"{self.mission.title}: {civilian_report['rescued']}/{civilian_report['total']} civilian groups rescued."
+        )
     self.game_state.latest_mission_debrief["relationship_changes"] = relationship_changes
     mission_payout = sum(
         transaction.amount
