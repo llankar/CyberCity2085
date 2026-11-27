@@ -6,7 +6,7 @@ import sys
 
 import bpy
 from mathutils import Vector
-from mathutils.geometry import tessellate_polygon
+from mathutils.geometry import intersect_point_tri_2d, tessellate_polygon
 
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
@@ -17,6 +17,7 @@ from wasteland_outdoor import WastelandOutdoors
 from industrial_forklift import build_forklift
 
 LAB = Path("E:/CyberCity2085-3d-lab")
+DOCK_BASIN_DEPTH = 1.35
 MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
 # Equipment footprints measured on the 960 x 540 original avenue art.
 BILLBOARD_ROOF_FANS = {
@@ -89,7 +90,7 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
     terrain = json.loads((out / "rooftop_terrain.json").read_text())
     gw,gh = grid
     cw,ch = canvas
-    deck_z, street_z = -.025, -1.35 if water else -3.6
+    deck_z, street_z = -.025, -DOCK_BASIN_DEPTH if water else -3.6
 
     def vertex(point, height):
         x,y = point
@@ -306,6 +307,11 @@ def build(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
+    waterfront = name.endswith("_waterfront_docks")
+    basin_triangles = []
+    if waterfront:
+        terrain = json.loads((out / "rooftop_terrain.json").read_text())
+        basin_triangles = [tuple(Vector(p) for p in triangle) for triangle in terrain["street"]]
     freeway = name.endswith("_elevated_freeway")
     transport_facades = freeway or name.endswith("_transit_interchange")
     deck_rails = {row["id"]: row["points"][0][1] for row in survey["walls"]
@@ -672,8 +678,14 @@ def build(name):
                   (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
             continue
         if "crane" in identifier:
+            submerged_feet = []
+            for side in (-1, 1):
+                foot = Vector(((x/gw+.5)*cw, (.5-(y+side*d*.32)/gh)*ch))
+                if any(intersect_point_tri_2d(foot,*triangle) for triangle in basin_triangles):
+                    submerged_feet.append(side)
             build_crane(group, x, y, w, d, frame, shipping_skins[1],
-                        height=3.8, outreach=min(2.65, max(w,d)))
+                        height=3.8, outreach=min(2.65, max(w,d)),
+                        basin_depth=DOCK_BASIN_DEPTH, submerged_feet=submerged_feet)
             continue
         if "container" in identifier or "cargo" in identifier:
             vertical = d > w
@@ -936,7 +948,7 @@ def build(name):
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
-    elif name.endswith("_waterfront_docks"):
+    elif waterfront:
         water = textured_material("Waterfront basin water", out / "floor.png", .32)
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water)
     elif bridge_access:
