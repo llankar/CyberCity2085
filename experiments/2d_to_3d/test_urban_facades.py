@@ -37,3 +37,19 @@ def test_lateral_facade_bands_keep_building_occlusion(name):
     expected = 2 if name == "cybercity_street_02_neon_market_alley" else 3
     assert len(fans) == len(curbs) == expected
     assert (fans | curbs) <= grouped
+
+def test_billboard_benches_export_as_grouped_panels():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "city_exterior_billboard_avenue/environment.glb")
+    if not path.is_file():
+        pytest.skip("Run the urban Blender batch on E: first")
+    with path.open("rb") as glb:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", glb.read(20))
+        nodes = json.loads(glb.read(size))["nodes"]
+    benches = [node for node in nodes if node["name"].startswith("Occludable_")
+               and any(" seat panel" in nodes[index]["name"] for index in node.get("children", []))]
+    assert len(benches) == 6
+    for bench in benches:
+        parts = [nodes[index]["name"] for index in bench["children"]]
+        assert sum(" seat panel" in part for part in parts) in (2, 3)
+        assert sum(" seat panel" in part for part in parts) == sum(" back panel" in part for part in parts)

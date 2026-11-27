@@ -370,12 +370,31 @@ def build(name):
             continue
         if any(kind in identifier for kind in ("bench", "planter", "barrier", "barricade", "_seat")):
             if "bench" in identifier or identifier.endswith("_seat"):
+                length, depth = max(w,d), min(w,d)
+                vertical = d > w
+                facing = (x < 0) if vertical else (y > 0)
+                direction = 1 if facing else -1
                 parts = [
-                    ("seat", (x, y, .36), (w*.46, d*.30, .065), seat),
-                    ("backrest", (x, y+d*.27, .54), (w*.46, .055, .19), seat),
+                    ("crossbeam", (0,0,.31), (length*.45,depth*.23,.045), frame),
                 ]
-                parts.extend(("support", (x+w*offset, y, .17), (.08, d*.24, .17), frame)
-                             for offset in (-.33, .33))
+                sections = 3 if length >= 2.1 else 2
+                for index in range(sections):
+                    offset = ((index+.5)/sections-.5)*length*.92
+                    parts.append(("seat panel", (offset,0,.38),
+                                  (length*.43/sections,depth*.31,.045), seat))
+                    parts.append(("back panel", (offset,depth*.29,.56),
+                                  (length*.43/sections,depth*.07,.12), seat))
+                for offset in (-.39,.39):
+                    parts.extend((
+                        ("foot", (length*offset,0,.17), (length*.045,depth*.32,.17), frame),
+                        ("back support", (length*offset,depth*.29,.45),
+                         (length*.035,depth*.035,.18), frame),
+                    ))
+                for label, position, half_size, material in parts:
+                    box(f"{identifier} {label}", position, half_size, material).parent = group
+                group.location = (x,y,0)
+                group.rotation_euler.z = (math.pi/2 if vertical else 0) + (math.pi if direction < 0 else 0)
+                continue
             else:
                 parts = [
                     ("base", (x, y, .16), (w*.49, d*.48, .16), wall),
