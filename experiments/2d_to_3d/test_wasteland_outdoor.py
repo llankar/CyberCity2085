@@ -128,5 +128,6 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
     wagon = next(node for node in nodes if node["name"] == "Occludable_wagon_turntable")
     assert bridge["rotation"] == wagon["rotation"]
     parts = [nodes[index]["name"] for index in bridge["children"]]
+    assert any(part.startswith("Turntable circular rim") for part in parts)
     assert sum(part.startswith("Turntable bridge rail") for part in parts) == 2
     assert sum(part.startswith("Turntable sleeper") for part in parts) == 15

@@ -271,6 +271,31 @@ class WastelandOutdoors:
         bridge.location = (x, y, 0)
         bridge.rotation_euler.z = yaw
         length = 2 * math.hypot(64*self.gw/self.cw, 52*self.gh/self.ch)
+        radius = length / 2
+        segments = 48
+        profile = ((radius+.08, .018), (radius+.06, .074),
+                   (radius-.06, .074), (radius-.08, .027))
+        vertices = []
+        faces = []
+        for segment in range(segments):
+            angle = math.tau*segment/segments
+            vertices.extend((r*math.cos(angle), r*math.sin(angle), z)
+                            for r, z in profile)
+            current = segment*len(profile)
+            following = ((segment+1) % segments)*len(profile)
+            for edge in range(len(profile)-1):
+                faces.append((current+edge, following+edge,
+                              following+edge+1, current+edge+1))
+        mesh = bpy.data.meshes.new("Turntable rim profile")
+        mesh.from_pydata(vertices, [], faces)
+        mesh.materials.append(self.steel)
+        mesh.materials.append(self.dark)
+        for face in mesh.polygons:
+            face.material_index = 0 if face.index % (len(profile)-1) == 1 else 1
+        rim = bpy.data.objects.new("Turntable circular rim", mesh)
+        bpy.context.collection.objects.link(rim)
+        rim.parent = bridge
+
         gauge = wagon_width * .63
         for index in range(-7, 8):
             sleeper = box("Turntable sleeper", (index*length/16, 0, .052),
