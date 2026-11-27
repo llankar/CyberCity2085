@@ -71,6 +71,12 @@ func run() -> void:
 	assert(mission.player_units[0]["hp"] == 20, "search cannot attack a hidden target")
 	assert(board.find_path(Vector2i(19, 14), center).is_empty(), "exact paths still reject blocked destinations")
 	board.configure(Vector2(1280, 720), null, no_walls, center)
+	mission.turn_number = 9
+	mission.enemy_units.assign([{"hp": 20, "ap": 3, "position": center}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0].position == Vector2i(20, 12), "search continues after the initial center sweep")
+	assert(mission.player_units[0].hp == 20, "the patrol has no knowledge of hidden targets")
+	mission.turn_number = 1
 	var shooter := {"hp": 20, "position": Vector2i(5, 5)}
 	mission.player_units.assign([
 		{"hp": 20, "defense": 10, "position": Vector2i(6, 5)},
