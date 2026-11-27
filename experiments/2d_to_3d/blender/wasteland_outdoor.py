@@ -47,9 +47,15 @@ class WastelandOutdoors:
                 frame.parent = hull
             if name == "West edge cargo wreck":
                 for offset in (-.29, -.10, .09):
-                    hatch = box("Open cargo hatch coaming", (length*offset,0,.43),
-                                (length*.07,width*.26,.09), self.steel,.022)
-                    hatch.parent = hull
+                    for side in (-1, 1):
+                        box("Cargo hatch longitudinal coaming",
+                            (length*offset,side*width*.245,.43),
+                            (length*.07,width*.023,.09),self.steel,.016).parent = hull
+                        box("Cargo hatch end coaming",
+                            (length*(offset+side*.066),0,.43),
+                            (length*.012,width*.224,.09),self.steel,.016).parent = hull
+                    box("Exposed cargo hold floor", (length*offset,0,.347),
+                        (length*.055,width*.220,.012),self.dark,.008).parent = hull
             hull.location = ((ax+bx)/2,(ay+by)/2,0)
             hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
 

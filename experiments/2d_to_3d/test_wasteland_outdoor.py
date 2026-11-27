@@ -108,7 +108,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             for identifier in ("West basin wreck", "East basin wreck", "West edge cargo wreck"):
                 wreck = next(node for node in nodes if node["name"] == identifier)
                 assert "mesh" in wreck
-                assert len(wreck["children"]) == (6 if identifier == "West edge cargo wreck" else 3)
+                parts = [nodes[index]["name"] for index in wreck["children"]]
+                assert sum(part.startswith("Exposed shipwreck deck frame") for part in parts) == 3
+                if identifier == "West edge cargo wreck":
+                    assert sum(part.startswith("Cargo hatch longitudinal coaming") for part in parts) == 6
+                    assert sum(part.startswith("Cargo hatch end coaming") for part in parts) == 6
+                    assert sum(part.startswith("Exposed cargo hold floor") for part in parts) == 3
             surfaces = {node["name"]: node for node in nodes if node["name"].startswith("Water surface ")}
             assert surfaces.keys() == {"Water surface "+row["id"] for row in surveyed if row.get("kind") == "water"}
             assert all("mesh" in node for node in surfaces.values())

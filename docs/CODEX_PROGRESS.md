@@ -2049,3 +2049,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DUST-ROAD-LIGHTING / DONE for native overview. Matched the two variant presets at reduced key and ambient intensity and reduced the orange tint. Captured the shared scene through variant 06 and refreshed the 122-map gallery. Next: compare rubble silhouettes at tactical zoom.
 
 - EXPERIMENTAL-DUST-ROAD-SANDBAG-CONTRAST / DONE for export and native loading. Added alternating stained and faded canvas to distinguish the sandbag cover from the surrounding dust. Rebuilt the shared 01/06 model on E:, refreshed the Godot and comparison views and passed eleven outdoor tests. Next: inspect the remaining exterior maps for visible discrepancies in larger structures.
+
+- EXPERIMENTAL-CRATERED-WATERFRONT-CARGO-HATCHES / DONE for export and native loading. Replaced the three solid cargo hatch proxies with steel rims around recessed floors on the west shipwreck. Rebuilt the GLB on E:, refreshed the Godot view and gallery, and updated the export test to verify hatch components. Eleven outdoor tests passed. Next: compare the smaller wrecks and quay faces at combat zoom.
