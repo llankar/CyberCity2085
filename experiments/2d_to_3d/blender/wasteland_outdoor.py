@@ -122,7 +122,7 @@ class WastelandOutdoors:
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
-        if self.ruined_downtown:
+        if self.ruined_downtown or self.flooded_square:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
@@ -384,12 +384,30 @@ class WastelandOutdoors:
                 self.downtown_exposed_frame(group, name, x, y, w, d)
             elif self.burned_market:
                 self.burned_market_ruin(group, name, x, y, w, d)
+            elif self.flooded_square:
+                self.flooded_square_ruin(group, x, y, w, d)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def flooded_square_ruin(self, group, x, y, width, depth):
+        street = -1 if y > 0 else 1
+        for offset, panel_height in ((-.29,.20), (.02,.15), (.32,.09)):
+            box("Flooded ruin blue plinth panel",
+                (x+width*offset, y+street*depth*.487, .27),
+                (width*.115, .023, panel_height), self.facade_blue,.012).parent = group
+        for offset, height in ((-.32,1.61), (.29,1.36)):
+            box("Flooded ruin exposed column",
+                (x+width*offset, y+street*depth*.28, height/2),
+                (.071,.071,height/2), self.steel).parent = group
+        floor = self.concrete_box("Flooded ruin fallen upper floor",
+                                  (x-width*.14, y-street*depth*.16, .63),
+                                  (width*.23,depth*.20,.09))
+        floor.rotation_euler.y = street*.28
+        floor.parent = group
 
     def burned_market_ruin(self, group, name, x, y, width, depth):
         street = -1 if name.startswith("n") else 1

@@ -34,6 +34,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             monument = by_name["Occludable_monument"]
             assert sum(nodes[i]["name"].startswith("Flooded monument") for i in monument["children"]) == 4
             for row in surveyed:
+                if "ruin" in row["id"] or row["id"] == "ne_corner":
+                    ruin = by_name[f"Occludable_{row['id']}"]
+                    parts = [nodes[i]["name"] for i in ruin["children"]]
+                    assert sum(part.startswith("Flooded ruin blue plinth panel") for part in parts) == 3
+                    assert any(part.startswith("Flooded ruin fallen upper floor") for part in parts)
                 if row["id"].startswith("planter_"):
                     planter = by_name[f"Occludable_{row['id']}"]
                     edges = [nodes[i] for i in planter["children"]
