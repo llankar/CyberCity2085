@@ -27,10 +27,22 @@ ALTERNATE_BILLBOARD_ROOF_FANS = {
     "north_block": ((251, 17, 286, 78),),
     "ne_block": ((577, 61, 632, 100),),
 }
-BILLBOARD_FANS_BY_MAP = {
+MARKET_02_ROOF_FANS = {
+    "northeast_block": ((592, 18, 641, 49),),
+    "north_east_block": ((892, 5, 929, 54),),
+}
+MARKET_07_08_ROOF_FANS = {
+    "north_block": ((249, 34, 286, 94),),
+    "ne_block": ((708, 44, 742, 86),),
+    "west_mid_block": ((38, 240, 70, 298),),
+}
+ROOF_FANS_BY_MAP = {
     "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,
     "cybercity_street_15_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
     "cybercity_street_16_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
+    "cybercity_street_02_neon_market_alley": MARKET_02_ROOF_FANS,
+    "cybercity_street_07_neon_market_alley": MARKET_07_08_ROOF_FANS,
+    "cybercity_street_08_neon_market_alley": MARKET_07_08_ROOF_FANS,
 }
 
 BUILDING_EXCEPTIONS = {
@@ -407,7 +419,7 @@ def build(name):
                 box(identifier + " roof parapet short",
                     (x+side*(w/2-thickness), y, height+parapet_height),
                     (thickness, d/2-2*thickness, parapet_height), frame).parent = group
-        roof_fans = BILLBOARD_FANS_BY_MAP.get(name, {}).get(identifier, ())
+        roof_fans = ROOF_FANS_BY_MAP.get(name, {}).get(identifier, ())
         for left, top, right, bottom in roof_fans:
             fan_x = (left+right)*gw/(2*cw)-gw/2
             fan_y = gh/2-(top+bottom)*gh/(2*ch)
