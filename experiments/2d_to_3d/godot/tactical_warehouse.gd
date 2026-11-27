@@ -26,6 +26,7 @@ var smoke_patient := ALLY
 
 
 func _ready() -> void:
+ get_tree().auto_accept_quit = false
  var session := OS.get_environment("CYBERCITY_TACTICAL_SESSION")
  if session.is_empty():
   push_error("Launch this scene with run_tactical_preview.py")
@@ -256,7 +257,15 @@ func _process(delta: float) -> void:
      get_tree().quit(15)
      return
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
-    close_battlefield()
+    get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+    if not closing:
+     push_error("Window close did not begin tactical shutdown")
+     get_tree().quit(21)
+
+
+func _notification(what: int) -> void:
+ if what == NOTIFICATION_WM_CLOSE_REQUEST and is_inside_tree():
+  close_battlefield()
 
 
 func close_battlefield() -> void:
