@@ -791,6 +791,14 @@ class WastelandOutdoors:
                                   (width*.23,depth*.20,.09))
         floor.rotation_euler.y = street*.28
         floor.parent = group
+        # Anchor exposed reinforcement to the tilted slab so it follows the
+        # fracture rather than floating above the flooded ground.
+        for offset, reach, bend in ((-.13,.16,-.17), (.02,.23,.09), (.14,.12,.22)):
+            rod = box("Flooded ruin exposed slab reinforcement",
+                      (width*.21+reach/2, depth*offset, .015),
+                      (reach/2+.035,.013,.012), self.steel)
+            rod.rotation_euler.z = bend
+            rod.parent = floor
 
     def burned_market_ruin(self, group, name, x, y, width, depth):
         street = -1 if name.startswith("n") else 1
