@@ -92,10 +92,11 @@ def build(name):
     }
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
-    if underground_market:
-        market_wall = make_material("Underground Market aged concrete", (.28,.25,.21,1), 0,.88)
-        nodes = market_wall.node_tree.nodes
-        links = market_wall.node_tree.links
+    concrete_partitions = bunker or name.endswith(("_underground_market", "_ruined_clinic", "_collapsed_tunnel"))
+    if concrete_partitions:
+        aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
+        nodes = aged_concrete.node_tree.nodes
+        links = aged_concrete.node_tree.links
         concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001"
         for filename, socket in (("diff.jpg", "Base Color"), ("rough.jpg", "Roughness")):
             layer = nodes.new("ShaderNodeTexImage")
@@ -103,6 +104,7 @@ def build(name):
             if socket == "Roughness":
                 layer.image.colorspace_settings.name = "Non-Color"
             links.new(layer.outputs["Color"], nodes["Principled BSDF"].inputs[socket])
+    if underground_market:
         stall_canvas = []
         for color in ("olive", "rust", "tan"):
             material = make_material(f"Original market canvas {color}", (.08,.06,.04,1), 0,.95)
@@ -180,7 +182,7 @@ def build(name):
             mesh.materials.append(partition_cap)
             for face in mesh.polygons[1:top_face_count]:
                 face.material_index = 1
-            if (textured_partitions or underground_market) and kind == "partition":
+            if (textured_partitions or concrete_partitions) and kind == "partition":
                 uv = mesh.uv_layers.new(name="Panel UV")
                 for edge, face in enumerate(mesh.polygons[2:]):
                     start, end = outline[edge], outline[(edge+1) % count]
@@ -189,8 +191,8 @@ def build(name):
                         (0, 0), (repeats, 0), (repeats, 1), (0, 1)
                     )):
                         uv.data[loop].uv = coord
-                if underground_market:
-                    mesh.materials[0] = market_wall
+                if concrete_partitions:
+                    mesh.materials[0] = aged_concrete
                 else:
                     partition_meshes.append(mesh)
             partition = bpy.data.objects.new(identifier, mesh)
