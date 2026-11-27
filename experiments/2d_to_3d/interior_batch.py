@@ -87,7 +87,10 @@ def fixtures(name):
         },
         "cybercity_inner_10_penthouse_atrium": {"sw_plant": "planter"},
         "cybercity_inner_12_maintenance_tunnel": {"se_fans": "vent_fan", "south_inner_storage": "rack"},
-        "cybercity_inner_14_detention_block": {"east_weapons": "rack", "east_tools": "workbench"},
+        "cybercity_inner_14_detention_block": {
+            "east_weapons": "rack", "east_tools": "workbench",
+            "north_cells_front": "cell_front", "south_cells_front": "cell_front",
+        },
         "cybercity_inner_09_apartment_block": {"bath_s": "bath_tub"},
         "city_interior_control_center": {"north_display": "command_wall"},
         "cybercity_inner_01_control_center": {"north_display": "command_wall"},

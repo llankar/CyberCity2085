@@ -140,6 +140,24 @@ def build(name):
             continue
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if kind == "cell_front":
+            (left,row_y),(right,_) = row["points"]
+            span = (right-left)*gw/cw/5
+            depth = row["width"]*gh/ch
+            y = gh/2-row_y*gh/ch
+            for bay in range(5):
+                x = left*gw/cw-gw/2+(bay+.5)*span
+                for z in (.09,1.43):
+                    box("Cell front steel frame", (x,y,z), (span/2,depth*.44,.09),steel,.018).parent = group
+                for offset in (-.36,.36):
+                    box("Cell front armor panel", (x+offset*span,y,.76),
+                        (span*.13,depth*.39,.65),partition_cap,.02).parent = group
+                for bar in (-2,-1,0,1,2):
+                    box("Cell front vertical bar", (x+bar*span*.083,y,.76),
+                        (.035,depth*.12,.64),steel,.008).parent = group
+                box("Cell interlock indicator", (x,y,1.43), (span*.13,depth*.47,.026),screen,.008).parent = group
+            merge_fixture_meshes(group, "Detention cell frontage")
+            continue
         if kind == "pipe":
             radius = row["width"] * gw/cw/2
             points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch, radius+.07))

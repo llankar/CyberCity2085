@@ -1829,3 +1829,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INDUSTRIAL-VAULT-PARTITIONS / DONE. Applied world-scale worn steel UVs to the surveyed partitions and set two cyan status lights on the northern barriers. Rebuilt on E:, passed nineteen interior tests and reached round 2 in the native Data Vault skirmish. Next: carry a comparable prop pass to another distinct map.
 
 - EXPERIMENTAL-SERVER-FAMILY-PARTITIONS / DONE. Extended world-scale worn steel wall mapping to City Interior Server Room and Cybercity Inner 15 Data Vault. Rebuilt both GLBs on E:, rendered both in Godot and extended the export test to every server-map partition. Nineteen interior tests passed. Next: check distinctive room fixtures in another map family.
+
+- EXPERIMENTAL-DETENTION-CELL-FRONTS / DONE. Rebuilt the two traced cell fronts on Cybercity Inner 14 as five barred bays per row with blue interlock indicators. Merged each row under its existing cutaway group and preserved tactical traces. Rebuilt on E:, rendered in Godot and passed nineteen interior tests. Next: inspect the frontage at combat zoom and compare the Wasteland detention art.
