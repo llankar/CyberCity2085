@@ -887,6 +887,11 @@ class WastelandOutdoors:
             for offset in (-.23,.18):
                 box("Quay tarp lashing", (length*offset,0,.714),
                     (.022,width*.37,.016), self.dark,.006).parent = group
+                for side in (-1, 1):
+                    box("Quay tarp lashing drop", (length*offset,side*width*.397,.441),
+                        (.022,width*.018,.247),self.dark,.006).parent = group
+                    box("Quay tarp lashing buckle", (length*offset,side*width*.419,.27),
+                        (.047,width*.014,.039),self.steel,.010).parent = group
         else:
             for offset, height in ((-.28,.27),(0,.34),(.28,.23)):
                 box("Quay salvaged crate", (length*offset,0,.20+height),

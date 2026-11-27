@@ -164,6 +164,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert all(nodes[i]["name"].startswith("Basin drain socket collar")
                            for i in drain["children"])
         if name.endswith("_cratered_waterfront"):
+            cargo = next(node for node in nodes if node["name"] == "Occludable_cargo_e2")
+            parts = [nodes[i]["name"] for i in cargo["children"]]
+            assert sum(part.startswith("Quay tarp lashing drop") for part in parts) == 4
+            assert sum(part.startswith("Quay tarp lashing buckle") for part in parts) == 4
             for identifier in ("nw_ruin", "north_ruin", "ne_ruin"):
                 ruin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 parts = [nodes[i]["name"] for i in ruin["children"]]
