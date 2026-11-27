@@ -376,10 +376,19 @@ def build(name):
             for side in (-1,1):
                 box("Rail service room side wall", (x+side*w*.43,y,.56),
                     (w*.055,d*.43,.56),steel,.02).parent = group
+                box("Rail service room skirting", (x+side*w*.366,y,.14),
+                    (w*.019,d*.415,.105),partition_cap,.012).parent = group
+                box("Rail service room conduit", (x+side*w*.366,y,.87),
+                    (w*.019,d*.39,.023),rail,.008).parent = group
             box("Rail service desk", (x,y-inward*d*.25,.36),
                 (w*.34,d*.14,.36),partition_cap,.025).parent = group
             box("Rail service display", (x-w*.18,y-inward*d*.25,.75),
-                (w*.115,d*.081,.03),screen,.009).parent = group
+                (w*.115,d*.081,.03),console_glass,.009).parent = group
+            box("Rail service switchgear", (x+w*.20,y-inward*d*.28,.82),
+                (w*.108,d*.075,.09),steel,.009).parent = group
+            for slot in (-1, 0, 1):
+                box("Rail service switchgear vent", (x+w*(.20+slot*.053),y-inward*d*.28,.912),
+                    (w*.012,d*.046,.006),partition_cap,.004).parent = group
             box("Rail service threshold", (x,y+inward*d*.43,.021),
                 (w*.33,d*.035,.022),rail,.008).parent = group
             merge_fixture_meshes(group, "Open rail service room")
