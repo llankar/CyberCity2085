@@ -783,6 +783,12 @@ class WastelandOutdoors:
             bank = -1 if name == "west_ruin" else 1
             self.concrete_box("Basin surviving bank wall", (x+bank*w*.39,y,.38),
                               (w*.075,d*.46,.38)).parent = group
+            for offset, height in ((-.30,.20),(.04,.13),(.28,.24)):
+                block = self.concrete_box("Basin displaced bank coping",
+                                           (x+bank*w*.38,y+offset*d,.74+height/2),
+                                           (w*.064,d*.095,height/2), .028)
+                block.rotation_euler.x = offset*.42
+                block.parent = group
             for side, height in ((-1,.57),(1,.29)):
                 self.concrete_box("Basin broken return wall", (x+bank*w*.14,y+side*d*.39,height*.5),
                                   (w*.29,d*.076,height*.5)).parent = group

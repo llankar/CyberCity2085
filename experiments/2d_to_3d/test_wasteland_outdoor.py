@@ -147,6 +147,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert "rotation" in wreck
                 assert any(nodes[i]["name"].startswith(part) for i in wreck["children"])
         if name.endswith("_irradiated_basin"):
+            for identifier in ("west_ruin", "east_ruin"):
+                bank = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert sum(nodes[i]["name"].startswith("Basin displaced bank coping")
+                           for i in bank["children"]) == 3
             pools = [node for node in nodes if node["name"].startswith("Irradiated basin pool ")]
             assert len(pools) == 4
             assert all("mesh" in pool for pool in pools)
