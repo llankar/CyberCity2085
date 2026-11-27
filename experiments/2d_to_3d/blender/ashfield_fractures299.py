@@ -92,7 +92,10 @@ for group in [obj for obj in bpy.data.objects if obj.name.startswith("Occludable
     for rib in range(12):
         t = .16 + rib*.054
         lift = .05 + (.037 if rib % 2 else 0)
-        for v in (.16, .27):
+        # Preserve the slab outline while giving the torn sheet a wider end
+        # and a staggered edge. Barycentric weights remain positive.
+        outer_edge = min(.41 + (.022 if rib % 3 == 0 else 0), .96-t)
+        for v in (.12, outer_edge):
             point = a*(1-t-v) + b*t + c*v + Vector((0, 0, lift))
             vertices.append(tuple(point))
         if rib:
