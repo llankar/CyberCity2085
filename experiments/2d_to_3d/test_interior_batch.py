@@ -92,3 +92,22 @@ def test_metro_column_and_stair_details_keep_independent_visibility():
         assert len(parts) == 4
         assert sum(" sleeper bed" in name for name in parts) == 1
         assert sum(" rail" in name for name in parts) == 2
+
+def test_warehouse_racks_export_stock_under_each_rack_occluder():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/warehouse333/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Warehouse on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    racks = [node for node in nodes if node["name"].startswith("Occludable_row")]
+    assert len(racks) == 10
+    for rack in racks:
+        cargo = [nodes[index] for index in rack["children"] if " shelf cargo" in nodes[index]["name"]]
+        assert len(cargo) == 6
+        assert len({round(item["translation"][1], 2) for item in cargo}) == 3

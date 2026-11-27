@@ -30,7 +30,7 @@ bpy.context.preferences.filepaths.save_version = 0
 steel = make_material("Warehouse rack steel", (.075,.11,.15,1), .65,.48)
 beam = make_material("Warehouse rack safety beam", (.52,.17,.028,1), .45,.48)
 container_skin = make_material("Weathered container green", (.062,.15,.14,1), .65,.63)
-cargo_count = wall_count = rack_count = container_count = 0
+cargo_count = wall_count = rack_count = container_count = rack_cargo_count = 0
 for row in survey["walls"]:
     identifier = row["id"]
     is_wall = identifier.endswith("_wall")
@@ -59,9 +59,19 @@ for row in survey["walls"]:
     elif is_rack:
         rack_count += 1
         build_rack(group, x, y, w, d, steel, beam)
-        place(cargo, group, (x,y-d*.21,.42), (w*.72,d*.32,.67))
-        place(cargo, group, (x,y+d*.21,1.20), (w*.72,d*.32,.67))
-        cargo_count += 2
+        vertical = d > w
+        length, depth = max(w,d), min(w,d)
+        for level, offsets in enumerate(((-.27,.19), (-.14,.27), (-.25,.15))):
+            for offset in offsets:
+                px = x if vertical else x+offset*length
+                py = y+offset*length if vertical else y
+                items = place(cargo, group, (px,py,.42+level*.78),
+                              (length*.22,depth*.72,.56),
+                              yaw=math.pi/2 if vertical else 0, merge=True)
+                for item in items:
+                    item.name = identifier + " shelf cargo"
+                rack_cargo_count += 1
+                cargo_count += 1
     else:
         nx, ny = max(1,round(w/1.4)), max(1,round(d/1.4))
         for ix in range(nx):
@@ -84,7 +94,7 @@ bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB")
 elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
-    "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count, "container_instances":container_count,
+    "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count, "rack_cargo_instances":rack_cargo_count, "container_instances":container_count,
     "reused_model_families":2, "new_model_families":2, "blender_seconds":elapsed,
     "remaining":"forklifts, office, stairs and loading bay"
 }, indent=2))
