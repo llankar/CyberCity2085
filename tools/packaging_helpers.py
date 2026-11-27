@@ -51,12 +51,13 @@ def normalize_arcade_data(toc):
     ]
 
 
-def build_identity_data(project_root, label=None):
+def build_identity_data(project_root, label=None, *, metadata_directory=None):
     """Stamp the actual build identity into frozen distributions without Git."""
     import json
     from game.version import build_label
 
-    path = project_root / "build" / "metadata" / "build_info.json"
+    directory = metadata_directory if metadata_directory is not None else project_root / "build" / "metadata"
+    path = directory / "build_info.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"label": label or build_label()}), encoding="utf-8")
     return [(str(path), ".")]

@@ -1942,7 +1942,7 @@ func _containment_breached() -> bool:
 	return preload("res://scripts/containment_objective.gd").breached(enemy_units, objective)
 
 func _defense_zone_breached() -> bool:
-	var zone := Battlefield.defense_zone_cells(objective["cell"])
+	var zone := _BFScript.defense_zone_cells(objective["cell"])
 	for enemy in enemy_units:
 		if int(enemy.get("hp", 0)) > 0 and _cell_position(enemy) in zone:
 			return true
@@ -1953,7 +1953,7 @@ func _advance_defense_breacher(enemy_index: int) -> bool:
 	var start := _cell_position(enemy)
 	var occupied := _enemy_known_occupied_cells(enemy_index)
 	var best_route: Array[Vector2i] = []
-	for cell in Battlefield.defense_zone_cells(objective["cell"]):
+	for cell in _BFScript.defense_zone_cells(objective["cell"]):
 		if _battlefield.is_wall(cell) or cell in occupied:
 			continue
 		var route: Array[Vector2i] = _battlefield.find_path(start, cell, occupied)

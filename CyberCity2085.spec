@@ -20,7 +20,7 @@ a = Analysis(
         (str(root / "scenes"), "scenes"),
         *godot_runtime_data(root / "godot", include_qa=include_qa),
         *godot_executable_data(),
-        *build_identity_data(root),
+        *build_identity_data(root, metadata_directory=Path(workpath) / "metadata"),
     ],
     hiddenimports=["tools.check_unified_return", "tools.check_campaign_return"] if include_qa else [],
     hookspath=[],

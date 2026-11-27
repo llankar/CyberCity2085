@@ -1,6 +1,8 @@
 extends RefCounted
 ## Stored wall cells share the background texture UVs (top-left origin).
 
+const _BATTLEFIELD := preload("res://scripts/battlefield.gd")
+
 static func geometry_for_map(map_data: Dictionary, asset_root: String) -> Dictionary:
 	var geometry := map_data.get("geometry", {}) as Dictionary
 	var image_path := str(map_data.get("path", "")).replace("\\", "/")
@@ -89,7 +91,7 @@ static func place_encounter(players: Array[Dictionary], enemies: Array[Dictionar
 	if objective.get("type", "") == "defend":
 		for enemy in enemies:
 			if int(enemy.get("hp", 0)) > 0:
-				for cell in Battlefield.defense_zone_cells(enemy["position"]):
+				for cell in _BATTLEFIELD.defense_zone_cells(enemy["position"]):
 					threatened[cell] = true
 	var desired: Vector2i = objective.get("cell", origin)
 	var closest := origin

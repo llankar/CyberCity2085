@@ -10,6 +10,24 @@ from game import runtime
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_tactical_scene_starts_without_godot_editor_cache(tmp_path):
+    from shutil import copy2
+
+    from game.combat.godot_bridge import find_godot_executable
+    from game.release_smoke import check_bundled_tactical_startup
+    from tools.packaging_helpers import godot_runtime_data
+
+    executable = find_godot_executable()
+    if not executable:
+        pytest.skip("Godot executable unavailable")
+    source = ROOT / "godot" / "combat_missions_ui"
+    for path, destination in godot_runtime_data(source):
+        folder = tmp_path / "godot" / destination
+        folder.mkdir(parents=True, exist_ok=True)
+        copy2(path, folder)
+    check_bundled_tactical_startup(executable, tmp_path / "godot" / source.name)
+
+
 def test_frozen_game_resolves_its_bundled_godot(tmp_path, monkeypatch):
     from game.combat import godot_bridge
     from tools.packaging_helpers import godot_executable_data
@@ -165,8 +183,10 @@ def test_godot_bundle_keeps_project_scripts_and_excludes_live_handoffs(tmp_path)
 def test_frozen_build_footer_retains_actual_packaged_identity(tmp_path, monkeypatch):
     from tools.packaging_helpers import build_identity_data
     from game import version
-    data=build_identity_data(tmp_path,label="BUILD abc1234")
+    metadata_directory = tmp_path / "scratch" / "metadata"
+    data=build_identity_data(tmp_path,label="BUILD abc1234", metadata_directory=metadata_directory)
     stamp=Path(data[0][0])
+    assert stamp.parent == metadata_directory and not (tmp_path / "build").exists()
     assert data[0][1]=="." and json.loads(stamp.read_text())["label"]=="BUILD abc1234"
     monkeypatch.setattr(version.sys,"frozen",True,raising=False)
     monkeypatch.setattr(version.sys,"_MEIPASS",str(stamp.parent),raising=False)
