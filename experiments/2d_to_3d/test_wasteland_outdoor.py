@@ -28,6 +28,16 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_flooded_civic_square"):
+            by_name = {node["name"]: node for node in nodes}
+            monument = by_name["Occludable_monument"]
+            assert sum(nodes[i]["name"].startswith("Flooded monument") for i in monument["children"]) == 4
+            for row in surveyed:
+                if row["id"].startswith("planter_"):
+                    planter = by_name[f"Occludable_{row['id']}"]
+                    edges = [nodes[i] for i in planter["children"]
+                             if nodes[i]["name"].startswith("Flooded planter coping")]
+                    assert len(edges) == len(row["polygon"])
         if name.endswith("_burned_market_block"):
             for row in surveyed:
                 if row["id"].endswith("_ruin") or row["id"] == "ne_corner":

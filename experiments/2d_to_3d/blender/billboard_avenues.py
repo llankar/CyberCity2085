@@ -233,6 +233,7 @@ def build(name):
                                    overpass=name.endswith("_collapsed_overpass"),
                                    ruined_downtown=name.endswith("_ruined_downtown"),
                                    burned_market=name.endswith("_burned_market_block"),
+                                   flooded_square=name.endswith("_flooded_civic_square"),
                                    wrecked_highway=name.endswith("_wrecked_highway"),
                                    trainyard=name.endswith("_rusted_trainyard"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)

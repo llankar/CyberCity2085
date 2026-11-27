@@ -1567,3 +1567,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-BURNED-MARKET-CANOPIES / DONE for the differentiated covers on 02 and 07. Added rust-red fabric to the north and east stalls and replaced the southeast canvas with a blue corrugated sheet. Both GLBs rebuilt on E:, ten targeted tests passed and Godot rendered 07. Next: model the roofless market corner buildings.
 
 - EXPERIMENTAL-BURNED-MARKET-RUINS / DONE for roofless building silhouettes in variants 02 and 07. Added exposed joists, burned posts, surviving crossbeams and dropped floor fragments within all eight surveyed ruin groups per map. Both GLBs rebuilt on E:, ten tests passed and Godot rendered 07. Next: inspect Flooded Civic Square for water and ruin geometry that still reads flat.
+
+- EXPERIMENTAL-FLOODED-CIVIC-LANDMARKS / DONE for the central monument and six planters in variants 04 and 09. Added octagonal monument tiers and coping along each surveyed planter outline. Both GLBs rebuilt on E:, ten targeted tests passed and the 04 scene rendered in Godot. Next: trace the large water surfaces and retain the original tactical terrain.

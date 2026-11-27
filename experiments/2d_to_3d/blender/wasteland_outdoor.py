@@ -64,7 +64,8 @@ class WastelandOutdoors:
             bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
 
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
-                 ruined_downtown=False, burned_market=False, wrecked_highway=False, trainyard=False):
+                 ruined_downtown=False, burned_market=False, flooded_square=False,
+                 wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -72,6 +73,7 @@ class WastelandOutdoors:
         self.overpass = overpass
         self.ruined_downtown = ruined_downtown
         self.burned_market = burned_market
+        self.flooded_square = flooded_square
         if burned_market:
             self.scorched_canvas = make_material("Scorched market canvas", (.23,.16,.10,1), .03,.93)
             self.red_canvas = make_material("Scorched rust-red canvas", (.23,.065,.037,1), .03,.94)
@@ -170,6 +172,13 @@ class WastelandOutdoors:
             if "planter" in name:
                 height = .24
             crest = [height + .19*(i%4) for i in range(n)]
+            if self.flooded_square and name.startswith("planter_"):
+                crest = [height] * n
+                for (ax,ay), (bx,by) in zip(points, points[1:]+points[:1]):
+                    edge = self.concrete_box("Flooded planter coping", ((ax+bx)/2,(ay+by)/2,.28),
+                                             (math.hypot(bx-ax,by-ay)/2,.055,.095))
+                    edge.rotation_euler.z = math.atan2(by-ay,bx-ax)
+                    edge.parent = group
             vertices = [(x,y,0) for x,y in points]
             vertices.extend((x,y,crest[i]*(.64+.08*(i%3))) for i,(x,y) in enumerate(points))
             vertices.extend((x,y,crest[i]) for i,(x,y) in enumerate(points))
@@ -302,6 +311,23 @@ class WastelandOutdoors:
                 height = (step+1)*.12
                 box(name, (x,y+d*((step+.5)/6-.5),height/2),
                     (w*.48,d/12,height/2), self.stone).parent = group
+        elif self.flooded_square and name == "monument":
+            radius = min(w,d)*.46
+            for label, ratio, height, elevation, material in (
+                ("Flooded monument outer step", 1, .16, .08, self.aggregate),
+                ("Flooded monument inner step", .82, .19, .25, self.aggregate),
+                ("Flooded monument pedestal", .58, .34, .51, self.stone),
+                ("Flooded monument remnant", .23, .64, 1, self.steel),
+            ):
+                bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=radius*ratio,
+                                                   depth=height, location=(x,y,elevation),
+                                                   rotation=(0,0,math.pi/8))
+                tier = bpy.context.object
+                tier.name = label
+                tier.data.materials.append(material)
+                if material == self.aggregate:
+                    self.project_concrete_uv(tier.data)
+                tier.parent = group
         elif "column" in name or name == "monument":
             box(name+" footing", (x,y,.16), (w*.47,d*.47,.16), self.stone).parent = group
             box(name, (x,y,1.15), (w*.25,d*.25,1.0), self.stone).parent = group
