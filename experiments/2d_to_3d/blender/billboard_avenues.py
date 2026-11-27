@@ -176,6 +176,44 @@ def build_freeway_deck(floor, wall, frame, grid, canvas, rail_rows):
                 (.33,.24,.083), frame,.02)
 
 
+
+def build_freeway_ramps(floor, wall, grid, canvas, traces, rail_rows):
+    gw, gh = grid
+    cw, ch = canvas
+    # Inner edges measured against the original overpass artwork, ordered
+    # alongside the existing outer rail survey. Both variants use this footprint.
+    inner_edges = {
+        "ramp_outer_w": ((108,540),(129,466),(158,412),(201,369),(256,337),(332,301),(418,257)),
+        "ramp_outer_e": ((552,212),(641,144),(686,111),(711,65),(714,30),(693,0)),
+    }
+    for identifier, inner in inner_edges.items():
+        outer = [tuple(point) for point in traces[identifier]]
+        outer_index = -1 if identifier.endswith("_w") else 0
+        rail_row = rail_rows[1] if identifier.endswith("_w") else rail_rows[0]
+        outer[outer_index] = (outer[outer_index][0],rail_row)
+        outline = outer + list(reversed(inner))
+        points = [Vector((px*gw/cw-gw/2,gh/2-py*gh/ch,0)) for px,py in outline]
+        if sum(a.x*b.y-b.x*a.y for a,b in zip(points,points[1:]+points[:1])) < 0:
+            points.reverse()
+        count = len(points)
+        top, bottom = -.012, -.42
+        faces = list(tessellate_polygon([points]))
+        top_count = len(faces)
+        faces.extend(((i+1)%count,i,i+count,(i+1)%count+count) for i in range(count))
+        mesh = bpy.data.meshes.new(identifier+" deck")
+        mesh.from_pydata([(p.x,p.y,z) for z in (top,bottom) for p in points], [], faces)
+        mesh.materials.append(floor)
+        mesh.materials.append(wall)
+        uv = mesh.uv_layers.new()
+        for poly in mesh.polygons:
+            poly.material_index = int(poly.index >= top_count)
+            for loop in poly.loop_indices:
+                x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
+                uv.data[loop].uv = (x/gw+.5,y/gh+.5)
+        name = "West feeder ramp deck" if identifier.endswith("_w") else "East feeder ramp deck"
+        bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
+
+
 def build(name):
     reset_library_cache()
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -683,8 +721,12 @@ def build(name):
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
     elif freeway and len(deck_rails) == 2:
-        build_freeway_deck(floor, wall, frame, (gw,gh), (cw,ch),
-                           (deck_rails["highway_north_rail"], deck_rails["highway_south_rail"]))
+        rail_rows = deck_rails["highway_north_rail"], deck_rails["highway_south_rail"]
+        build_freeway_deck(floor, wall, frame, (gw,gh), (cw,ch), rail_rows)
+        ramp_traces = {row["id"]: row["points"] for row in survey["walls"]
+                       if row["id"] in {"ramp_outer_w", "ramp_outer_e"}}
+        if len(ramp_traces) == 2:
+            build_freeway_ramps(floor, wall, (gw,gh), (cw,ch), ramp_traces, rail_rows)
     else:
         bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
         bpy.context.object.scale = (gw/2, gh/2, 1)

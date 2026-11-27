@@ -197,3 +197,14 @@ def test_freeway_rails_follow_survey_segments(variant):
                 if bounds["min"][2] < row+.5-gh/2 < bounds["max"][2]:
                     assert all((column,row) in blocked for column in range(gw))
     assert sum(node["name"].startswith("Freeway pier shaft") for node in nodes) == 16
+    rail_rows = {trace["id"]: trace["points"][0][1] for trace in survey["walls"] if "points" in trace}
+    for side, rail, bound in (("West", "highway_south_rail", "min"),
+                              ("East", "highway_north_rail", "max")):
+        node = next(node for node in nodes if node["name"] == f"{side} feeder ramp deck")
+        primitives = data["meshes"][node["mesh"]]["primitives"]
+        assert len(primitives) == 2
+        positions = [data["accessors"][part["attributes"]["POSITION"]] for part in primitives]
+        assert min(pos["min"][1] for pos in positions) == pytest.approx(-.42)
+        assert max(pos["max"][1] for pos in positions) == pytest.approx(-.012)
+        for pos in positions:
+            assert pos[bound][2] == pytest.approx(rail_rows[rail]*gh/ch-gh/2)
