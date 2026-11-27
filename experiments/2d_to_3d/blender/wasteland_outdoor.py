@@ -13,6 +13,51 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
+    def add_overpass_ramps(self, floor):
+        # Pairs follow the painted road shoulders on the 960 x 540 survey.
+        shoulders = (
+            (((60,237),(119,225)), ((70,157),(135,159)), ((106,90),(167,118)),
+             ((169,42),(206,91)), ((242,16),(251,73)), ((313,16),(306,77)),
+             ((372,48),(343,97)), ((408,106),(364,125)), ((430,173),(374,174))),
+            (((529,199),(582,185)), ((543,128),(598,144)), ((581,64),(630,112)),
+             ((642,27),(673,80)), ((719,15),(718,73)), ((786,31),(760,87)),
+             ((837,69),(794,107)), ((869,122),(818,140))),
+            (((57,371),(124,354)), ((89,424),(145,389)), ((138,475),(180,423)),
+             ((207,500),(222,443)), ((276,501),(264,443)), ((339,479),(308,428)),
+             ((381,432),(340,393)), ((414,358),(356,353))),
+            (((960,349),(960,419)), ((899,336),(889,407)), ((831,331),(823,405)),
+             ((758,335),(769,414)), ((697,354),(725,433)), ((649,387),(692,460)),
+             ((617,428),(671,489)), ((620,493),(684,523)), ((657,540),(704,540))),
+        )
+        for number, ramp in enumerate(shoulders, 1):
+            vertices = [(*self.coordinates(px*self.cw/960, py*self.ch/540), z)
+                        for z in (.20, .035) for pair in ramp for px, py in pair]
+            bottom = len(vertices)//2
+            faces = []
+            for index in range(0, bottom-2, 2):
+                face = (index, index+1, index+3, index+2)
+                a, b, c = (Vector(vertices[i]) for i in face[:3])
+                if (b-a).cross(c-a).z < 0:
+                    face = face[::-1]
+                faces.append(face)
+            top_count = len(faces)
+            for face in faces[:]:
+                for a, b in zip(face, face[1:]+face[:1]):
+                    if a//2 != b//2 or min(a,b) in (0,bottom-2):
+                        faces.append((b,a,a+bottom,b+bottom))
+            name = f"Collapsed overpass ramp {number}"
+            mesh = bpy.data.meshes.new(name)
+            mesh.from_pydata(vertices, [], faces)
+            mesh.materials.append(floor)
+            mesh.materials.append(self.seam)
+            uv = mesh.uv_layers.new()
+            for face in mesh.polygons:
+                face.material_index = int(face.index >= top_count)
+                for loop in face.loop_indices:
+                    x,y,_ = vertices[mesh.loops[loop].vertex_index]
+                    uv.data[loop].uv = (x/self.gw+.5, y/self.gh+.5)
+            bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
+
     def __init__(self, library, grid, canvas, *, city=False, overpass=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid

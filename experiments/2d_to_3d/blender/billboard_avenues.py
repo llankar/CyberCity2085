@@ -808,6 +808,8 @@ def build(name):
             panel.parent = group
 
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
+    if wasteland and wasteland.overpass:
+        wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
     elif freeway and len(deck_rails) == 2:

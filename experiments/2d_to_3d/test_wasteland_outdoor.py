@@ -47,6 +47,11 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
     nodes = data["nodes"]
     root_nodes = {nodes[index]["name"]: nodes[index]
                   for index in data["scenes"][data["scene"]]["nodes"]}
+    for number in range(1, 5):
+        ramp = root_nodes[f"Collapsed overpass ramp {number}"]
+        primitives = data["meshes"][ramp["mesh"]]["primitives"]
+        assert len(primitives) == 2
+        assert all("TEXCOORD_0" in part["attributes"] for part in primitives)
     for obstacle in ("collapsed_center_span", "collapsed_north_span"):
         assert f"Occludable_{obstacle}" in root_nodes
         fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
