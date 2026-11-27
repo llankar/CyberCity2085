@@ -43,6 +43,9 @@ def test_native_export_preserves_terrain_levels(map_name):
         depth = -1.35
         assert any(name.startswith("Quay rubber fender") for name in nodes)
         assert any(name.startswith("Quay steel coping") for name in nodes)
+        assert sum(name.startswith("Quay steel mooring bollard") for name in nodes) == sum(
+            name.startswith("Quay rubber fender") for name in nodes
+        )
     elif map_name == FLOODED_AVENUE:
         deck, lower, boundary = "Flooded avenue sidewalk", "Flooded avenue water surface", "Flooded avenue curb edges"
         depth = -.075

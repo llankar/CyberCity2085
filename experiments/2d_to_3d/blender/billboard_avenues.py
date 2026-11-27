@@ -157,10 +157,16 @@ def build_rooftop_ground(out, floor, grid, canvas, library, water=None, shallow=
             normal = Vector((edge.y,-edge.x,0)).normalized()
             slots = max(1, int(edge.length/3.4))
             for index in range(slots):
-                center = a.lerp(b,(index+.5)/slots) + normal*.11
+                station = a.lerp(b,(index+.5)/slots)
+                center = station + normal*.11
                 center.z -= .46
                 fender = box("Quay rubber fender",center,(.23,.16,.39),rubber,.055)
                 fender.rotation_euler.z = yaw
+                # Tie-off points sit inland of the wall and face the matching fenders.
+                center = station-normal*.18
+                center.z += .075
+                bollard = box("Quay steel mooring bollard", center, (.102,.072,.075),coping,.040)
+                bollard.rotation_euler.z = yaw
         return
     facade = bpy.data.objects.new("Canyon facade details", None)
     bpy.context.collection.objects.link(facade)
