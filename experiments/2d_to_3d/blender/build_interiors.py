@@ -192,6 +192,19 @@ def build(name):
                   (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table"}:
             build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
+            if kind == "command_table":
+                artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
+                texture = artwork.node_tree.nodes.new("ShaderNodeTexImage")
+                texture.image = bpy.data.images.load(str(out / "operations_map.png"))
+                shader = artwork.node_tree.nodes["Principled BSDF"]
+                artwork.node_tree.links.new(texture.outputs["Color"], shader.inputs["Base Color"])
+                hx, hy = (w*.305,d*.345) if d > w else (w*.345,d*.305)
+                bpy.ops.mesh.primitive_plane_add(size=2, location=(x,y,.844))
+                map_surface = bpy.context.object
+                map_surface.name = "Original operations map artwork"
+                map_surface.scale = (hx,hy,1)
+                map_surface.data.materials.append(artwork)
+                map_surface.parent = group
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)

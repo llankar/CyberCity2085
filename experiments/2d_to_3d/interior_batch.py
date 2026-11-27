@@ -239,6 +239,15 @@ def main():
                 [{"id": row["id"], "rect": row["rect"]} for row in decorative], separators=(",", ":")
             )]
         subprocess.run(floor_command, check=True)
+        if name.endswith("_bunker_command_post"):
+            from PIL import Image
+
+            with Image.open(MAPS / f"{name}.png") as source:
+                cw, ch = survey["canvas_size"]
+                x1, y1, x2, y2 = 439, 183, 509, 261
+                crop = (round(x1*source.width/cw), round(y1*source.height/ch),
+                        round(x2*source.width/cw), round(y2*source.height/ch))
+                source.crop(crop).convert("RGB").save(OUTPUT / name / "operations_map.png")
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
                     if "points" in row else row["polygon"]
                     for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
