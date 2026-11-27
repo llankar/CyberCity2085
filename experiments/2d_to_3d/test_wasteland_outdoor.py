@@ -77,6 +77,10 @@ def test_waterfront_quays_export_lattice_cranes(map_name, expected_cranes):
         gltf = json.loads(model.read(size))
     cranes = [node for node in gltf["nodes"] if node["name"].startswith("Dockside loading crane")]
     assert len(cranes) == expected_cranes
+    shutters = [node for node in gltf["nodes"] if " quay service shutter" in node["name"]]
+    lamps = [node for node in gltf["nodes"] if " quay service lamp" in node["name"]]
+    assert shutters and len(shutters) == len(lamps)
+    assert all("mesh" in node for node in shutters + lamps)
     for crane in cranes:
         primitives = gltf["meshes"][crane["mesh"]]["primitives"]
         assert sum(gltf["accessors"][part["indices"]]["count"] for part in primitives) >= 540

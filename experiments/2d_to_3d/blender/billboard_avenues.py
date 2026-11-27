@@ -1215,6 +1215,22 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
+        if waterfront and w >= 2.8 and height >= 2.4:
+            door_half = min(.68,w*.145)
+            box(identifier+" quay service shutter", (x,front+direction*.055,.86),
+                (door_half,.061,.86),frame,.015).parent = group
+            for level in range(1, 7):
+                box(identifier+" quay shutter seam", (x,front+direction*.12,level*.235),
+                    (door_half*.94,.012,.018),wall,.006).parent = group
+            box(identifier+" quay service lamp", (x,front+direction*.12,1.83),
+                (door_half*.74,.034,.036),signs[2],.01).parent = group
+            for side in (-1, 1):
+                flank = x+side*(w/2+.03)
+                box(identifier+" quay flank sill", (flank,y,.36),
+                    (.042,d*.46,.075),frame,.013).parent = group
+                for bay in (-.30, .30):
+                    box(identifier+" quay flank rib", (flank,y+bay*d,height*.45),
+                        (.055,.050,height*.35),frame,.013).parent = group
         if name.endswith("_downtown_intersection") and w >= 2.4:
             fascia_height = min(1.94, height-.30)
             box(identifier+" storefront fascia", (x,front+direction*.08,fascia_height),
