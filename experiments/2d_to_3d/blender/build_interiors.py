@@ -431,7 +431,8 @@ def build(name):
         elif (relay_room and kind in {"relay_server", "rack"}) or (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
-            build_server_bank(group, x, y, w, d, server_housing, steel, screen)
+            build_server_bank(group, x, y, w, d, server_housing, steel, screen,
+                              vented_lids=relay_room)
         elif apartment_shelter and kind == "rack":
             build_rack(group, x, y, w, d, shelter_iron, shelter_wood)
         elif kind == "rack":

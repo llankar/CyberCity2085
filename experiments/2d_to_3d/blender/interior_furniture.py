@@ -357,7 +357,7 @@ def build_safehouse_fixture(group, kind, x, y, w, d, steel, enamel, rail):
 
 
 
-def build_server_bank(group, x, y, w, d, housing, frame, indicator):
+def build_server_bank(group, x, y, w, d, housing, frame, indicator, *, vented_lids=False):
     vertical = d > w
     length, depth = (d,w) if vertical else (w,d)
     bay_count = max(1, round(length/1.3))
@@ -373,6 +373,11 @@ def build_server_bank(group, x, y, w, d, housing, frame, indicator):
         offset = ((index+.5)-bay_count/2)*span
         part("Server cabinet frame", offset,0,.86,span*.48,depth*.45,.86,frame)
         part("Server cabinet lid", offset,0,1.747,span*.46,depth*.465,.038,housing)
+        if vented_lids:
+            part("Relay exhaust housing", offset,0,1.805,span*.31,depth*.30,.026,frame)
+            for slot in (-2,-1,0,1,2):
+                part("Relay exhaust fin", offset+slot*span*.102,0,1.846,
+                     span*.025,depth*.267,.017,housing)
         for side in (-1,1):
             face = side*depth*.46
             part("Server service face", offset,face,.90,span*.438,.025,.75,housing)

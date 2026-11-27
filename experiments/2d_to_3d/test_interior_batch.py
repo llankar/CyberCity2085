@@ -476,6 +476,7 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
         ("cybercity_inner_05_server_room", 10),
         ("cybercity_inner_15_data_vault", 8),
         ("city_interior_server_room", 13),
+        ("wasteland_inner_08_data_relay_room", 7),
     ):
         path = OUTPUT / map_name / "environment.glb"
         if not path.is_file():
@@ -493,6 +494,11 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
             parts = data["meshes"][nodes[index]["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in parts}
             assert {"Server bank graphite", "Terminal display"} <= materials
+            if map_name.endswith("_data_relay_room"):
+                assert len(parts) == 3
+                roof = max(data["accessors"][part["attributes"]["POSITION"]]["max"][1]
+                           for part in parts)
+                assert roof + nodes[index]["translation"][1] > 1.85
 
 
 def test_clinic_and_shelter_plumbing_is_exported_as_geometry():
