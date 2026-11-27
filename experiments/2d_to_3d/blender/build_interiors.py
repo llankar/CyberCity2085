@@ -101,6 +101,8 @@ def build(name):
         "city_industrial_data_vault",
     }
     bunker = name.endswith("_bunker_command_post")
+    if bunker:
+        bunker_canvas = make_material("Bunker worn sandbag canvas", (.15,.105,.060,1), 0,.93)
     underground_market = name.endswith("_underground_market")
     apartment_shelter = name.endswith("_apartment_shelter")
     if apartment_shelter:
@@ -279,6 +281,22 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
+            if bunker and identifier in {"central_wall_w", "central_wall_e"}:
+                flank_points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch))
+                                for px, py in row["points"][-3:]]
+                bags = []
+                for start, end in zip(flank_points, flank_points[1:]):
+                    run = end-start
+                    bag_count = max(1, round(run.length/.38))
+                    for index in range(bag_count):
+                        center = start+run*((index+.5)/bag_count)
+                        bag = box("Bunker sandbag", (*center,partition_height+.055),
+                                  (run.length/bag_count*.465,min(.12,row["width"]*gh/ch*.40),.08),
+                                  bunker_canvas,.054)
+                        bag.rotation_euler.z = math.atan2(run.y,run.x)
+                        bag.parent = group
+                        bags.append(bag)
+                merge_fixture_meshes(group, "Bunker flank sandbags", pieces=bags)
             if looted_vault and identifier.startswith("vault_wall_"):
                 edges = [(a,b) for a,b in zip(outline, outline[1:]+outline[:1])
                          if math.dist(a,b) > .65]
