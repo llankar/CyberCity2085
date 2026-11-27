@@ -30,6 +30,13 @@ def test_identical_map_variants_share_visual_assets():
     maps = experiment.parents[1] / "assets/maps"
     catalogue = {entry["map"]: entry["scene"].removeprefix("res://")
                  for entry in json.loads((godot / "preproduction_catalog.json").read_text())}
+    canonical_by_folder = {}
+    for name, scene in catalogue.items():
+        survey = json.loads((maps / f"{name}.wall-traces.json").read_text())
+        folder = re.search(r'^review_folder = "([^"]+)"$', (godot / scene).read_text(), re.MULTILINE)
+        if folder:
+            canonical = Path(survey.get("same_pixels_as", name)).stem
+            assert canonical_by_folder.setdefault(folder[1], canonical) == canonical, name
     for survey_path in maps.glob("*.wall-traces.json"):
         survey = json.loads(survey_path.read_text())
         if "same_pixels_as" not in survey:
