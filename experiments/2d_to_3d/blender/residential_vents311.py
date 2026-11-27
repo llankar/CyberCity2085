@@ -23,11 +23,25 @@ cladding = [
     for label, color in (("slate", (.09,.13,.18)), ("oxide", (.17,.071,.047)),
                          ("green ceramic", (.059,.136,.12)))
 ]
+concrete = bpy.data.materials["Residential weathered concrete"]
+for node in concrete.node_tree.nodes:
+    if node.type == "TEX_IMAGE":
+        for link in list(node.inputs["Vector"].links):
+            concrete.node_tree.links.remove(link)
+        node.projection = "FLAT"
 count = 0
 facades = 0
 for shell in list(bpy.context.scene.objects):
     if shell.type != "MESH" or not shell.name.endswith(" shell") or not shell.parent:
         continue
+    uv = shell.data.uv_layers.active
+    for wall_face in shell.data.polygons:
+        if abs(wall_face.normal.z) >= .15:
+            continue
+        tangent = Vector((wall_face.normal.y, -wall_face.normal.x, 0))
+        for loop in wall_face.loop_indices:
+            position = shell.data.vertices[shell.data.loops[loop].vertex_index].co
+            uv.data[loop].uv = (position.dot(tangent)/2.7, position.z/2.7)
     faces = [face for face in shell.data.polygons if abs(face.normal.z) < .15 and face.area > 3]
     if not faces:
         continue
