@@ -144,11 +144,23 @@ def build(name):
         bpy.context.collection.objects.link(group)
         if kind == "cell_front":
             (left,row_y),(right,_) = row["points"]
-            span = (right-left)*gw/cw/5
+            row_prefix = {
+                "north_cells_front": "north_cell_",
+                "south_cells_front": "south_cell_",
+                "cells_n_front": "n_cell_",
+                "cells_s_front": "s_cell_",
+            }[identifier]
+            dividers = sorted(
+                wall["points"][0][0] for wall in survey["walls"]
+                if wall["id"].startswith(row_prefix)
+                and wall["id"][len(row_prefix):].isdigit()
+            )
+            boundaries = [left, *dividers, right]
             depth = row["width"]*gh/ch
             y = gh/2-row_y*gh/ch
-            for bay in range(5):
-                x = left*gw/cw-gw/2+(bay+.5)*span
+            for bay, (start, end) in enumerate(zip(boundaries, boundaries[1:])):
+                span = (end-start)*gw/cw
+                x = (start+end)*gw/cw/2-gw/2
                 for z in (.09,1.43):
                     box("Cell front steel frame", (x,y,z), (span/2,depth*.44,.09),steel,.018).parent = group
                 for offset in (-.36,.36):
