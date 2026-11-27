@@ -249,6 +249,10 @@ func _process(delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
+    if actors[ALLY].ring.get_node_or_null("SelectionRingOutline") == null:
+     push_error("Selection ring has no contrast outline")
+     get_tree().quit(22)
+     return
     if actor_models.size() != 2 or actors["ally:0"].animation == actors["ally:1"].animation:
      push_error("Tactical allies must share their import and own separate animation players")
      get_tree().quit(22)

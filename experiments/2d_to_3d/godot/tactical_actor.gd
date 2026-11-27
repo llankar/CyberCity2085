@@ -68,7 +68,21 @@ func configure(allied: bool, support: bool, initial: Vector3,
  material.albedo_color = tint
  ring.material_override = material
  ring.position.y = .05
+ ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  add_child(ring)
+ var outline := MeshInstance3D.new()
+ outline.name = "SelectionRingOutline"
+ var border := torus.duplicate() as TorusMesh
+ border.inner_radius = .278
+ border.outer_radius = .385
+ outline.mesh = border
+ var outline_material := StandardMaterial3D.new()
+ outline_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+ outline_material.albedo_color = Color(.025,.034,.048)
+ outline.material_override = outline_material
+ outline.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ outline.position.y = -.03
+ ring.add_child(outline)
  destination = initial
  position = initial
  animation.play(clips.idle)
