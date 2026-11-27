@@ -254,3 +254,18 @@ def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
         monument_parts = {nodes[index]["name"] for index in monument["children"]}
         assert {"Monument lower octagon", "Monument upper plinth",
                 "Monument tapered bronze sculpture", "Monument bronze crest"} <= monument_parts
+def test_industrial_side_pilasters_follow_independent_building_cutaways():
+    path = catalogue_environment("cybercity_street_12_industrial_district")
+    if not path.is_file():
+        pytest.skip("Build the industrial district on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    clad = 0
+    for node in nodes:
+        parts = [nodes[index]["name"] for index in node.get("children", [])]
+        if any(" industrial side pilaster" in part for part in parts):
+            assert node["name"].startswith("Occludable_")
+            assert sum(" industrial side pilaster" in part for part in parts) == 6
+            clad += 1
+    assert clad >= 2

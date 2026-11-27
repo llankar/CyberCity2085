@@ -950,6 +950,15 @@ def build(name):
                 place(library / "urban_facade280/window.glb", group,
                       (x+w*offset,front+direction*.05,upper_level),
                       (min(1.75,w*.34),.28,min(.85,height-upper_level-.22)), yaw=angle, merge=True)
+        if name.endswith("_industrial_district") and height >= 2.4 and d >= 2.0:
+            for side in (-1,1):
+                flank = x+side*w/2
+                box(identifier+" industrial side lintel", (flank,y,height-.24),
+                    (.045,d*.47,.058),frame,.012).parent = group
+                for offset in (-.31,0,.31):
+                    box(identifier+" industrial side pilaster",
+                        (flank,y+d*offset,height*.48),
+                        (.062,.05,height*.43),frame,.012).parent = group
         if not industrial and height >= 2.4:
             if d >= 2.4:
                 for side in (-1, 1):
