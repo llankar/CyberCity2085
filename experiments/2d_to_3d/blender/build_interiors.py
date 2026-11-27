@@ -581,6 +581,20 @@ def build(name):
                     (w*.39,.026,.10), trim).parent = group
                 box(identifier+" status", (x+w*.26,y-d*.49,level),
                     (w*.06,.019,.021), screen).parent = group
+        elif metro and identifier == "center_kiosk":
+            corner_bevel = min(w,d)*.12
+            box("Metro kiosk raised plinth", (x,y,.10), (w*.48,d*.46,.10),
+                partition_cap,corner_bevel).parent = group
+            box("Metro kiosk information counter", (x,y-d*.29,.51), (w*.42,d*.135,.31),
+                steel,.06).parent = group
+            for side in (-1, 1):
+                box("Metro kiosk armored side", (x+side*w*.363,y,.65), (w*.072,d*.34,.49),
+                    steel,.065).parent = group
+            box("Metro kiosk rear service panel", (x,y+d*.34,.48), (w*.31,d*.071,.28),
+                partition_cap,.055).parent = group
+            box("Metro kiosk reader", (x,y-d*.30,.84), (w*.22,d*.061,.025),
+                console_glass,.012).parent = group
+            merge_fixture_meshes(group, "Metro information kiosk")
         elif apartment_shelter and kind == "table":
             build_facility_fixture(group, "shelter_table", x, y, w, d, shelter_wood, shelter_iron, screen)
         elif relay_room and kind in {"table", "console"}:
