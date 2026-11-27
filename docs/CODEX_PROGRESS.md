@@ -2215,3 +2215,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-BUS-GROUND-CONTACT / DONE for export and native loading. Replaced block wheels with cylindrical tires whose axle height matches their radius, using the surveyed bus orientation. Rebuilt the shared 11/12 scene, loaded it in Godot, refreshed both comparisons and passed four outdoor tests. Next: review the larger station structures or move to another family.
 
 - EXPERIMENTAL-TRANSIT-TICKET-FIXTURES / DONE for export and native loading. Added a ticket reader and recessed dispensing tray to both ticket machines in the shared 11/12 scene. Rebuilt on E:, loaded in Godot, refreshed the two comparisons and passed four outdoor tests. Next: compare a different transit family against its source layout.
+
+- EXPERIMENTAL-FREIGHT-RAIL-SPLICES / DONE for export and native loading. Added paired splice plates to each of the four running rails, leaving the surveyed track routes and original sleepers intact. Rebuilt Freight Yard on E:, loaded it in Godot, refreshed the comparison and passed eleven outdoor tests. Next: inspect the yard crossings at combat zoom.
