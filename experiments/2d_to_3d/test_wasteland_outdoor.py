@@ -62,6 +62,26 @@ def test_industrial_cargo_roof_details_share_the_container_mesh(name):
                    for node in nodes)
 
 
+@pytest.mark.parametrize(("map_name", "expected_cranes"), [
+    ("city_exterior_waterfront_docks", 1),
+    ("cybercity_street_04_waterfront_docks", 2),
+    ("cybercity_street_09_waterfront_docks", 4),
+    ("cybercity_street_10_waterfront_docks", 4),
+])
+def test_waterfront_quays_export_lattice_cranes(map_name, expected_cranes):
+    path = catalogue_environment(map_name)
+    if not path.is_file():
+        pytest.skip("Build the experimental Waterfront Docks on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        gltf = json.loads(model.read(size))
+    cranes = [node for node in gltf["nodes"] if node["name"].startswith("Dockside loading crane")]
+    assert len(cranes) == expected_cranes
+    for crane in cranes:
+        primitives = gltf["meshes"][crane["mesh"]]["primitives"]
+        assert sum(gltf["accessors"][part["indices"]]["count"] for part in primitives) >= 540
+
+
 def test_freight_yard_has_four_complete_rail_profiles():
     path = catalogue_environment("city_transit_freight_yard")
     if not path.is_file():
