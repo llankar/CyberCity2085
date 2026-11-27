@@ -86,6 +86,13 @@ class WastelandOutdoors:
             for offset in (-.24,.06):
                 box("Landing skiff bench", (length*offset,0,.19),
                     (length*.07,width*.34,.026), self.dark,.008).parent = hull
+            box("Landing skiff raised foredeck", (length*.235,0,.265),
+                (length*.105,width*.32,.065), self.steel,.026).parent = hull
+            for side in (-1,1):
+                rail = box("Landing skiff worn gunwale", (-length*.16,side*width*.426,.225),
+                           (length*.34,.024,.022), self.dark,.008)
+                rail.rotation_euler.z = side*math.atan2(width*.14,length*.68)
+                rail.parent = hull
             hull.location = ((ax+bx)/2,(ay+by)/2,0)
             hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
 
