@@ -502,6 +502,28 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
                 part("Relay processor access plate", along,across,.893,length*.102,width*.096,.017,trim)
                 part("Relay processor status strip", along,across,.913,length*.062,width*.018,.009,screen)
         merge_fixture_meshes(group, "Wasteland relay processor array")
+        harness = bpy.data.curves.new("Relay cable harness", "CURVE")
+        harness.dimensions = "3D"
+        harness.resolution_u = 8
+        harness.bevel_depth = min(.035,width*.012)
+        harness.bevel_resolution = 2
+        harness.materials.append(trim)
+        for side in (-1, 1):
+            for lane in (-1, 0, 1):
+                spline = harness.splines.new("BEZIER")
+                spline.bezier_points.add(3)
+                across = lane*width*.265
+                for point, (along, offset, z) in zip(spline.bezier_points, (
+                    (.39, 0, .48), (.46, .025, .32), (.465, .079, .17), (.37, .102, .17),
+                )):
+                    u, v = side*length*along, across+width*offset
+                    dx, dy = (v,u) if vertical else (u,v)
+                    point.co = (x+dx,y+dy,z)
+                    point.handle_left_type = point.handle_right_type = "AUTO"
+        cables = bpy.data.objects.new("Relay cable harness", harness)
+        bpy.context.collection.objects.link(cables)
+        cables.parent = group
+        merge_fixture_meshes(group, "Relay cable harness", pieces=[cables])
     elif kind == "data_core":
         part("Data core floor plinth", 0,0,.14,length*.47,width*.47,.14,trim)
         part("Armored data core chassis", 0,0,.56,length*.34,width*.35,.40,steel)

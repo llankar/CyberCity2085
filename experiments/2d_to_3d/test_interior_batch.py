@@ -490,6 +490,11 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
         assert len(banks) == expected
         assert banks <= {index for node in nodes if node["name"].startswith("Occludable_")
                          for index in node.get("children", [])}
+        if map_name.endswith("_data_relay_room"):
+            core = next(node for node in nodes if node["name"] == "Occludable_relay_core")
+            harness, = [nodes[index] for index in core["children"]
+                        if nodes[index]["name"] == "Relay cable harness"]
+            assert len(data["meshes"][harness["mesh"]]["primitives"]) == 1
         for index in banks:
             parts = data["meshes"][nodes[index]["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in parts}
