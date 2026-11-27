@@ -5,7 +5,7 @@ from create_hardsurface_crate import box
 
 
 def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65,
-                basin_depth=0, submerged_feet=()):
+                basin_depth=0, submerged_feet=(), compact_footings=False):
     parts = []
     def member(label, position, dimensions, material):
         parts.append(box(label, position, dimensions, material, .018))
@@ -16,7 +16,8 @@ def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65
             member("Crane basin foundation", (x,foot_y,-basin_depth/2),
                    (width*.32,depth*.11,basin_depth/2), steel)
         member("Crane footing", (x,y+side*depth*.32,.12),
-               (width*.41,depth*.14,.12), steel)
+               (min(width*.41,.36),min(depth*.14,.44),.12) if compact_footings
+               else (width*.41,depth*.14,.12), steel)
         member("Crane portal leg", (x,y+side*depth*.32,height*.5),
                (.13,.15,height*.5), beam)
     member("Crane portal beam", (x,y,height), (.16,depth*.44,.14), beam)

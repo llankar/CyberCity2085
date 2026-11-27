@@ -1753,3 +1753,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INDUSTRIAL-ROOF-VENTILATION / DONE for seven surveyed placements. Reused the roof fan module on five Industrial District 12/13 factory roofs. Rebuilt the shared GLB on E:, rendered 203 meshes in Godot and passed five catalogue tests. Next: survey Freight Yard roof and loading-area equipment as a batch.
 
 - EXPERIMENTAL-FREIGHT-YARD-RUNNING-RAILS / DONE. The source shows two long rail cuts that previously stayed flat on the ground texture. Added four steel running rails at the surveyed positions as visual-only geometry, leaving the original sleepers and tactical grid intact. Rebuilt on E:, rendered 97 meshes in Godot and passed five catalogue tests. Next: review how the rails read at combat zoom.
+
+- EXPERIMENTAL-FREIGHT-CRANE-FOOTINGS / DONE. Top-down review of the rails exposed crane footings oversized relative to the posts. Reduced the Freight Yard footings, retaining waterfront sizes, rebuilt the GLB on E:, and reached round 2 in a native Godot tactical run. Next: restore textured paving under the large crane masks.
