@@ -165,6 +165,16 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map.endswith("_ruined_downtown"):
+        cw, ch = survey["canvas_size"]
+        sx, sy = result.width/cw, result.height/ch
+        road_repairs = np.zeros_like(mask)
+        for row in survey["walls"]:
+            if row["id"].startswith(("wreck_", "bus_", "truck_")) and "rect" in row:
+                x1,y1,x2,y2 = row["rect"]
+                road_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
+        road_sample = original.crop((round(453*sx),round(247*sy),round(483*sx),round(281*sy)))
+        result = restore_surface_detail(result, road_repairs & mask, road_sample, round(32*sx))
     if args.map == "city_transit_freight_yard":
         # Recover paving grain without pasting a second set of rails or lamps.
         cw, ch = survey["canvas_size"]
