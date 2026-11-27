@@ -80,7 +80,8 @@ for row in survey["walls"]:
             uv.data[loop].uv = (x/gw+.5,y/gh+.5)
         for edge, face in zip(edges, mesh.polygons[1:]):
             repeats = math.dist(*edge)/2.8
-            for loop, coord in zip(face.loop_indices, ((0,0),(repeats,0),(repeats,height/2.8),(0,height/2.8))):
+            vertical_repeats = (height - bottom)/2.8
+            for loop, coord in zip(face.loop_indices, ((0,0),(repeats,0),(repeats,vertical_repeats),(0,vertical_repeats))):
                 uv.data[loop].uv = coord
         shell = bpy.data.objects.new(identifier,mesh)
         bpy.context.collection.objects.link(shell)
