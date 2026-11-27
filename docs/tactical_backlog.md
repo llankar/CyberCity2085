@@ -1,5 +1,8 @@
 # Tactical Combat Retrofit Backlog
 
+- [x] ENEMY-OCCUPIED-ROUTES — Godot blocks enemy search and pursuit through occupied cells and preserves movement AP for steps actually taken. Native corridor regression in `fog_of_war_regression.gd`.
+- [ ] ENEMY-TACTICAL-COORDINATION — Containment detours and partial search paths have native regression coverage. Next, differentiate how factions use cover and select firing positions.
+
 > Périmètre actif au 2026-11-24 : les anciens lots cartes/illustrations/animations/atlas/calibrations/Combat Visual, Hangar, Operative Dossier, Cyberware, économie et intégration Arcade/Godot sont des archives clôturées par le propriétaire. Toute ancienne ligne `IN_PROGRESS` correspondante est historique et ne constitue plus une prochaine action.
 
 - ASSET-BAY-ARMORY-LOSS-01 — DONE (2026-11-24). Snapshot de départ immuable, récupération du matériel des morts lorsqu'un agent revient, perte limitée au matériel déployé lors d'un échec avec wipe permanent, réserve et recherches préservées, rapport visible au débrief, rejeu Godot idempotent. Le résolveur étant partagé, Arcade suit la même règle. Gate ciblé : 67 tests réussis.

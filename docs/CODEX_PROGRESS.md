@@ -2,6 +2,10 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- ENEMY-OCCUPIED-ROUTES — DONE. Reprise du correctif Windows mis de côté pendant le lot 3D. Les ennemis contournent les alliés au cours des poursuites et des percées. La recherche avance vers le centre même si la destination est bloquée. Le brouillard de guerre continue de limiter les informations utilisées pour planifier. Sept tests ciblés réussis pour la vision, les trajets et le confinement. Suite : différencier les choix tactiques des factions.
+
+- Reprise du GOAL Windows : les entrées expérimentales de production artistique multicartes, y compris les prochaines actions Convoy Crossing, sont archivées pour le GOAL actif. Les preuves historiques sont conservées. Asset Bay et les infrastructures ont repassé 22 tests ciblés. ENEMY-OCCUPIED-ROUTES DONE : la poursuite et la recherche Godot tiennent compte des alliés vivants sur le trajet, et une unité cachée interrompt physiquement le mouvement sans renseigner la planification. Régression native et vision, 2 tests réussis. ENEMY-TACTICAL-COORDINATION IN_PROGRESS : auditer les chemins spéciaux liés aux objectifs, puis améliorer la coordination des factions.
+
 - Périmètre actif réconcilié (2026-11-24) : cartes, illustrations, animations, atlas, calibrations, Combat Visual, Hangar, Operative Dossier, Cyberware, économie générale et intégration Arcade/Godot sont clôturés par décision du propriétaire. Leurs anciennes mentions `IN_PROGRESS`, validations humaines ou prochaines actions sont historiques et ne doivent plus rouvrir ces chantiers. Ils ne redeviennent actifs que pour un bug concret et ciblé.
 
 - État courant (2026-11-24) : ASSET-BAY-ARMORY-LOSS-01 DONE. Un instantané immuable des loadouts déployés est enregistré avant le combat Godot et le résolveur partagé couvre aussi Arcade. Si au moins un agent revient, le matériel des pertes est récupéré ; après un échec où tous les agents déployés disparaissent définitivement, seuls leurs objets déployés sont retirés du stock. Le stock de réserve et les recherches restent intacts. La perte est atomique, résiste au rejeu d'un résultat et apparaît dans le débrief. Gate ciblé : 67 tests réussis.

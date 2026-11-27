@@ -1748,21 +1748,25 @@ func _enemy_act(enemy_index: int) -> void:
 	var ap: int = int(enemy.get("ap", 2))
 	var rng: int = _subtype_attack_range(subtype)
 	var ti: int = _nearest_visible_player_to(enemy)
+	var occupied := _enemy_known_occupied_cells(enemy_index)
 	# Search without using hidden player coordinates. Enemies reserve one AP so
 	# discovery during movement can still lead to an attack this turn.
 	if ti < 0:
 		var start := _cell_position(enemy)
 		var search_goal := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
-		var route: Array[Vector2i] = _battlefield.find_path(start, search_goal)
+		var route: Array[Vector2i] = _battlefield.find_path(start, search_goal, occupied, true)
 		var search_steps := mini(maxi(0, ap - 1), maxi(0, route.size() - 1))
+		for step in range(1, search_steps + 1):
+			if _is_cell_occupied(route[step], -1, enemy_index):
+				search_steps = step - 1
+				break
 		if search_steps > 0:
 			var destination := route[search_steps]
-			if not _is_cell_occupied(destination, -1, enemy_index):
-				enemy["position"] = destination
-				ap -= search_steps
-				var search_key := "e%d" % enemy_index
-				if _unit_tokens.has(search_key):
-					_visual_move_token(search_key, start, destination, enemy)
+			enemy["position"] = destination
+			ap -= search_steps
+			var search_key := "e%d" % enemy_index
+			if _unit_tokens.has(search_key):
+				_visual_move_token(search_key, start, destination, enemy)
 		ti = _nearest_visible_player_to(enemy)
 		if ti < 0:
 			enemy["ap"] = 0
@@ -1783,27 +1787,27 @@ func _enemy_act(enemy_index: int) -> void:
 		move_ap = 0
 
 	if move_ap > 0:
-		var reachable: Array[Vector2i] = _battlefield.reachable_cells(ep, move_ap)
+		occupied = _enemy_known_occupied_cells(enemy_index)
+		var reachable: Array[Vector2i] = _battlefield.reachable_cells(ep, move_ap, occupied)
 		var best_cell := ep
-		var best_dist := dist
 		var best_route_length: int = _battlefield.find_path(ep, tp).size()
 		for cell: Vector2i in reachable:
-			if _is_cell_occupied(cell, -1, enemy_index): continue
-			var d := absi(cell.x - tp.x) + absi(cell.y - tp.y)
 			var route_length: int = _battlefield.find_path(cell, tp).size()
 			if route_length > 0 and route_length < best_route_length:
 				best_route_length = route_length
-				best_dist = d
 				best_cell = cell
 		if best_cell != ep:
-			var steps: int = _battlefield.find_path(ep, best_cell).size() - 1
-			ap   -= mini(steps, move_ap)
-			dist  = best_dist
-			enemy["position"] = best_cell
-			ep    = best_cell
+			var route: Array[Vector2i] = _battlefield.find_path(ep, best_cell, occupied)
+			for step in range(1, route.size()):
+				if _is_cell_occupied(route[step], -1, enemy_index):
+					break
+				enemy["position"] = route[step]
+				ap -= 1
+			var destination := _cell_position(enemy)
+			dist = absi(destination.x - tp.x) + absi(destination.y - tp.y)
 			var ekey := "e%d" % enemy_index
-			if _unit_tokens.has(ekey):
-				_visual_move_token(ekey, _battlefield.world_to_cell(_unit_tokens[ekey].position), best_cell, enemy)
+			if destination != ep and _unit_tokens.has(ekey):
+				_visual_move_token(ekey, ep, destination, enemy)
 
 	# ── Attack phase ──────────────────────────────────────────────────────────
 	if dist <= rng and ap > 0 and _unit_can_see(enemy, player_units[ti] as Dictionary):
@@ -1812,6 +1816,16 @@ func _enemy_act(enemy_index: int) -> void:
 
 	enemy["ap"] = ap
 	enemy_units[enemy_index] = enemy
+
+func _enemy_known_occupied_cells(enemy_index: int) -> Array[Vector2i]:
+	var occupied: Array[Vector2i] = []
+	for i in enemy_units.size():
+		if i != enemy_index and int(enemy_units[i].get("hp", 0)) > 0:
+			occupied.append(_cell_position(enemy_units[i]))
+	for player in player_units:
+		if _unit_can_see(enemy_units[enemy_index], player):
+			occupied.append(_cell_position(player))
+	return occupied
 
 func _containment_breacher_index() -> int:
 	return preload("res://scripts/containment_objective.gd").breacher_index(enemy_units, objective)
@@ -1822,11 +1836,12 @@ func _enemy_containment_act(enemy_index: int) -> void:
 	var marker := objective.get("cell", Vector2i.ZERO) as Vector2i
 	var half_width := int(objective.get("breach_half_width_cells", 3))
 	var goal := preload("res://scripts/containment_objective.gd").target_cell(start, objective)
-	var route: Array[Vector2i] = _battlefield.find_path(start, goal)
+	var occupied := _enemy_known_occupied_cells(enemy_index)
+	var route: Array[Vector2i] = _battlefield.find_path(start, goal, occupied)
 	if route.size() < 2:
 		for row in range(marker.y - half_width, marker.y + half_width + 1):
 			if row < 0 or row >= GRID_ROWS: continue
-			var alternate: Array[Vector2i] = _battlefield.find_path(start, Vector2i(marker.x, row))
+			var alternate: Array[Vector2i] = _battlefield.find_path(start, Vector2i(marker.x, row), occupied)
 			if alternate.size() >= 2 and (route.is_empty() or alternate.size() < route.size()):
 				route = alternate
 	if route.size() >= 2:

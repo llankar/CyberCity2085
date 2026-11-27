@@ -5,11 +5,23 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "WINDOWS-CURRENT-BUILD",
-    "UE2-04",
-    "AUDIO-PILOT"
+    "ENEMY-TACTICAL-COORDINATION"
   ],
+  "active_scope": {
+    "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
+    "historical_actions_are_archived": true,
+    "next_action": "Audit objective-specific enemy movement for occupancy and visibility consistency before improving faction tactics."
+  },
   "tasks": [
+    {
+      "id": "ENEMY-OCCUPIED-ROUTES",
+      "title": "Prevent Godot enemy movement through occupied cells",
+      "status": "DONE",
+      "files": ["godot/combat_missions_ui/scripts/battlefield.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Native fog, enemy movement and containment gate: 7 passed."],
+      "evidence": ["Allies block pursuit through narrow corridors and breachers detour when a route exists. A blocked search destination permits a partial route. Hidden players are considered during execution, outside route planning."],
+      "remaining": []
+    },
     {
       "id": "GODOT-FOG-OF-WAR-01",
       "title": "Ajouter un brouillard de guerre tactique partage par le joueur et l IA",
@@ -2218,7 +2230,7 @@
     }
   },
     "latest_batch": "BASE-VEHICLE-UPGRADES-01 completed: passive base and vehicle bonuses, one-use Field Medevac, one-use Nighthawk Heavy Strike in Arcade/Godot, debrief state and a verified local 512x512 VTOL illustration. Targeted gates: 73 passed, then 42 passed and 5 subtests; Godot parse/import passed.",
-    "next_action": "Build the current committed Windows candidate on E: and run only the documented packaged smoke. Keep physical multi-monitor DPI, controller and audio listening explicitly human-only or blocked by unavailable hardware/licensing evidence.",
+    "next_action": "Improve faction-specific enemy choices, then build the final Windows candidate on E: and run targeted package checks.",
   "checkpoint": "47541196",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

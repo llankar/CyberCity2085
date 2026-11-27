@@ -238,14 +238,23 @@ func _rebuild_astar() -> void:
 					if not _astar.are_points_connected(a, b):
 						_astar.connect_points(a, b)
 
-func find_path(from_cell: Vector2i, to_cell: Vector2i) -> Array[Vector2i]:
-	var raw := _astar.get_point_path(_cell_id(from_cell), _cell_id(to_cell))
+func find_path(from_cell: Vector2i, to_cell: Vector2i, occupied: Array[Vector2i] = [],
+			   allow_partial: bool = false) -> Array[Vector2i]:
+	var temporarily_disabled: Array[int] = []
+	for cell in occupied:
+		var id := _cell_id(cell)
+		if cell != from_cell and _astar.has_point(id) and not _astar.is_point_disabled(id):
+			_astar.set_point_disabled(id, true)
+			temporarily_disabled.append(id)
+	var raw := _astar.get_point_path(_cell_id(from_cell), _cell_id(to_cell), allow_partial)
+	for id in temporarily_disabled:
+		_astar.set_point_disabled(id, false)
 	var result: Array[Vector2i] = []
 	for p: Vector2 in raw:
 		result.append(Vector2i(int(p.x), int(p.y)))
 	return result
 
-func reachable_cells(from_cell: Vector2i, max_steps: int) -> Array[Vector2i]:
+func reachable_cells(from_cell: Vector2i, max_steps: int, occupied: Array[Vector2i] = []) -> Array[Vector2i]:
 	var result : Array[Vector2i] = []
 	var visited: Dictionary       = {}
 	var queue  : Array            = [[from_cell, 0]]
@@ -262,7 +271,7 @@ func reachable_cells(from_cell: Vector2i, max_steps: int) -> Array[Vector2i]:
 							  Vector2i(cell.x,cell.y+1), Vector2i(cell.x,cell.y-1)]:
 			if nb.x < 0 or nb.x >= GRID_COLS or nb.y < 0 or nb.y >= GRID_ROWS:
 				continue
-			if visited.has(nb) or _blocked.has(nb):
+			if visited.has(nb) or _blocked.has(nb) or nb in occupied:
 				continue
 			visited[nb] = true
 			queue.append([nb, dist + 1])
