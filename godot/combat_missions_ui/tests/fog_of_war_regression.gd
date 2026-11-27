@@ -130,6 +130,19 @@ func run() -> void:
 	assert(mission.objective_progress == 1 and mission.player_units[1].ap == 3)
 	mission.turn_number += 1
 	assert(mission._objective_interaction_available(), "next squad turn can complete the download")
+	var layout = load("res://scripts/map_wall_layout.gd")
+	mission.objective = generator.build_objective("safe_extraction", 40, 28)
+	mission.player_units.assign([{"hp": 20, "ap": 3, "position": Vector2i(1, 1)}])
+	mission.active_player_index = 0
+	mission.objective_progress = 0
+	layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
+	var witness: Vector2i = mission.objective.cell
+	mission._interact_with_objective()
+	var exit: Vector2i = mission.objective.cell
+	assert(exit != witness and not board.is_wall(exit), "witness secured reveals a distinct floor marker")
+	assert(not board.find_path(witness, exit).is_empty(), "extraction stays reachable")
+	assert(board.objective_cell == exit and mission.objective.label == "Reach Extraction")
+	assert(not mission.objective_completed and not mission._objective_interaction_available())
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")

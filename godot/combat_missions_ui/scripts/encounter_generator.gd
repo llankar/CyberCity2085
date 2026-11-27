@@ -275,7 +275,10 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 			progress_needed = int(geometry.get("required_interactions", 2))
 		"data_extract", "intel_gather":
 			label = "Hack Terminal";  action_key = "HACK"
-		"extraction", "extract_vip", "safe_extraction", "extract":
+		"safe_extraction", "extract":
+			label = "Secure Witness"; action_key = "EXTRACT"
+			progress_needed = int(geometry.get("required_interactions", 2))
+		"extraction", "extract_vip":
 			label = "Extract VIP";    action_key = "EXTRACT"
 		"rescue_hostage", "rescue", "civilian_rescue":
 			label = "Free Hostage";   action_key = "RESCUE"
@@ -302,7 +305,8 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 		"label":            label,
 		"action_key":       action_key,
 		"progress_needed":  progress_needed,
-		"once_per_turn":    bool(geometry.get("once_per_turn", obj_type in ["data_theft", "data_with_detour"])),
+		"once_per_turn":    bool(geometry.get("once_per_turn", obj_type in ["data_theft", "data_with_detour", "safe_extraction", "extract"])),
+		"extraction_offset": geometry.get("extraction_offset", [-4, 3]) if obj_type in ["extract", "safe_extraction"] else [],
 		"needs_marker":     needs_marker,
 		"interactive":      obj_type != "containment",
 		"interact_range":   2,   # grid cells within which the player can interact

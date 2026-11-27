@@ -92,14 +92,18 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
             "active_breachers": 1,
             "breach_steps_per_phase": 1,
         }
-    elif payload["objective_type"] in {"data_theft", "data_with_detour"}:
-        from game.mission_objectives import create_battle_objective
+    elif payload["objective_type"] in {"data_theft", "data_with_detour", "extract", "safe_extraction"}:
+        from game.mission_objectives import GRID_SIZE, create_battle_objective
 
-        objective = create_battle_objective(mission)
+        objective = create_battle_objective(mission, (0, 0))
         payload["objective_geometry"] = {
             "required_interactions": objective.required_interactions,
             "once_per_turn": True,
         }
+        if objective.kind == "extract":
+            x, y = objective.marker_positions[1]
+            # Arcade's world Y points up while Godot's grid rows point down.
+            payload["objective_geometry"]["extraction_offset"] = [x // GRID_SIZE, -y // GRID_SIZE]
     return payload
 
 

@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit the alternate field-proxy branch and port extraction marker progression using the existing Arcade objectives."
+    "next_action": "Port sabotage counterpush timing from the existing Arcade objective, then design the currently unconnected optional field-proxy trigger."
   },
   "tasks": [
+    {
+      "id": "MISSION-WITNESS-EXTRACTION",
+      "title": "Separate witness pickup from evacuation in Godot",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/encounter_generator.gd", "godot/combat_missions_ui/scripts/map_wall_layout.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/tactical_checkpoint.gd"],
+      "tests": ["Godot fog, handoff, mission objectives and unified checkpoints: 46 passed, 5 subtests passed."],
+      "evidence": ["Native test secures the witness and verifies a distinct reachable extraction marker and the interaction lock until the following squad turn."],
+      "remaining": []
+    },
     {
       "id": "MISSION-DATA-DOWNLOAD",
       "title": "Preserve two squad turns for data downloads in Godot",

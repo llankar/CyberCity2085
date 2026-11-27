@@ -1077,7 +1077,7 @@ func _interact_with_objective() -> void:
 	var ap := int(active.get("ap", 0))
 	if ap <= 0: return
 	if not _objective_interaction_available():
-		status_line = "Download in progress. Continue next squad turn."
+		status_line = "Objective in progress. Continue next squad turn."
 		_sync_display()
 		return
 
@@ -1103,12 +1103,20 @@ func _interact_with_objective() -> void:
 		_sync_display()
 		_complete_mission()
 	else:
+		var exit_cell: Array = objective.get("extraction_cell", [])
+		if exit_cell.size() == 2:
+			var destination := Vector2i(int(exit_cell[0]), int(exit_cell[1]))
+			objective["cell"] = destination
+			objective["label"] = "Reach Extraction"
+			_battlefield.objective_cell = destination
 		var line := "%s: %s (%d/%d)" % [
 				str(active.get("name", "Agent")), label,
 				objective_progress, needed]
 		status_line = line
 		if objective.get("once_per_turn", false):
 			status_line += " Continue next squad turn."
+		if exit_cell.size() == 2:
+			status_line += " Move to the extraction marker."
 		_log_event(line)
 		_sync_display()
 
