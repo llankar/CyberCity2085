@@ -374,6 +374,11 @@ def build(name):
                                    telemetry=identifier == "central_machine")
         elif kind == "machine" and depot:
             place(labs[kind], group, (x,y,.11), (length*.82,breadth*.62,.82), yaw=yaw)
+            for offset in (-.31, 0, .31):
+                along = length*offset
+                center = (x,y+along,.067) if vertical else (x+along,y,.067)
+                size = (breadth*.415,length*.033,.067) if vertical else (length*.033,breadth*.415,.067)
+                box("Depot machine bed crossmember", center, size, partition_cap,.015).parent = group
             for side in (-1, 1):
                 offset = side*breadth*.40
                 rail_center = (x+offset,y,.10) if vertical else (x,y+offset,.10)

@@ -534,6 +534,9 @@ def test_interior_maps_export_remaining_fixture_groups():
                 pit = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
                 assert sum(part.startswith("Inspection pit drain grate bar") for part in pit) == 9
                 assert sum(part.startswith("Inspection pit curb joint") for part in pit) == 6
+            for identifier in ("east_machine_n", "east_machine_s"):
+                machine = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+                assert sum(part.startswith("Depot machine bed crossmember") for part in machine) == 3
         if name.endswith("_bunker_command_post"):
             for side in ("w", "e"):
                 wall_parts = [nodes[index]["name"]
