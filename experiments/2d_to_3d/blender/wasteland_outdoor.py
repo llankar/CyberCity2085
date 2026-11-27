@@ -74,6 +74,8 @@ class WastelandOutdoors:
         self.burned_market = burned_market
         if burned_market:
             self.scorched_canvas = make_material("Scorched market canvas", (.23,.16,.10,1), .03,.93)
+            self.red_canvas = make_material("Scorched rust-red canvas", (.23,.065,.037,1), .03,.94)
+            self.blue_sheet = make_material("Weathered blue corrugated steel", (.055,.13,.17,1), .52,.78)
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
         self.workshop_surface = None
@@ -354,13 +356,20 @@ class WastelandOutdoors:
                     (.045, .045, .54), self.dark).parent = group
         if name in {"stall_w", "stall_ne", "stall_sw"}:
             return
+        if name == "stall_se":
+            box("Blue corrugated market cover", (0,0,1.105),
+                (length*.31,width*.32,.031), self.blue_sheet).parent = group
+            for rib in range(-4, 5):
+                box("Corrugated cover rib", (rib*length*.065,0,1.144),
+                    (.020,width*.32,.017), self.blue_sheet,.008).parent = group
+            return
         vertices = [(-length*.39,-width*.35,1.08), (length*.39,-width*.35,1.08),
                     (length*.39,width*.35,1.08), (-length*.39,width*.35,1.08),
                     (length*.09,0,1.22)]
         faces = [(0,1,4), (2,3,4), (3,0,4)]
         mesh = bpy.data.meshes.new("Torn canvas")
         mesh.from_pydata(vertices, [], faces)
-        mesh.materials.append(self.scorched_canvas)
+        mesh.materials.append(self.red_canvas if name in {"stall_n", "stall_e"} else self.scorched_canvas)
         canopy = bpy.data.objects.new("Torn market canvas", mesh)
         bpy.context.collection.objects.link(canopy)
         canopy.parent = group

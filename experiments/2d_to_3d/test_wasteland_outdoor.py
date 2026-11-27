@@ -34,6 +34,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 parts = [nodes[index]["name"] for index in stall["children"]]
                 assert sum(part.startswith("Charred stall upright") for part in parts) == 4
                 assert any(part.startswith("Torn market canvas") for part in parts) == has_canvas
+            steel = next(node for node in nodes if node["name"] == "Occludable_stall_se")
+            parts = [nodes[index]["name"] for index in steel["children"]]
+            assert sum(part.startswith("Corrugated cover rib") for part in parts) == 9
+            assert not any(part.startswith("Torn market canvas") for part in parts)
         if name.endswith("_ruined_downtown"):
             for identifier in ("bus_sw", "wreck_mid_e"):
                 bus = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
