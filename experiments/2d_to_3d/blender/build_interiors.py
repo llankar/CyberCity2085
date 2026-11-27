@@ -99,9 +99,9 @@ def build(name):
         "cybercity_inner_13_warehouse_floor",
     }
     partition_meshes = []
-    for row in survey["walls"]:
+    for row in survey["walls"] + manifest.get("decorative", []):
         identifier = row["id"]
-        kind = selected.get(identifier)
+        kind = selected.get(identifier, row.get("model"))
         if kind is None:
             continue
         group = bpy.data.objects.new("Occludable_" + identifier, None)
@@ -180,6 +180,10 @@ def build(name):
             build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
+        elif kind == "low_vent":
+            box("Decorative vent plinth", (x,y,.047), (w*.47,d*.47,.047), partition_cap).parent = group
+            place(library / "roof_twin_fan/optimized.glb", group, (x,y,.09),
+                  (length*.92,breadth*.92,.22), yaw=yaw, merge=True)
         elif kind == "vent_fan":
             box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),

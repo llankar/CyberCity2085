@@ -38,6 +38,8 @@ def main():
     parser.add_argument('--output',type=Path,default=LAB/'generated/phase2/lab248')
     parser.add_argument('--objects',help='Comma-separated identifiers of actual 3D replacements')
     parser.add_argument('--include-side-walls',action='store_true',help='Mask replaced east and west wall drawings')
+    parser.add_argument('--decorative-rects', type=json.loads, default=[],
+                        help='Additional decoration footprints in survey coordinates')
     args=parser.parse_args()
     if Path(args.map).name!=args.map or '/' in args.map or '\\' in args.map:raise ValueError('Invalid map identifier')
     source=ROOT/f'assets/maps/{args.map}.png';raw=source.read_bytes()
@@ -46,6 +48,7 @@ def main():
         requested=set(args.objects.split(','));known={r['id'] for r in survey['walls']}
         if not requested<=known:raise ValueError('Unknown source object identifiers')
         survey['walls']=[r for r in survey['walls'] if r['id'] in requested]
+    survey['walls'].extend(args.decorative_rects)
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)

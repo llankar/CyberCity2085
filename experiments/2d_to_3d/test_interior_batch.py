@@ -511,3 +511,23 @@ def test_console_uses_separate_metal_worktop_and_recessed_display():
         material = data["materials"][mesh["primitives"][0]["material"]]
         assert material["name"] == expected
         assert max(material.get("emissiveFactor", [0])) < .25
+
+
+def test_service_tunnel_decor_is_exported_without_tactical_obstacles():
+    import json
+    import struct
+
+    from interior_batch import MAPS, OUTPUT, decorative_fixtures
+
+    name = "city_industrial_service_tunnel"
+    decor = {row["id"] for row in decorative_fixtures(name)}
+    assert len(decor) == 3
+    tactical = json.loads((MAPS / f"{name}.walls.json").read_text())
+    assert decor.isdisjoint(row["id"] for row in tactical["walls"])
+    with (OUTPUT / name / "environment.glb").open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    for identifier in decor:
+        children = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
+        assert sum("mesh" in child for child in children) == 2

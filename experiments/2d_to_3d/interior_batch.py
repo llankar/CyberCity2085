@@ -204,6 +204,17 @@ def fixtures(name):
     return survey, selected
 
 
+
+def decorative_fixtures(name):
+    if name != "city_industrial_service_tunnel":
+        return []
+    return [
+        {"id": "decor_west_twin_vent", "rect": [260,624,367,686], "model": "low_vent"},
+        {"id": "decor_south_twin_vent", "rect": [1163,957,1252,1022], "model": "low_vent"},
+        {"id": "decor_relay_extractor", "rect": [1272,682,1313,727], "model": "low_vent"},
+    ]
+
+
 def main():
     sys.path.insert(0, str(MAPS.parents[1]))
     from game.map_geometry import stroke_outline
@@ -214,16 +225,22 @@ def main():
         if name not in INTERIORS:
             raise ValueError(f"Unconfigured interior: {name}")
         survey, selected = fixtures(name)
-        subprocess.run([sys.executable, str(ROOT / "prepare_floor248.py"), "--map", name,
-                        "--output", str(OUTPUT / name), "--objects", ",".join(selected),
-                        "--include-side-walls"], check=True)
+        decorative = decorative_fixtures(name)
+        floor_command = [sys.executable, str(ROOT / "prepare_floor248.py"), "--map", name,
+                         "--output", str(OUTPUT / name), "--objects", ",".join(selected),
+                         "--include-side-walls"]
+        if decorative:
+            floor_command += ["--decorative-rects", json.dumps(
+                [{"id": row["id"], "rect": row["rect"]} for row in decorative], separators=(",", ":")
+            )]
+        subprocess.run(floor_command, check=True)
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
                     if "points" in row else row["polygon"]
                     for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
         atrium = [row for row in survey["walls"] if row["id"] == "central_void"]
         floor_geometry = terrain({**survey, "walls": [{**row, "kind": "water"} for row in atrium]}) if atrium else None
         (OUTPUT / name / "fixtures.json").write_text(
-            json.dumps({"selected": selected, "outlines": outlines, "floor_geometry": floor_geometry}), encoding="utf-8"
+            json.dumps({"selected": selected, "outlines": outlines, "floor_geometry": floor_geometry, "decorative": decorative}), encoding="utf-8"
         )
     return subprocess.run([
         "powershell.exe", "-NoProfile", "-File", str(ROOT / "run_blender.ps1"),
