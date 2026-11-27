@@ -1206,6 +1206,20 @@ def build(name):
                     box(identifier + " rear utility conduit", (x-w*.40,back-direction*.06,height*.46),
                         (.035,.045,height*.40), frame,.01).parent = group
         if industrial:
+            if name == "city_transit_freight_yard" and height >= 2.4:
+                for side in (-1, 1):
+                    flank = x+side*(w/2+.025)
+                    box(identifier + " service wall sill", (flank,y,.46),
+                        (.028,d*.46,.12),frame,.012).parent = group
+                    for offset in (-.31, 0, .31):
+                        box(identifier + " service wall mullion", (flank,y+offset*d,height*.46),
+                            (.035,.055,height*.38),frame,.012).parent = group
+                    box(identifier + " service vent housing", (flank,y,height*.67),
+                        (.055,d*.19,.19),frame,.018).parent = group
+                    for slat in (-1, 0, 1):
+                        box(identifier + " service vent louver",
+                            (flank+side*.058,y,height*.67+slat*.092),
+                            (.014,d*.16,.021),wall,.007).parent = group
             if height >= 2.4:
                 for side in (-1,1):
                     box(identifier + " warehouse eave flashing",
