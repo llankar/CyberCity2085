@@ -69,6 +69,8 @@ def build(name):
     }
     wall = library / "service_wall269_factory/model.glb"
     ruined = name.startswith("wasteland_")
+    if ruined and name.endswith("_detention_block"):
+        interlock = make_material("Wasteland cell red indicator", (.42,.055,.018,1), .15,.61,.36)
     metro = name == "city_transit_metro_interchange"
     steel = make_material("Interior service steel", (.038,.063,.075,1) if metro else (.13,.19,.22,1), .5,.68 if metro else .58)
     linen = make_material("Treatment linen", (.25,.22,.17,1) if ruined else (.48,.58,.60,1), 0,.85)
@@ -155,7 +157,9 @@ def build(name):
                 for bar in (-2,-1,0,1,2):
                     box("Cell front vertical bar", (x+bar*span*.083,y,.76),
                         (.035,depth*.12,.64),steel,.008).parent = group
-                box("Cell interlock indicator", (x,y,1.43), (span*.13,depth*.47,.026),screen,.008).parent = group
+                if not ruined or bay in (1,3):
+                    box("Cell interlock indicator", (x,y,1.43), (span*.13,depth*.47,.026),
+                        interlock if ruined else screen,.008).parent = group
             merge_fixture_meshes(group, "Detention cell frontage")
             continue
         if kind == "pipe":
