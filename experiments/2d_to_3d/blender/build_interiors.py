@@ -89,6 +89,7 @@ def build(name):
     shader.inputs["Emission Strength"].default_value = .4
     server_map = name in {
         "cybercity_inner_05_server_room", "cybercity_inner_15_data_vault", "city_interior_server_room",
+        "city_industrial_data_vault",
     }
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
@@ -292,7 +293,7 @@ def build(name):
             build_bed(group, x, y, w, d, steel, linen, trim,
                       stretcher=name.endswith("_ruined_clinic"), floor_bedding=floor_bedding)
         elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
-            identifier.startswith(("rack_", "server_")) or identifier.endswith(("_rack", "_server"))
+            identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
             build_server_bank(group, x, y, w, d, server_housing, steel, screen)
         elif kind == "rack":
