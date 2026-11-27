@@ -52,3 +52,8 @@ def test_apartment_block_exports_street_fixtures_in_cutaway_groups():
     building_children = {index for node in nodes if node["name"].startswith("Occludable_")
                          for index in node.get("children", [])}
     assert sills and sills <= building_children
+    for node in nodes:
+        children = node.get("children", [])
+        if any(" window" in nodes[index]["name"] and index not in sills
+               and "mesh" in nodes[index] for index in children):
+            assert len(sills.intersection(children)) == 1

@@ -10,6 +10,7 @@ from mathutils import Vector
 sys.path.insert(0, str(Path(__file__).parent))
 from library_placement import place
 from create_hardsurface_crate import box, make_material
+from interior_furniture import merge_fixture_meshes
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
 output = phase / "residential317"
@@ -103,6 +104,7 @@ print("RESIDENTIAL317_ENTRIES", len(entrances))
 window_trim = make_material("Residential window sill steel", (.105,.13,.15,1), .52,.65)
 windows = [obj for obj in bpy.context.scene.objects
            if obj.type == "MESH" and " window" in obj.name and obj.parent]
+sills_by_building = {}
 for window in windows:
     points = [window.matrix_world @ Vector(corner) for corner in window.bound_box]
     lo = Vector(tuple(min(point[i] for point in points) for i in range(3)))
@@ -118,6 +120,9 @@ for window in windows:
                (half_x,half_y,.032), window_trim,.009)
     sill.parent = window.parent
     sill.matrix_parent_inverse = window.parent.matrix_world.inverted()
+    sills_by_building.setdefault(window.parent, []).append(sill)
+for building, sills in sills_by_building.items():
+    merge_fixture_meshes(building, "Residential projected window sills", pieces=sills)
 
 street = json.loads((output / "street_fixtures.json").read_text(encoding="utf-8"))
 cw, ch = street["canvas_size"]

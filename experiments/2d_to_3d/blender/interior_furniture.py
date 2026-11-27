@@ -374,9 +374,10 @@ def build_server_bank(group, x, y, w, d, housing, frame, indicator):
 
 
 
-def merge_fixture_meshes(group, label):
+def merge_fixture_meshes(group, label, *, pieces=None):
     """Bake bevels, then merge the meshes without changing their cutaway parent."""
-    pieces = list(group.children)
+    if pieces is None:
+        pieces = list(group.children)
     bpy.ops.object.select_all(action="DESELECT")
     for piece in pieces:
         piece.select_set(True)
