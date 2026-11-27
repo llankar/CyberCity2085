@@ -99,6 +99,9 @@ def fixtures(name):
     } if name == "city_interior_safehouse" else {}
     for row in survey["walls"]:
         identifier = row["id"]
+        if name == "city_industrial_service_tunnel" and row.get("kind") == "floor_detail":
+            selected[identifier] = "floor_grate"
+            continue
         if identifier.startswith("outside_") or row.get("collision") is False:
             continue
         if "points" in row:

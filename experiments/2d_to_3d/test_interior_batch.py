@@ -24,7 +24,7 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     assert vault["vault_core"] == "pod"
     _, tunnel = fixtures("city_industrial_service_tunnel")
     assert tunnel["ne_room_pipe_elbow"] == "pipe"
-    assert "nw_room_floor_grate" not in tunnel
+    assert tunnel["nw_room_floor_grate"] == "floor_grate"
     _, metro = fixtures("city_transit_metro_interchange")
     assert metro["east_top_tracks"] == "track"
     assert metro["north_stairs_w"] == "stair"
@@ -531,3 +531,16 @@ def test_service_tunnel_decor_is_exported_without_tactical_obstacles():
     for identifier in decor:
         children = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
         assert sum("mesh" in child for child in children) == 2
+
+    survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
+    grates = {row["id"] for row in survey["walls"]
+              if row.get("kind") == "floor_detail" and row.get("collision") is False}
+    assert len(grates) == 3
+    floor_details = {row["id"] for row in tactical["walls"]
+                     if row["kind"] == "floor_detail" and not row["blocks_sight"]}
+    assert grates <= floor_details
+    for identifier in grates:
+        children = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
+        bars = [node for node in children if node["name"].startswith("Drain grate bar")]
+        assert len(bars) == 10
+        assert all(node["translation"][1] < .02 for node in bars)
