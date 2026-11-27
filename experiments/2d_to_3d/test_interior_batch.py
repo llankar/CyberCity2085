@@ -241,6 +241,11 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
                 or (row.get("kind") != "water" and row.get("collision") is not False)}
     exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
     assert exported == expected
+    for identifier in ("east_upper_cabin", "east_lower_cabin"):
+        cabin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        parts = [nodes[index]["name"] for index in cabin["children"]]
+        assert sum(f"{identifier} front window" in part for part in parts) == 2
+        assert f"{identifier} roof vent" in parts
     grate = next(node for node in nodes if node["name"] == "Occludable_east_center_grate")
     bars = [nodes[index] for index in grate["children"]
             if nodes[index]["name"].startswith("Drain grate bar")]

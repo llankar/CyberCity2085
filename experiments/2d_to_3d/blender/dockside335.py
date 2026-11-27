@@ -121,13 +121,20 @@ for row in survey["walls"]:
         box(identifier+" housing", (x,y,height/2),
             (width*.47,depth*.46,height/2), steel).parent = group
         if cabin:
-            box(identifier+" window", (x-width*.48,y,height*.70),
-                (width*.012,depth*.32,.19), display).parent = group
+            for offset in (-.20,.20):
+                box(identifier+" front window", (x+width*offset,y-depth*.466,height*.68),
+                    (width*.158,depth*.018,.20), display).parent = group
+            box(identifier+" west access door", (x-width*.478,y,height*.42),
+                (width*.018,depth*.19,height*.33), beam).parent = group
+            box(identifier+" recessed roof panel", (x,y,height+.026),
+                (width*.39,depth*.38,.021), steel).parent = group
+            box(identifier+" roof vent", (x+width*.23,y+depth*.18,height+.065),
+                (width*.09,depth*.12,.024), beam).parent = group
         else:
             box(identifier+" instrument panel", (x,y,height+.03),
                 (width*.34,depth*.31,.03), display).parent = group
         box(identifier+" trim", (x,y,height+.008),
-            (width*.48,depth*.48,.015), beam).parent = group
+            (width*(.50 if cabin else .48),depth*.48,.015), beam).parent = group
     else:
         vertical = depth > width
         length, thickness = (depth,width) if vertical else (width,depth)
