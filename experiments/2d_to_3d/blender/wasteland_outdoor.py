@@ -598,6 +598,10 @@ class WastelandOutdoors:
             self.transit_train(group, x, y, length, breadth, yaw)
         elif self.cratered_waterfront and name in {"cargo_e", "cargo_e2"}:
             self.waterfront_cargo(group, name, x, y, length, breadth, yaw)
+        elif self.cratered_waterfront and name == "cargo_w":
+            container = build_container(group,x,y,length,breadth,self.steel,self.dark,self.steel,yaw=yaw)
+            container.scale.z = .48
+            container.location.z *= container.scale.z
         elif any(part in name for part in ("wagon","container","cargo","_train")):
             base = build_container(group,x,y,length,breadth,self.steel,self.dark,self.steel,yaw=yaw)
             if "wagon" in name or "_train" in name:
