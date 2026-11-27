@@ -191,7 +191,7 @@ def main() -> int:
                         mailbox = open_mailbox(directory, map_key, args.smoke)
                 else:
                     mailbox.poll()
-                time.sleep(.03)
+                time.sleep(.01 if mailbox is not None else .03)
         if godot.returncode:
             return godot.returncode
         if args.smoke and mailbox is None:

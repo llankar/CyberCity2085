@@ -16,6 +16,7 @@ var actors := {}
 var last_sequence := -1
 var smoke := false
 var pending_command := {}
+var smoke_command_sent_usec := 0
 var smoke_destination: Array[int]
 var playing_events := false
 var attack_mode := "fire"
@@ -89,6 +90,10 @@ func _process(delta: float) -> void:
  if mailbox == null or playing_events or mailbox.sequence == last_sequence or not mailbox.refresh():
   return
  last_sequence = mailbox.sequence
+ if smoke and smoke_command_sent_usec > 0:
+  print("TACTICAL_REPLY action=%s sequence=%d ms=%.2f" % [
+   pending_command.action, last_sequence, (Time.get_ticks_usec()-smoke_command_sent_usec)/1000.0])
+  smoke_command_sent_usec = 0
  var state := mailbox.state
  if not mailbox.events.is_empty():
   playing_events = true
@@ -274,6 +279,8 @@ func send(command: Dictionary) -> void:
  var error := mailbox.send(command)
  if error == OK:
   pending_command = command
+  if smoke:
+   smoke_command_sent_usec = Time.get_ticks_usec()
  if error != OK and error != ERR_BUSY:
   push_error("Tactical command write failed: %s" % error_string(error))
   if smoke:
