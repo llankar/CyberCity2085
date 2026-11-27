@@ -850,6 +850,11 @@ class WastelandOutdoors:
             count = max(1, round(length/1.25))
             for index in range(count):
                 offset = (index+.5)/count-.5
+                pier = self.concrete_box("Quay retaining pier",
+                    (x+(bx-ax)*offset,y+(by-ay)*offset,.205),
+                    (min(.065,length*.11/count),width*.49,.205), .018)
+                pier.rotation_euler.z = yaw
+                pier.parent = group
                 cap = self.concrete_box("Intact quay coping",
                                         (x+(bx-ax)*offset,y+(by-ay)*offset,.35),
                                         (length*.485/count,width*.48,.09))
