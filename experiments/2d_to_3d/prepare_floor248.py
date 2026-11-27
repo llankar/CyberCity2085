@@ -265,13 +265,14 @@ def main():
     if args.map.endswith("_irradiated_basin"):
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
-        barrel_mask = np.zeros_like(mask)
+        fixture_mask = np.zeros_like(mask)
         for row in survey["walls"]:
-            if "barrels" in row["id"] and "rect" in row:
+            identifier = row["id"]
+            if ("barrels" in identifier or "_pipe" in identifier or identifier == "sw_tank") and "rect" in row:
                 left, top, right, bottom = row["rect"]
-                barrel_mask[round(top*sy):round(bottom*sy), round(left*sx):round(right*sx)] = 255
+                fixture_mask[round(top*sy):round(bottom*sy), round(left*sx):round(right*sx)] = 255
         gravel = original.crop((round(706*sx),round(479*sy),round(738*sx),round(510*sy)))
-        result = restore_surface_detail(result, barrel_mask & mask, gravel, round(32*sx))
+        result = restore_surface_detail(result, fixture_mask & mask, gravel, round(32*sx))
     for suffix, (sample_rect, road_rows) in ROAD_GRAIN_SAMPLES.items():
         if not args.map.endswith(suffix):
             continue
