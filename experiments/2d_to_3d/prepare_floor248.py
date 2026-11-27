@@ -65,6 +65,8 @@ TECH_MARKET_DONORS = {
 # vehicle footprints on the road, leaving the dirt shoulder repairs alone.
 ROAD_GRAIN_SAMPLES = {
     "_ruined_downtown": ((453,247,483,281), (0,540)),
+    "_downtown_intersection": ((449,215,472,243), (0,540)),
+    "_parking_garage": ((285,213,309,239), (0,540)),
     "_convoy_crossing": ((202,209,230,230), (221,291)),
     "_wrecked_highway": ((453,281,484,307), (190,345)),
 }
@@ -180,7 +182,7 @@ def main():
         sx, sy = result.width/cw, result.height/ch
         road_repairs = np.zeros_like(mask)
         for row in survey["walls"]:
-            if row["id"].startswith(("wreck_", "bus_", "truck_", "convoy_")) and "rect" in row:
+            if row["id"].startswith(("car_", "wreck_", "bus_", "truck_", "convoy_")) and "rect" in row:
                 x1,y1,x2,y2 = row["rect"]
                 top, bottom = max(y1,road_rows[0]), min(y2,road_rows[1])
                 road_repairs[round(top*sy):round(bottom*sy), round(x1*sx):round(x2*sx)] = 255
