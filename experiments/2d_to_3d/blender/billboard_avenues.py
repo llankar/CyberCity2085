@@ -924,6 +924,19 @@ def build(name):
                     for sy in (-1,1):
                         box(identifier + " wheel", (x+sx*w*.32,y+sy*d*.31,.18),
                             (w*.10,d*.16,.18), wall).parent = group
+                if transit_interchange and identifier.startswith("bus_"):
+                    vertical = d > w
+                    length, breadth = max(w,d), min(w,d)
+                    for side in (-1,1):
+                        for offset in (-.29,-.12,.06,.24):
+                            along, across = offset*length, side*breadth*.435
+                            position = (x+across,y+along,1.00) if vertical else (x+along,y+across,1.00)
+                            size = (.016,.028,.15) if vertical else (.028,.016,.15)
+                            box(identifier+" bus window mullion", position, size, frame,.005).parent = group
+                        end = side*length*.455
+                        position = (x,y+end,1.10) if vertical else (x+end,y,1.10)
+                        size = (breadth*.28,.014,.031) if vertical else (.014,breadth*.28,.031)
+                        box(identifier+" bus destination panel", position, size, frame,.007).parent = group
             continue
         if identifier.startswith(("pillar_", "platform_", "ramp_outer_")) or "_rail" in identifier:
             height = 1.8 if identifier.startswith("pillar_") else .22 if identifier.startswith("platform_") else .48
