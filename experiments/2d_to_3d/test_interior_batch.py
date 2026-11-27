@@ -490,6 +490,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             assert parts
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
+        if name.endswith("_bunker_command_post"):
+            terminal = next(nodes[index] for index in groups["Occludable_command_console"]
+                            if nodes[index]["name"].startswith("Bunker upright terminal"))
+            primitive, = data["meshes"][terminal["mesh"]]["primitives"]
+            assert data["materials"][primitive["material"]]["name"] == "Bunker dim terminal glass"
         if name.endswith("_emergency_medbay"):
             bed_index, = groups["Occludable_bed_center"]
             bed = nodes[bed_index]

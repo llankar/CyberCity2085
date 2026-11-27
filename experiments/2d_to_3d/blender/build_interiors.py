@@ -103,6 +103,7 @@ def build(name):
     bunker = name.endswith("_bunker_command_post")
     if bunker:
         bunker_canvas = make_material("Bunker worn sandbag canvas", (.15,.105,.060,1), 0,.93)
+        bunker_display = make_material("Bunker dim terminal glass", (.018,.095,.075,1), .12,.49,.035)
     underground_market = name.endswith("_underground_market")
     apartment_shelter = name.endswith("_apartment_shelter")
     if apartment_shelter:
@@ -404,7 +405,7 @@ def build(name):
             build_facility_fixture(group, "relay_core", x, y, w, d, server_housing, partition_cap, console_glass)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "clinic_reception", "shelter_kitchen", "records_desk", "data_core"}:
             fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
-            fixture_display = depot_warning if kind == "inspection_pit" else console_glass if bunker else screen
+            fixture_display = depot_warning if kind == "inspection_pit" else bunker_display if bunker else screen
             build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, fixture_display)
             if bunker and identifier == "command_console":
                 box("Bunker terminal bridge", (x,y+d*.29,1.06),
@@ -412,7 +413,7 @@ def build(name):
                 for bay in range(5):
                     offset = (bay-2)*w*.163
                     box("Bunker upright terminal", (x+offset,y+d*.16,1.12),
-                        (w*.066,d*.023,.104),console_glass,.009).parent = group
+                        (w*.066,d*.023,.104),bunker_display,.009).parent = group
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
                 texture = artwork.node_tree.nodes.new("ShaderNodeTexImage")
