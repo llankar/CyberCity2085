@@ -100,6 +100,62 @@ for entry in entrances:
 assert entrances
 print("RESIDENTIAL317_ENTRIES", len(entrances))
 
+street = json.loads((output / "street_fixtures.json").read_text(encoding="utf-8"))
+cw, ch = street["canvas_size"]
+library = phase.parents[1] / "environment-library/assets"
+vehicle = library / "derelict_suv275/model.glb"
+crate = library / "cargo_crate274/model.glb"
+concrete = make_material("Planter concrete", (.15,.17,.16,1), .04,.84)
+bark = make_material("Street tree bark", (.095,.057,.035,1), 0,.93)
+leaves = [make_material("Street foliage " + str(i), color, 0,.88) for i, color in enumerate(
+    ((.05,.13,.038,1), (.094,.19,.055,1), (.145,.24,.074,1))
+)]
+for row in street["walls"]:
+    identifier = row["id"]
+    if "rect" in row:
+        x1,y1,x2,y2 = row["rect"]
+    else:
+        xs,ys = zip(*row["polygon"])
+        x1,y1,x2,y2 = min(xs),min(ys),max(xs),max(ys)
+    w,d = (x2-x1)*gw/cw,(y2-y1)*gh/ch
+    x,y = (x1+x2)*gw/(2*cw)-gw/2,gh/2-(y1+y2)*gh/(2*ch)
+    group = bpy.data.objects.new("Occludable_" + identifier, None)
+    bpy.context.collection.objects.link(group)
+    vertical = d > w
+    length, width = (d,w) if vertical else (w,d)
+    yaw = math.pi/2 if vertical else 0
+    if "vehicle" in identifier:
+        place(vehicle, group, (x,y,0), (length*.96,width*.93,1.02), yaw=yaw)
+    elif "crate" in identifier:
+        count = 2 if identifier.endswith("crates") else 1
+        for i in range(count):
+            offset = (i-(count-1)/2)*length*.45
+            location = (x,y+offset,0) if vertical else (x+offset,y,0)
+            place(crate, group, location, (length*.88/count,width*.88,.66), yaw=yaw)
+    else:
+        tree = "_tree" in identifier
+        bed = box("Street planting bed", (x,y,.15), (w*.46,d*.46,.15), concrete,.08)
+        bed.parent = group
+        if tree:
+            bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=.09, depth=1.06, location=(x,y,.80))
+            trunk = bpy.context.object
+            trunk.name = "Street tree trunk"
+            trunk.data.materials.append(bark)
+            trunk.parent = group
+        for i,offset in enumerate((-.25,0,.25)):
+            cx,cy = (x,y+d*offset) if vertical else (x+w*offset,y)
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1,
+                                                location=(cx,cy,1.48 if tree else .39))
+            shrub = bpy.context.object
+            shrub.name = "Street foliage crown"
+            shrub.scale = (min(w*.29,.64),min(d*.29,.64),.58 if tree else .24)
+            shrub.data.materials.append(leaves[i])
+            shrub.parent = group
+floor = bpy.data.materials["Residential original street floor"]
+next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE").image = bpy.data.images.load(
+    str(output / "street_floor.png")
+)
+
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:

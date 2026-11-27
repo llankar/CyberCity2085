@@ -25,3 +25,22 @@ class OutdoorCoverage(unittest.TestCase):
   self.assertEqual(actual,expected)
 
 if __name__=='__main__':unittest.main()
+
+
+def test_apartment_block_exports_street_fixtures_in_cutaway_groups():
+    import json
+    from pathlib import Path
+    import struct
+
+    import pytest
+
+    folder = Path("E:/CyberCity2085-3d-lab/generated/phase2/residential317")
+    if not (folder / "street_fixtures.json").is_file():
+        pytest.skip("Build the residential street fixtures on E: first")
+    traces = json.loads((folder / "street_fixtures.json").read_text())["walls"]
+    with (folder / "environment.glb").open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    roots = {node["name"] for node in nodes if node.get("children")}
+    assert len(traces) == 20
+    assert {f"Occludable_{row['id']}" for row in traces} <= roots
