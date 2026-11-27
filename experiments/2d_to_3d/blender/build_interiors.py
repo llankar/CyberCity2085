@@ -316,7 +316,8 @@ def build(name):
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
         elif emergency_medbay and kind in {"machine", "table"}:
-            build_diagnostic_bench(group, x, y, w, d, partition_cap, stretcher_frame, console_glass)
+            build_diagnostic_bench(group, x, y, w, d, partition_cap, stretcher_frame, console_glass,
+                                   telemetry=identifier == "central_machine")
         elif kind == "machine" and depot:
             place(labs[kind], group, (x,y,.11), (length*.82,breadth*.62,.82), yaw=yaw)
             for side in (-1, 1):

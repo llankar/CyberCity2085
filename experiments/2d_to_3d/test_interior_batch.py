@@ -436,6 +436,10 @@ def test_interior_maps_export_remaining_fixture_groups():
         "west_meeting": "Meeting table top", "east_meeting": "Meeting table top",
         "west_south_utility": None, "east_south_utility": None,
     }
+    additions["wasteland_inner_11_emergency_medbay"] = {
+        "central_machine": "Medbay telemetry station",
+        "south_machine_w": "Clinic diagnostic bench",
+    }
     for index in ("06", "11"):
         additions[f"wasteland_inner_{index}_maintenance_depot"] = {
             "west_pit_n": "Inspection pit curb warning strip", "west_pit_s": "Inspection pit end cap",

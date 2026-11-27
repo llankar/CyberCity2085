@@ -124,7 +124,7 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
 
 
 
-def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen):
+def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen, *, telemetry=False):
     box("Diagnostic housing", (x,y,.37), (w*.45,d*.47,.37), housing, .035).parent = group
     box("Diagnostic steel rim", (x,y,.75), (w*.48,d*.48,.055), steel, .025).parent = group
     panel_count = 3 if d > w*2 else 2
@@ -134,7 +134,16 @@ def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen):
             (w*.28,d*.33/panel_count,.016), screen, .012).parent = group
         box("Diagnostic button bank", (x+w*.30,panel_y,.81),
             (w*.075,d*.22/panel_count,.025), housing, .012).parent = group
-    merge_fixture_meshes(group, "Clinic diagnostic bench")
+    if telemetry:
+        for side in (-1, 1):
+            post_x = x+side*w*.32
+            box("Telemetry support", (post_x,y+d*.32,1.03),
+                (.046,.045,.25),steel,.009).parent = group
+        box("Telemetry monitor housing", (x,y+d*.32,1.32),
+            (w*.34,d*.072,.17),housing,.022).parent = group
+        box("Telemetry monitor face", (x,y+d*.239,1.33),
+            (w*.29,d*.016,.112),screen,.009).parent = group
+    merge_fixture_meshes(group, "Medbay telemetry station" if telemetry else "Clinic diagnostic bench")
 
 
 def build_operating_table(group, x, y, w, d, housing, steel, screen):
