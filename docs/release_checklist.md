@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] Standalone build, Inno Setup compilation and silent installation on E:. The installed executable reports `183ee50c` and passes bundled Godot startup and test-save checks.
 - [x] Four targeted source tests passed. The external native fog regression passed against the installed project, including the blocked patrol sector. The installed combat script matches source and the QA scripts are excluded.
+- [x] The installed build passed WASAPI signal checks for movement, sniper fire and music, and injected gamepad checks for selection, movement, targeting and turn confirmation.
 - [ ] Physical controller, human listening and visible installed handoff remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-29400c3d2d15436292c1f8298ef9e1bb/dist/installer`.
