@@ -644,18 +644,21 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             for side in (-1, 1):
                 part("Vault lid locking boss", end*length*.295,side*width*.278,.94,
                      length*.036,width*.038,.025,steel)
+                part("Vault lid hinge barrel", end*length*.238,side*width*.351,.91,
+                     length*.085,width*.051,.052,steel)
             part("Vault case reinforcing rib", end*length*.417,0,.45,
                  length*.022,width*.32,.075,trim)
+        part("Vault handwheel raised collar", 0,0,.932,length*.195,width*.195,.028,steel)
         radius = width*.18
         bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
-                                         major_radius=radius, minor_radius=.034, location=(x,y,.99))
+                                         major_radius=radius, minor_radius=.049, location=(x,y,1.035))
         wheel = bpy.context.object
         wheel.name = "Vault locking handwheel"
         wheel.data.materials.append(steel)
         wheel.parent = group
-        part("Vault locking hub", 0,0,.96,.105,.105,.05,steel)
+        part("Vault locking hub", 0,0,1.015,.105,.105,.05,steel)
         for index in range(3):
-            spoke = box("Vault handwheel spoke", (x,y,.99),(radius,.025,.025),steel,.008)
+            spoke = box("Vault handwheel spoke", (x,y,1.035),(radius,.031,.025),steel,.008)
             spoke.rotation_euler.z = index*math.pi/3
             spoke.parent = group
     elif kind == "inspection_pit":

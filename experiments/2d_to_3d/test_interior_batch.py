@@ -530,6 +530,9 @@ def test_interior_maps_export_remaining_fixture_groups():
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
         if name.endswith("_looted_vault"):
+            core = [nodes[index]["name"] for index in groups["Occludable_core"]]
+            assert sum(part.startswith("Vault lid hinge barrel") for part in core) == 4
+            assert "Vault handwheel raised collar" in core
             for side in ("nw", "ne", "sw", "se"):
                 parts = [nodes[index]["name"] for index in groups[f"Occludable_vault_wall_{side}"]]
                 assert sum(part.startswith("Vault ring armor cap") for part in parts) == 4
