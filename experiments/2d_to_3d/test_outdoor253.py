@@ -71,6 +71,18 @@ def test_apartment_block_exports_street_fixtures_in_cutaway_groups():
 
     northwest = next(node for node in nodes if node["name"] == "Occludable_northwest_building")
     assert any(nodes[index]["name"] == "Northwest rooftop cargo" for index in northwest["children"])
+    from collections import Counter
+
+    roof_survey = json.loads(Path(__file__).with_name("residential_roofs317.json").read_text())
+    labels = {"single": "Residential rooftop single fan",
+              "cabinet": "Residential rooftop service cabinet",
+              "twin": "Residential rooftop twin fan"}
+    expected = Counter((f"Occludable_{building}", labels[variant[0] if variant else "twin"])
+                       for building, _, _, *variant in roof_survey["fans"])
+    exported = Counter((parent["name"], nodes[index]["name"].split(".")[0])
+                       for parent in nodes for index in parent.get("children", [])
+                       if nodes[index]["name"].split(".")[0] in labels.values())
+    assert exported == expected
     sills = {index for index, node in enumerate(nodes)
              if node["name"].startswith("Residential projected window sill")}
     building_children = {index for node in nodes if node["name"].startswith("Occludable_")

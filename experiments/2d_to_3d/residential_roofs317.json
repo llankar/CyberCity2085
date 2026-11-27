@@ -12,7 +12,9 @@
     ["southwest_building", [73, 294, 137, 337], [589, 363]],
     ["southwest_building", [91, 350, 125, 383], [589, 363], "single"],
     ["south_central_building", [290, 409, 326, 445], [270, 453], "single"],
-    ["southeast_center_building", [589, 461, 655, 490], [589, 363]],
+    ["southeast_center_building", [589, 461, 611, 490], [589, 363], "single"],
+    ["southeast_center_building", [611, 461, 633, 490], [611, 363], "single"],
+    ["southeast_center_building", [633, 461, 655, 490], [633, 363], "single"],
     ["southeast_center_building", [627, 380, 656, 413], [589, 363], "cabinet"],
     ["east_south_building", [854, 385, 918, 422], [770, 386]]
   ]
