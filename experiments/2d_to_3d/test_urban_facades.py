@@ -131,3 +131,22 @@ def test_civic_plaza_polygon_planters_export_foliage(variant, count):
     for identifier in polygons:
         parts = [nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]["children"]]
         assert any(" foliage" in part for part in parts), identifier
+
+
+@pytest.mark.parametrize(("name", "folder", "fixture", "part"), [
+    ("city_district_riot_square", "billboard_avenues", "bench_nw", "bench_nw seat support"),
+    ("city_interior_safehouse", "interiors", "bath_showers", "Shower head"),
+])
+def test_riot_square_and_safehouse_export_surveyed_fixtures(name, folder, fixture, part):
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2") / folder / name / "environment.glb"
+    if not path.is_file():
+        pytest.skip(f"Build {name} on E: first")
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    trace_path = Path(__file__).resolve().parents[2] / "assets/maps" / f"{name}.wall-traces.json"
+    traces = json.loads(trace_path.read_text())["walls"]
+    expected = {f"Occludable_{row['id']}" for row in traces if not row["id"].startswith("outside_")}
+    assert expected <= groups.keys()
+    assert any(nodes[index]["name"].startswith(part) for index in groups[f"Occludable_{fixture}"])

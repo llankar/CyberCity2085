@@ -141,7 +141,8 @@ def build(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
-    civic = name == "city_district_civic_center" or name.endswith("_civic_plaza")
+    riot_square = name == "city_district_riot_square"
+    civic = name in {"city_district_civic_center", "city_district_riot_square"} or name.endswith("_civic_plaza")
     industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
     wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"),
@@ -202,8 +203,10 @@ def build(name):
             is_planter = "planter" in identifier or (civic and identifier in {"nw_island", "sw_approach", "se_approach"})
             is_building = "building" in identifier
             height = 2.8+i%3*.5 if is_building else .68 if identifier.endswith("_high") else .31 if is_planter else .22
-            mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in points], [], faces)
-            mesh.materials.append(wall)
+            polygon_bench = riot_square and identifier.startswith("bench_")
+            base, top = (.34,.43) if polygon_bench else (0,height)
+            mesh.from_pydata([(x,y,z) for z in (base,top) for x,y in points], [], faces)
+            mesh.materials.append(seat if polygon_bench else wall)
             if is_planter:
                 mesh.materials.append(gravel if civic else foliage)
                 mesh.polygons[1].material_index = 1
@@ -212,12 +215,18 @@ def build(name):
             group = bpy.data.objects.new("Occludable_" + identifier, None)
             bpy.context.collection.objects.link(group)
             island.parent = group
+            if polygon_bench:
+                vertices = [Vector((x,y,0)) for x,y in points]
+                for triangle in tessellate_polygon([vertices]):
+                    a,b,c = (vertices[index] for index in triangle)
+                    x,y,_ = (a+b+c)/3
+                    box(identifier + " seat support", (x,y,.17), (.073,.068,.17), frame).parent = group
             if civic and (is_planter or "_tree" in identifier):
-                if "_tree" in identifier or identifier == "monument_planter":
+                if "_tree" in identifier or identifier in {"monument_planter", "statue_planter"}:
                     x = sum(px for px,_ in points)/count
                     y = sum(py for _,py in points)/count
                     box(identifier + " central support", (x,y,.58), (.10,.10,.36), frame).parent = group
-                    if identifier == "monument_planter":
+                    if identifier in {"monument_planter", "statue_planter"}:
                         box("Civic monument pedestal", (x,y,.47), (.58,.54,.19), frame).parent = group
                         box("Civic monument beacon", (x,y,1.02), (.14,.14,.11), signs[2]).parent = group
                 vertices = [Vector((x,y,0)) for x,y in points]

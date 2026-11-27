@@ -219,3 +219,34 @@ def build_industrial_fixture(group, kind, x, y, w, d, steel, trim, rail):
         spoke = box("Service valve spoke", (x,y,.82), (radius,.027,.028), steel)
         spoke.rotation_euler.z = angle
         spoke.parent = group
+
+
+
+def build_safehouse_fixture(group, kind, x, y, w, d, steel, enamel, rail):
+    if kind == "gym_weights":
+        box("Weight rack base", (x,y,.10), (w*.49,d*.46,.10), steel).parent = group
+        box("Weight rack horizontal bar", (x,y,.65), (w*.44,.039,.043), rail).parent = group
+        for side in (-1,1):
+            post_x = x + side*w*.36
+            box("Weight rack upright", (post_x,y,.39), (.055,d*.17,.35), steel).parent = group
+            bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=min(.24,d*.22), depth=.14,
+                                                location=(post_x,y,.65), rotation=(0,math.pi/2,0))
+            plate = bpy.context.object
+            plate.name = "Weight plate"
+            plate.data.materials.append(steel)
+            plate.parent = group
+        return
+    if kind == "bath_sink":
+        box("Washbasin vanity", (x,y,.41), (w*.42,d*.40,.41), steel).parent = group
+        box("Washbasin bowl", (x,y,.85), (w*.45,d*.44,.054), enamel).parent = group
+        box("Washbasin inset", (x,y-d*.04,.909), (w*.29,d*.28,.009), steel).parent = group
+        box("Tap stem", (x,y+d*.31,.99), (.032,.035,.087), rail).parent = group
+        box("Tap spout", (x,y+d*.24,1.066), (.034,d*.11,.024), rail).parent = group
+        return
+    box("Shower tiled base", (x,y,.075), (w*.49,d*.49,.075), enamel).parent = group
+    box("Shower plumbing wall", (x-w*.42,y,.83), (w*.068,d*.48,.74), steel).parent = group
+    for offset in (-.17,.17):
+        sy = y+offset*d
+        box("Shower riser", (x-w*.31,sy,1.08), (.025,.027,.40), rail).parent = group
+        box("Shower head", (x-w*.23,sy,1.49), (w*.12,.083,.034), rail).parent = group
+    box("Shower divider", (x,y, .66), (w*.41,.039,.51), steel).parent = group

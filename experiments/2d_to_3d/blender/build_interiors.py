@@ -13,7 +13,7 @@ from interior_batch import INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
-    build_checkpoint_fixture, build_industrial_fixture,
+    build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture,
 )
 from library_placement import place, reset_library_cache
 
@@ -130,6 +130,11 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
+        elif kind == "safehouse_generator":
+            place(library / "industrial_generator265/model.glb", group, (x,y,0),
+                  (length*.94,breadth*.94,1.12), yaw=yaw)
+        elif kind in {"gym_weights", "bath_sink", "bath_shower"}:
+            build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
         elif kind == "vent_fan":

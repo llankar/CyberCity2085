@@ -65,6 +65,11 @@ INTERIORS = (
 def fixtures(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     selected = {}
+    safehouse_fixtures = {
+        "west_gym_weight": "gym_weights", "south_tools": "workbench",
+        "south_generator": "safehouse_generator", "bath_sinks": "bath_sink",
+        "bath_showers": "bath_shower", "south_storage": "rack",
+    } if name == "city_interior_safehouse" else {}
     for row in survey["walls"]:
         identifier = row["id"]
         if identifier.startswith("outside_") or row.get("collision") is False:
@@ -77,7 +82,9 @@ def fixtures(name):
             continue
         if not any(key in row for key in ("rect", "polygon")):
             continue
-        if identifier.endswith("_tracks"):
+        if identifier in safehouse_fixtures:
+            selected[identifier] = safehouse_fixtures[identifier]
+        elif identifier.endswith("_tracks"):
             selected[identifier] = "track"
         elif name == "cybercity_inner_13_warehouse_floor" and identifier.startswith("bench_"):
             selected[identifier] = "workbench"
