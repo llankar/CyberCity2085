@@ -184,7 +184,7 @@ def main() -> int:
     checks.add_argument("--smoke", action="store_true")
     checks.add_argument("--smoke-victory", action="store_const", dest="smoke_outcome", const="victory", default="")
     checks.add_argument("--smoke-defeat", action="store_const", dest="smoke_outcome", const="defeat")
-    checks.add_argument("--benchmark", action="store_true", help="Measure an uncapped camera orbit")
+    checks.add_argument("--benchmark", action="store_true", help="Measure uncapped overview orbit, tactical idle and tactical orbit")
     args = parser.parse_args()
     smoke = args.smoke or bool(args.smoke_outcome)
     temp_root = LAB / "tmp"
