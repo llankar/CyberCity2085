@@ -385,6 +385,15 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
+        if not industrial and d >= 2.4 and height >= 2.4:
+            side = 1 if x < 0 else -1
+            flank = x + side*w/2
+            for offset in (-.27, .27):
+                place(library / "urban_facade280/window.glb", group,
+                      (flank+side*.035, y+d*offset, .88),
+                      (min(1.65,d*.34), .28, 1.65), yaw=side*math.pi/2, merge=True)
+            box(identifier + " side facade band", (flank,y,height-.20),
+                (.035,d*.48,.06), frame).parent = group
         if industrial:
             door_width = min(w*.48, 3.3)
             box(identifier + " loading shutter", (x,front+direction*.07,.95),
