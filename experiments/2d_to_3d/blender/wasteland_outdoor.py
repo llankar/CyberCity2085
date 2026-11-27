@@ -17,7 +17,8 @@ class WastelandOutdoors:
         for name, stern, bow, beam in (
             ("West edge cargo wreck", (13,445), (204,345), 59),
             ("West basin wreck", (274,477), (340,390), 40),
-            ("East basin wreck", (537,482), (553,359), 47),
+            # Keep the hull on the water side of the quay running at x=557.
+            ("East basin wreck", (522,482), (531,369), 38),
         ):
             ax, ay = self.coordinates(*stern)
             bx, by = self.coordinates(*bow)
