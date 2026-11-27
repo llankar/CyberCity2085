@@ -1048,7 +1048,11 @@ class WastelandOutdoors:
             "market_south": ("sand","blue"), "market_sw2": ("rust","sand"),
             "market_se2": ("blue",),
         }
-        box("Salvaged market counter", (0,0,.36), (length*.43,width*.27,.22), self.steel).parent = group
+        box("Salvaged market counter", (0,0,.525), (length*.43,width*.27,.055),
+            self.steel).parent = group
+        for end in (-1,1):
+            box("Scavenger counter trestle", (length*end*.33,0,.24),
+                (min(.075,length*.04),width*.23,.24), self.dark).parent = group
         for offset in (-.32, 0, .30):
             box("Scavenger parts bin", (length*offset,0,.64),
                 (length*.085,width*.15,.075), self.dark).parent = group
@@ -1183,6 +1187,10 @@ class WastelandOutdoors:
         for side in (-1, 1):
             box("Exposed corner column", (x+side*width*.35, y+street_side*depth*.35, height/2),
                 (.075, .075, height/2), self.steel).parent = group
+            rear_height = height if side != missing_bay else height*.64
+            box("Downtown rear column remnant",
+                (x+side*width*.35,y-street_side*depth*.34,rear_height/2),
+                (.075,.075,rear_height/2), self.steel).parent = group
             box("Surviving roof girder", (x+side*width*.35, y, height),
                 (.055, depth*.37, .075), self.dark).parent = group
         for offset in (-.34, .08):
