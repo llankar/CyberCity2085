@@ -1778,22 +1778,31 @@ func _enemy_act(enemy_index: int) -> void:
 	var tp   := _cell_position(player_units[ti] as Dictionary)
 	var dist := absi(ep.x - tp.x) + absi(ep.y - tp.y)
 
-	# How many AP to spend moving: save 1 for attack if possible.
-	# Snipers stay put when target is already within extended range.
-	var move_ap := 0
-	if dist > rng or not _battlefield.has_los(ep, tp, []):
-		move_ap = maxi(0, ap - 1)
-	if subtype == "sniper" and dist <= rng + 4 and _battlefield.has_los(ep, tp, []):
-		move_ap = 0
+	# Reserve one AP to shoot. Trained enemies may reposition to low cover.
+	var prefers_cover := subtype in ["elite", "commander"]
+	var has_shot := dist <= rng
+	var covered: bool = prefers_cover and _battlefield.has_low_cover_toward(ep, tp)
+	var move_ap := maxi(0, ap - 1) if not has_shot or (prefers_cover and not covered) else 0
 
 	if move_ap > 0:
 		occupied = _enemy_known_occupied_cells(enemy_index)
 		var reachable: Array[Vector2i] = _battlefield.reachable_cells(ep, move_ap, occupied)
 		var best_cell := ep
+		var best_has_shot := has_shot
+		var best_covered := covered
 		var best_route_length: int = _battlefield.find_path(ep, tp).size()
 		for cell: Vector2i in reachable:
+			var offset := tp - cell
+			var can_shoot: bool = absi(offset.x) + absi(offset.y) <= mini(rng, _vision_range(enemy)) \
+				and _battlefield.has_los(cell, tp, [])
+			var has_cover: bool = can_shoot and prefers_cover and _battlefield.has_low_cover_toward(cell, tp)
 			var route_length: int = _battlefield.find_path(cell, tp).size()
-			if route_length > 0 and route_length < best_route_length:
+			var advances := not can_shoot and route_length > 0 \
+				and (best_route_length == 0 or route_length < best_route_length)
+			if (can_shoot and not best_has_shot) or (has_cover and not best_covered) \
+					or (not best_has_shot and advances):
+				best_has_shot = can_shoot
+				best_covered = has_cover
 				best_route_length = route_length
 				best_cell = cell
 		if best_cell != ep:

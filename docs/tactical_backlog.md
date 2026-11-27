@@ -1,7 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
 - [x] ENEMY-OCCUPIED-ROUTES — Godot blocks enemy search and pursuit through occupied cells and preserves movement AP for steps actually taken. Native corridor regression in `fog_of_war_regression.gd`.
-- [ ] ENEMY-TACTICAL-COORDINATION — Containment detours and partial search paths have native regression coverage. Next, differentiate how factions use cover and select firing positions.
+- [ ] ENEMY-TACTICAL-COORDINATION — Godot now covers containment detours, partial search, role-specific targeting and low-cover firing positions. Next, audit faction doctrine data and apply it to coordinated enemy decisions.
 
 > Périmètre actif au 2026-11-24 : les anciens lots cartes/illustrations/animations/atlas/calibrations/Combat Visual, Hangar, Operative Dossier, Cyberware, économie et intégration Arcade/Godot sont des archives clôturées par le propriétaire. Toute ancienne ligne `IN_PROGRESS` correspondante est historique et ne constitue plus une prochaine action.
 

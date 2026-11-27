@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit objective-specific enemy movement for occupancy and visibility consistency before improving faction tactics."
+    "next_action": "Audit existing faction doctrine data and identify where Godot can apply it to coordinated enemy decisions."
   },
   "tasks": [
+    {
+      "id": "ENEMY-FIRING-POSITIONS",
+      "title": "Prioritize reachable firing positions and low cover in Godot",
+      "status": "DONE",
+      "files": ["godot/combat_missions_ui/scripts/battlefield.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Godot fog and containment: 7 passed after explicit boolean typing fixed a Godot 4.6.3 parse failure."],
+      "evidence": ["Pursuit stops at the first viable firing position. Elites can spend spare movement AP seeking directional low cover while reserving a shot. Grunts retain an existing shot."],
+      "remaining": []
+    },
     {
       "id": "ENEMY-OCCUPIED-ROUTES",
       "title": "Prevent Godot enemy movement through occupied cells",

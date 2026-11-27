@@ -41,7 +41,7 @@ func run() -> void:
 	assert(mission.enemy_units[0]["ap"] == 4, "blocked pursuit consumes no move AP")
 	mission.enemy_units.pop_back()
 	mission._enemy_act(0)
-	assert(mission.enemy_units[0]["position"] == Vector2i(4, 1), "removing ally restores movement")
+	assert(mission.enemy_units[0]["position"] == Vector2i(3, 1), "pursuit stops at the first legal shot")
 	var no_walls: Array[Dictionary] = []
 	board.configure(Vector2(1280, 720), null, no_walls, Vector2i(2, 1))
 	mission.objective = {"type": "containment", "cell": Vector2i(2, 1)}
@@ -71,6 +71,16 @@ func run() -> void:
 	assert(mission._select_visible_player_target(shooter, "grunt", 10) == 0, "grunt prioritizes proximity")
 	assert(mission._select_visible_player_target(shooter, "elite", 24) == 1, "elite prioritizes the exposed visible target")
 	assert(mission._select_visible_player_target(shooter, "elite", 3) == 0, "elite prefers an available shot")
+	var low_wall: Array[Dictionary] = [{"cell": Vector2i(6, 6), "solid": true, "high": false}]
+	board.configure(Vector2(1280, 720), null, low_wall, center)
+	mission.player_units.assign([{"hp": 20, "position": Vector2i(9, 5)}])
+	mission.enemy_units.assign([{"hp": 20, "ap": 2, "position": Vector2i(5, 5), "enemy_subtype": "elite"}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0]["position"] == Vector2i(5, 6), "elite moves to low cover toward its target")
+	assert(mission.enemy_units[0]["ap"] == 0, "elite spends one AP on repositioning and one on fire")
+	mission.enemy_units.assign([{"hp": 20, "ap": 2, "position": Vector2i(5, 5), "enemy_subtype": "grunt"}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0]["position"] == Vector2i(5, 5), "grunt holds an available firing position")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")

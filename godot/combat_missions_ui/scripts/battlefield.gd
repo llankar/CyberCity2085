@@ -302,6 +302,14 @@ func set_fog(visible_cells: Dictionary, explored_cells: Dictionary) -> void:
 	fog_explored_cells = explored_cells.duplicate()
 	queue_redraw()
 
+func has_low_cover_toward(cell: Vector2i, threat: Vector2i) -> bool:
+	var offset := threat - cell
+	for step in [Vector2i(signi(offset.x), 0), Vector2i(0, signi(offset.y))]:
+		var neighbor: Vector2i = cell + step
+		if step != Vector2i.ZERO and _blocked.has(neighbor) and not _opaque_cells.has(neighbor):
+			return true
+	return false
+
 # ── Input ─────────────────────────────────────────────────────────────────────
 
 func _unhandled_input(event: InputEvent) -> void:
