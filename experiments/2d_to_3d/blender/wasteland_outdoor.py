@@ -822,6 +822,9 @@ class WastelandOutdoors:
         for bay in (-.43,-.22,.02,.24,.43):
             box("Station platform trim", (x+rail_side*width*.42,y+bay*depth,.455),
                 (width*.057,depth*.027,.018), self.steel,.008).parent = group
+        for bay in (-.38,-.24,-.10,.04,.32):
+            box("Surviving platform warning strip", (x+rail_side*width*.32,y+bay*depth,.393),
+                (width*.026,depth*.064,.015),self.steel,.006).parent = group
 
     def add_transit_south_carriage(self):
         group = bpy.data.objects.new("South transit carriage", None)
