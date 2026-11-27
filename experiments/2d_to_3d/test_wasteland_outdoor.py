@@ -28,6 +28,13 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_ruined_downtown"):
+            for node in nodes:
+                label = node["name"]
+                if label.startswith("Occludable_") and ("ruin" in label or label.endswith("ne_corner")):
+                    parts = [nodes[index]["name"] for index in node["children"]]
+                    assert sum(part.startswith("Exposed corner column") for part in parts) == 2
+                    assert any(part.startswith("Broken upper floor remnant") for part in parts)
 
 @pytest.mark.parametrize("variant", ("03", "08"))
 def test_collapsed_span_export_includes_textured_fracture_faces(variant):

@@ -231,6 +231,7 @@ def build(name):
     library = LAB / "environment-library/assets"
     wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"),
                                    overpass=name.endswith("_collapsed_overpass"),
+                                   ruined_downtown=name.endswith("_ruined_downtown"),
                                    wrecked_highway=name.endswith("_wrecked_highway"),
                                    trainyard=name.endswith("_rusted_trainyard"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)

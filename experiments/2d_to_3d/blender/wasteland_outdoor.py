@@ -63,12 +63,14 @@ class WastelandOutdoors:
                     uv.data[loop].uv = (x/self.gw+.5, y/self.gh+.5)
             bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
 
-    def __init__(self, library, grid, canvas, *, city=False, overpass=False, wrecked_highway=False, trainyard=False):
+    def __init__(self, library, grid, canvas, *, city=False, overpass=False,
+                 ruined_downtown=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
         self.city = city
         self.overpass = overpass
+        self.ruined_downtown = ruined_downtown
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
         self.workshop_surface = None
@@ -313,12 +315,29 @@ class WastelandOutdoors:
                     self.concrete_box(name+" fractured facade", (x+(index-1)*w*.31,y+side*d*.41,height/2),
                         (w*.154,d*.075,height/2), .065).parent = group
             self.concrete_box(name+" end wall", (x-w*.405,y,.51), (w*.058,d*.36,.51), .065).parent = group
+            if self.ruined_downtown:
+                self.downtown_exposed_frame(group, name, x, y, w, d)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def downtown_exposed_frame(self, group, name, x, y, width, depth):
+        street_side = -1 if name.startswith("n") else 1
+        height = 2.35 if name in {"nw_ruin", "se_ruin"} else 1.75
+        for side in (-1, 1):
+            box("Exposed corner column", (x+side*width*.35, y+street_side*depth*.35, height/2),
+                (.075, .075, height/2), self.steel).parent = group
+            box("Surviving roof girder", (x+side*width*.35, y, height),
+                (.055, depth*.37, .075), self.dark).parent = group
+        for offset in (-.34, .08):
+            box("Exposed transverse beam", (x, y+street_side*offset*depth, height),
+                (width*.355, .055, .066), self.steel).parent = group
+        self.concrete_box("Broken upper floor remnant",
+                          (x-width*.22, y-street_side*depth*.18, height-.11),
+                          (width*.125, depth*.20, .10)).parent = group
 
     def overpass_ruin(self, group, name, x, y, width, depth):
         self.concrete_box("Ruined foundation", (x, y, .065),
