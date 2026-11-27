@@ -903,6 +903,14 @@ def build(name):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
         if transport_facades and w >= 2.4 and height >= 3.2:
+            if name.endswith("_transit_interchange"):
+                entry_width = min(.48,w*.14)
+                box(identifier+" transit entry surround", (x,front+direction*.045,.84),
+                    (entry_width,.057,.84),frame,.015).parent = group
+                box(identifier+" transit entry door", (x,front+direction*.112,.81),
+                    (entry_width*.84,.018,.78),wall,.012).parent = group
+                box(identifier+" transit entry canopy", (x,front+direction*.15,1.78),
+                    (entry_width*1.17,.17,.052),frame,.016).parent = group
             upper_level = height*.62
             box(identifier + " transport facade lintel", (x,front+direction*.035,upper_level-.09),
                 (w*.47,.065,.055), frame,.012).parent = group

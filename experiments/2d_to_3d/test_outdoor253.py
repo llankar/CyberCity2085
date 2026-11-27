@@ -27,6 +27,30 @@ class OutdoorCoverage(unittest.TestCase):
 if __name__=='__main__':unittest.main()
 
 
+def test_transit_interchange_entries_follow_building_cutaways():
+    import json
+    import struct
+
+    import pytest
+    from catalogue_test_assets import catalogue_environment
+
+    for variant in ("06", "11", "12"):
+        path = catalogue_environment(f"cybercity_street_{variant}_transit_interchange")
+        if not path.is_file():
+            pytest.skip("Build the interchange environments on E: first")
+        with path.open("rb") as glb:
+            size = struct.unpack("<4sIII4s", glb.read(20))[3]
+            nodes = json.loads(glb.read(size))["nodes"]
+        entries = {index for index, node in enumerate(nodes)
+                   if " transit entry canopy" in node["name"]}
+        assert entries
+        for node in nodes:
+            children = node.get("children", [])
+            if entries.intersection(children):
+                assert node["name"].startswith("Occludable_")
+                assert any(" transit entry door" in nodes[index]["name"] for index in children)
+
+
 def test_apartment_block_exports_street_fixtures_in_cutaway_groups():
     import json
     from pathlib import Path
