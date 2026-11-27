@@ -1209,6 +1209,13 @@ class WastelandOutdoors:
             for section in (-.29,0,.29):
                 part("Open wagon cargo rib", section*length,0,.536,
                      (length*.022,width*.34,.03), self.steel)
+            for along, across, angle in ((-.28,-.12,.31),(-.08,.10,-.34),(.13,-.08,.39),(.31,.10,-.23)):
+                scrap = box("Open wagon salvaged plate", (along*length,across*width,.59),
+                            (length*.089,width*.105,.043), self.steel,.012)
+                scrap.rotation_euler.z = angle
+                scrap.parent = group
+            part("Open wagon bent crossmember", .16,.02,.66,
+                 (length*.18,width*.028,.025), self.dark)
         else:
             part("Covered wagon body", 0,0,.81, (length*.443,width*.416,.405), self.steel)
             part("Covered wagon roof", 0,0,1.245, (length*.461,width*.439,.066), self.steel)
