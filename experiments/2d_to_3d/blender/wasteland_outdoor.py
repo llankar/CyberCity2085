@@ -479,6 +479,7 @@ class WastelandOutdoors:
                      "wreck_far_e": -.09, "wreck_middle5": -.12}
         convoy_flatbeds = {"wreck_w": .24, "wreck_ne": .37,
                            "wreck_se": -.46, "wreck_southwest": .22}
+        salt_stripped = {"wreck_sw": .08, "wreck_e": .94, "wreck_southwest": .22}
         if self.trainyard and ("wagon" in name or name == "north_tank"):
             if name == "wagon_turntable":
                 yaw = math.atan2(54*self.gh/self.ch, 66*self.gw/self.cw)
@@ -508,6 +509,12 @@ class WastelandOutdoors:
             # Counter the convoy placement half-turn so the cab follows the reference axis.
             self.convoy_vehicle(group, "convoy_mw" if tanker else name,
                                 x, y, length*fit, breadth*fit, angle+math.pi)
+        elif self.salt_flat and name in salt_stripped:
+            angle = salt_stripped[name]
+            breadth = min(breadth, length*.42)
+            c, s = math.cos(angle), math.sin(angle)
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.stripped_car(group, x, y, length*fit, breadth*fit, angle)
         elif self.convoy_crossing and name in convoy_flatbeds:
             angle = convoy_flatbeds[name]
             breadth = min(breadth, length*.38)
@@ -1111,6 +1118,23 @@ class WastelandOutdoors:
         canopy = bpy.data.objects.new("Torn market canvas", mesh)
         bpy.context.collection.objects.link(canopy)
         canopy.parent = group
+
+    def stripped_car(self, group, x, y, length, width, yaw):
+        group.location = (x, y, 0)
+        group.rotation_euler.z = yaw
+        box("Stripped car exposed floor", (0,0,.22),
+            (length*.47,width*.43,.11), self.dark).parent = group
+        for end in (-1,1):
+            box("Stripped car crushed deck", (end*length*.34,0,.34),
+                (length*.13,width*.43,.11), self.steel).parent = group
+        for side in (-1,1):
+            box("Stripped car torn sill", (0,side*width*.43,.32),
+                (length*.33,width*.055,.12), self.steel).parent = group
+            for offset in (-.24,.20):
+                pillar = box("Stripped car window frame", (length*offset,side*width*.42,.49),
+                             (length*.035,width*.042,.19), self.steel)
+                pillar.rotation_euler.y = -offset
+                pillar.parent = group
 
     def open_bus_wreck(self, group, x, y, length, width, yaw):
         group.location = (x, y, 0)
