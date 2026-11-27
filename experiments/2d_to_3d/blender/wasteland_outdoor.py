@@ -13,6 +13,26 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
+    def add_flooded_square_surface(self, material):
+        # The water follows the central plaza between the raised sidewalks.
+        shoreline = ((151,209), (114,202), (110,158), (160,141), (192,102),
+                     (232,107), (273,121), (367,119), (413,100), (450,82),
+                     (528,85), (588,109), (697,116), (740,119), (781,148),
+                     (825,159), (815,203), (789,218), (784,302), (790,390),
+                     (765,419), (698,422), (624,421), (570,464), (379,464),
+                     (327,424), (222,424), (181,447), (148,416), (144,346))
+        vertices = [(*self.coordinates(px*self.cw/960, py*self.ch/540), -.012)
+                    for px, py in reversed(shoreline)]
+        name = "Flooded civic square water surface"
+        mesh = bpy.data.meshes.new(name)
+        mesh.from_pydata(vertices, [], [tuple(range(len(vertices)))])
+        mesh.materials.append(material)
+        uv = mesh.uv_layers.new()
+        for loop in mesh.loops:
+            x, y, _ = vertices[loop.vertex_index]
+            uv.data[loop.index].uv = (x/self.gw+.5, y/self.gh+.5)
+        bpy.context.collection.objects.link(bpy.data.objects.new(name, mesh))
+
     def add_overpass_ramps(self, floor):
         # Pairs follow the painted road shoulders on the 960 x 540 survey.
         shoulders = (

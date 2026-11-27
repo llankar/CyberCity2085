@@ -30,6 +30,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_flooded_civic_square"):
             by_name = {node["name"]: node for node in nodes}
+            assert "mesh" in by_name["Flooded civic square water surface"]
             monument = by_name["Occludable_monument"]
             assert sum(nodes[i]["name"].startswith("Flooded monument") for i in monument["children"]) == 4
             for row in surveyed:

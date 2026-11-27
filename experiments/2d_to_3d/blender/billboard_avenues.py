@@ -811,6 +811,9 @@ def build(name):
             panel.parent = group
 
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
+    if wasteland and wasteland.flooded_square:
+        water = textured_material("Flooded paving under shallow water", out / "floor.png", .29)
+        wasteland.add_flooded_square_surface(water)
     if wasteland and wasteland.overpass:
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
