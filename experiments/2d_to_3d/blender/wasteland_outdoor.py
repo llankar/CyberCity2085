@@ -787,6 +787,13 @@ class WastelandOutdoors:
                            (length*.48,.034,.034), self.steel,.009)
                 rail.rotation_euler.z = yaw
                 rail.parent = group
+                if length >= .85:
+                    lower = box("Station stair lower rail", (x,y,.32),
+                                (length*.44,.024,.024),self.steel,.007)
+                    lower.rotation_euler.z = yaw
+                    lower.parent = group
+                    box("Station stair intermediate support", (x,y,.33),
+                        (.041,.041,.21),self.steel,.012).parent = group
             else:
                 cap = self.concrete_box("Station perimeter coping", (x,y,.25),
                                         (length*.49,width*.38,.072))
