@@ -141,6 +141,7 @@ def build(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
+    freeway = name.endswith("_elevated_freeway")
     riot_square = name == "city_district_riot_square"
     civic = name in {"city_district_civic_center", "city_district_riot_square"} or name.endswith("_civic_plaza")
     industrial = name.endswith(("freight_yard", "industrial_district"))
@@ -167,6 +168,7 @@ def build(name):
         (.07,.17,.19,1), (.27,.081,.05,1), (.17,.21,.095,1)
     )]
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
+    guardrail_steel = make_material("Freeway galvanized steel", (.25,.30,.34,1), .73,.53) if freeway else None
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
         if row.get("kind") == "water":
@@ -177,16 +179,35 @@ def build(name):
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
             group = None
-            if name == "city_district_civic_center":
+            if freeway or name == "city_district_civic_center":
                 group = bpy.data.objects.new("Occludable_" + identifier, None)
                 bpy.context.collection.objects.link(group)
-            for (ax,ay),(bx,by) in zip(points, points[1:]):
+            for segment, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 width = row["width"] * gw/cw
                 length = math.hypot(bx-ax, by-ay)
-                rail = box(identifier, ((ax+bx)/2,(ay+by)/2,.24),
-                           (length/2,width/2,.24), frame)
-                rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
-                rail.parent = group
+                yaw = math.atan2(by-ay,bx-ax)
+                if freeway:
+                    beam = box(identifier+" steel beam", ((ax+bx)/2,(ay+by)/2,.54),
+                               (length/2,width*.37,.067), guardrail_steel,.015)
+                    beam.rotation_euler.z = yaw
+                    beam.parent = group
+                    spans = max(1,math.ceil(length/1.6))
+                    start = 0 if segment == 0 else 1
+                    for index in range(start,spans+1):
+                        t = index/spans
+                        x,y = ax+(bx-ax)*t,ay+(by-ay)*t
+                        post = box(identifier+" post", (x,y,.276),
+                                   (min(width*.23,.065),width*.30,.276), frame,.012)
+                        post.rotation_euler.z = yaw
+                        post.parent = group
+                        if index % 3 == 1:
+                            box(identifier+" reflector", (x,y,.627), (.035,.045,.018),
+                                signs[2],.007).parent = group
+                else:
+                    rail = box(identifier, ((ax+bx)/2,(ay+by)/2,.24),
+                               (length/2,width/2,.24), frame)
+                    rail.rotation_euler.z = yaw
+                    rail.parent = group
             continue
         if name == "city_district_holo_square" and identifier.startswith("bench_"):
             xs, ys = zip(*row["polygon"])

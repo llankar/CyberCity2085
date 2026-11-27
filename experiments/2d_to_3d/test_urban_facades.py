@@ -150,3 +150,32 @@ def test_riot_square_and_safehouse_export_surveyed_fixtures(name, folder, fixtur
     expected = {f"Occludable_{row['id']}" for row in traces if not row["id"].startswith("outside_")}
     assert expected <= groups.keys()
     assert any(nodes[index]["name"].startswith(part) for index in groups[f"Occludable_{fixture}"])
+
+
+@pytest.mark.parametrize("variant", ["08", "09"])
+def test_freeway_rails_follow_survey_segments(variant):
+    name = f"cybercity_street_{variant}_elevated_freeway"
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    if not path.is_file():
+        pytest.skip("Build the freeway on E: first")
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    roots = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    maps = Path(__file__).resolve().parents[2] / "assets/maps"
+    survey = json.loads((maps / f"{name}.wall-traces.json").read_text())
+    gw, gh = json.loads((maps / f"{name}.walls.json").read_text())["grid"]
+    cw, ch = survey["canvas_size"]
+    for trace in survey["walls"]:
+        if "points" not in trace:
+            continue
+        identifier = trace["id"]
+        parts = [nodes[index] for index in roots[f"Occludable_{identifier}"]]
+        beams = [node for node in parts if " steel beam" in node["name"]]
+        points = trace["points"]
+        assert len(beams) == len(points)-1
+        assert sum(" post" in node["name"] for node in parts) >= len(points)
+        for beam, ((ax,ay),(bx,by)) in zip(beams, zip(points,points[1:])):
+            assert beam["translation"] == pytest.approx((
+                (ax+bx)*gw/(2*cw)-gw/2, .54, (ay+by)*gh/(2*ch)-gh/2,
+            ), abs=.0001)
