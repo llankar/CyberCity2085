@@ -340,6 +340,22 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
             part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
+    elif kind == "vault_core":
+        part("Vault foundation", 0,0,.14,length*.48,width*.47,.14,trim)
+        part("Vault armored housing", 0,0,.49,length*.41,width*.40,.34,steel)
+        part("Vault locking plate", 0,0,.86,length*.36,width*.35,.06,trim)
+        radius = width*.18
+        bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
+                                         major_radius=radius, minor_radius=.034, location=(x,y,.99))
+        wheel = bpy.context.object
+        wheel.name = "Vault locking handwheel"
+        wheel.data.materials.append(steel)
+        wheel.parent = group
+        part("Vault locking hub", 0,0,.96,.105,.105,.05,steel)
+        for index in range(3):
+            spoke = box("Vault handwheel spoke", (x,y,.99),(radius,.025,.025),steel,.008)
+            spoke.rotation_euler.z = index*math.pi/3
+            spoke.parent = group
     elif kind == "inspection_pit":
         part("Inspection trench inset", 0,0,.006,length*.48,width*.48,.015,trim)
         for side in (-1,1):

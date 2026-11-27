@@ -1775,3 +1775,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-COLLAPSED-TUNNEL-PIPEWORK / DONE. Added coupling collars to the longer surveyed pipes and reused the service valve model at the southeast valve. Rebuilt the shared 02/07 export on E:, rendered 234 meshes in Godot and passed seventeen interior tests. Next: review larger tunnel damage silhouettes at combat zoom.
 
 - EXPERIMENTAL-COLLAPSED-TUNNEL-SPANS / DONE. Triangulated the uneven tops of collapsed spans explicitly and added exposed steel supports across both rubble footprints. Rebuilt 02/07 on E:, rendered in Godot and passed seventeen interior tests. Next: move to another Wasteland interior with unmodeled signature fixtures.
+
+- EXPERIMENTAL-LOOTED-VAULT-CORE / DONE. Replaced the generic pod at the central surveyed footprint with an armored vault housing and a horizontal locking wheel modeled from the original illustration. Rebuilt the 05/10 shared GLB on E:, rendered 313 meshes in Godot and passed seventeen interior tests. Next: inspect the vault room at tactical zoom and improve the radial table fittings.
