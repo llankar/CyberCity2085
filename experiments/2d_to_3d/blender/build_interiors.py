@@ -14,7 +14,7 @@ from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
     build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture, build_server_bank,
-    build_facility_fixture,
+    build_facility_fixture, build_floor_grate,
 )
 from library_placement import place, reset_library_cache
 
@@ -181,15 +181,7 @@ def build(name):
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
         elif kind == "floor_grate":
-            box("Drain recessed backing", (x,y,-.012), (w*.49,d*.49,.014), partition_cap,.004).parent = group
-            for side in (-1,1):
-                box("Drain frame long", (x+side*w*.465,y,.013),
-                    (w*.029,d*.49,.017), rail,.004).parent = group
-                box("Drain frame short", (x,y+side*d*.466,.013),
-                    (w*.438,d*.027,.017), rail,.004).parent = group
-            for index in range(10):
-                offset = (index-4.5)*d*.086
-                box("Drain grate bar", (x,y+offset,.011), (w*.431,d*.022,.014), steel,.003).parent = group
+            build_floor_grate(group, x, y, w, d, partition_cap, rail, steel)
         elif kind == "low_vent":
             box("Decorative vent plinth", (x,y,.047), (w*.47,d*.47,.047), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.09),

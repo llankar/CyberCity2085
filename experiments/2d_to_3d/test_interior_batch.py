@@ -178,9 +178,15 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
     survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_dockside_terminal.wall-traces.json"
     survey = json.loads(survey_path.read_text())
     expected = {f"Occludable_{row['id']}" for row in survey["walls"]
-                if row.get("kind") != "water" and row.get("collision") is not False}
+                if row.get("kind") == "floor_detail"
+                or (row.get("kind") != "water" and row.get("collision") is not False)}
     exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
     assert exported == expected
+    grate = next(node for node in nodes if node["name"] == "Occludable_east_center_grate")
+    bars = [nodes[index] for index in grate["children"]
+            if nodes[index]["name"].startswith("Drain grate bar")]
+    assert len(bars) == 10
+    assert all(node["translation"][1] < .02 for node in bars)
     forklifts = [node for node in nodes if node["name"].startswith("Occludable_")
                  and node["name"].endswith("_forklift")]
     assert len(forklifts) == 8

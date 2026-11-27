@@ -13,7 +13,7 @@ from library_placement import place
 from shipping_container import build_container
 from loading_crane import build_crane
 from industrial_forklift import build_forklift
-from interior_furniture import build_rack
+from interior_furniture import build_floor_grate, build_rack
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -35,12 +35,14 @@ skins = {key: make_material("Dockside container "+key, (*color,1), .65,.63)
          for key,color in (("green",(.062,.15,.14)),("blue",(.044,.093,.22)),("red",(.24,.063,.034)))}
 steel = make_material("Dockside door hardware", (.075,.11,.15,1), .65,.48)
 beam = make_material("Dockside locking rods", (.52,.17,.028,1), .45,.48)
+grate_inset = make_material("Dockside drain inset", (.022,.030,.035,1), .19,.84)
 display = make_material("Dockside control display", (.014,.11,.17,1), .12,.48,.25)
 instances = containers = barriers = cranes = forklifts = 0
 converted = set()
 for row in survey["walls"]:
     identifier = row["id"]
-    if row.get("kind") == "water" or row.get("collision") is False:
+    floor_detail = row.get("kind") == "floor_detail"
+    if row.get("kind") == "water" or (row.get("collision") is False and not floor_detail):
         continue
     is_container = "container" in identifier or identifier in {
         "south_cargo_west", "south_cargo_blue", "south_cargo_red", "south_cargo_bottom", "south_cargo_east",
@@ -62,7 +64,9 @@ for row in survey["walls"]:
     x, y = (a+c)*gw/(2*cw)-gw/2, gh/2-(b+d)*gh/(2*ch)
     group = bpy.data.objects.new("Occludable_" + identifier, None)
     bpy.context.collection.objects.link(group)
-    if is_crane:
+    if floor_detail:
+        build_floor_grate(group, x, y, width, depth, grate_inset, steel, steel)
+    elif is_crane:
         build_crane(group, x, y, width, depth, steel, beam,
                     height=3.8 if "north" in identifier else 4.4)
         cranes += 1

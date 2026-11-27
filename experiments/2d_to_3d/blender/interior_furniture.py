@@ -362,3 +362,15 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Command map display", 0,width*.14,.908,length*.39,width*.235,.026,screen)
         for side in (-1,1):
             part("Command input bank", side*length*.27,-width*.26,.906,length*.12,width*.108,.024,trim)
+
+
+def build_floor_grate(group, x, y, w, d, partition_cap, rail, steel):
+    box("Drain recessed backing", (x,y,-.012), (w*.49,d*.49,.014), partition_cap,.004).parent = group
+    for side in (-1,1):
+        box("Drain frame long", (x+side*w*.465,y,.013),
+            (w*.029,d*.49,.017), rail,.004).parent = group
+        box("Drain frame short", (x,y+side*d*.466,.013),
+            (w*.438,d*.027,.017), rail,.004).parent = group
+    for index in range(10):
+        offset = (index-4.5)*d*.086
+        box("Drain grate bar", (x,y+offset,.011), (w*.431,d*.022,.014), steel,.003).parent = group
