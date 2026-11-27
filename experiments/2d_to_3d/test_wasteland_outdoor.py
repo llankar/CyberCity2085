@@ -192,7 +192,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert {part.split()[2].split(".")[0] for part in parts
                         if part.startswith("Salvaged canopy ")
                         and not part.startswith(("Salvaged canopy post", "Salvaged canopy bound hem"))} == fabrics
-                assert sum(part.startswith("Salvaged canopy bound hem") for part in parts) == 2*len(fabrics)
+                for index in stall["children"]:
+                    cloth = nodes[index]
+                    if cloth["name"].split()[:2] == ["Salvaged", "canopy"] and not cloth["name"].startswith("Salvaged canopy post"):
+                        primitive = data["meshes"][cloth["mesh"]]["primitives"][0]
+                        assert data["accessors"][primitive["indices"]]["count"] == 24
             for row in surveyed:
                 if row["id"] not in {"northeast_barricade", "southwest_barricade"}:
                     continue

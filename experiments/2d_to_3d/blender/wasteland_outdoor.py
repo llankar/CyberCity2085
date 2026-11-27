@@ -1063,17 +1063,18 @@ class WastelandOutdoors:
                     box("Salvaged canopy post", (center+end*half,side*depth,.58),
                         (.037,.037,.58), self.dark).parent = group
             mesh = bpy.data.meshes.new("Salvaged canvas")
-            mesh.from_pydata([(center-half,-depth,1.14), (center+half,-depth,1.16),
-                              (center+half,depth,1.12), (center-half,depth,1.15),
-                              (center+half*.14,width*.06,1.23+index*.035)],
-                             [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
+            corners = [(center-half,-depth,1.14), (center+half,-depth,1.16),
+                       (center+half,depth,1.12), (center-half,depth,1.15)]
+            edge_midpoints = [(center,-depth,1.065), (center+half,0,1.08),
+                              (center,depth,1.035), (center-half,0,1.075)]
+            ridge = (center+half*.14,width*.06,1.30+index*.035)
+            mesh.from_pydata(corners+edge_midpoints+[ridge], [],
+                             [(i,4+i,8) for i in range(4)] +
+                             [(4+i,(i+1)%4,8) for i in range(4)])
             mesh.materials.append(self.stall_fabric[fabric])
             cloth = bpy.data.objects.new("Salvaged canopy "+fabric, mesh)
             bpy.context.collection.objects.link(cloth)
             cloth.parent = group
-            for side, hem_z in ((-1,1.14), (1,1.12)):
-                box("Salvaged canopy bound hem", (center,side*depth,hem_z),
-                    (half,.022,.021), self.dark,.008).parent = group
 
     def burned_market_stall(self, group, name, x, y, length, width, yaw):
         group.location = (x, y, 0)
@@ -1402,7 +1403,8 @@ class WastelandOutdoors:
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
         part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel)
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
-        if self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing:
+        if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
+                or self.scavenger_plaza or self.ruined_downtown):
             for side in (-1, 1):
                 part("Wreck side window", (length*.35,side*width*.405,.94),
                      (length*.085,.012,.102), self.dark,.012)
