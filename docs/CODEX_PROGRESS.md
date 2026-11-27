@@ -1639,3 +1639,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-MOVEMENT-HOVER-CASES / DONE. The Godot smoke now sends mouse motion to visible tile centers outside actor hit areas. Warehouse and Dust Road 06 each confirmed all three labels and reached round 2. Next: verify tactical feedback for enemy targeting and attack outcomes.
 
 - EXPERIMENTAL-TARGET-HOVER / DONE for native smoke coverage. Mouse-motion input on the hostile now checks the exact Python-provided hit percentage and guide in fire mode, then verifies melee out of range hides the guide. Warehouse and Dust Road 06 reached round 2. Next: inspect the attack outcome feedback for misses and zero-damage hits.
+
+- EXPERIMENTAL-ATTACK-OUTCOME-FEEDBACK / IN_PROGRESS. Added brief in-world outcome labels driven by the Python reply: miss, no damage, or HP lost. Warehouse native smoke checked MISS and reached round 2; victory smoke checked -1 HP and the victory panel. The no-damage outcome is implemented and still needs a deterministic native fixture. Next: exercise a confirmed hit absorbed by mitigation.

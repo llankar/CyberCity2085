@@ -19,6 +19,26 @@ func tactical_attack(action: String, from: Vector3, target: Vector3, hit: bool,
  if hit and damage > 0:
   spark(target, action == "psi")
   sound("hit", target, -15)
+ show_attack_outcome(target, hit, damage)
+
+
+func show_attack_outcome(target: Vector3, hit: bool, damage: int) -> void:
+ var label := Label3D.new()
+ label.name = "AttackOutcome"
+ label.text = "MISS" if not hit else ("NO DAMAGE" if damage <= 0 else "-%d HP" % damage)
+ label.modulate = Color(.82,.87,.91) if not hit else (
+  Color(1,.77,.34) if damage <= 0 else Color(1,.49,.32))
+ label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+ label.no_depth_test = true
+ label.font_size = 30
+ label.outline_size = 8
+ label.pixel_size = .006
+ add_child(label)
+ label.global_position = target + Vector3.UP*.48
+ var drift := label.create_tween()
+ drift.tween_property(label, "position:y", label.position.y + .33, .72)
+ drift.tween_property(label, "modulate:a", 0.0, .18)
+ drift.tween_callback(label.queue_free)
 
 
 func tactical_aid(position_value: Vector3) -> void:

@@ -333,6 +333,15 @@ func _process(delta: float) -> void:
      get_tree().quit(8)
      return
     var recorded := effects.audio_events
+    var outcome := effects.get_node_or_null("AttackOutcome") as Label3D
+    var hit := bool(mailbox.attack.get("hit", false))
+    var damage := int(mailbox.attack.get("damage", 0))
+    var expected_outcome := "MISS" if not hit else ("NO DAMAGE" if damage <= 0 else "-%d HP" % damage)
+    if outcome == null or outcome.text != expected_outcome:
+     push_error("Attack outcome label does not match the combat response")
+     get_tree().quit(24)
+     return
+    print("TACTICAL_ATTACK_OUTCOME_OK ", expected_outcome)
     var hit_audio := int(bool(mailbox.attack.get("hit", false)) and int(mailbox.attack.get("damage",0)) > 0)
     if recorded.size() != 2 + hit_audio or not str(recorded[1].file).ends_with("fire_pistol_01.wav"):
      push_error("Unexpected tactical shot audio")
