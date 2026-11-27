@@ -127,6 +127,16 @@ def test_freight_yard_has_four_complete_rail_profiles():
              and " clamp" not in node["name"]]
     assert trays and len(cladding) == 2 * len(trays)
     assert all("mesh" in node for node in cladding + trays)
+    stacks = [node for node in nodes if node["name"].startswith("Occludable_container_")]
+    assert stacks
+    for stack in stacks:
+        for index in stack["children"]:
+            container = nodes[index]
+            primitives = gltf["meshes"][container["mesh"]]["primitives"]
+            assert any(
+                gltf["materials"][part["material"]]["name"] == "Original rooftop artwork"
+                and "TEXCOORD_0" in part["attributes"] for part in primitives
+            )
     cranes = [node for node in nodes if node["name"].startswith("Dockside loading crane")]
     assert len(cranes) == 3
     for crane in cranes:

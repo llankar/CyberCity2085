@@ -916,7 +916,8 @@ def build(name):
                 build_container(group, x+offset if vertical else x, y if vertical else y+offset,
                                 max(w,d), breadth, shipping_skins[(i+index) % len(shipping_skins)],
                                 frame, wall, yaw=math.pi/2 if vertical else 0,
-                                ribbed_roof=industrial)
+                                ribbed_roof=industrial,
+                                roof_projection=(roof,gw,gh) if name == "city_transit_freight_yard" else None)
             continue
         if identifier.startswith(("bus_", "truck_", "station_")):
             shelter = identifier.startswith("station_")

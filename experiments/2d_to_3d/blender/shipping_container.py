@@ -1,11 +1,30 @@
 """Shared corrugated shipping container for industrial maps."""
+import math
+
 import bpy
 
 from create_hardsurface_crate import box
 
 
-def build_container(group, x, y, w, d, container_skin, steel, beam, yaw=0.0, *, ribbed_roof=False):
-    parts = [box("Container body", (0,0,.88), (w*.46,d*.44,.88), container_skin)]
+def build_container(group, x, y, w, d, container_skin, steel, beam, yaw=0.0, *,
+                    ribbed_roof=False, roof_projection=None):
+    body = box("Container body", (0,0,.88), (w*.46,d*.44,.88), container_skin)
+    if roof_projection is not None:
+        material, grid_width, grid_height = roof_projection
+        mesh = body.data
+        mesh.materials.append(material)
+        uv = mesh.uv_layers.active
+        cosine, sine = math.cos(yaw), math.sin(yaw)
+        for face in mesh.polygons:
+            if face.normal.z < .9:
+                continue
+            face.material_index = 1
+            for index in face.loop_indices:
+                point = mesh.vertices[mesh.loops[index].vertex_index].co
+                world_x = x + cosine * point.x - sine * point.y
+                world_y = y + sine * point.x + cosine * point.y
+                uv.data[index].uv = (world_x / grid_width + .5, world_y / grid_height + .5)
+    parts = [body]
     if ribbed_roof:
         for offset in (-.32,-.16,0,.16,.32):
             parts.append(box("Container roof stiffener", (w*offset,0,1.765),
