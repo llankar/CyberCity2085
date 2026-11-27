@@ -75,6 +75,10 @@ def test_waterfront_quays_export_lattice_cranes(map_name, expected_cranes):
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
         gltf = json.loads(model.read(size))
+    concrete = next(material for material in gltf["materials"]
+                    if material["name"] == "Industrial weathered concrete")
+    assert "baseColorTexture" in concrete["pbrMetallicRoughness"]
+    assert "normalTexture" in concrete
     cranes = [node for node in gltf["nodes"] if node["name"].startswith("Dockside loading crane")]
     assert len(cranes) == expected_cranes
     shutters = [node for node in gltf["nodes"] if " quay service shutter" in node["name"]]
@@ -113,6 +117,10 @@ def test_freight_yard_has_four_complete_rail_profiles():
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
         gltf = json.loads(model.read(size))
+    concrete = next(material for material in gltf["materials"]
+                    if material["name"] == "Industrial weathered concrete")
+    assert "baseColorTexture" in concrete["pbrMetallicRoughness"]
+    assert "normalTexture" in concrete
     nodes = gltf["nodes"]
     cladding = [node for node in nodes if " freight cladding inset" in node["name"]]
     trays = [node for node in nodes if " freight cable tray" in node["name"]

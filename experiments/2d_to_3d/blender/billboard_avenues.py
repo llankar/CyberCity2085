@@ -404,7 +404,7 @@ def build(name):
                                    convoy_crossing=name.endswith("_convoy_crossing"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
-    weathered_facades = civic or name.endswith("_industrial_district")
+    weathered_facades = civic or industrial or waterfront
     facade_surface = textured_material(
         "Civic weathered concrete" if civic else "Industrial weathered concrete",
         LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
@@ -1162,7 +1162,7 @@ def build(name):
         uv = shell.data.uv_layers.active
         for face in shell.data.polygons:
             if face.normal.z < .9:
-                if (civic or transport_facades or industrial or name.endswith("_downtown_intersection")) and abs(face.normal.z) < .1:
+                if (weathered_facades or transport_facades or name.endswith("_downtown_intersection")) and abs(face.normal.z) < .1:
                     for loop_index in face.loop_indices:
                         point = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
                         along = point.y if abs(face.normal.x) > .5 else point.x
