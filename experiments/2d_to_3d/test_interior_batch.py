@@ -530,6 +530,9 @@ def test_interior_maps_export_remaining_fixture_groups():
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
         if name.endswith("_bunker_command_post"):
+            table_parts = [nodes[index]["name"] for index in groups["Occludable_central_table"]]
+            assert sum(part.startswith("Operations map control display") for part in table_parts) == 2
+            assert sum(part.startswith("Operations map command key") for part in table_parts) == 6
             terminal = next(nodes[index] for index in groups["Occludable_command_console"]
                             if nodes[index]["name"].startswith("Bunker upright terminal"))
             primitive, = data["meshes"][terminal["mesh"]]["primitives"]

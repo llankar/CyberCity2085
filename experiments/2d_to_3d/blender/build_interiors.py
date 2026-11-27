@@ -428,6 +428,15 @@ def build(name):
                 map_surface.data.materials.append(artwork)
                 map_surface.parent = group
                 for sx in (-1, 1):
+                    station_x = x+sx*w*.405
+                    box("Operations map control housing", (station_x,y,.899),
+                        (w*.047,d*.20,.061),partition_cap,.018).parent = group
+                    box("Operations map control display", (station_x,y+d*.078,.961),
+                        (w*.033,d*.070,.008),bunker_display,.005).parent = group
+                    for key in (-1, 0, 1):
+                        box("Operations map command key",
+                            (station_x+key*w*.023,y-d*.070,.965),
+                            (w*.008,d*.026,.011),steel,.005).parent = group
                     for sy in (-1, 1):
                         box("Operations map corner clamp", (x+sx*hx*.94,y+sy*hy*.93,.858),
                             (min(.09,hx*.15),min(.065,hy*.15),.022),partition_cap,.010).parent = group
