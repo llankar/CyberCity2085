@@ -259,6 +259,17 @@ def main():
                 crop = (round(x1*source.width/cw), round(y1*source.height/ch),
                         round(x2*source.width/cw), round(y2*source.height/ch))
                 source.crop(crop).convert("RGB").save(OUTPUT / name / "operations_map.png")
+        if name.endswith("_underground_market"):
+            from PIL import Image
+
+            # Samples measured against the 820 × 462 overview of the original.
+            with Image.open(MAPS / f"{name}.png") as source:
+                sx, sy = source.width/820, source.height/462
+                for color, (x1,y1,x2,y2) in {
+                    "olive": (57,215,90,245), "rust": (187,273,230,307), "tan": (706,269,730,305),
+                }.items():
+                    crop = (round(x1*sx),round(y1*sy),round(x2*sx),round(y2*sy))
+                    source.crop(crop).convert("RGB").save(OUTPUT / name / f"stall_canvas_{color}.png")
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
                     if "points" in row else row["polygon"]
                     for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
