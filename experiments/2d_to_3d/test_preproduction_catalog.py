@@ -6,7 +6,8 @@ import struct
 
 import pytest
 
-from catalogue_test_assets import catalogue_environment
+from catalogue_test_assets import catalogue_environment, has_mesh
+from interior_batch import INTERIORS, MAPS
 
 
 def test_selector_contains_a_preview_for_each_original_tactical_map():
@@ -62,6 +63,30 @@ def test_local_catalogue_exports_exist():
     missing = [entry["map"] for entry in entries
                if not catalogue_environment(entry["map"]).is_file()]
     assert not missing, missing
+
+
+def test_non_interior_survey_obstacles_have_exported_geometry():
+    godot = Path(__file__).resolve().parent / "godot"
+    entries = json.loads((godot / "preproduction_catalog.json").read_text())
+    if not Path("E:/CyberCity2085-3d-lab/generated/phase2").is_dir():
+        pytest.skip("Local experimental exports are unavailable")
+    for entry in entries:
+        name = entry["map"]
+        if name in INTERIORS:
+            continue
+        survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
+        with catalogue_environment(name).open("rb") as model:
+            size = struct.unpack("<4sIII4s", model.read(20))[3]
+            nodes = json.loads(model.read(size))["nodes"]
+        geometry = {node["name"].removeprefix("Occludable_").removeprefix("Floor_")
+                    for index, node in enumerate(nodes) if has_mesh(index, nodes)}
+        if name == "city_district_apartment_block":
+            roof = next(node for node in nodes if node["name"] == "Occludable_northwest_building")
+            if any(nodes[index]["name"] == "Northwest rooftop cargo" and has_mesh(index, nodes)
+                   for index in roof["children"]):
+                geometry.add("northwest_crate")
+        expected = {row["id"] for row in survey["walls"] if row.get("kind") != "water"}
+        assert expected <= geometry, (name, sorted(expected - geometry))
 
 
 def test_freeway_feeder_ramps_have_closed_decks():

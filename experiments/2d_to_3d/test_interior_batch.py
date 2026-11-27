@@ -1,4 +1,4 @@
-from catalogue_test_assets import catalogue_environment
+from catalogue_test_assets import catalogue_environment, has_mesh
 from interior_batch import AGED_CONCRETE_INTERIORS, INTERIORS, fixtures
 
 
@@ -11,10 +11,6 @@ def test_all_selected_interior_obstacles_have_exported_geometry():
 
     if not OUTPUT.is_dir():
         pytest.skip("Local experimental interior exports are unavailable")
-
-    def has_mesh(index, nodes):
-        node = nodes[index]
-        return "mesh" in node or any(has_mesh(child, nodes) for child in node.get("children", []))
 
     for name in INTERIORS:
         with catalogue_environment(name).open("rb") as model:

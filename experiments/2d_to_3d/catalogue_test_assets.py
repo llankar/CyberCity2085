@@ -7,6 +7,11 @@ import re
 GODOT = Path(__file__).resolve().parent / "godot"
 
 
+def has_mesh(index, nodes):
+    node = nodes[index]
+    return "mesh" in node or any(has_mesh(child, nodes) for child in node.get("children", []))
+
+
 def catalogue_environment(map_name):
     entries = json.loads((GODOT / "preproduction_catalog.json").read_text())
     scene = next(entry["scene"] for entry in entries if entry["map"] == map_name)
