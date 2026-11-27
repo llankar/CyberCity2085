@@ -875,6 +875,12 @@ class WastelandOutdoors:
     def scavenger_perimeter_ruin(self, group, x, y, width, depth):
         # Put the broken outer wall away from the market lanes.
         outside = -1 if x < 0 else 1
+        for offset, angle in ((-.25,.22),(.19,-.28)):
+            slab = self.concrete_box("Scavenger fallen perimeter masonry",
+                                     (x+outside*width*.18,y+depth*offset,.19),
+                                     (width*.125,depth*.096,.11))
+            slab.rotation_euler = (.16,0,angle)
+            slab.parent = group
         for offset, height in ((-.31,1.42), (.02,2.04), (.32,1.67)):
             self.concrete_box("Scavenger broken perimeter pier",
                               (x+outside*width*.39,y+depth*offset,height/2),
