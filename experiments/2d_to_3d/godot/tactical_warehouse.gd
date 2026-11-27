@@ -300,11 +300,28 @@ func _process(delta: float) -> void:
      get_tree().quit(7)
      return
     var aim_point := review_camera.unproject_position(target_center(hostile))
-    refresh_target_hint(aim_point)
-    if not target_line.visible or not target_hint.text.ends_with("hit chance"):
-     push_error("Valid shot did not show a targeting guide")
+    var motion := InputEventMouseMotion.new()
+    motion.position = aim_point
+    var target_data: Dictionary = unit_state(ALLY).get("targeting", {}).get("enemy:0", {})
+    var fire_context: Dictionary = target_data.get("fire", {})
+    _unhandled_input(motion)
+    var expected_chance := "%d%% hit chance" % int(fire_context.get("hit_percent", -1))
+    if not target_line.visible or not target_hint.text.ends_with(expected_chance):
+     push_error("Valid shot did not show the hit chance supplied by the combat engine")
      get_tree().quit(23)
      return
+    var melee_context: Dictionary = target_data.get("melee", {})
+    if not melee_context.is_empty() and not melee_context.in_range:
+     attack_mode = "melee"
+     _unhandled_input(motion)
+     if target_line.visible or not target_hint.text.ends_with("Out of range"):
+      push_error("Out-of-range melee showed a targeting guide or an incorrect hint")
+      get_tree().quit(23)
+      return
+     print("TACTICAL_TARGET_HOVER_OK melee out of range")
+     attack_mode = "fire"
+    refresh_target_hint(aim_point)
+    print("TACTICAL_TARGET_HOVER_OK fire ", expected_chance)
     fire_at(aim_point)
    2:
     if not mailbox.success or int(state.units[0].ap) != 1:
