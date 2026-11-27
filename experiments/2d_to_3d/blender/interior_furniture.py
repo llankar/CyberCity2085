@@ -364,6 +364,14 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
             part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
+    elif kind == "records_desk":
+        for side in (-1,1):
+            part("Records desk pedestal", side*length*.34,0,.36,length*.095,width*.35,.36,trim)
+        part("Records desk work surface", 0,0,.756,length*.47,width*.44,.043,steel)
+        part("Records terminal housing", 0,width*.22,1.04,length*.16,.062,.168,trim)
+        part("Records terminal display", 0,width*.22-.067,1.046,length*.136,.009,.128,screen)
+        part("Records workstation keyboard", 0,-width*.16,.82,length*.142,width*.12,.018,trim)
+        part("Records desk file stack", length*.31,0,.836,length*.09,width*.20,.033,steel)
     elif kind == "shelter_kitchen":
         part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)
         for offset in (-.31,.31):

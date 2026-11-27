@@ -149,6 +149,10 @@ def fixtures(name):
             selected[identifier] = "vault_display"
         elif name.endswith("_ruined_clinic") and identifier == "reception":
             selected[identifier] = "clinic_reception"
+        elif (name == "cybercity_inner_08_police_records" and identifier.startswith("desk_")) or (
+            name == "city_interior_police_records" and identifier in {"sw_desk", "se_desk", "south_w_desk"}
+        ):
+            selected[identifier] = "records_desk"
         elif name.endswith("_bunker_command_post") and (
             identifier in {"command_console", "west_desk", "east_desk"}
             or identifier.endswith(("_map", "_control"))
