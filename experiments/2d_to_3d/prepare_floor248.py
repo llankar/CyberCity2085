@@ -94,6 +94,12 @@ DOWNTOWN_WRECK_ART = (
     {"id": "north_edge_wreck_art", "polygon": [
         (544,40), (579,16), (600,31), (592,51), (556,68), (542,58),
     ]},
+    {"id": "south_crossing_wreck_art", "polygon": [
+        (503,386), (518,371), (553,399), (565,415), (549,435), (522,410),
+    ]},
+    {"id": "west_curb_wreck_art", "polygon": [
+        (246,325), (281,324), (310,338), (308,353), (282,361), (244,353),
+    ]},
 )
 
 
@@ -249,6 +255,8 @@ def main():
         result = restore_donor_pavement(result, original, survey, {
             "east_curb_wreck_art": (664,207,709,237),
             "north_edge_wreck_art": (447,48,476,91),
+            "south_crossing_wreck_art": (485,439,514,471),
+            "west_curb_wreck_art": (161,315,196,342),
         })
     if args.map == "wasteland_city_12_cratered_waterfront":
         result = restore_donor_pavement(result, original, survey, {
