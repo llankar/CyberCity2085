@@ -1268,8 +1268,18 @@ class WastelandOutdoors:
                 box("Exposed bus window pillar", (length*offset,side*width*.43,.96),
                     (.042,.039,.20), self.dark).parent = group
             for offset in (-.32,.32):
-                box("Bus wreck wheel", (length*offset,side*width*.38,.23),
-                    (.22,width*.12,.22), self.dark,.085).parent = group
+                radius = min(.23,length*.078)
+                bpy.ops.mesh.primitive_cylinder_add(
+                    vertices=16, radius=radius, depth=width*.19,
+                    location=(length*offset,side*width*.38,radius),
+                    rotation=(math.pi/2,0,0),
+                )
+                wheel = bpy.context.object
+                wheel.name = "Bus wreck grounded tire"
+                wheel.data.materials.append(self.dark)
+                wheel.parent = group
+                box("Bus wreck hub", (length*offset,side*width*.48,radius),
+                    (radius*.36,width*.016,radius*.36), self.steel,.023).parent = group
 
     def downtown_road_cover(self, group, name, x, y, length, width, yaw):
         group.location = (x,y,0)
