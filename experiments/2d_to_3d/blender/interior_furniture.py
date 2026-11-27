@@ -112,24 +112,45 @@ def build_containment_chamber(group, x, y, w, d, steel, trim, screen):
 
 def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
     box("Scanner chassis", (x, y, .13), (w*.48, d*.47, .13), trim).parent = group
-    box("Scanner patient table", (x, y-d*.09, .40),
+    box("Scanner table lift", (x, y-d*.19, .35),
+        (w*.16, d*.17, .22), trim).parent = group
+    box("Scanner patient table", (x, y-d*.09, .63),
         (w*.23, d*.34, .08), enamel).parent = group
-    box("Scanner table pad", (x, y-d*.13, .50), (w*.19, d*.22, .035), screen).parent = group
+    box("Scanner table pad", (x, y-d*.13, .735), (w*.19, d*.22, .035), screen).parent = group
     radius = min(w*.33, .57)
     gantry_y = y+d*.20
     box("Scanner gantry support", (x, gantry_y, .37), (w*.43, d*.13, .24), enamel).parent = group
-    for label, offset, tube, material in (
-        ("Scanner gantry shell", 0, .12, enamel),
-        ("Scanner gantry light", -.10, .028, screen),
-    ):
-        bpy.ops.mesh.primitive_torus_add(
-            major_segments=32, minor_segments=10, major_radius=radius, minor_radius=tube,
-            location=(x, gantry_y+offset, .60+radius), rotation=(math.pi/2, 0, 0),
-        )
-        ring = bpy.context.object
-        ring.name = label
-        ring.data.materials.append(material)
-        ring.parent = group
+    depth = min(.27,d*.095)
+    segments = 40
+    vertices = []
+    for axial, radial in ((-depth,radius+.115), (depth,radius+.115),
+                          (depth,radius-.055), (-depth,radius-.055)):
+        for index in range(segments):
+            angle = math.tau*index/segments
+            vertices.append((x+radial*math.cos(angle),gantry_y+axial,
+                             .60+radius+radial*math.sin(angle)))
+    faces = []
+    for edge in range(4):
+        start, end = edge*segments, ((edge+1)%4)*segments
+        for index in range(segments):
+            next_index = (index+1)%segments
+            faces.append((start+index,end+index,end+next_index,start+next_index))
+    mesh = bpy.data.meshes.new("Scanner gantry shell")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.materials.append(enamel)
+    shell = bpy.data.objects.new("Scanner gantry shell", mesh)
+    bpy.context.collection.objects.link(shell)
+    shell.parent = group
+    bevel = shell.modifiers.new("Rounded gantry seams", "BEVEL")
+    bevel.width = .025
+    bevel.segments = 2
+    bpy.ops.mesh.primitive_torus_add(major_segments=40, minor_segments=8,
+        major_radius=radius, minor_radius=.021,
+        location=(x,gantry_y-depth-.006,.60+radius), rotation=(math.pi/2,0,0))
+    light = bpy.context.object
+    light.name = "Scanner gantry light"
+    light.data.materials.append(screen)
+    light.parent = group
 
 
 
