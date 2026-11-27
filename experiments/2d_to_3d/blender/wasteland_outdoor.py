@@ -325,6 +325,17 @@ class WastelandOutdoors:
                           (width*.47, depth*.45, .065)).parent = group
         front = 1 if name.startswith(("nw", "ne")) else -1
         side = -1 if name.startswith(("nw", "sw")) else 1
+        # Keep fragment geometry inside the surveyed ruin footprint.
+        fragments = ((-.31, -.15, .10, .22), (-.15, -.27, .14, -.31),
+                     (.06, -.20, .08, .39), (.25, -.12, .13, -.19))
+        for dx, dy, height, angle in fragments:
+            fragment = self.concrete_box(
+                "Scattered concrete fragment",
+                (x+side*dx*width, y+front*dy*depth, .13+height*.52),
+                (min(.35, width*.074), min(.26, depth*.085), height*.52), .035,
+            )
+            fragment.rotation_euler = (angle*.5, 0, side*angle)
+            fragment.parent = group
         if "_inner_" in name:
             for offset, height in ((-.27, .72), (.17, .43)):
                 self.concrete_box("Broken ramp-side retaining wall",

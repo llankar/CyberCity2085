@@ -79,7 +79,9 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
         for suffix, part in (("inner_ruin", "Fallen retaining slab"),
                              ("ruin", "Surviving corner pier")):
             ruin = root_nodes[f"Occludable_{quadrant}_{suffix}"]
-            assert any(nodes[index]["name"].startswith(part) for index in ruin["children"])
+            names = [nodes[index]["name"] for index in ruin["children"]]
+            assert any(name.startswith(part) for name in names)
+            assert sum(name.startswith("Scattered concrete fragment") for name in names) == 4
 
 
 def test_convoy_crossing_has_distinct_cargo_trucks():
