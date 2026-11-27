@@ -6,17 +6,24 @@ import struct
 import pytest
 
 
-def test_ashfield_variants_share_the_detailed_environment():
+@pytest.mark.parametrize(("first_id", "second_id", "family", "first_scene"), [
+    ("01", "06", "dust_road_ambush", None),
+    ("02", "07", "ashfield_ruins", "wasteland320_cast"),
+    ("03", "08", "wrecked_highway", None),
+    ("04", "09", "rusted_trainyard", None),
+    ("05", "10", "irradiated_basin", None),
+])
+def test_identical_outdoor_variants_share_the_environment(first_id, second_id, family, first_scene):
     import re
 
     experiment = Path(__file__).resolve().parent
     maps = experiment.parents[1] / "assets/maps"
-    first, second = (f"wasteland_outdoor_{variant}_ashfield_ruins" for variant in ("02", "07"))
+    first, second = (f"wasteland_outdoor_{variant}_{family}" for variant in (first_id, second_id))
     surveys = [json.loads((maps / (name+".wall-traces.json")).read_text()) for name in (first,second)]
     assert surveys[0]["canvas_size"] == surveys[1]["canvas_size"]
     assert surveys[0]["walls"] == surveys[1]["walls"]
     assert (maps / (first+".png")).read_bytes() == (maps / (second+".png")).read_bytes()
-    scenes = ("wasteland320_cast", second)
+    scenes = (first_scene or first, second)
     folders = [re.search(r'^review_folder = "(.+)"$', (experiment / "godot" / (scene+".tscn")).read_text(),
                          re.MULTILINE).group(1) for scene in scenes]
     assert folders[0] == folders[1]
