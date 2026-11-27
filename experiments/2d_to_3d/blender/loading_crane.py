@@ -7,10 +7,16 @@ from create_hardsurface_crate import box
 
 
 def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65,
-                basin_depth=0, submerged_feet=(), compact_footings=False, lattice_jib=False):
+                basin_depth=0, submerged_feet=(), compact_footings=False, lattice_jib=False,
+                jib_yaw=0.0):
     parts = []
     def member(label, position, dimensions, material):
         parts.append(box(label, position, dimensions, material, .018))
+
+    def jib_member(label, reach, elevation, dimensions, material, pitch=0.0):
+        member(label, (x-reach*math.cos(jib_yaw), y-reach*math.sin(jib_yaw), elevation),
+               dimensions, material)
+        parts[-1].rotation_euler = (0.0, pitch, jib_yaw)
 
     for side in (-1, 1):
         foot_y = y+side*depth*.32
@@ -50,17 +56,17 @@ def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65
         rise = .34
         bay = outreach*.91/5
         for z in (height+.15, height+.15+rise):
-            member("Crane jib chord", (x-bay*2.5,y,z), (bay*2.5,.082,.052), beam)
+            jib_member("Crane jib chord", bay*2.5,z, (bay*2.5,.082,.052), beam)
         for index in range(5):
-            member("Crane jib diagonal", (x-bay*(index+.5),y,height+.15+rise/2),
-                   (math.hypot(bay,rise)/2,.053,.041), steel)
-            parts[-1].rotation_euler.y = math.atan2(rise,bay) * (-1 if index % 2 else 1)
+            pitch = math.atan2(rise,bay) * (-1 if index % 2 else 1)
+            jib_member("Crane jib diagonal", bay*(index+.5),height+.15+rise/2,
+                       (math.hypot(bay,rise)/2,.053,.041), steel,pitch)
     else:
-        member("Crane harbor jib", (x-outreach*.47,y,height+.23),
-               (outreach*.55,.14,.18), beam)
+        jib_member("Crane harbor jib", outreach*.47,height+.23,
+                   (outreach*.55,.14,.18), beam)
     member("Crane motor housing", (x,y,height+.28), (.32,.28,.23), steel)
-    member("Crane hoist cable", (x-outreach*.91,y,height-.58), (.018,.018,.73), steel)
-    member("Crane spreader", (x-outreach*.91,y,height-1.32), (.28,.14,.065), beam)
+    jib_member("Crane hoist cable", outreach*.91,height-.58, (.018,.018,.73), steel)
+    jib_member("Crane spreader", outreach*.91,height-1.32, (.28,.14,.065), beam)
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
         part.select_set(True)

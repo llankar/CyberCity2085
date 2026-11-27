@@ -885,6 +885,9 @@ def build(name):
                   (length*.95,breadth*.95,.92), yaw=yaw)
             continue
         if "crane" in identifier:
+            # Compass directions in the source survey, with +Y pointing north.
+            jib_yaw = {"crane_nw": -math.pi/2, "crane_ne": -math.pi/2,
+                       "south_crane": math.pi/2, "east_crane": math.pi}.get(identifier, 0.0)
             submerged_feet = []
             for side in (-1, 1):
                 foot = Vector(((x/gw+.5)*cw, (.5-(y+side*d*.32)/gh)*ch))
@@ -894,7 +897,8 @@ def build(name):
                         height=3.8, outreach=min(2.65, max(w,d)),
                         basin_depth=DOCK_BASIN_DEPTH, submerged_feet=submerged_feet,
                         compact_footings=name == "city_transit_freight_yard",
-                        lattice_jib=waterfront or name == "city_transit_freight_yard")
+                        lattice_jib=waterfront or name == "city_transit_freight_yard",
+                        jib_yaw=jib_yaw if waterfront else 0.0)
             continue
         if "container" in identifier or "cargo" in identifier:
             vertical = d > w

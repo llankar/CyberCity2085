@@ -80,6 +80,26 @@ def test_waterfront_quays_export_lattice_cranes(map_name, expected_cranes):
     for crane in cranes:
         primitives = gltf["meshes"][crane["mesh"]]["primitives"]
         assert sum(gltf["accessors"][part["indices"]]["count"] for part in primitives) >= 540
+    # glTF +Z is south on these maps. Inspect the exported envelope in world space.
+    dockside_reaches = {
+        "crane_nw": (2, "min", -13.0),
+        "crane_ne": (2, "min", -13.0),
+        "south_crane": (2, "max", 12.0),
+        "east_crane": (0, "max", 20.0),
+    }
+    for group in gltf["nodes"]:
+        reach = dockside_reaches.get(group["name"].removeprefix("Occludable_"))
+        if not reach:
+            continue
+        axis, bound, threshold = reach
+        crane = gltf["nodes"][group["children"][0]]
+        primitives = gltf["meshes"][crane["mesh"]]["primitives"]
+        positions = [gltf["accessors"][part["attributes"]["POSITION"]] for part in primitives]
+        offset = crane.get("translation", [0, 0, 0])[axis]
+        if bound == "min":
+            assert min(position[bound][axis] for position in positions) + offset < threshold
+        else:
+            assert max(position[bound][axis] for position in positions) + offset > threshold
 
 
 def test_freight_yard_has_four_complete_rail_profiles():
