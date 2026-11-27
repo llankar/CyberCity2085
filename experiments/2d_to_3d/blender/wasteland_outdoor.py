@@ -1029,6 +1029,12 @@ class WastelandOutdoors:
                     (width*.022,depth*.005,.005),self.platform_warning,.003).parent = group
 
     def add_transit_south_carriage(self):
+        # Follow the paired rails in the original south track bed. The sleepers
+        # stay in the existing floor texture beneath the raised running surfaces.
+        for row in (468, 496):
+            x, y = self.coordinates(480, row)
+            box("South transit running rail", (x,y,.026),
+                (self.gw/2,.026,.028),self.steel,.006)
         group = bpy.data.objects.new("South transit carriage", None)
         bpy.context.collection.objects.link(group)
         x, y = self.coordinates(480, 477.5)

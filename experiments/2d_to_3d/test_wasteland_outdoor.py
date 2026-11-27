@@ -216,6 +216,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     assert sum(nodes[i]["name"].startswith("Quay bollard crown")
                                for i in quay["children"]) == bollards
         if name.endswith("_ruined_transit_plaza"):
+            rails = [node for node in nodes if node["name"].startswith("South transit running rail")]
+            assert len(rails) == 2
+            assert all("mesh" in node for node in rails)
             for identifier in ("top_ruin", "west_top_ruin"):
                 ruin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert sum(nodes[i]["name"].startswith("Station ruin fractured pier")
