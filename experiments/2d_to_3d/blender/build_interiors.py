@@ -89,7 +89,8 @@ def build(name):
     server_map = name in {
         "cybercity_inner_05_server_room", "cybercity_inner_15_data_vault", "city_interior_server_room",
     }
-    server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map else None
+    bunker = name.endswith("_bunker_command_post")
+    server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
     textured_partitions = name in {
@@ -210,9 +211,9 @@ def build(name):
                                steel, partition_cap, screen)
         elif kind == "bed":
             build_bed(group, x, y, w, d, steel, linen, trim)
-        elif server_map and identifier != "west_storage" and (
+        elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_")) or identifier.endswith(("_rack", "_server"))
-        ):
+        )):
             build_server_bank(group, x, y, w, d, server_housing, steel, screen)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)
