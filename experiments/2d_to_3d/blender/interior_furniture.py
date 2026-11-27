@@ -243,6 +243,29 @@ def build_safehouse_fixture(group, kind, x, y, w, d, steel, enamel, rail):
         box("Tap stem", (x,y+d*.31,.99), (.032,.035,.087), rail).parent = group
         box("Tap spout", (x,y+d*.24,1.066), (.034,d*.11,.024), rail).parent = group
         return
+    if kind in {"bath_tub", "bath_toilet", "stove"}:
+        vertical = d > w
+        length, breadth = (d,w) if vertical else (w,d)
+
+        def fitted(label, along, across, z, half_length, half_breadth, half_height, material):
+            dx,dy = (across,along) if vertical else (along,across)
+            sx,sy = (half_breadth,half_length) if vertical else (half_length,half_breadth)
+            box(label, (x+dx,y+dy,z), (sx,sy,half_height), material,.018).parent = group
+
+        if kind == "bath_tub":
+            fitted("Tub enamel shell", 0,0,.23,length*.46,breadth*.45,.23,enamel)
+            fitted("Tub basin inset", 0,0,.472,length*.36,breadth*.32,.012,steel)
+            fitted("Tub tap", length*.37,0,.55,.033,.046,.079,rail)
+        elif kind == "bath_toilet":
+            fitted("Toilet porcelain base", 0,0,.24,length*.41,breadth*.38,.24,enamel)
+            fitted("Toilet seat recess", -length*.1,0,.493,length*.24,breadth*.29,.016,steel)
+            fitted("Toilet cistern", length*.31,0,.67,length*.127,breadth*.35,.22,enamel)
+        else:
+            fitted("Stove cabinet", 0,0,.39,length*.46,breadth*.44,.39,steel)
+            fitted("Stove cooktop", 0,0,.811,length*.45,breadth*.42,.034,rail)
+            for side in (-1,1):
+                fitted("Stove burner", side*length*.22,0,.854,length*.13,breadth*.24,.021,steel)
+        return
     box("Shower tiled base", (x,y,.075), (w*.49,d*.49,.075), enamel).parent = group
     box("Shower plumbing wall", (x-w*.42,y,.83), (w*.068,d*.48,.74), steel).parent = group
     for offset in (-.17,.17):

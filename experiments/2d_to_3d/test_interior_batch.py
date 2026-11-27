@@ -345,3 +345,39 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
             parts = data["meshes"][nodes[index]["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in parts}
             assert {"Server bank graphite", "Terminal display"} <= materials
+
+
+def test_clinic_and_shelter_plumbing_is_exported_as_geometry():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    parts = {
+        "bath_sink": "Washbasin bowl", "bath_shower": "Shower head",
+        "bath_tub": "Tub basin inset", "bath_toilet": "Toilet cistern", "stove": "Stove burner",
+    }
+    maps = {
+        "cybercity_inner_04_medical_clinic": 2,
+        "cybercity_inner_02_safehouse": 3,
+        **{f"wasteland_inner_{index}_{family}": count for family, variants, count in (
+            ("apartment_shelter", ("07", "12"), 3),
+            ("ruined_clinic", ("03", "08"), 2),
+            ("abandoned_safehouse", ("01", "06"), 3),
+        ) for index in variants},
+    }
+    for name, expected in maps.items():
+        path = OUTPUT / name / "environment.glb"
+        if not path.is_file():
+            pytest.skip(f"Build {name} on E: first")
+        with path.open("rb") as glb:
+            size = struct.unpack("<4sIII4s", glb.read(20))[3]
+            nodes = json.loads(glb.read(size))["nodes"]
+        groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+        _, selected = fixtures(name)
+        modeled = {identifier: parts[kind] for identifier, kind in selected.items() if kind in parts}
+        assert len(modeled) == expected, name
+        for identifier, part in modeled.items():
+            assert any(nodes[index]["name"].startswith(part)
+                       for index in groups[f"Occludable_{identifier}"])

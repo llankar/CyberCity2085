@@ -137,7 +137,7 @@ def build(name):
         elif kind == "floor_generator":
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
-        elif kind in {"gym_weights", "bath_sink", "bath_shower"}:
+        elif kind in {"gym_weights", "bath_sink", "bath_shower", "bath_tub", "bath_toilet", "stove"}:
             build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)

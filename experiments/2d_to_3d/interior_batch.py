@@ -66,6 +66,12 @@ def fixtures(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     selected = {}
     server_interior = name in {"cybercity_inner_15_data_vault", "cybercity_inner_05_server_room"}
+    plumbing_interior = name in {
+        "cybercity_inner_04_medical_clinic", "cybercity_inner_02_safehouse",
+        "wasteland_inner_07_apartment_shelter", "wasteland_inner_12_apartment_shelter",
+        "wasteland_inner_03_ruined_clinic", "wasteland_inner_08_ruined_clinic",
+        "wasteland_inner_01_abandoned_safehouse", "wasteland_inner_06_abandoned_safehouse",
+    }
     safehouse_fixtures = {
         "west_gym_weight": "gym_weights", "south_tools": "workbench",
         "south_generator": "floor_generator", "bath_sinks": "bath_sink",
@@ -85,6 +91,18 @@ def fixtures(name):
             continue
         if identifier in safehouse_fixtures:
             selected[identifier] = safehouse_fixtures[identifier]
+        elif plumbing_interior and "sink" in identifier:
+            selected[identifier] = "bath_sink"
+        elif plumbing_interior and "shower" in identifier:
+            selected[identifier] = "bath_shower"
+        elif plumbing_interior and ("bath_tub" in identifier or identifier == "ne_bath"):
+            selected[identifier] = "bath_tub"
+        elif plumbing_interior and "toilet" in identifier:
+            selected[identifier] = "bath_toilet"
+        elif plumbing_interior and identifier.endswith("_storage"):
+            selected[identifier] = "rack"
+        elif plumbing_interior and identifier.endswith("_stove"):
+            selected[identifier] = "stove"
         elif identifier.endswith("_tracks"):
             selected[identifier] = "track"
         elif name == "cybercity_inner_13_warehouse_floor" and identifier.startswith("bench_"):
