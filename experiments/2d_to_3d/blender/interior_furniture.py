@@ -609,6 +609,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
                 part("Relay processor access plate", along,across,.893,length*.102,width*.096,.017,trim)
                 part("Relay processor status strip", along,across,.913,length*.062,width*.018,.009,screen)
         merge_fixture_meshes(group, "Wasteland relay processor array")
+        for lane in (-1, 0, 1):
+            across = lane*width*.265
+            for offset in (-.35,.35):
+                part("Relay heatsink base", length*offset,across,.907,
+                     length*.034,width*.094,.024,trim)
+                for fin in range(-2,3):
+                    part("Relay heatsink fin", length*offset,across+fin*width*.034,.955,
+                         length*.035,width*.009,.043,steel)
+        cooling = [piece for piece in group.children if piece.name.startswith("Relay heatsink")]
+        merge_fixture_meshes(group, "Relay processor heatsinks", pieces=cooling)
         harness = bpy.data.curves.new("Relay cable harness", "CURVE")
         harness.dimensions = "3D"
         harness.resolution_u = 8
