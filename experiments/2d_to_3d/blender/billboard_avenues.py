@@ -140,7 +140,8 @@ def build(name):
     cw, ch = survey["canvas_size"]
     industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
-    wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"))
+    wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"),
+                                   overpass=name.endswith("_collapsed_overpass"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)

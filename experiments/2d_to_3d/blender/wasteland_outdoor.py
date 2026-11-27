@@ -11,11 +11,12 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
-    def __init__(self, library, grid, canvas, *, city=False):
+    def __init__(self, library, grid, canvas, *, city=False, overpass=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
         self.city = city
+        self.overpass = overpass
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
         concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
@@ -26,7 +27,7 @@ class WastelandOutdoors:
         source = bpy.data.images.load(str(concrete_path / "diff.jpg"), check_existing=True)
         pixels = np.empty(len(source.pixels), dtype=np.float32)
         source.pixels.foreach_get(pixels)
-        pixels.reshape(-1, 4)[:, :3] *= (.62, .58, .54)
+        pixels.reshape(-1, 4)[:, :3] *= (.40, .40, .38) if overpass else (.62, .58, .54)
         diffuse.image = bpy.data.images.new("Weathered Wasteland concrete", *source.size)
         diffuse.image.pixels.foreach_set(pixels)
         diffuse.image.pack()
@@ -56,6 +57,24 @@ class WastelandOutdoors:
         self.project_concrete_uv(block.data)
         return block
 
+    def concrete_guardrail(self, name, length, width, height):
+        profile = [(-width/2,0), (width/2,0), (width/2,height*.19),
+                   (width*.30,height*.42), (width*.23,height),
+                   (-width*.23,height), (-width*.30,height*.42), (-width/2,height*.19)]
+        count = len(profile)
+        vertices = [(end, y, z) for end in (-length/2,length/2) for y,z in profile]
+        faces = [tuple(reversed(range(count))), tuple(range(count,2*count))]
+        for index in range(count):
+            following = (index+1)%count
+            faces.append((index,following,following+count,index+count))
+        mesh = bpy.data.meshes.new(name + " sloped guardrail")
+        mesh.from_pydata(vertices, [], faces)
+        self.project_concrete_uv(mesh)
+        mesh.materials.append(self.aggregate)
+        obj = bpy.data.objects.new(name + " sloped guardrail", mesh)
+        bpy.context.collection.objects.link(obj)
+        return obj
+
     def coordinates(self, px, py):
         return px*self.gw/self.cw-self.gw/2, self.gh/2-py*self.gh/self.ch
 
@@ -68,8 +87,13 @@ class WastelandOutdoors:
             width = row["width"] * self.gw/self.cw
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
-                segment = self.concrete_box(name, ((ax+bx)/2,(ay+by)/2,height/2),
-                              (math.hypot(bx-ax,by-ay)/2,width/2,height/2), .055)
+                length = math.hypot(bx-ax,by-ay)
+                if self.overpass:
+                    segment = self.concrete_guardrail(name,length,width,height)
+                    segment.location = ((ax+bx)/2,(ay+by)/2,0)
+                else:
+                    segment = self.concrete_box(name, ((ax+bx)/2,(ay+by)/2,height/2),
+                                                (length/2,width/2,height/2), .055)
                 segment.rotation_euler.z = math.atan2(by-ay,bx-ax)
                 segment.parent = group
             return

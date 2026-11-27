@@ -51,3 +51,8 @@ def test_collapsed_span_export_includes_textured_fracture_faces():
         materials = {primitive["material"] for primitive in data["meshes"][roadbed["mesh"]]["primitives"]}
         assert aggregate in materials
         assert len(materials) == 2
+    guardrail_groups = [node for node in nodes if node["name"].startswith("Occludable_overpass_")
+                        and "_rail" in node["name"]]
+    assert len(guardrail_groups) == 4
+    for group in guardrail_groups:
+        assert all(" sloped guardrail" in nodes[index]["name"] for index in group["children"])
