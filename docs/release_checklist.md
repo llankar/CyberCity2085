@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · ee240a3e
+## Current Windows candidate · 5522203a
+
+- [x] PyInstaller build, Inno Setup compilation and separate silent installation on E:. The installed executable reports `5522203a`, starts bundled Godot, reads 122 maps and passes the test-save round trip.
+- [x] Eleven targeted tests passed. The installed Godot also passed the external fog and tactical support regression. The three changed installed HUD/combat scripts match the checkout by SHA-256 and the bundle excludes Godot QA scripts.
+- [ ] Physical controller and human listening remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-436012bb1c7a47508e09b37e14dc2b31/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `F6C10A0F28ECED72AE3D9CA07C3D593C0108BD1FEA4B209F51C43DD7793AA8E9` |
+| CyberCity2085-Setup-1.bin | `099B0DAE93A73A802586E8D7A90E4CC50805EEBF75A9BBE9A6A0046360676A39` |
+| CyberCity2085-Setup-2.bin | `2CD12E112F408FF9641915235CC66EBE95AE505E3FBBBEBAF76B1E074D4CFAE3` |
+| CyberCity2085-Setup-3.bin | `229099EF6F2FEB5C93122C4168B0CA42C863659B85B4E55BACCB364A5E86A5F2` |
+
+## Previous Windows candidate · ee240a3e
 
 - [x] Production build and silent installation on E:. The standalone installed executable reports build `ee240a3e`, starts bundled Godot, reads 122 maps, and passes the test-save round trip.
 - [x] Targeted release gate: 92 tests passed. The full-campaign test was excluded.
