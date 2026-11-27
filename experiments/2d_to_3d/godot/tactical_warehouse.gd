@@ -9,6 +9,7 @@ const ALLY := "ally:0"
 var mailbox: Mailbox
 var status: Label
 var selection: Label
+var target_hint: Label
 var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
@@ -64,6 +65,10 @@ func _ready() -> void:
  selection.position = Vector2(20, 48)
  selection.add_theme_font_size_override("font_size", 23)
  hud.add_child(selection)
+ target_hint = Label.new()
+ target_hint.position = Vector2(20, 287)
+ target_hint.add_theme_font_size_override("font_size", 20)
+ hud.add_child(target_hint)
  effects = Effects.new()
  add_child(effects)
  var marker_mesh := TorusMesh.new()
@@ -160,6 +165,7 @@ func _process(delta: float) -> void:
  if actors[selected_ally].fallen:
   select_next_ally()
  refresh_selection()
+ refresh_target_hint()
  status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move (amber: nearby cover)   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
   scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
@@ -275,6 +281,7 @@ func _process(delta: float) -> void:
     review_camera.size = 3.4
     status.hide()
     selection.hide()
+    target_hint.hide()
     update_review_camera()
     cutaway.update(.15)
     await RenderingServer.frame_post_draw
@@ -392,6 +399,29 @@ func actor_at(screen_position: Vector2, side: String) -> String:
  return nearest
 
 
+func refresh_target_hint() -> void:
+ target_hint.text = ""
+ if playing_events or mailbox.pending:
+  return
+ var id := actor_at(get_viewport().get_mouse_position(), "enemy:")
+ if id.is_empty():
+  return
+ var enemy := unit_state(id)
+ var targets: Dictionary = unit_state(selected_ally).get("targeting", {})
+ var context: Dictionary = targets.get(id, {}).get(attack_mode, {})
+ var label := "Action unavailable"
+ if not context.is_empty():
+  if not context.in_range:
+   label = "Out of range"
+  elif context.line_blocked:
+   label = "Line blocked"
+  elif not context.can_pay:
+   label = "Insufficient AP"
+  else:
+   label = "%d%% hit chance" % int(context.hit_percent)
+ target_hint.text = "%s  //  %s  //  %s" % [enemy.name, attack_mode.capitalize(), label]
+
+
 func refresh_selection() -> void:
  var active: TacticalActor = actors[selected_ally]
  cutaway.actors = [] if active.fallen else [active]
@@ -492,6 +522,8 @@ func _unhandled_input(event: InputEvent) -> void:
      select_next_ally()
   if previous_mode != attack_mode and not playing_events:
    status.text = status.text.replace("Right click: " + previous_mode, "Right click: " + attack_mode)
+ if event is InputEventMouseMotion or event is InputEventKey:
+  refresh_target_hint()
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
   fire_at(event.position)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -499,6 +531,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if not ally.is_empty() and not playing_events and not mailbox.pending:
    selected_ally = ally
    refresh_selection()
+   refresh_target_hint()
    return
   var ground: Variant = ground_under_cursor(event.position)
   if ground is Vector3:

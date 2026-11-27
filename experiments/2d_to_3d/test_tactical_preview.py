@@ -115,6 +115,10 @@ class TacticalPreviewTest(unittest.TestCase):
         enemy = preview.units["enemy:0"]
         position = enemy.position
         enemy.position = (7 * CELL_SIZE, 11 * CELL_SIZE)
+        hint = preview.snapshot()["units"][0]["targeting"]["enemy:0"]["fire"]
+        self.assertTrue(hint["line_blocked"])
+        self.assertTrue(hint["in_range"])
+        self.assertTrue(hint["can_pay"])
         rejected = preview.action("fire", "ally:0", target_id="enemy:0")
         self.assertFalse(rejected["success"])
         self.assertIn("line blocked", rejected["message"])

@@ -1,6 +1,7 @@
 """Python authority for the isolated Godot tactical preview."""
 from copy import copy
 
+from game.combat.attack_resolution import build_attack_context
 from game.combat.engine import CombatEngine
 from game.combat.movement import CELL_SIZE, can_enter_cell
 from game.combat_actions import available_combat_actions
@@ -50,6 +51,25 @@ class TacticalPreview:
                 covered.append(cell)
         return covered
 
+    def attack_previews(self, unit) -> dict:
+        state = self.engine.state
+        previews = {}
+        kinds = {action.key for action in available_combat_actions(unit)} & {"fire", "melee", "psi"}
+        for key, target in self.units.items():
+            if not key.startswith("enemy:") or target.health <= 0:
+                continue
+            by_kind = {}
+            for kind in sorted(kinds):
+                context = build_attack_context(unit, target, kind, cover_nodes=self.engine.cover_nodes,
+                                               allies=state.allied_units)
+                by_kind[kind] = {
+                    "in_range": context.in_range, "line_blocked": context.line_blocked,
+                    "can_pay": unit.action_points >= context.ap_cost,
+                    "hit_percent": round(context.hit_chance * 100),
+                }
+            previews[key] = by_kind
+        return previews
+
     def snapshot(self) -> dict:
         state = self.engine.state
         battle = self.engine.end_battle_check()
@@ -72,6 +92,8 @@ class TacticalPreview:
                     "defending": unit.is_defending,
                     "overwatch": unit.on_overwatch,
                     "moves": move_options.get(key, []),
+                    "targeting": self.attack_previews(unit)
+                    if key.startswith("ally:") and state.turn == "player" and unit.health > 0 and not battle.ended else {},
                     "covered_moves": self.covered_moves(unit, move_options.get(key, [])),
                     "actions": [action.key for action in available_combat_actions(unit)]
                     if key.startswith("ally:") and state.turn == "player" and unit.health > 0
