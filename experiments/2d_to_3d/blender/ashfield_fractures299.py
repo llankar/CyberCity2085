@@ -132,6 +132,10 @@ for wall in structural_walls:
                (.062, .038, height/2), rust, .009)
     post.rotation_euler.z = Vector((0, 1)).angle_signed(normal.xy)
     post.parent = wall.parent
+    foot = box("Ruined wall upright base plate", (anchor.x,anchor.y,.045),
+               (.105,.066,.026),rust,.010)
+    foot.rotation_euler.z = post.rotation_euler.z
+    foot.parent = wall.parent
     tangent = Vector((normal.y, -normal.x, 0))
     projections = [(corner-anchor).dot(tangent) for corner in corners]
     left, right = min(projections), max(projections)

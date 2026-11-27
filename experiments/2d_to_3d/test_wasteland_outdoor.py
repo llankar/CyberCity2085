@@ -10,6 +10,23 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def test_ashfield_exposed_wall_uprights_have_grounded_plates():
+    model = catalogue_environment("wasteland_outdoor_02_ashfield_ruins")
+    if not model.is_file():
+        pytest.skip("Build Ashfield Ruins on E: first")
+    with model.open("rb") as stream:
+        size = struct.unpack("<4sIII4s", stream.read(20))[3]
+        nodes = json.loads(stream.read(size))["nodes"]
+    supports = 0
+    for group in nodes:
+        parts = [nodes[index] for index in group.get("children", [])]
+        uprights = [part for part in parts if part["name"].startswith("Ruined wall steel upright")]
+        plates = [part for part in parts if part["name"].startswith("Ruined wall upright base plate")]
+        assert len(plates) == len(uprights)
+        supports += len(plates)
+    assert supports > 0
+
+
 @pytest.mark.parametrize("name", [
     "cybercity_street_12_industrial_district",
     "cybercity_street_13_industrial_district",
