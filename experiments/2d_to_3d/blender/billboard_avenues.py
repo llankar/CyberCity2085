@@ -179,6 +179,10 @@ def build(name):
                            (length/2,width/2,.24), frame)
                 rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
             continue
+        if name == "city_district_holo_square" and identifier.startswith("bench_"):
+            xs, ys = zip(*row["polygon"])
+            row = {**row, "rect": (min(xs), min(ys), max(xs), max(ys))}
+            row.pop("polygon")
         if "polygon" in row and not identifier.endswith("_car"):
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["polygon"]]
             if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(points, points[1:]+points[:1])) < 0:
@@ -197,6 +201,9 @@ def build(name):
                 mesh.polygons[1].material_index = 1
             island = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(island)
+            group = bpy.data.objects.new("Occludable_" + identifier, None)
+            bpy.context.collection.objects.link(group)
+            island.parent = group
             if is_building:
                 mesh.materials.append(roof)
                 mesh.polygons[1].material_index = 1
@@ -204,15 +211,38 @@ def build(name):
                 for loop in mesh.polygons[1].loop_indices:
                     vx,vy,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
                     uv.data[loop].uv = (vx/gw+.5, vy/gh+.5)
-            if identifier.startswith("sign_") or "holo_platform" in identifier:
+            if identifier.startswith("sign_") or identifier == "holo_platform":
                 sx = sum(px for px,_ in points)/count
                 sy = sum(py for _,py in points)/count
                 widths = [px for px,_ in points]
                 depth = [py for _,py in points]
-                box(identifier+" projector", (sx,sy,.55),
-                    ((max(widths)-min(widths))*.18,(max(depth)-min(depth))*.16,.32), frame).parent = island
-                box(identifier+" display", (sx,sy,1.04),
-                    ((max(widths)-min(widths))*.26,.026,.29), signs[i%len(signs)]).parent = island
+                if identifier == "holo_platform":
+                    radius = min(max(widths)-min(widths), max(depth)-min(depth))*.27
+                    bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=radius, depth=.28,
+                                                        location=(sx,sy,.36))
+                    emitter = bpy.context.object
+                    emitter.name = "Holo Square emitter"
+                    emitter.data.materials.append(frame)
+                    emitter.parent = island
+                    for i, (scale,z) in enumerate(((.94,.55),(.84,.90),(.68,1.25),(.50,1.60))):
+                        bpy.ops.mesh.primitive_torus_add(major_segments=8, minor_segments=6,
+                                                        major_radius=radius*scale, minor_radius=.024,
+                                                        location=(sx,sy,z))
+                        halo = bpy.context.object
+                        halo.name = f"Holo Square projection ring {i+1}"
+                        halo.data.materials.append(signs[0])
+                        halo.parent = island
+                    bpy.ops.mesh.primitive_cone_add(vertices=8, radius1=radius*.60, radius2=radius*.25,
+                                                    depth=1.35, location=(sx,sy,1.18))
+                    core = bpy.context.object
+                    core.name = "Holo Square projection core"
+                    core.data.materials.append(signs[0])
+                    core.parent = island
+                else:
+                    box(identifier+" projector", (sx,sy,.55),
+                        ((max(widths)-min(widths))*.18,(max(depth)-min(depth))*.16,.32), frame).parent = island
+                    box(identifier+" display", (sx,sy,1.04),
+                        ((max(widths)-min(widths))*.26,.026,.29), signs[i%len(signs)]).parent = island
             continue
         if "rect" in row:
             x1, y1, x2, y2 = row["rect"]

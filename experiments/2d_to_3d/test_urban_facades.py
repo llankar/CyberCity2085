@@ -84,3 +84,23 @@ def test_civic_kiosk_exports_controls_under_the_occlusion_group():
     parts = {nodes[index]["name"] for index in kiosk["children"]}
     assert {f"northwest_kiosk {part}" for part in ("screen", "screen bezel", "hood", "control shelf")} <= parts
     assert sum(" service vent" in part for part in parts) == 3
+
+
+def test_holo_square_exports_occludable_obstacles_and_landmark():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "city_district_holo_square/environment.glb")
+    if not path.is_file():
+        pytest.skip("Run the Holo Square Blender batch on E: first")
+    with path.open("rb") as glb:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", glb.read(20))
+        nodes = json.loads(glb.read(size))["nodes"]
+    roots = {node["name"]: node["children"] for node in nodes
+             if node["name"].startswith("Occludable_")}
+    assert len(roots) == 39
+    benches = [children for name, children in roots.items() if name.startswith("Occludable_bench_")]
+    assert len(benches) == 14
+    assert all(any(" seat panel" in nodes[index]["name"] for index in children) for children in benches)
+    platform = nodes[roots["Occludable_holo_platform"][0]]
+    parts = {nodes[index]["name"] for index in platform["children"]}
+    assert {"Holo Square emitter", "Holo Square projection core"} <= parts
+    assert sum(part.startswith("Holo Square projection ring ") for part in parts) == 4
