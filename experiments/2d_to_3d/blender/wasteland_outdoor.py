@@ -1090,6 +1090,12 @@ class WastelandOutdoors:
                      (width*.31,.067,.058), self.steel,.014)
         lintel.rotation_euler.y = math.atan2(.25,width*.61)
         lintel.parent = group
+        fallen_column = self.concrete_box(
+            "Flooded ruin fallen column", (x+width*.19,y-street*depth*.27,.43),
+            (width*.22,min(.11,depth*.06),.12), .04,
+        )
+        fallen_column.rotation_euler.z = street*.28
+        fallen_column.parent = group
         floor = self.concrete_box("Flooded ruin fallen upper floor",
                                   (x-width*.14, y-street*depth*.16, .63),
                                   (width*.23,depth*.20,.09))
