@@ -1913,3 +1913,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DOWNTOWN-GARDEN-KIOSK / DONE. Reconstructed the southeast rooftop garden kiosk from the original footprint, using paired raised planting beds and green illuminated eaves. Preserved the surveyed cutaway group. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: compare the two long intersection barricades with the source.
 
 - EXPERIMENTAL-DOWNTOWN-STREET-BARRIERS / DONE. Rebuilt both surveyed barriers with low concrete bases, steel bracing and cyan markers. The longer west barrier has five bays and the east barrier three. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: compare other high-impact street fixtures or vehicle silhouettes across the updated exterior captures.
+
+- EXPERIMENTAL-DOWNTOWN-VEHICLE-ORIENTATION / DONE. Matched seven vehicle angles to the original intersection artwork while fitting their rotated bounds to their surveyed footprints. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: inspect the catalogue for other repeated placement artifacts.

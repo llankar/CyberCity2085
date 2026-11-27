@@ -76,6 +76,16 @@ ROOF_FANS_BY_MAP = {
     "cybercity_street_06_transit_interchange": TRANSIT_06_ROOF_FANS,
 }
 
+DOWNTOWN_CAR_ANGLES = {
+    "car_north": -57,
+    "car_north_east": 68,
+    "car_midwest": 61,
+    "car_mideast": -48,
+    "car_southwest": -18,
+    "car_south": 68,
+    "car_southeast": -40,
+}
+
 BUILDING_EXCEPTIONS = {
     "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
@@ -784,8 +794,16 @@ def build(name):
             continue
         if identifier.startswith(("car_", "north_car", "south_car")) or identifier.endswith("_car"):
             vertical = d > w
+            length, breadth = max(w,d), min(w,d)
+            yaw = math.pi/2 if vertical else 0
+            if name == "city_exterior_downtown_intersection" and identifier in DOWNTOWN_CAR_ANGLES:
+                yaw = math.radians(DOWNTOWN_CAR_ANGLES[identifier])
+                breadth = min(breadth,length*.49)
+                c, s = abs(math.cos(yaw)), abs(math.sin(yaw))
+                fit = min(w/(length*c+breadth*s),d/(length*s+breadth*c))
+                length, breadth = length*fit, breadth*fit
             place(library / "derelict_suv275/model.glb", group, (x, y, 0),
-                  (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
+                  (length*.95,breadth*.95,.92), yaw=yaw)
             continue
         if "crane" in identifier:
             submerged_feet = []

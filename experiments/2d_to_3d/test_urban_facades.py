@@ -19,6 +19,10 @@ def test_downtown_garden_kiosk_exports_roof_planting():
     parts = [nodes[index]["name"] for index in kiosk["children"]]
     assert sum(part.startswith("Garden kiosk raised planter") for part in parts) == 2
     assert sum(part.startswith("Garden kiosk roof planting") for part in parts) == 10
+    for identifier in ("car_north", "car_midwest", "car_southeast"):
+        car = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        components = [nodes[index] for index in car["children"]]
+        assert any(.05 < abs(part.get("rotation", [0, 0])[1]) < .69 for part in components)
     for side, count in (("west", 5), ("east", 3)):
         barrier = next(node for node in nodes if node["name"] == f"Occludable_{side}_barrier")
         parts = [nodes[index]["name"] for index in barrier["children"]]
