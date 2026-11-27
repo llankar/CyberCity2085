@@ -492,6 +492,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+    elif kind == "relay_console":
+        for end in (-1, 1):
+            part("Relay console pedestal", end*length*.31,0,.38,length*.14,width*.39,.38,trim)
+        part("Relay console worktop", 0,0,.82,length*.48,width*.46,.062,steel)
+        for end in (-1, 1):
+            offset = end*length*.218
+            part("Relay terminal housing", offset,width*.25,1.07,length*.176,width*.105,.185,trim)
+            part("Relay terminal screen", offset,width*.138,1.09,length*.151,width*.016,.135,screen)
+            part("Relay terminal controls", offset,-width*.21,.907,length*.144,width*.13,.025,trim)
+        merge_fixture_meshes(group, "Relay service workstation")
     elif kind == "relay_core":
         part("Relay recessed base", 0,0,.13,length*.46,width*.44,.13,trim)
         for lane in (-1, 0, 1):

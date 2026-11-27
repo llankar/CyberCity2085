@@ -495,6 +495,14 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
             harness, = [nodes[index] for index in core["children"]
                         if nodes[index]["name"] == "Relay cable harness"]
             assert len(data["meshes"][harness["mesh"]]["primitives"]) == 1
+            workstations = {
+                node["name"] for node in nodes
+                if any(nodes[index]["name"].startswith("Relay service workstation")
+                       for index in node.get("children", []))
+            }
+            assert workstations == {f"Occludable_{identifier}" for identifier in (
+                "west_desk", "east_desk", "south_e_desk", "south_w_desk", "south_console",
+            )}
         for index in banks:
             parts = data["meshes"][nodes[index]["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in parts}
