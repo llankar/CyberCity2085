@@ -1921,3 +1921,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-PARKING-GARAGE-STAIRWELLS / DONE. Modeled cheek walls and seven visible nosings on each surveyed stairwell, with the central flight turned to follow the original layout. Rebuilt on E:, captured Godot and passed 26 facade tests. Next: review another family with highly visible roof or street geometry gaps.
 
 - EXPERIMENTAL-PARKING-ROOF-VENTILATION / DONE for the northwest paired fans. Fitted the shared 3D twin-fan asset and a solid mounting curb to the original painted marking, within the roof cutaway group. Rebuilt on E:, captured Godot and passed 26 urban tests. Next: inspect the roof equipment across another map family.
+
+- EXPERIMENTAL-DOWNTOWN-ROOF-VENTILATION / DONE. Reused the fitted twin-fan assembly over three painted ventilation outlines on the northwest roof, northeast roof and southwest annex. Kept each in its roof cutaway. Rebuilt on E:, captured Godot and passed 26 urban tests. Next: compare surveyed rooftop fixtures as a batch on neighboring urban maps.

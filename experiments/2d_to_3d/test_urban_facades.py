@@ -41,6 +41,10 @@ def test_downtown_garden_kiosk_exports_roof_planting():
     parts = [nodes[index]["name"] for index in kiosk["children"]]
     assert sum(part.startswith("Garden kiosk raised planter") for part in parts) == 2
     assert sum(part.startswith("Garden kiosk roof planting") for part in parts) == 10
+    for identifier in ("northwest_roof", "northeast_roof", "southwest_annex"):
+        roof = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        assert any(nodes[index]["name"] == f"{identifier} surveyed roof HVAC"
+                   for index in roof["children"])
     for identifier in ("car_north", "car_midwest", "car_southeast"):
         car = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         components = [nodes[index] for index in car["children"]]
