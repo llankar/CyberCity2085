@@ -217,7 +217,7 @@ def build(name):
             box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),
                   (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
-        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core"}:
+        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "vault_display"}:
             build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)

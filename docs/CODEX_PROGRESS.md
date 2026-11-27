@@ -1777,3 +1777,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-COLLAPSED-TUNNEL-SPANS / DONE. Triangulated the uneven tops of collapsed spans explicitly and added exposed steel supports across both rubble footprints. Rebuilt 02/07 on E:, rendered in Godot and passed seventeen interior tests. Next: move to another Wasteland interior with unmodeled signature fixtures.
 
 - EXPERIMENTAL-LOOTED-VAULT-CORE / DONE. Replaced the generic pod at the central surveyed footprint with an armored vault housing and a horizontal locking wheel modeled from the original illustration. Rebuilt the 05/10 shared GLB on E:, rendered 313 meshes in Godot and passed seventeen interior tests. Next: inspect the vault room at tactical zoom and improve the radial table fittings.
+
+- EXPERIMENTAL-LOOTED-VAULT-DISPLAYS / DONE. Replaced the six central generic tables with looted display cabinets and partitioned trays, retaining their surveyed footprints. Rebuilt the 05/10 shared GLB on E:, rendered it in Godot and passed seventeen interior tests. Next: inspect the radial layout at combat zoom and address a different Wasteland interior.

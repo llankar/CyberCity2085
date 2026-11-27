@@ -340,6 +340,17 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
             part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
+    elif kind == "vault_display":
+        part("Vault display cabinet", 0,0,.32,length*.41,width*.39,.32,trim)
+        part("Vault display tray", 0,0,.66,length*.44,width*.43,.046,steel)
+        for side in (-1,1):
+            part("Vault case broken glass channel", 0,side*width*.40,.735,
+                 length*.43,.023,.049,trim)
+            part("Vault case tray divider", side*length*.16,0,.717,
+                 .028,width*.35,.020,trim)
+        for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
+            part("Vault displaced display fragment", length*offset,width*inset,.716,
+                 length*.058,width*.10,.022,trim)
     elif kind == "vault_core":
         part("Vault foundation", 0,0,.14,length*.48,width*.47,.14,trim)
         part("Vault armored housing", 0,0,.49,length*.41,width*.40,.34,steel)
