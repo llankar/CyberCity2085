@@ -179,7 +179,7 @@ def build(name):
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
             group = None
-            if freeway or name == "city_district_civic_center":
+            if freeway or name in ROOFTOPS or name == "city_district_civic_center":
                 group = bpy.data.objects.new("Occludable_" + identifier, None)
                 bpy.context.collection.objects.link(group)
             for segment, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
@@ -203,6 +203,15 @@ def build(name):
                         if index % 3 == 1:
                             box(identifier+" reflector", (x,y,.627), (.035,.045,.018),
                                 signs[2],.007).parent = group
+                elif name in ROOFTOPS:
+                    for label, z, half_width, depth, material in (
+                        ("parapet body", .23, width*.43, .23, wall),
+                        ("coping", .467, width*.48, .037, frame),
+                    ):
+                        piece = box(identifier+" "+label, ((ax+bx)/2,(ay+by)/2,z),
+                                    (length/2,half_width,depth), material,.016)
+                        piece.rotation_euler.z = yaw
+                        piece.parent = group
                 else:
                     rail = box(identifier, ((ax+bx)/2,(ay+by)/2,.24),
                                (length/2,width/2,.24), frame)
