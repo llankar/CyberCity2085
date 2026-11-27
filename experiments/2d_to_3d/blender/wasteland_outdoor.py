@@ -854,6 +854,24 @@ class WastelandOutdoors:
                 box("Charred stall upright", (end*length*.39, side*width*.35, .54),
                     (.045, .045, .54), self.dark).parent = group
         if name in {"stall_w", "stall_ne", "stall_sw"}:
+            # A remaining crossbar and short hanging fragments reveal the
+            # collapsed roof without filling the open stall silhouette.
+            crossbar_x = length*(.18 if name == "stall_ne" else -.24)
+            crossbar = box("Surviving canopy crossbar", (crossbar_x,0,1.045),
+                           (.034,width*.37,.028), self.steel)
+            crossbar.rotation_euler.z = .16
+            crossbar.parent = group
+            rail_y = width*.35
+            vertices = [(length*x, rail_y+y*width, z) for x,y,z in (
+                (-.38,0,1.09), (.25,0,1.09), (.14,.07,.99),
+                (-.04,.10,.85), (-.18,.07,.98), (-.33,.06,.91),
+            )]
+            scraps = bpy.data.meshes.new("Scorched market fabric")
+            scraps.from_pydata(vertices, [], [(0,5,4), (0,4,1), (1,4,3), (1,3,2)])
+            scraps.materials.append(self.scorched_canvas)
+            fabric = bpy.data.objects.new("Hanging canopy remnants", scraps)
+            bpy.context.collection.objects.link(fabric)
+            fabric.parent = group
             return
         if name == "stall_se":
             box("Blue corrugated market cover", (0,0,1.105),

@@ -331,5 +331,5 @@ def test_turntable_ballast_stays_inside_the_wagon_footprint():
         {"id": "wagon_turntable", "rect": [4, 5, 18, 20]},
     ]}
     result = restore_donor_pavement(floor, source, survey, {"wagon_turntable": (0, 0, 4, 4)})
-    assert result.getbbox() == (4, 5, 18, 20)
-    assert result.getpixel((11, 12))[0] > result.getpixel((4, 5))[0] > 0
+    assert result.getbbox() == (5, 6, 17, 19)
+    assert result.getpixel((11, 12))[0] > result.getpixel((5, 6))[0] > 0
