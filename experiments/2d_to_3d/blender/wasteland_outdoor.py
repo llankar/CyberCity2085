@@ -1031,18 +1031,24 @@ class WastelandOutdoors:
     def add_transit_south_carriage(self):
         # Follow the paired rails in the original south track bed. The sleepers
         # stay in the existing floor texture beneath the raised running surfaces.
-        for row in (468, 496):
+        rail_rows = (468, 496)
+        rail_top = .054
+        for row in rail_rows:
             x, y = self.coordinates(480, row)
-            box("South transit running rail", (x,y,.026),
-                (self.gw/2,.026,.028),self.steel,.006)
+            box("South transit running rail", (x,y,rail_top/2),
+                (self.gw/2,.026,rail_top/2),self.steel,.006)
         group = bpy.data.objects.new("South transit carriage", None)
         bpy.context.collection.objects.link(group)
-        x, y = self.coordinates(480, 477.5)
-        self.transit_train(group, x, y, 266*self.gw/self.cw, 49*self.gh/self.ch, 0, roofless=True)
+        x, y = self.coordinates(480, sum(rail_rows)/2)
+        half_gauge = (rail_rows[1]-rail_rows[0])*self.gh/(2*self.ch)
+        self.transit_train(group, x, y, 266*self.gw/self.cw, 49*self.gh/self.ch, 0,
+                           roofless=True, half_gauge=half_gauge, rail_top=rail_top)
 
-    def transit_train(self, group, x, y, length, width, yaw, *, roofless=False):
+    def transit_train(self, group, x, y, length, width, yaw, *, roofless=False,
+                      half_gauge=None, rail_top=0.0):
         group.location = (x,y,0)
         group.rotation_euler.z = yaw
+        wheel_offset = width*.33 if half_gauge is None else half_gauge
         box("Transit carriage underframe", (0,0,.37),
             (length*.48,width*.43,.14), self.dark).parent = group
         for end in (-1,1):
@@ -1061,7 +1067,7 @@ class WastelandOutdoors:
                 for side in (-1,1):
                     bpy.ops.mesh.primitive_cylinder_add(
                         vertices=12, radius=.16, depth=.085,
-                        location=((end*.30+offset)*length,side*width*.33,.16),
+                        location=((end*.30+offset)*length,side*wheel_offset,.16+rail_top),
                         rotation=(math.pi/2,0,0))
                     wheel = bpy.context.object
                     wheel.name = "Transit carriage wheel"

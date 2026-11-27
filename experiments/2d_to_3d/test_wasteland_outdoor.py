@@ -246,6 +246,13 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                            for i in column["children"]) == 3
             south = next(node for node in nodes if node["name"] == "South transit carriage")
             parts = [nodes[i]["name"] for i in south["children"]]
+            rail_centers = sorted(rail["translation"][2] for rail in rails)
+            wheels = [nodes[i] for i in south["children"]
+                      if nodes[i]["name"].startswith("Transit carriage wheel")]
+            assert len(wheels) == 8
+            wheel_centers = sorted(south["translation"][2] + wheel["translation"][2] for wheel in wheels)
+            assert wheel_centers == pytest.approx([center for center in rail_centers for _ in range(4)])
+            assert all(wheel["translation"][1] - .16 == pytest.approx(.054) for wheel in wheels)
             assert sum(part.startswith("Transit carriage recessed coupler") for part in parts) == 2
             assert sum(part.startswith("Transit carriage dead lamp") for part in parts) == 4
             assert sum(part.startswith("Exposed transit roof rib") for part in parts) == 3
