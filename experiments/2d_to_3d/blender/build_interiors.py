@@ -178,22 +178,29 @@ def build(name):
             top = [(x,y,partition_height if kind == "partition" else .42+(i%4)*.15)
                    for i,(x,y) in enumerate(outline)]
             mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
-            mesh.materials.append(steel)
-            mesh.materials.append(partition_cap)
-            for face in mesh.polygons[1:top_face_count]:
-                face.material_index = 1
-            if (textured_partitions or concrete_partitions) and kind == "partition":
+            concrete_rubble = concrete_partitions and kind == "rubble"
+            mesh.materials.append(aged_concrete if concrete_partitions else steel)
+            if not concrete_rubble:
+                mesh.materials.append(partition_cap)
+                for face in mesh.polygons[1:top_face_count]:
+                    face.material_index = 1
+            if concrete_partitions or (textured_partitions and kind == "partition"):
                 uv = mesh.uv_layers.new(name="Panel UV")
-                for edge, face in enumerate(mesh.polygons[2:]):
+                if concrete_rubble:
+                    for face in mesh.polygons[:top_face_count]:
+                        for loop in face.loop_indices:
+                            x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
+                            uv.data[loop].uv = (x/1.7,y/1.7)
+                for edge, face in enumerate(mesh.polygons[top_face_count:]):
                     start, end = outline[edge], outline[(edge+1) % count]
                     repeats = math.dist(start, end) / 1.7
+                    upper_left = top[edge][2]/1.5 if concrete_rubble else 1
+                    upper_right = top[(edge+1)%count][2]/1.5 if concrete_rubble else 1
                     for loop, coord in zip(face.loop_indices, (
-                        (0, 0), (repeats, 0), (repeats, 1), (0, 1)
+                        (0, 0), (repeats, 0), (repeats, upper_right), (0, upper_left)
                     )):
                         uv.data[loop].uv = coord
-                if concrete_partitions:
-                    mesh.materials[0] = aged_concrete
-                else:
+                if not concrete_partitions:
                     partition_meshes.append(mesh)
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
