@@ -767,6 +767,26 @@ class WastelandOutdoors:
             self.concrete_box("Scavenger broken perimeter pier",
                               (x+outside*width*.39,y+depth*offset,height/2),
                               (width*.07,depth*.09,height/2)).parent = group
+        # Keep the fracture within the surveyed perimeter and leave the
+        # inner side of the footprint open toward the stalls.
+        profile = [(-.42,0), (.41,0), (.41,.92), (.26,1.12), (.12,.76),
+                   (-.03,1.43), (-.19,1.04), (-.42,1.22)]
+        vertices = [(x+outside*width*edge, y+depth*along, z)
+                    for edge in (.35,.43) for along,z in profile]
+        count = len(profile)
+        faces = [tuple(reversed(range(count))), tuple(range(count,2*count))]
+        for index in range(count):
+            following = (index+1)%count
+            faces.append((index,following,following+count,index+count))
+        if outside < 0:
+            faces = [face[::-1] for face in faces]
+        mesh = bpy.data.meshes.new("Scavenger fractured perimeter wall")
+        mesh.from_pydata(vertices, [], faces)
+        self.project_concrete_uv(mesh)
+        mesh.materials.append(self.aggregate)
+        wall = bpy.data.objects.new(mesh.name, mesh)
+        bpy.context.collection.objects.link(wall)
+        wall.parent = group
         for offset, tilt in ((-.24,.22), (.19,-.37)):
             slab = self.concrete_box("Scavenger fallen floor panel",
                                      (x+outside*width*.08,y+depth*offset,.56),
