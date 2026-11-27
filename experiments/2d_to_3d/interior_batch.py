@@ -7,6 +7,12 @@ import sys
 ROOT = Path(__file__).resolve().parent
 MAPS = ROOT.parents[1] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors")
+CONCRETE_FLOOR_REPAIR_MAPS = {
+    "city_industrial_service_tunnel",
+    "cybercity_inner_12_maintenance_tunnel",
+    "wasteland_inner_02_collapsed_tunnel",
+    "wasteland_inner_07_collapsed_tunnel",
+}
 AGED_CONCRETE_INTERIORS = ("_bunker_command_post", "_underground_market", "_ruined_clinic",
                           "_collapsed_tunnel", "_looted_vault", "_maintenance_depot",
                           "_abandoned_safehouse", "_apartment_shelter")
@@ -271,7 +277,7 @@ def main():
         floor_command = [sys.executable, str(ROOT / "prepare_floor248.py"), "--map", name,
                          "--output", str(OUTPUT / name), "--objects", ",".join(selected),
                          "--include-side-walls"]
-        if name == "city_industrial_service_tunnel":
+        if name in CONCRETE_FLOOR_REPAIR_MAPS:
             concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001/diff.jpg"
             floor_command += ["--surface-detail", str(concrete)]
         if decorative:
