@@ -196,13 +196,15 @@ def main():
     if args.map.endswith("_scavenger_plaza"):
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
-        market_repairs = np.zeros_like(mask)
+        plaza_repairs = np.zeros_like(mask)
         for row in survey["walls"]:
-            if row["id"].startswith("market_") and "rect" in row:
+            identifier = row["id"]
+            if (identifier.startswith("market_") or "ruin" in identifier
+                    or identifier == "ne_corner") and "rect" in row:
                 x1,y1,x2,y2 = row["rect"]
-                market_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
+                plaza_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
         paving = original.crop((round(443*sx),round(309*sy),round(488*sx),round(350*sy)))
-        result = restore_surface_detail(result, market_repairs & mask, paving, round(42*sx))
+        result = restore_surface_detail(result, plaza_repairs & mask, paving, round(42*sx))
     if args.map == "wasteland_outdoor_12_salt_flat_ambush":
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
