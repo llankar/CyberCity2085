@@ -1219,10 +1219,20 @@ class WastelandOutdoors:
             edge_midpoints = [(center,-depth,1.065), (center+half,0,1.08),
                               (center,depth,1.035), (center-half,0,1.075)]
             ridge = (center+half*.14,width*.06,1.30+index*.035)
-            mesh.from_pydata(corners+edge_midpoints+[ridge], [],
-                             [(i,4+i,8) for i in range(4)] +
-                             [(4+i,(i+1)%4,8) for i in range(4)])
+            vertices = corners+edge_midpoints+[ridge]
+            faces = [(i,4+i,8) for i in range(4)] + [(4+i,(i+1)%4,8) for i in range(4)]
+            patch = faces.pop((len(name)+index)%len(faces))
+            center_point = sum((Vector(vertices[i]) for i in patch), Vector((0,0,0)))/3
+            vertices.extend(center_point.lerp(Vector(vertices[i]), .67) for i in patch)
+            for edge in range(3):
+                following = (edge+1)%3
+                faces.append((patch[edge],patch[following],9+following,9+edge))
+            faces.append((9,10,11))
+            mesh.from_pydata(vertices, [], faces)
             mesh.materials.append(self.stall_fabric[fabric])
+            repair_fabric = "sand" if fabric in {"blue", "rust"} else "olive" if fabric == "sand" else "rust"
+            mesh.materials.append(self.stall_fabric[repair_fabric])
+            mesh.polygons[-1].material_index = 1
             cloth = bpy.data.objects.new("Salvaged canopy "+fabric, mesh)
             bpy.context.collection.objects.link(cloth)
             cloth.parent = group

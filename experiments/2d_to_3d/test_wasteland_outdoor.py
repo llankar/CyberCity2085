@@ -258,8 +258,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 for index in stall["children"]:
                     cloth = nodes[index]
                     if cloth["name"].split()[:2] == ["Salvaged", "canopy"] and not cloth["name"].startswith("Salvaged canopy post"):
-                        primitive = data["meshes"][cloth["mesh"]]["primitives"][0]
-                        assert data["accessors"][primitive["indices"]]["count"] == 24
+                        shell, patch = data["meshes"][cloth["mesh"]]["primitives"]
+                        assert data["accessors"][shell["indices"]]["count"] == 39
+                        assert data["accessors"][patch["indices"]]["count"] == 3
             for row in surveyed:
                 if row["id"] not in {"northeast_barricade", "southwest_barricade"}:
                     continue
