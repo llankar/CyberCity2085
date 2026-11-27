@@ -173,6 +173,9 @@ def test_holo_square_exports_occludable_obstacles_and_landmark():
     roots = {node["name"]: node["children"] for node in nodes
              if node["name"].startswith("Occludable_")}
     assert len(roots) == 39
+    for building in ("building_east", "building_se"):
+        assert any(nodes[index]["name"] == f"{building} surveyed roof HVAC"
+                   for index in roots[f"Occludable_{building}"])
     benches = [children for name, children in roots.items() if name.startswith("Occludable_bench_")]
     assert len(benches) == 14
     assert all(any(" seat panel" in nodes[index]["name"] for index in children) for children in benches)

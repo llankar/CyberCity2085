@@ -58,6 +58,10 @@ TRANSIT_11_ROOF_FANS = {
     "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
+    "city_district_holo_square": {
+        "building_east": ((1790, 434, 1874, 479),),
+        "building_se": ((1818, 774, 1875, 855),),
+    },
     "city_exterior_downtown_intersection": {
         "northwest_roof": ((175, 1, 211, 23),),
         "northeast_roof": ((618, 1, 653, 28),),

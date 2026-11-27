@@ -1923,3 +1923,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-PARKING-ROOF-VENTILATION / DONE for the northwest paired fans. Fitted the shared 3D twin-fan asset and a solid mounting curb to the original painted marking, within the roof cutaway group. Rebuilt on E:, captured Godot and passed 26 urban tests. Next: inspect the roof equipment across another map family.
 
 - EXPERIMENTAL-DOWNTOWN-ROOF-VENTILATION / DONE. Reused the fitted twin-fan assembly over three painted ventilation outlines on the northwest roof, northeast roof and southwest annex. Kept each in its roof cutaway. Rebuilt on E:, captured Godot and passed 26 urban tests. Next: compare surveyed rooftop fixtures as a batch on neighboring urban maps.
+
+- EXPERIMENTAL-HOLO-ROOF-VENTILATION / DONE. Fitted two twin-fan units to clearly visible paired fan outlines on the east and southeast polygon roofs. Reused the mounting curb and independent building cutaways. Rebuilt on E:, opened Godot and passed 26 urban tests. Corporate Plaza pair placement was left open pending a clearer source match. Next: tackle another high-impact exterior feature.
