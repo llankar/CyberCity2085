@@ -91,7 +91,8 @@ for group in [obj for obj in bpy.data.objects if obj.name.startswith("Occludable
     faces = []
     for rib in range(12):
         t = .16 + rib*.054
-        lift = .05 + (.037 if rib % 2 else 0)
+        # The valleys rest on the slab while the corrugation ridges stay raised.
+        lift = .012 + (.037 if rib % 2 else 0)
         # Preserve the slab outline while giving the torn sheet a wider end
         # and a staggered edge. Barycentric weights remain positive.
         outer_edge = min(.41 + (.022 if rib % 3 == 0 else 0), .96-t)
