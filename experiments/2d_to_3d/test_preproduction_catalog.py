@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import re
+import struct
 
 import pytest
 
@@ -61,3 +62,19 @@ def test_local_catalogue_exports_exist():
     missing = [entry["map"] for entry in entries
                if not catalogue_environment(entry["map"]).is_file()]
     assert not missing, missing
+
+
+def test_freeway_feeder_ramps_have_closed_decks():
+    model = catalogue_environment("cybercity_street_08_elevated_freeway")
+    if not model.is_file():
+        pytest.skip("Local freeway export is unavailable")
+    with model.open("rb") as stream:
+        magic, _, _, size, chunk = struct.unpack("<4sIII4s", stream.read(20))
+        assert (magic, chunk) == (b"glTF", b"JSON")
+        data = json.loads(stream.read(size))
+    for label in ("West feeder ramp deck", "East feeder ramp deck"):
+        ramp = next(node for node in data["nodes"] if node["name"] == label)
+        top, shell = data["meshes"][ramp["mesh"]]["primitives"]
+        top_triangles = data["accessors"][top["indices"]]["count"] // 3
+        shell_indices = data["accessors"][shell["indices"]]["count"]
+        assert shell_indices == 3*top_triangles + 6*(top_triangles+2), label

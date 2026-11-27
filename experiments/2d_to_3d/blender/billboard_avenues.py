@@ -200,6 +200,7 @@ def build_freeway_ramps(floor, wall, grid, canvas, traces, rail_rows):
         faces = list(tessellate_polygon([points]))
         top_count = len(faces)
         faces.extend(((i+1)%count,i,i+count,(i+1)%count+count) for i in range(count))
+        faces.extend(tuple(index+count for index in reversed(face)) for face in faces[:top_count])
         mesh = bpy.data.meshes.new(identifier+" deck")
         mesh.from_pydata([(p.x,p.y,z) for z in (top,bottom) for p in points], [], faces)
         mesh.materials.append(floor)
