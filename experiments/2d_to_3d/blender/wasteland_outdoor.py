@@ -1211,7 +1211,12 @@ class WastelandOutdoors:
                      (length*.022,width*.34,.03), self.steel)
         else:
             part("Covered wagon body", 0,0,.81, (length*.443,width*.416,.405), self.steel)
-            part("Covered wagon roof", 0,0,1.245, (length*.461,width*.439,.066), self.dark)
+            part("Covered wagon roof", 0,0,1.245, (length*.461,width*.439,.066), self.steel)
+            for seam in (-.34, -.17, 0, .17, .34):
+                part("Covered wagon roof seam", seam*length,0,1.315,
+                     (.018,width*.425,.013), self.dark)
+            part("Covered wagon replacement roof sheet", length*.24,width*.08,1.318,
+                 (length*.067,width*.27,.014), self.dark)
             for side in (-1,1):
                 part("Wagon sliding door", 0,side*width*.423,.803,
                      (length*.164,width*.025,.307), self.dark)
