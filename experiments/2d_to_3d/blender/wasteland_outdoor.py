@@ -686,6 +686,8 @@ class WastelandOutdoors:
                 for index in range(3):
                     if self.ruined_downtown and index == 1:
                         continue
+                    if self.flooded_square and index == 1 and side == (-1 if y > 0 else 1):
+                        continue
                     if self.burned_market and side == (-1 if name.startswith("n") else 1):
                         if index == (0 if name.startswith(("nw", "sw")) else 1):
                             continue
@@ -993,6 +995,11 @@ class WastelandOutdoors:
             box("Flooded ruin exposed column",
                 (x+width*offset, y+street*depth*.28, height/2),
                 (.071,.071,height/2), self.steel).parent = group
+        lintel = box("Flooded ruin tilted facade lintel",
+                     (x-width*.015,y+street*depth*.28,1.485),
+                     (width*.31,.067,.058), self.steel,.014)
+        lintel.rotation_euler.y = math.atan2(.25,width*.61)
+        lintel.parent = group
         floor = self.concrete_box("Flooded ruin fallen upper floor",
                                   (x-width*.14, y-street*depth*.16, .63),
                                   (width*.23,depth*.20,.09))
