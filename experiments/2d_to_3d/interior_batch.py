@@ -12,6 +12,8 @@ CONCRETE_FLOOR_REPAIR_MAPS = {
     "cybercity_inner_12_maintenance_tunnel",
     "wasteland_inner_02_collapsed_tunnel",
     "wasteland_inner_07_collapsed_tunnel",
+    "wasteland_inner_06_maintenance_depot",
+    "wasteland_inner_11_maintenance_depot",
 }
 AGED_CONCRETE_INTERIORS = ("_bunker_command_post", "_underground_market", "_ruined_clinic",
                           "_collapsed_tunnel", "_looted_vault", "_maintenance_depot",
@@ -170,6 +172,8 @@ def fixtures(name):
             selected[identifier] = "command_table"
         elif name.endswith("_looted_vault") and identifier.startswith("table_"):
             selected[identifier] = "vault_display"
+        elif name.endswith("_maintenance_depot") and identifier.endswith("_workbench"):
+            selected[identifier] = "workbench"
         elif name.endswith("_ruined_clinic") and identifier == "reception":
             selected[identifier] = "clinic_reception"
         elif (name == "cybercity_inner_08_police_records" and identifier.startswith("desk_")) or (

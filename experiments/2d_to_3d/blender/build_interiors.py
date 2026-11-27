@@ -113,8 +113,9 @@ def build(name):
     looted_vault = name.endswith("_looted_vault")
     if looted_vault:
         steel = make_material("Vault oxidized steel", (.051,.045,.037,1), .46,.78)
-    exposed_concrete_walls = apartment_shelter or looted_vault or name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
-    continuous_wall_uvs = exposed_concrete_walls or name.endswith("_maintenance_depot")
+    exposed_concrete_walls = apartment_shelter or looted_vault or name.endswith(
+        ("_collapsed_tunnel", "_ruined_clinic", "_maintenance_depot")
+    )
     concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
     if concrete_partitions:
         aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
@@ -265,7 +266,7 @@ def build(name):
                         (u_start, 0), (u_start+repeats, 0), (u_start+repeats, upper_right), (u_start, upper_left)
                     )):
                         uv.data[loop].uv = coord
-                    if continuous_wall_uvs:
+                    if exposed_concrete_walls:
                         u_start += repeats
                 if not concrete_partitions:
                     partition_meshes.append(mesh)
