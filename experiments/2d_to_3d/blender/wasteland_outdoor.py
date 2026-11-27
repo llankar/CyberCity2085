@@ -134,6 +134,7 @@ class WastelandOutdoors:
                 for a, b in zip(face, face[1:]+face[:1]):
                     if a//2 != b//2 or min(a,b) in (0,bottom-2):
                         faces.append((b,a,a+bottom,b+bottom))
+                faces.append(tuple(index+bottom for index in reversed(face)))
             name = f"Collapsed overpass ramp {number}"
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)

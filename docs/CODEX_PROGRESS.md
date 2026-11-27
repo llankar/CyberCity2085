@@ -1707,3 +1707,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TOP-DOWN-COMPARISONS / DONE for the six-map art batch. Captured all six in Godot orthographic top-down mode and packaged original-vs-top-down Full HD plates on E: with --top-down. Kept the isometric gallery alongside it. Next: compare footprint coverage and select a larger mismatch to fix.
 
 - EXPERIMENTAL-TOP-DOWN-GRID-ALIGNMENT / DONE. The overpass comparison revealed different map widths caused by Godot viewport margins and the original image aspect ratio. Crop the orthographic capture to the tactical grid and present both sides at the same cell scale. Regenerated the six comparison sheets on E:. Next: use grid-aligned plates for the next environment geometry batch.
+
+- EXPERIMENTAL-OVERPASS-RAMP-UNDERSIDES / DONE. Closed the undersides of the four curved ramps using the existing deck sections. Rebuilt the shared 03/08 GLB on E:. Ten Wasteland tests passed, including a shell index count that checks both end caps, both sides, and all underside sections. Next: review the elevated street and bridge families for related geometry defects.

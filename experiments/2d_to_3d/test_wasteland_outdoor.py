@@ -229,6 +229,10 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
         surface = data["accessors"][primitives[0]["attributes"]["POSITION"]]
         assert surface["min"][1] == pytest.approx(.008)
         assert surface["max"][1] == pytest.approx(.20)
+        # Each deck section has two side quads and one underside quad.
+        deck_indices = data["accessors"][primitives[0]["indices"]]["count"]
+        shell_indices = data["accessors"][primitives[1]["indices"]]["count"]
+        assert shell_indices == 3*deck_indices + 12  # two end caps
     for obstacle in ("collapsed_center_span", "collapsed_north_span"):
         assert f"Occludable_{obstacle}" in root_nodes
         fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
