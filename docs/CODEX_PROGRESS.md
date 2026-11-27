@@ -1719,3 +1719,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FREEWAY-REAR-FACADES / DONE for geometry. Reused the upper window module above rear service doors and added utility conduits to taller freeway buildings. Rebuilt three canonical GLBs on E: and passed four catalogue tests. Rear appearance still needs an opposite-angle review. Next: apply the shared material treatment to another transport family.
 
 - EXPERIMENTAL-TRANSIT-FACADES / DONE for shared world-scaled facade materials and alternating upper windows. Rebuilt both distinct Transit Interchange GLBs (06 and 11) on E:; 12 shares the 11 model. Captured both low views in Godot and passed four catalogue tests. Next: address repetition in the transport roofs or another map family.
+
+- EXPERIMENTAL-TRANSIT-ROOF-EQUIPMENT / DONE for the first two surveyed units. Matched the existing roof fan model to two footprints on the northern buildings of the 11/12 original. Rebuilt the shared GLB on E:, rendered 305 meshes in Godot and passed four catalogue tests. Next: prioritize remaining transport roof fixtures with a broader batch.

@@ -39,6 +39,10 @@ MARKET_07_08_ROOF_FANS = {
     "ne_block": ((708, 44, 742, 86),),
     "west_mid_block": ((38, 240, 70, 298),),
 }
+TRANSIT_11_ROOF_FANS = {
+    "nw_block": ((106, 16, 137, 43),),
+    "north_block": ((247, 8, 280, 35),),
+}
 ROOF_FANS_BY_MAP = {
     "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,
     "cybercity_street_15_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
@@ -46,6 +50,7 @@ ROOF_FANS_BY_MAP = {
     "cybercity_street_02_neon_market_alley": MARKET_02_ROOF_FANS,
     "cybercity_street_07_neon_market_alley": MARKET_07_08_ROOF_FANS,
     "cybercity_street_08_neon_market_alley": MARKET_07_08_ROOF_FANS,
+    "cybercity_street_11_transit_interchange": TRANSIT_11_ROOF_FANS,
 }
 
 BUILDING_EXCEPTIONS = {
