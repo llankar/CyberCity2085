@@ -1905,3 +1905,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-HOLO-SQUARE-SIGN-KIOSKS / DONE. Compared the four original kiosks and replaced single planar displays with taller angled housings and two lit faces each. Matched the southwest magenta accent and retained the original cutaway roots. Rebuilt on E:, captured Godot and passed 23 urban tests. Next: inspect the central hologram silhouette against its original plinth.
 
 - EXPERIMENTAL-HOLO-SQUARE-PLINTH / DONE. Added two octagonal tiers below the emitter and lifted the projection to meet the rebuilt pedestal. Re-exported on E:, captured Godot and passed 23 facade tests. Next: inspect another underworked urban family.
+
+- EXPERIMENTAL-CORPORATE-PLAZA-ENTRANCES / DONE. Added six plaza-facing tower entrances, with glazed surrounds, canopies and west magenta/east cyan lighting based on the source. Rebuilt the experimental GLB on E:, rendered Godot and passed 24 urban tests. Next: compare the central monument silhouette to the original.

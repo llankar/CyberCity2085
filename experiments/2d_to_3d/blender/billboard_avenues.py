@@ -958,6 +958,18 @@ def build(name):
         direction = -1 if y > 0 else 1
         front = y + direction*d/2
         angle = 0 if direction < 0 else math.pi
+        if name == "city_exterior_corporate_plaza" and "_tower_" in identifier:
+            inward = 1 if identifier.startswith("west") else -1
+            entrance_x = x+inward*w/2
+            entry_width = min(.65,d*.16)
+            box(identifier+" plaza entrance surround", (entrance_x+inward*.05,y,.99),
+                (.075,entry_width, .99),frame,.023).parent = group
+            box(identifier+" plaza entrance glazing", (entrance_x+inward*.128,y,.95),
+                (.022,entry_width*.83,.86),wall,.012).parent = group
+            box(identifier+" plaza entrance canopy", (entrance_x+inward*.19,y,2.03),
+                (.22,entry_width*1.16,.075),frame,.016).parent = group
+            box(identifier+" plaza entrance light", (entrance_x+inward*.40,y,2.015),
+                (.024,entry_width*.99,.029),signs[1 if inward > 0 else 0],.007).parent = group
         if civic:
             for side in (-1,1):
                 box(identifier+" civic roof coping", (x,y+side*(d/2-.055),height+.046),

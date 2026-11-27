@@ -8,6 +8,23 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def test_corporate_plaza_tower_entrances_face_the_square():
+    path = catalogue_environment("city_exterior_corporate_plaza")
+    if not path.is_file():
+        pytest.skip("Build Corporate Plaza on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    for side, inward in (("west", 1), ("east", -1)):
+        for position in ("north", "middle", "south"):
+            label = f"{side}_tower_{position}"
+            root = next(node for node in nodes if node["name"] == f"Occludable_{label}")
+            parts = {nodes[index]["name"]: nodes[index] for index in root["children"]}
+            surround = parts[f"{label} plaza entrance surround"]
+            light = parts[f"{label} plaza entrance light"]
+            assert (light["translation"][0] - surround["translation"][0])*inward > 0
+
+
 @pytest.mark.parametrize("name", [
     "city_exterior_billboard_avenue",
     "cybercity_street_15_billboard_avenue",
