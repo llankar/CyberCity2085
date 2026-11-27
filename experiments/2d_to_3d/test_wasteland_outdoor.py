@@ -29,6 +29,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_burned_market_block"):
+            for row in surveyed:
+                if row["id"].endswith("_ruin") or row["id"] == "ne_corner":
+                    ruin = next(node for node in nodes if node["name"] == f"Occludable_{row['id']}")
+                    parts = [nodes[index]["name"] for index in ruin["children"]]
+                    assert sum(part.startswith("Exposed market roof joist") for part in parts) == 2
+                    assert sum(part.startswith("Fallen market floor fragment") for part in parts) == 3
             for identifier, has_canvas in (("stall_w", False), ("stall_middle", True)):
                 stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 parts = [nodes[index]["name"] for index in stall["children"]]

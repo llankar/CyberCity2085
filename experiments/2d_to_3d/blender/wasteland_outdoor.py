@@ -336,12 +336,32 @@ class WastelandOutdoors:
             self.concrete_box(name+" end wall", (x-w*.405,y,.51), (w*.058,d*.36,.51), .065).parent = group
             if self.ruined_downtown:
                 self.downtown_exposed_frame(group, name, x, y, w, d)
+            elif self.burned_market:
+                self.burned_market_ruin(group, name, x, y, w, d)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def burned_market_ruin(self, group, name, x, y, width, depth):
+        street = -1 if name.startswith("n") else 1
+        level = 1.88 if name in {"nw_ruin", "ne_corner", "sw_ruin", "se_ruin"} else 1.48
+        for side in (-1, 1):
+            box("Exposed market roof joist", (x+side*width*.33, y, level),
+                (.055, depth*.38, .065), self.steel).parent = group
+            box("Burned market corner post",
+                (x+side*width*.33, y-street*depth*.33, level/2),
+                (.080, .080, level/2), self.dark).parent = group
+        box("Surviving market crossbeam", (x, y-street*depth*.31, level),
+            (width*.37, .060, .080), self.steel).parent = group
+        for offset, height in ((-.25,.17), (.03,.28), (.30,.12)):
+            piece = self.concrete_box("Fallen market floor fragment",
+                                      (x+width*offset, y+street*depth*.08, .32+height),
+                                      (width*.11, depth*.16, .065))
+            piece.rotation_euler.y = offset
+            piece.parent = group
 
     def burned_market_stall(self, group, name, x, y, length, width, yaw):
         group.location = (x, y, 0)
