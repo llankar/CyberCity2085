@@ -12,6 +12,7 @@ from library_placement import place, reset_library_cache
 from loading_crane import build_crane
 from shipping_container import build_container
 from wasteland_outdoor import WastelandOutdoors
+from industrial_forklift import build_forklift
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
@@ -296,20 +297,7 @@ def build(name):
                   (max(w,d),min(w,d),1.7), yaw=math.pi/2 if vertical else 0)
             continue
         if identifier.startswith("forklift_"):
-            vertical = d > w
-            length, width = (d,w) if vertical else (w,d)
-            group.location = (x,y,0)
-            group.rotation_euler.z = math.pi/2 if vertical else 0
-            skin = shipping_skins[1]
-            parts = [
-                ("counterweight", (-length*.19,0,.28), (length*.27,width*.40,.23), skin),
-                ("cab", (-length*.11,0,.66), (length*.21,width*.32,.24), frame),
-                ("mast", (length*.14,0,.58), (.055,width*.31,.57), frame),
-            ]
-            parts.extend(("fork", (length*.30,width*side*.19,.09),
-                          (length*.19,width*.064,.034), frame) for side in (-1,1))
-            for label, position, size, material in parts:
-                box(identifier + " " + label, position, size, material).parent = group
+            build_forklift(group, identifier, x, y, w, d, shipping_skins[1], frame)
             continue
         if identifier.startswith(("car_", "north_car", "south_car")) or identifier.endswith("_car"):
             vertical = d > w

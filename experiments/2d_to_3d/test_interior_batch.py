@@ -111,3 +111,9 @@ def test_warehouse_racks_export_stock_under_each_rack_occluder():
         cargo = [nodes[index] for index in rack["children"] if " shelf cargo" in nodes[index]["name"]]
         assert len(cargo) == 6
         assert len({round(item["translation"][1], 2) for item in cargo}) == 3
+    forklifts = [node for node in nodes if node["name"].startswith("Occludable_forklift_")]
+    assert len(forklifts) == 4
+    for forklift in forklifts:
+        parts = [nodes[index]["name"] for index in forklift["children"]]
+        assert sum(" fork" in part for part in parts) == 2
+        assert sum(" wheel" in part for part in parts) == 4

@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 from library_placement import place
 from interior_furniture import build_rack
+from industrial_forklift import build_forklift
 from shipping_container import build_container
 
 started = time.perf_counter()
@@ -30,13 +31,14 @@ bpy.context.preferences.filepaths.save_version = 0
 steel = make_material("Warehouse rack steel", (.075,.11,.15,1), .65,.48)
 beam = make_material("Warehouse rack safety beam", (.52,.17,.028,1), .45,.48)
 container_skin = make_material("Weathered container green", (.062,.15,.14,1), .65,.63)
-cargo_count = wall_count = rack_count = container_count = rack_cargo_count = 0
+cargo_count = wall_count = rack_count = container_count = rack_cargo_count = forklift_count = 0
 for row in survey["walls"]:
     identifier = row["id"]
     is_wall = identifier.endswith("_wall")
     is_rack = identifier.startswith("row")
     is_container = identifier.startswith("west_container_")
-    if not (is_wall or is_rack or is_container or "crate" in identifier):
+    is_forklift = identifier.startswith("forklift_")
+    if not (is_wall or is_rack or is_container or is_forklift or "crate" in identifier):
         continue
     x1, y1, x2, y2 = row["rect"]
     w, d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
@@ -53,6 +55,9 @@ for row in survey["walls"]:
             place(wall, group, (x if vertical else x+offset, y+offset if vertical else y, 0),
                   (span, thickness, 1.7), yaw=math.pi/2 if vertical else 0)
             wall_count += 1
+    elif is_forklift:
+        build_forklift(group, identifier, x, y, w, d, beam, steel)
+        forklift_count += 1
     elif is_container:
         build_container(group, x, y, w, d, container_skin, steel, beam)
         container_count += 1
@@ -96,6 +101,6 @@ elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
     "map":name, "cargo_instances":cargo_count, "wall_instances":wall_count, "rack_instances":rack_count, "rack_cargo_instances":rack_cargo_count, "container_instances":container_count,
     "reused_model_families":2, "new_model_families":2, "blender_seconds":elapsed,
-    "remaining":"forklifts, office, stairs and loading bay"
+    "forklift_instances":forklift_count, "remaining":"office, stairs and loading bay"
 }, indent=2))
 print("WAREHOUSE333_EXPORTED", cargo_count, wall_count, elapsed)
