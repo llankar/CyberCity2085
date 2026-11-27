@@ -1763,6 +1763,19 @@ class WastelandOutdoors:
                      (length*.12,.024,.033), self.dark,.011)
             part("Wreck front bumper", (length*.484,0,.45),
                  (.013,width*.42,.052), self.dark,.012)
+        if self.convoy_crossing:
+            part("Convoy radiator grille", (length*.485,0,.702),
+                 (.014,width*.227,.071), self.dark,.011)
+            for elevation in (.668,.700,.732):
+                part("Convoy grille louver", (length*.488,0,elevation),
+                     (.008,width*.204,.006), self.steel,.004)
+            for side in (-1,1):
+                part("Convoy headlamp housing", (length*.485,side*width*.324,.701),
+                     (.013,width*.057,.042), self.dark,.010)
+                part("Convoy headlamp lens", (length*.489,side*width*.324,.701),
+                     (.009,width*.041,.023), self.steel,.006)
+                part("Convoy cab access step", (length*.32,side*width*.449,.491),
+                     (length*.093,.036,.025), self.dark,.009)
         part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
         # Keep the wheel tops above the chassis underside at .31 m.
         wheel_radius = min(.30,max(.17,width*.19))
