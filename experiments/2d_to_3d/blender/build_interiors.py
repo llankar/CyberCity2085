@@ -781,6 +781,20 @@ def build(name):
         for mesh in partition_meshes:
             mesh.materials[0] = wall_finish
 
+    if relay_room:
+        partitions = {row["id"]: row for row in survey["walls"]}
+        for side in ("west", "east"):
+            north = partitions[f"{side}_partition_n"]["points"][-1]
+            south = partitions[f"{side}_partition_s"]["points"][0]
+            x = (north[0]+south[0])*gw/(2*cw)-gw/2
+            y = gh/2-(north[1]+south[1])*gh/(2*ch)
+            half_span = (south[1]-north[1])*gh/(2*ch)-.20
+            box(f"Relay {side} doorway threshold", (x,y,.008),
+                (.17,half_span,.022),partition_cap,.009)
+            for edge in (-1,1):
+                box(f"Relay {side} threshold grip", (x+edge*.11,y,.032),
+                    (.016,half_span*.92,.008),rail,.004)
+
     if name == "city_transit_train_tunnel":
         # The two continuous tracks are visible in the source texture but have
         # no obstacle trace. Align the rails to the four painted running lines.

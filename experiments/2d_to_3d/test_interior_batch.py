@@ -601,6 +601,10 @@ def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
         assert banks <= {index for node in nodes if node["name"].startswith("Occludable_")
                          for index in node.get("children", [])}
         if map_name.endswith("_data_relay_room"):
+            for side in ("west", "east"):
+                threshold = next(node for node in nodes if node["name"] == f"Relay {side} doorway threshold")
+                assert "mesh" in threshold
+                assert threshold["translation"][1] < .02
             core = next(node for node in nodes if node["name"] == "Occludable_relay_core")
             cooling, = [nodes[index] for index in core["children"]
                         if nodes[index]["name"] == "Relay processor heatsinks"]
