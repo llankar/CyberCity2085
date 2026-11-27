@@ -131,6 +131,8 @@ def fixtures(name):
             selected[identifier] = safehouse_fixtures[identifier]
         elif identifier in room_fixtures:
             selected[identifier] = room_fixtures[identifier]
+        elif name == "city_transit_train_tunnel" and "_track_box" in identifier:
+            selected[identifier] = "rail_signal"
         elif plumbing_interior and "sink" in identifier:
             selected[identifier] = "bath_sink"
         elif plumbing_interior and "shower" in identifier:

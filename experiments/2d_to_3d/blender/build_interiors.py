@@ -333,6 +333,17 @@ def build(name):
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)
+        elif kind == "rail_signal":
+            panel_y = y+(.13 if identifier.startswith("south") else -.13)*d
+            box("Rail signal armored cabinet", (x,y,.31),
+                (w*.45,d*.43,.31), partition_cap,.032).parent = group
+            box("Rail signal panel bezel", (x,panel_y,.64),
+                (w*.39,d*.24,.029), steel,.016).parent = group
+            for side in (-1,1):
+                box("Rail signal indicator", (x+side*w*.17,panel_y,.676),
+                    (w*.105,d*.135,.009), rail if identifier.endswith("2") else screen,
+                    .006).parent = group
+            merge_fixture_meshes(group, "Trackside signal cabinet")
         elif kind == "diagnostic_bench":
             build_diagnostic_bench(group, x, y, w, d, partition_cap, steel, screen)
         elif kind == "operating_table":
