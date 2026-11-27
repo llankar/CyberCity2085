@@ -331,11 +331,16 @@ def main():
             cv2.fillPoly(wreck_repairs, [points], 255)
         result = restore_surface_detail(result, wreck_repairs & mask, road_sample, round(32*sx))
     if args.map == "wasteland_city_12_cratered_waterfront":
-        result = restore_donor_pavement(result, original, survey, {
+        water_donors = {
             "west_edge_wreck_art": (98, 472, 200, 535),
             "west_basin_wreck_art": (204, 418, 247, 468),
             "east_basin_wreck_art": (455, 421, 505, 473),
+        }
+        water_donors.update({
+            f"landing_skiff_{label}_art": (581, 355, 601, 380)
+            for label, *_ in SKIFFS
         })
+        result = restore_donor_pavement(result, original, survey, water_donors)
     if args.map == "city_industrial_dockside_terminal":
         result = restore_donor_pavement(result, original, survey, {
             "North moored cargo vessel": (264, 444, 322, 604),
