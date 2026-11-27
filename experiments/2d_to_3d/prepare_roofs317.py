@@ -1,4 +1,4 @@
-"""Clean only the six residential roof fixtures replaced by geometry."""
+"""Clean only the surveyed residential roof fixtures replaced by geometry."""
 import json
 from pathlib import Path
 
