@@ -88,7 +88,17 @@ for identifier, (x1,y1,x2,y2), _, *variant in survey["fans"]:
     height = max((roof.matrix_world @ vertex.co).z for vertex in roof.data.vertices)
     center = ((x1+x2)*gw/(2*cw)-gw/2, gh/2-(y1+y2)*gh/(2*ch), height)
     width, depth = (x2-x1)*gw/cw, (y2-y1)*gh/ch
-    if variant == ["single"]:
+    if variant == ["cabinet"]:
+        x,y,z = center
+        steel = bpy.data.materials["Residential dark service trim"]
+        parts = [box("Cabinet enclosure", (x,y,z+.19),
+                     (width*.44,depth*.43,.19),steel,.026)]
+        for offset in (-.25,0,.25):
+            parts.append(box("Cabinet louvre", (x,y-depth*.435,z+.23+offset*.38),
+                             (width*.34,.026,.022),cladding[0],.008))
+        parts.append(box("Cabinet lid", (x,y,z+.39),
+                         (width*.47,depth*.46,.028),cladding[0],.012))
+    elif variant == ["single"]:
         x,y,z = center
         steel = bpy.data.materials["Residential dark service trim"]
         parts = [box("Single extractor housing", (x,y,z+.12), (width*.46,depth*.46,.12),steel,.035)]
@@ -103,17 +113,21 @@ for identifier, (x1,y1,x2,y2), _, *variant in survey["fans"]:
                         (radius*.87,.034,.014),cladding[0],.008)
             blade.rotation_euler.z = index*math.pi/3
             parts.append(blade)
+    else:
+        parts = place(fan, group, center, (width, depth, .42))
+    if variant:
         for part in parts:
             part.parent = group
             part.matrix_parent_inverse = group.matrix_world.inverted()
-    else:
-        parts = place(fan, group, center, (width, depth, .42))
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
         part.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]
     bpy.ops.object.join()
-    bpy.context.object.name = "Residential rooftop single fan" if variant else "Residential rooftop twin fan"
+    bpy.context.object.name = {
+        "single": "Residential rooftop single fan",
+        "cabinet": "Residential rooftop service cabinet",
+    }[variant[0]] if variant else "Residential rooftop twin fan"
 
 roof_material = bpy.data.materials["Original residential roof artwork"]
 texture = next(node for node in roof_material.node_tree.nodes if node.type == "TEX_IMAGE")
