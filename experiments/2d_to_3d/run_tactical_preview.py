@@ -161,7 +161,9 @@ def battlefield_presentation(map_key: str) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--map", choices=scenario_maps(), help="Skip the map selection screen")
-    parser.add_argument("--smoke", action="store_true")
+    checks = parser.add_mutually_exclusive_group()
+    checks.add_argument("--smoke", action="store_true")
+    checks.add_argument("--benchmark", action="store_true", help="Measure an uncapped camera orbit")
     args = parser.parse_args()
     temp_root = LAB / "tmp"
     temp_root.mkdir(parents=True, exist_ok=True)
@@ -175,7 +177,8 @@ def main() -> int:
             })
         scene = "tactical_battlefield" if map_key else "tactical_menu"
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,
-                   CYBERCITY_TACTICAL_SMOKE="1" if args.smoke else "0")
+                   CYBERCITY_TACTICAL_SMOKE="1" if args.smoke else "0",
+                   CYBERCITY_TACTICAL_BENCHMARK="1" if args.benchmark else "0")
         command = ["powershell.exe", "-NoProfile", "-File", str(Path(__file__).with_name("run_godot.ps1")),
                    "-Scene", f"res://{scene}.tscn", "-RenderingMethod", "gl_compatibility"]
         if args.smoke:

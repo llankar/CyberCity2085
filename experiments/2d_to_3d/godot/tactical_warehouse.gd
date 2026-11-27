@@ -134,6 +134,8 @@ func _process(delta: float) -> void:
   status.text += "\n" + mailbox.message
  if state.outcome != null:
   status.text += "\n%s" % str(state.outcome).capitalize()
+ if last_sequence == 0 and OS.get_environment("CYBERCITY_TACTICAL_BENCHMARK") == "1":
+  run_render_benchmark()
  if smoke:
   match last_sequence:
    0:
@@ -243,6 +245,27 @@ func _process(delta: float) -> void:
     await get_tree().create_timer(.7).timeout
     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
+
+
+func run_render_benchmark() -> void:
+ DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+ for index in 45:
+  await get_tree().process_frame
+ var durations: Array[float] = []
+ var previous := Time.get_ticks_usec()
+ var initial_yaw := review_yaw
+ for index in 180:
+  review_yaw = initial_yaw + TAU * index / 180.0
+  update_review_camera()
+  await get_tree().process_frame
+  var current := Time.get_ticks_usec()
+  durations.append((current - previous) / 1000.0)
+  previous = current
+ durations.sort()
+ print("TACTICAL_FRAME_TIMES map=%s viewport=%s frames=%d median_ms=%.2f p95_ms=%.2f vsync=%d" % [
+  scenario_title, get_viewport().get_visible_rect().size, durations.size(),
+  durations[90], durations[170], DisplayServer.window_get_vsync_mode()])
+ get_tree().quit()
 
 
 func send(command: Dictionary) -> void:
