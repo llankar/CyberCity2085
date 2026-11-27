@@ -96,8 +96,8 @@ def build(name):
     }
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
-    collapsed_tunnel = name.endswith("_collapsed_tunnel")
-    continuous_wall_uvs = collapsed_tunnel or name.endswith(("_looted_vault", "_maintenance_depot"))
+    exposed_concrete_walls = name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
+    continuous_wall_uvs = exposed_concrete_walls or name.endswith(("_looted_vault", "_maintenance_depot"))
     concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
     if concrete_partitions:
         aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
@@ -225,7 +225,7 @@ def build(name):
                    for i,(x,y) in enumerate(outline)]
             mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
             concrete_rubble = concrete_partitions and kind == "rubble"
-            concrete_top = concrete_rubble or (concrete_partitions and collapsed_tunnel)
+            concrete_top = concrete_rubble or (concrete_partitions and exposed_concrete_walls)
             mesh.materials.append(aged_concrete if concrete_partitions else steel)
             if not concrete_top:
                 mesh.materials.append(partition_cap)
