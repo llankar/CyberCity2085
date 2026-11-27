@@ -274,6 +274,11 @@ def build_freeway_deck(floor, wall, frame, grid, canvas, rail_rows):
     pavement("South under-deck strip", south, south-recess, street_level)
     box("Freeway structural slab", (0,(north+south)/2,-.295),
         (gw/2,(north-south)/2,.27), wall,.035)
+    # Carry the deck load across the paired bearings at each pier station.
+    for index in range(8):
+        x = ((index+.5)/8-.5)*gw
+        box("Freeway transverse pier cap", (x,(north+south)/2,-.595),
+            (.30,(north-south)/2+.09,.077),frame,.025)
     for edge, side in ((north,1),(south,-1)):
         box("Freeway edge girder", (0,edge-side*.075,-.42),
             (gw/2,.10,.16), frame,.02)

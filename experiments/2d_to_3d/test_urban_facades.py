@@ -203,6 +203,7 @@ def test_freeway_rails_follow_survey_segments(variant):
                 if bounds["min"][2] < row+.5-gh/2 < bounds["max"][2]:
                     assert all((column,row) in blocked for column in range(gw))
     assert sum(node["name"].startswith("Freeway pier shaft") for node in nodes) == 16
+    assert sum(node["name"].startswith("Freeway transverse pier cap") for node in nodes) == 8
     rail_rows = {trace["id"]: trace["points"][0][1] for trace in survey["walls"] if "points" in trace}
     for side, rail, bound in (("West", "highway_south_rail", "min"),
                               ("East", "highway_north_rail", "max")):
