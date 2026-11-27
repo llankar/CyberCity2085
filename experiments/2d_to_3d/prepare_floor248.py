@@ -297,10 +297,14 @@ def main():
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
         crane_mask = np.zeros_like(mask)
+        cargo_mask = np.zeros_like(mask)
         paving_repairs = []
         paving_donors = {}
         paving_sample = (455,176,489,214)
         for row in survey["walls"]:
+            if row["id"].startswith(("crate_", "forklift_")) and "rect" in row:
+                x1,y1,x2,y2 = row["rect"]
+                cargo_mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)] = 255
             if row["id"].startswith("crane_"):
                 x1,y1,x2,y2 = row["rect"]
                 crane_mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)] = 255
@@ -312,11 +316,12 @@ def main():
                         paving_donors[label] = paving_sample
         for top, bottom in ((130,156), (328,352)):
             crane_mask[round(top*sy):round(bottom*sy)] = 0
+            cargo_mask[round(top*sy):round(bottom*sy)] = 0
         result = restore_donor_pavement(result, original, {**survey, "walls": paving_repairs},
                                         paving_donors)
         left, top, right, bottom = paving_sample
         sample = original.crop((round(left*sx),round(top*sy),round(right*sx),round(bottom*sy)))
-        result = restore_surface_detail(result, crane_mask & mask, sample, round(34*sx))
+        result = restore_surface_detail(result, (crane_mask | cargo_mask) & mask, sample, round(34*sx))
         # Continue the original sleeper pattern through the masked crossings.
         # Match the source row so both sides of each track stay aligned.
         crossing_donors = {
