@@ -1885,3 +1885,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INTERCHANGE-STREET-ENTRIES / DONE. Added framed doors and shallow canopies centered between the ground-floor windows of eligible Interchange facades. Rebuilt the two distinct exports on E: for Street 06, 11 and 12. Four focused tests passed and Street 11 rendered in Godot. Next: review facade composition in a different urban family.
 
 - EXPERIMENTAL-CIVIC-ROOF-COPING / DONE. Added low roof coping fitted to the rectangular and polygonal civic building shells. Rebuilt Riot Square, Civic Center and Civic Plaza 05/10/11 on E:. Twenty-two facade tests passed and Riot Square rendered in Godot. Next: inspect the roof silhouettes and record any remaining large flat fixtures.
+
+- EXPERIMENTAL-RIOT-SQUARE-ROOF-HVAC / DONE for the southeast twin fan. Reused the existing surveyed HVAC builder for the polygonal roof, with a fitted mounting curb over its painted footprint. Rebuilt on E:, rendered Godot and passed 22 facade tests. Other painted rooftop fixtures remain. Next: move to a map with larger flat landmarks.

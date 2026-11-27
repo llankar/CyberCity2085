@@ -58,6 +58,7 @@ TRANSIT_11_ROOF_FANS = {
     "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
+    "city_district_riot_square": {"east_south_building": ((1774, 950, 1882, 1008),)},
     "cybercity_street_12_industrial_district": {
         "nw_factory": ((210, 22, 264, 49),),
         "north_factory": ((331, 21, 355, 44),),
@@ -389,6 +390,20 @@ def build(name):
         wasteland.workshop_surface = roof
     bridge_access = name.endswith("_bridge_access")
     guardrail_steel = make_material("Galvanized guardrail steel", (.25,.30,.34,1), .73,.53) if freeway or bridge_access else None
+    def add_roof_fans(identifier, group, height):
+        roof_fans = ROOF_FANS_BY_MAP.get(name, {}).get(identifier, ())
+        for left, top, right, bottom in roof_fans:
+            fan_x = (left+right)*gw/(2*cw)-gw/2
+            fan_y = gh/2-(top+bottom)*gh/(2*ch)
+            fan_w, fan_d = (right-left)*gw/cw, (bottom-top)*gh/ch
+            box(identifier + " roof HVAC mounting curb", (fan_x,fan_y,height+.035),
+                (fan_w/2,fan_d/2,.035), frame).parent = group
+            fitted = place(library / "roof_twin_fan/optimized.glb", group,
+                           (fan_x,fan_y,height+.07), (max(fan_w,fan_d),min(fan_w,fan_d),.55),
+                           yaw=math.pi/2 if fan_d > fan_w else 0, merge=True)
+            for obj in fitted:
+                obj.name = identifier + " surveyed roof HVAC"
+
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
         if row.get("kind") == "water":
@@ -531,6 +546,7 @@ def build(name):
                         shrub.data.materials.append(leaf_tips if index == 1 else foliage)
                         shrub.parent = group
             if is_building:
+                add_roof_fans(identifier, group, height)
                 mesh.materials.append(roof)
                 mesh.polygons[1].material_index = 1
                 uv = mesh.uv_layers.new()
@@ -889,18 +905,7 @@ def build(name):
                 box(identifier + " roof parapet short",
                     (x+side*(w/2-thickness), y, height+parapet_height),
                     (thickness, d/2-2*thickness, parapet_height), frame).parent = group
-        roof_fans = ROOF_FANS_BY_MAP.get(name, {}).get(identifier, ())
-        for left, top, right, bottom in roof_fans:
-            fan_x = (left+right)*gw/(2*cw)-gw/2
-            fan_y = gh/2-(top+bottom)*gh/(2*ch)
-            fan_w, fan_d = (right-left)*gw/cw, (bottom-top)*gh/ch
-            box(identifier + " roof HVAC mounting curb", (fan_x,fan_y,height+.035),
-                (fan_w/2,fan_d/2,.035), frame).parent = group
-            fitted = place(library / "roof_twin_fan/optimized.glb", group,
-                           (fan_x,fan_y,height+.07), (max(fan_w,fan_d),min(fan_w,fan_d),.55),
-                           yaw=math.pi/2 if fan_d > fan_w else 0, merge=True)
-            for obj in fitted:
-                obj.name = identifier + " surveyed roof HVAC"
+        add_roof_fans(identifier, group, height)
         direction = -1 if y > 0 else 1
         front = y + direction*d/2
         angle = 0 if direction < 0 else math.pi
