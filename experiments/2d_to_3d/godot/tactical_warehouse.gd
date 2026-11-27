@@ -14,6 +14,8 @@ var effects: Effects
 var cutaway := Cutaway.new()
 var actors := {}
 var move_markers: Array[MeshInstance3D] = []
+var open_move_material: StandardMaterial3D
+var cover_move_material: StandardMaterial3D
 var actor_models: Dictionary[String, PackedScene] = {}
 var last_sequence := -1
 var smoke := false
@@ -69,13 +71,14 @@ func _ready() -> void:
  marker_mesh.outer_radius = .31
  marker_mesh.rings = 16
  marker_mesh.ring_segments = 6
- var marker_material := StandardMaterial3D.new()
- marker_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
- marker_material.albedo_color = Color(.15,.66,.74)
+ open_move_material = StandardMaterial3D.new()
+ open_move_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+ open_move_material.albedo_color = Color(.15,.66,.74)
+ cover_move_material = open_move_material.duplicate() as StandardMaterial3D
+ cover_move_material.albedo_color = Color(.98,.65,.19)
  for index in 4:
   var marker := MeshInstance3D.new()
   marker.mesh = marker_mesh
-  marker.material_override = marker_material
   marker.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
   marker.hide()
   add_child(marker)
@@ -157,7 +160,7 @@ func _process(delta: float) -> void:
  if actors[selected_ally].fallen:
   select_next_ally()
  refresh_selection()
- status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
+ status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move (amber: nearby cover)   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
   scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
@@ -392,12 +395,15 @@ func actor_at(screen_position: Vector2, side: String) -> String:
 func refresh_selection() -> void:
  var active: TacticalActor = actors[selected_ally]
  cutaway.actors = [] if active.fallen else [active]
- var moves: Array = unit_state(selected_ally).get("moves", [])
+ var selected := unit_state(selected_ally)
+ var moves: Array = selected.get("moves", [])
+ var covered: Array = selected.get("covered_moves", [])
  for index in move_markers.size():
   var marker := move_markers[index]
   marker.visible = index < moves.size()
   if marker.visible:
    marker.position = cell_position(moves[index]) + Vector3.UP*.07
+   marker.material_override = cover_move_material if moves[index] in covered else open_move_material
  for unit: Dictionary in mailbox.state.units:
   if unit.id.begins_with("ally:"):
    actors[unit.id].ring.scale = Vector3.ONE * (1.22 if unit.id == selected_ally else 1.0)

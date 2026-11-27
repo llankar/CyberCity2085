@@ -1,7 +1,10 @@
 """Python authority for the isolated Godot tactical preview."""
+from copy import copy
+
 from game.combat.engine import CombatEngine
 from game.combat.movement import CELL_SIZE, can_enter_cell
 from game.combat_actions import available_combat_actions
+from game.cover_system import unit_in_cover
 
 
 class TacticalPreview:
@@ -35,9 +38,25 @@ class TacticalPreview:
                 options.append([nx // CELL_SIZE, ny // CELL_SIZE])
         return options
 
+    def covered_moves(self, unit, moves: list[list[int]]) -> list[list[int]]:
+        nodes = self.engine.cover_nodes
+        if not nodes or not moves:
+            return []
+        candidate = copy(unit)
+        covered = []
+        for cell in moves:
+            candidate.position = tuple(value * CELL_SIZE for value in cell)
+            if unit_in_cover(candidate, nodes) is not None:
+                covered.append(cell)
+        return covered
+
     def snapshot(self) -> dict:
         state = self.engine.state
         battle = self.engine.end_battle_check()
+        move_options = {
+            key: self.move_options(unit)
+            for key, unit in self.units.items() if key.startswith("ally:") and not battle.ended
+        }
         return {
             "turn": state.turn,
             "round": state.turn_number,
@@ -52,7 +71,8 @@ class TacticalPreview:
                     "ap": unit.action_points,
                     "defending": unit.is_defending,
                     "overwatch": unit.on_overwatch,
-                    "moves": self.move_options(unit) if key.startswith("ally:") and not battle.ended else [],
+                    "moves": move_options.get(key, []),
+                    "covered_moves": self.covered_moves(unit, move_options.get(key, [])),
                     "actions": [action.key for action in available_combat_actions(unit)]
                     if key.startswith("ally:") and state.turn == "player" and unit.health > 0
                     else [],

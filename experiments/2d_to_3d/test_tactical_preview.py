@@ -166,6 +166,10 @@ class TacticalPreviewTest(unittest.TestCase):
         engine = CombatEngine(CombatState(None, [ally], [enemy]),
                               can_enter=lambda x, y: x != 128)
         preview = TacticalPreview(engine)
+        from game.cover_system import CoverNode
+        engine.cover_nodes = [CoverNode(3, 3, "high", passable=False)]
+        self.assertEqual(preview.snapshot()["units"][0]["covered_moves"], [[3, 2], [2, 3]])
+        self.assertEqual(ally.position, (64, 64))
         starting_moves = preview.snapshot()["units"][0]["moves"]
         self.assertIn([3, 2], starting_moves)
         self.assertNotIn([4, 2], starting_moves)
