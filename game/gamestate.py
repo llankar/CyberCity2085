@@ -120,6 +120,7 @@ class GameState:
     latest_agent_aftermath: list[str] = field(default_factory=list)
     latest_mission_debrief: dict = field(default_factory=dict)
     fallen_agent_names: list[str] = field(default_factory=list)
+    fallen_agent_missions: dict[str, str] = field(default_factory=dict)
     combat_sessions: dict = field(default_factory=dict)
     latest_recovery_dialogues: list[dict] = field(default_factory=list)
     recovery_narrative_memory: dict = field(default_factory=dict)
@@ -644,6 +645,8 @@ class GameState:
         display_name = f'{character.name} "{nickname}"' if nickname else character.name
         self.characters.remove(character)
         self.fallen_agent_names.append(display_name)
+        if self.active_mission and self.active_mission.title:
+            self.fallen_agent_missions[display_name] = self.active_mission.title
 
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""
@@ -761,6 +764,7 @@ class GameState:
             "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "latest_mission_debrief": dict(self.latest_mission_debrief),
             "fallen_agent_names": list(self.fallen_agent_names),
+            "fallen_agent_missions": dict(self.fallen_agent_missions),
             "combat_sessions": self.combat_sessions,
             "latest_recovery_dialogues": [
                 dict(item) for item in self.latest_recovery_dialogues
@@ -858,6 +862,7 @@ class GameState:
         gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.latest_mission_debrief = dict(data.get("latest_mission_debrief", {}))
         gs.fallen_agent_names = list(data.get("fallen_agent_names", []))
+        gs.fallen_agent_missions = dict(data.get("fallen_agent_missions") or {})
         gs.combat_sessions = dict(data.get("combat_sessions", {}))
         gs.latest_recovery_dialogues = [
             dict(item) for item in data.get("latest_recovery_dialogues", [])

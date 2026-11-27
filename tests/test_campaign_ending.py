@@ -86,6 +86,27 @@ def test_finale_surfaces_tactical_memory_but_ignores_unrelated_history() -> None
     assert any("Mako survives, carrying" in line for line in ending.agent_epilogues)
 
 
+def test_finale_remembers_the_fatal_mission_and_the_surviving_bond(tmp_path) -> None:
+    from game.mission_templates import create_mission_templates
+
+    fallen = Character("Mara", nickname="Ghost")
+    survivor = Character("Vera", relationships={"Mara": 7})
+    rival = Character("Iris", relationships={"Vera": -10})
+    state = GameState(characters=[fallen, survivor, rival])
+    state.active_mission = create_mission_templates()[0]
+    title = state.active_mission.title
+    state.record_agent_death(fallen)
+    state.active_mission = None
+    path = tmp_path / "memorial.json"
+    state.save(str(path))
+    loaded = GameState.load(str(path))
+
+    epilogues = evaluate_campaign_ending(loaded).agent_epilogues
+    assert f'Mara "Ghost" fell during {title} and lives on in the squad\'s roll of honour.' in epilogues
+    assert "Vera carries Mara's memory into the new city." in epilogues
+    assert any(line.startswith("Iris survives") for line in epilogues)
+
+
 def test_finale_round_trips_and_old_saves_default_safely(tmp_path) -> None:
     state = GameState(characters=[Character("Kade")])
     state.campaign.ending = evaluate_campaign_ending(state)

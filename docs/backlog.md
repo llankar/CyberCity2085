@@ -931,3 +931,5 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] STRATEGIC-MISSION-CLOSURES — Crisis closures affect optional inactive routes. Story missions and stale board entries are cleared from legacy closure lists.
 
 - [x] STRATEGIC-CRISIS-PREVIEW — Command Core shows planned crisis effects, the optional route at risk, and unavailable paid responses.
+
+- [x] FINALE-FALLEN-MEMORIAL — Save the mission context of permanent agent losses and reflect surviving bonds in the epilogue.

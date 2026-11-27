@@ -50,7 +50,7 @@ class CampaignEnding:
         )
 
 
-def _agent_epilogue(character: object) -> str:
+def _agent_epilogue(character: object, fallen_names: set[str]) -> str:
     name = str(getattr(character, "name", "Unknown agent"))
     nickname = str(getattr(character, "nickname", "")).strip()
     display_name = f'{name} "{nickname}"' if nickname else name
@@ -58,12 +58,16 @@ def _agent_epilogue(character: object) -> str:
     alive = bool(stats is None or getattr(stats, "hp", 1) > 0)
     reputation = list(getattr(character, "reputation", []))
     scars = list(getattr(character, "temporary_scars", []))
-    relationships = dict(getattr(character, "relationships", {}))
+    relationships = {
+        name: value for name, value in getattr(character, "relationships", {}).items() if value > 0
+    }
 
     if not alive:
         return f"{display_name} lives on in the squad's roll of honour."
     if relationships:
         closest = max(relationships, key=relationships.get)
+        if closest in fallen_names:
+            return f"{display_name} carries {closest}'s memory into the new city."
         return f"{display_name} stays in CyberCity, watching {closest}'s back."
     if reputation:
         return f"{display_name} leaves the war known for {reputation[-1]}."
@@ -135,14 +139,20 @@ def evaluate_campaign_ending(game_state: "GameState") -> CampaignEnding:
     if world.ai_factions_status == "confirmed":
         world_lines.append("Humanity enters the new era knowing the hidden AIs exist.")
 
+    fallen_names = {name.split(' "', 1)[0] for name in game_state.fallen_agent_names}
+    fallen_missions = game_state.fallen_agent_missions
     return CampaignEnding(
         outcome_id=outcome_id,
         title=title,
         summary=summary,
         world_lines=world_lines,
         agent_epilogues=[
-            *(_agent_epilogue(agent) for agent in game_state.characters),
-            *(f"{name} lives on in the squad's roll of honour." for name in game_state.fallen_agent_names),
+            *(_agent_epilogue(agent, fallen_names) for agent in game_state.characters),
+            *(
+                f"{name} fell during {fallen_missions[name]} and lives on in the squad's roll of honour."
+                if name in fallen_missions else f"{name} lives on in the squad's roll of honour."
+                for name in game_state.fallen_agent_names
+            ),
         ],
         resolved_day=game_state.calendar.current_day,
     )
