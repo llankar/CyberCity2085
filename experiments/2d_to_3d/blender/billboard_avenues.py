@@ -1147,6 +1147,14 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
+        if name.endswith("_downtown_intersection") and w >= 2.4:
+            fascia_height = min(1.94, height-.30)
+            box(identifier+" storefront fascia", (x,front+direction*.08,fascia_height),
+                (w*.42,.09,.115),frame,.018).parent = group
+            for offset in (-.24,.24):
+                box(identifier+" storefront light",
+                    (x+w*offset,front+direction*.174,fascia_height),
+                    (w*.135,.013,.027),signs[(i+int(offset > 0))%2],.006).parent = group
         if transport_facades and w >= 2.4 and height >= 3.2:
             if name.endswith("_transit_interchange"):
                 entry_width = min(.48,w*.14)
