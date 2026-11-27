@@ -245,7 +245,8 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             assert "rotation" in wreck
             assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
                        for i in wreck["children"]) == 7
-            for identifier, fabrics in (("market_n", {"sand", "olive"}), ("market_center", set())):
+            for identifier, fabrics in (("market_n", {"sand", "olive"}),
+                                        ("market_center", set()), ("table_w", set())):
                 stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 parts = [nodes[i]["name"] for i in stall["children"]]
                 assert sum(part.startswith("Scavenger parts bin") for part in parts) == 3

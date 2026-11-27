@@ -632,7 +632,7 @@ class WastelandOutdoors:
                   (length*.97,breadth*.97,1.42), yaw=yaw)
         elif self.burned_market and "stall" in name:
             self.burned_market_stall(group, name, x, y, length, breadth, yaw)
-        elif self.scavenger_plaza and name.startswith("market_"):
+        elif self.scavenger_plaza and (name.startswith("market_") or name == "table_w"):
             self.scavenger_stall(group, name, x, y, length, breadth, yaw)
         elif "stall" in name or name.startswith("market_"):
             place(self.library / "market_southeast_display/shop.glb", group, (x,y,0),
