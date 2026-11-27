@@ -195,6 +195,8 @@ class WastelandOutdoors:
             concrete_tint = (.40, .40, .38)
         elif flooded_square:
             concrete_tint = (.34, .40, .43)
+        elif ruined_downtown:
+            concrete_tint = (.37, .39, .40)
         pixels.reshape(-1, 4)[:, :3] *= concrete_tint
         diffuse.image = bpy.data.images.new("Weathered Wasteland concrete", *source.size)
         diffuse.image.pixels.foreach_set(pixels)
@@ -204,7 +206,7 @@ class WastelandOutdoors:
         roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
         roughness.image.colorspace_settings.name = "Non-Color"
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
-        if flooded_square:
+        if flooded_square or ruined_downtown:
             detail = nodes.new("ShaderNodeTexImage")
             detail.image = bpy.data.images.load(str(concrete_path / "nor_gl.jpg"), check_existing=True)
             detail.image.colorspace_settings.name = "Non-Color"
