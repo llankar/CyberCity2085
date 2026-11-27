@@ -102,6 +102,8 @@ def build(name):
     underground_market = name.endswith("_underground_market")
     apartment_shelter = name.endswith("_apartment_shelter")
     if apartment_shelter:
+        shelter_wood = make_material("Shelter worn plank wood", (.14,.086,.045,1), 0,.86)
+        shelter_iron = make_material("Shelter oxidized angle iron", (.055,.042,.031,1), .40,.81)
         bedding_canvas = make_material("Shelter faded canvas", (.092,.085,.061,1), 0,.94)
         bedding_blankets = (
             make_material("Shelter olive blanket", (.063,.071,.043,1), 0,.96),
@@ -389,6 +391,8 @@ def build(name):
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
             build_server_bank(group, x, y, w, d, server_housing, steel, screen)
+        elif apartment_shelter and kind == "rack":
+            build_rack(group, x, y, w, d, shelter_iron, shelter_wood)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim, records=name.endswith("_police_records"))
         elif kind == "track":
@@ -538,6 +542,8 @@ def build(name):
                     (w*.39,.026,.10), trim).parent = group
                 box(identifier+" status", (x+w*.26,y-d*.49,level),
                     (w*.06,.019,.021), screen).parent = group
+        elif apartment_shelter and kind == "table":
+            build_facility_fixture(group, "shelter_table", x, y, w, d, shelter_wood, shelter_iron, screen)
         elif kind in {"table","console"}:
             box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop).parent = group
             for sx in (-1,1):

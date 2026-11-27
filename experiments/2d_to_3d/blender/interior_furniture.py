@@ -420,6 +420,14 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Records workstation keyboard", 0,-width*.16,.82,length*.142,width*.12,.018,trim)
         part("Records desk file stack", length*.31,0,.836,length*.09,width*.20,.033,steel)
         merge_fixture_meshes(group, "Records consultation workstation")
+    elif kind == "shelter_table":
+        for strip in (-1, 0, 1):
+            part("Shelter tabletop plank", 0,strip*width*.285,.72,length*.46,width*.138,.045,steel)
+        for end in (-1, 1):
+            for side in (-1, 1):
+                part("Shelter table angle-iron leg", end*length*.34,side*width*.32,.34,.04,.04,.34,trim)
+        part("Shelter table cross brace", 0,0,.19,length*.35,.032,.035,trim)
+        merge_fixture_meshes(group, "Salvaged shelter table")
     elif kind == "shelter_kitchen":
         part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)
         for offset in (-.31,.31):
