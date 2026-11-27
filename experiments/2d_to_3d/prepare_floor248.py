@@ -122,6 +122,8 @@ def main():
         if not requested<=known:raise ValueError('Unknown source object identifiers')
         survey['walls']=[r for r in survey['walls'] if r['id'] in requested]
     survey['walls'].extend(args.decorative_rects)
+    if args.map == "wasteland_city_11_ruined_transit_plaza":
+        survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)

@@ -29,6 +29,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_ruined_transit_plaza"):
+            south = next(node for node in nodes if node["name"] == "South transit carriage")
+            parts = [nodes[i]["name"] for i in south["children"]]
+            assert sum(part.startswith("Exposed transit roof rib") for part in parts) == 3
+            assert not any(part.startswith("Transit carriage roof") for part in parts)
             train = next(node for node in nodes if node["name"] == "Occludable_west_train")
             parts = [nodes[i]["name"] for i in train["children"]]
             assert sum(part.startswith("Transit carriage window mullion") for part in parts) == 14

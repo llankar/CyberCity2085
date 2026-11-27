@@ -446,7 +446,13 @@ class WastelandOutdoors:
             box("Station platform trim", (x+rail_side*width*.42,y+bay*depth,.455),
                 (width*.057,depth*.027,.018), self.steel,.008).parent = group
 
-    def transit_train(self, group, x, y, length, width, yaw):
+    def add_transit_south_carriage(self):
+        group = bpy.data.objects.new("South transit carriage", None)
+        bpy.context.collection.objects.link(group)
+        x, y = self.coordinates(480, 477.5)
+        self.transit_train(group, x, y, 266*self.gw/self.cw, 49*self.gh/self.ch, 0, roofless=True)
+
+    def transit_train(self, group, x, y, length, width, yaw, *, roofless=False):
         group.location = (x,y,0)
         group.rotation_euler.z = yaw
         box("Transit carriage underframe", (0,0,.37),
@@ -456,15 +462,20 @@ class WastelandOutdoors:
                 (length*.085,width*.39,.16), self.dark).parent = group
             box("Transit carriage cab", (end*length*.401,0,.81),
                 (length*.077,width*.42,.35), self.steel,.065).parent = group
-        box("Transit carriage roof", (0,0,1.18),
-            (length*.38,width*.425,.085), self.steel,.054).parent = group
+        if roofless:
+            for offset in (-.28,.06,.29):
+                box("Exposed transit roof rib", (offset*length,0,1.13),
+                    (.052,width*.425,.058), self.steel,.018).parent = group
+        else:
+            box("Transit carriage roof", (0,0,1.18),
+                (length*.38,width*.425,.085), self.steel,.054).parent = group
         for side in (-1,1):
             box("Transit carriage side sill", (0,side*width*.413,.58),
                 (length*.38,.055,.17), self.steel).parent = group
             for step in range(-3,4):
                 box("Transit carriage window mullion", (step*length*.105,side*width*.413,.94),
                     (.041,.048,.18), self.steel).parent = group
-        for offset in (-.22,0,.22):
+        for offset in (() if roofless else (-.22,0,.22)):
             box("Transit roof vent", (length*offset,0,1.29),
                 (length*.041,width*.24,.027), self.dark).parent = group
 
