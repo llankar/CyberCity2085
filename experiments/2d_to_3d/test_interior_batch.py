@@ -210,8 +210,11 @@ def test_factory_console_and_shelf_groups_are_native_geometry():
         pytest.skip("Build the experimental Factory Floor on E: first")
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-        nodes = json.loads(model.read(size))["nodes"]
+        data = json.loads(model.read(size))
+        nodes = data["nodes"]
     groups = {node["name"]: node for node in nodes if node.get("children")}
+    roots = [nodes[index] for index in data["scenes"][data["scene"]]["nodes"]]
+    assert sum(" retained pipe shoe" in node["name"] for node in roots) == 8
     for identifier in ("west_console", "east_console", "mid_console", "north_left_shelf", "north_right_shelf"):
         group = groups[f"Occludable_{identifier}"]
         assert any("mesh" in nodes[index] for index in group["children"])
