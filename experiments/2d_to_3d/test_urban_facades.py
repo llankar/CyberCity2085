@@ -366,7 +366,9 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
     assert clad >= 2
 
 
-@pytest.mark.parametrize(("factory", "count"), [("nw_factory", 3), ("sw_factory", 2)])
+@pytest.mark.parametrize(("factory", "count"), [
+    ("nw_factory", 3), ("sw_factory", 2), ("east_middle", 2), ("west_middle", 2),
+])
 def test_industrial_surveyed_hvac_stays_with_its_building(factory, count):
     path = catalogue_environment("cybercity_street_12_industrial_district")
     if not path.is_file():
