@@ -185,8 +185,12 @@ def main() -> int:
     checks.add_argument("--smoke-victory", action="store_const", dest="smoke_outcome", const="victory", default="")
     checks.add_argument("--smoke-defeat", action="store_const", dest="smoke_outcome", const="defeat")
     checks.add_argument("--benchmark", action="store_true", help="Measure uncapped overview orbit, tactical idle and tactical orbit")
+    checks.add_argument("--benchmark-combat", action="store_true",
+                        help="Measure uncapped active combat using the scripted skirmish, without screenshots")
     args = parser.parse_args()
-    smoke = args.smoke or bool(args.smoke_outcome)
+    if args.benchmark_combat and not args.map:
+        parser.error("--benchmark-combat requires --map")
+    smoke = args.smoke or args.benchmark_combat or bool(args.smoke_outcome)
     temp_root = LAB / "tmp"
     temp_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="tactical-", dir=temp_root) as temp:
@@ -201,11 +205,12 @@ def main() -> int:
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,
                    CYBERCITY_TACTICAL_SMOKE="1" if smoke else "0",
                    CYBERCITY_TACTICAL_SMOKE_OUTCOME=args.smoke_outcome,
-                   CYBERCITY_TACTICAL_BENCHMARK="1" if args.benchmark else "0")
+                   CYBERCITY_TACTICAL_BENCHMARK="1" if args.benchmark else "0",
+                   CYBERCITY_TACTICAL_BENCHMARK_COMBAT="1" if args.benchmark_combat else "0")
         command = ["powershell.exe", "-NoProfile", "-File", str(Path(__file__).with_name("run_godot.ps1")),
                    "-Scene", f"res://{scene}.tscn", "-RenderingMethod", "gl_compatibility"]
         if smoke:
-            command.extend(["-QuitAfter", "1500"])
+            command.extend(["-QuitAfter", "15000" if args.benchmark_combat else "1500"])
         with subprocess.Popen(command, env=env) as godot:
             while godot.poll() is None:
                 if mailbox is None:
@@ -221,7 +226,7 @@ def main() -> int:
             raise RuntimeError("The map selector did not start a scenario")
         if args.smoke_outcome and mailbox.reply["state"]["outcome"] != args.smoke_outcome:
             raise RuntimeError(f"Unexpected Godot outcome exchange: {mailbox.reply}")
-        if args.smoke and (mailbox.sequence != 6 or mailbox.reply["state"]["round"] != 2
+        if (args.smoke or args.benchmark_combat) and (mailbox.sequence != 6 or mailbox.reply["state"]["round"] != 2
                            or not mailbox.reply["state"]["units"][0]["defending"]):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
         return godot.returncode

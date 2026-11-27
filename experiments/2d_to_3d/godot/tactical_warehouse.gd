@@ -25,6 +25,9 @@ var cover_move_material: StandardMaterial3D
 var actor_models: Dictionary[String, PackedScene] = {}
 var last_sequence := -1
 var smoke := false
+var benchmark_combat := false
+var combat_frame_times: Array[float] = []
+var combat_frame_previous_usec := 0
 var smoke_outcome := ""
 var closing := false
 var pending_command := {}
@@ -69,6 +72,7 @@ func _ready() -> void:
  mailbox = Mailbox.new(session)
  cutaway.configure(self, [], review_camera, true)
  smoke = OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1"
+ benchmark_combat = OS.get_environment("CYBERCITY_TACTICAL_BENCHMARK_COMBAT") == "1"
  smoke_outcome = OS.get_environment("CYBERCITY_TACTICAL_SMOKE_OUTCOME")
  var hud := CanvasLayer.new()
  add_child(hud)
@@ -161,6 +165,10 @@ func apply_presentation(config: Dictionary) -> bool:
 func _process(delta: float) -> void:
  if closing:
   return
+ if combat_frame_previous_usec > 0:
+  var now := Time.get_ticks_usec()
+  combat_frame_times.append((now - combat_frame_previous_usec) / 1000.0)
+  combat_frame_previous_usec = now
  if cutaway.camera != null:
   cutaway.update(delta)
  if effects != null:
@@ -252,6 +260,13 @@ func _process(delta: float) -> void:
     var enemy: Array = unit_state("enemy:0").cell
     smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),
                          int(start[1]) + signi(int(enemy[1]) - int(start[1]))]
+    if benchmark_combat:
+     DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+     review_size = minf(review_size, 14.0)
+     focus_selected()
+     for frame in 45:
+      await get_tree().process_frame
+     combat_frame_previous_usec = Time.get_ticks_usec()
     send({"action": "move", "actor": ALLY, "destination": smoke_destination})
    1:
     var cell: Array = state.units[0].cell
@@ -292,10 +307,11 @@ func _process(delta: float) -> void:
     if smoke_outcome == "victory":
      verify_smoke_outcome("victory", 2)
      return
-    await RenderingServer.frame_post_draw
-    if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
-     get_tree().quit(9)
-     return
+    if not benchmark_combat:
+     await RenderingServer.frame_post_draw
+     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
+      get_tree().quit(9)
+      return
     send({"action": "end_turn", "actor": ALLY})
    3:
     if not mailbox.success or int(state.round) != 2 or state.turn != "player":
@@ -331,6 +347,21 @@ func _process(delta: float) -> void:
     elif not mailbox.success or oracle.animation.current_animation != oracle.clips.psi:
      push_error(mailbox.message)
      get_tree().quit(13)
+     return
+    if benchmark_combat:
+     if not blocked:
+      await oracle.animation.animation_finished
+     combat_frame_previous_usec = 0
+     combat_frame_times.sort()
+     var count := combat_frame_times.size()
+     if count < 2:
+      get_tree().quit(24)
+      return
+     print("TACTICAL_COMBAT_FRAME_TIMES map=%s viewport=%s frames=%d median_ms=%.2f p95_ms=%.2f max_ms=%.2f psi=%s" % [
+      scenario_title, get_viewport().get_visible_rect().size, count, combat_frame_times[count >> 1],
+      combat_frame_times[ceili(count*.95)-1], combat_frame_times[-1], "blocked" if blocked else "cast"])
+     print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
+     get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
      return
     await RenderingServer.frame_post_draw
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_psi.png") != OK:
