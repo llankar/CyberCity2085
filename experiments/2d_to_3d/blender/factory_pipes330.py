@@ -9,6 +9,8 @@ from mathutils import Matrix
 
 sys.path.insert(0, str(Path(__file__).parent))
 from library_placement import place
+from create_hardsurface_crate import box, make_material
+from interior_furniture import build_rack
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
 output = phase / "factory330"
@@ -88,6 +90,32 @@ for item in survey["walls"]:
     pipe_groups += 1
 assert pipe_groups == 4
 print("FACTORY330_PIPE_GROUPS", pipe_groups)
+cabinet = make_material("Factory console steel", (.047,.073,.09,1), .48,.58)
+trim = make_material("Factory edge enamel", (.31,.145,.029,1), .47,.64)
+display = make_material("Factory panel telemetry", (.014,.117,.15,1), .16,.54,.23)
+detail_ids = {"west_console", "east_console", "mid_console", "north_left_shelf", "north_right_shelf"}
+for item in survey["walls"]:
+    identifier = item["id"]
+    if identifier not in detail_ids:
+        continue
+    group = bpy.data.objects.new("Occludable_" + identifier, None)
+    bpy.context.collection.objects.link(group)
+    x1,y1,x2,y2 = item["rect"]
+    w,d = (x2-x1)*40/cw, (y2-y1)*28/ch
+    x,y = (x1+x2)*20/cw-20, 14-(y1+y2)*14/ch
+    if identifier.endswith("_shelf"):
+        build_rack(group, x, y, w, d, cabinet, trim)
+        for height, offset in ((.42,-.24),(1.20,.21),(1.98,-.05)):
+            place(cargo, group, (x,y+d*offset,height), (w*.70,d*.30,.50), merge=True)
+    else:
+        box(identifier+" chassis", (x,y,.43), (w*.44,d*.46,.43), cabinet).parent = group
+        box(identifier+" panel bezel", (x,y-d*.12,.883),
+            (w*.39,d*.25,.028), trim).parent = group
+        box(identifier+" telemetry", (x,y-d*.12,.917),
+            (w*.33,d*.21,.012), display).parent = group
+        for offset in (-.22,0,.22):
+            box(identifier+" control", (x+w*offset,y+d*.25,.883),
+                (w*.041,d*.042,.025), trim, .006).parent = group
 floor = bpy.data.materials["Retained factory floor"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
 texture.image = bpy.data.images.load(str(output / "floor.png"))

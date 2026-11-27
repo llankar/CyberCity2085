@@ -145,3 +145,20 @@ def test_substation_exports_all_surveyed_equipment_groups():
     roots = [nodes[index] for index in data["scenes"][data["scene"]]["nodes"]]
     pads = [node for node in roots if node["name"].endswith(" retained service pad")]
     assert len(pads) == 6
+
+def test_factory_console_and_shelf_groups_are_native_geometry():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/factory330/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Factory Floor on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    groups = {node["name"]: node for node in nodes if node.get("children")}
+    for identifier in ("west_console", "east_console", "mid_console", "north_left_shelf", "north_right_shelf"):
+        group = groups[f"Occludable_{identifier}"]
+        assert any("mesh" in nodes[index] for index in group["children"])
