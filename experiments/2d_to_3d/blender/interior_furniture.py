@@ -342,6 +342,18 @@ def build_server_bank(group, x, y, w, d, housing, frame, indicator):
 
 
 
+def merge_fixture_meshes(group, label):
+    """Bake bevels, then merge the meshes without changing their cutaway parent."""
+    pieces = list(group.children)
+    bpy.ops.object.select_all(action="DESELECT")
+    for piece in pieces:
+        piece.select_set(True)
+    bpy.context.view_layer.objects.active = pieces[0]
+    bpy.ops.object.convert(target="MESH")
+    bpy.ops.object.join()
+    bpy.context.object.name = label
+
+
 def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
     vertical = d > w
     length, width = (d,w) if vertical else (w,d)
@@ -372,6 +384,7 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Records terminal display", 0,width*.22-.067,1.046,length*.136,.009,.128,screen)
         part("Records workstation keyboard", 0,-width*.16,.82,length*.142,width*.12,.018,trim)
         part("Records desk file stack", length*.31,0,.836,length*.09,width*.20,.033,steel)
+        merge_fixture_meshes(group, "Records consultation workstation")
     elif kind == "shelter_kitchen":
         part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)
         for offset in (-.31,.31):

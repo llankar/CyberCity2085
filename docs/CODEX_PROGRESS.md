@@ -1819,3 +1819,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-POLICE-RECORDS-SHELVES / DONE. Added rows of varied-height archive binders to the existing shelf model for both distinct Police Records interiors. Rebuilt both GLBs on E:, rendered both Godot overviews and passed nineteen interior tests. Next: inspect the records desks and terminals at combat zoom.
 
 - EXPERIMENTAL-POLICE-RECORDS-TERMINALS / DONE. Built standing display housings, keyboards and file stacks for eleven source-matched records desks across both distinct maps. Rebuilt both on E:, passed nineteen interior tests and reached round 2 on Cybercity Inner 08. Next: visually inspect the new workstation silhouettes and shift to another environment family.
+
+- EXPERIMENTAL-POLICE-RECORDS-FIXTURE-MERGE / DONE. Baked bevels and merged each workstation within its own cutaway group, reusing the market fixture merge. Re-exported both Police Records scenes to E:. Cybercity Inner 08 went from 356 to 308 mesh instances, reached round 2, and nineteen interior tests passed. Next: move to another family with substantial coverage gaps.

@@ -15,7 +15,7 @@ from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
     build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture, build_server_bank,
-    build_facility_fixture, build_floor_grate,
+    build_facility_fixture, build_floor_grate, merge_fixture_meshes,
 )
 from library_placement import place, reset_library_cache
 
@@ -384,14 +384,7 @@ def build(name):
                     cloth.parent = group
                 # Bake the individual bevels before merging the stall. Keep
                 # each footprint in its own group for the Godot cutaway.
-                pieces = list(group.children)
-                bpy.ops.object.select_all(action="DESELECT")
-                for piece in pieces:
-                    piece.select_set(True)
-                bpy.context.view_layer.objects.active = pieces[0]
-                bpy.ops.object.convert(target="MESH")
-                bpy.ops.object.join()
-                bpy.context.object.name = "Salvage market stall"
+                merge_fixture_meshes(group, "Salvage market stall")
                 continue
             market = library / "market_southeast_display/shop.glb"
             place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw, merge=True)
