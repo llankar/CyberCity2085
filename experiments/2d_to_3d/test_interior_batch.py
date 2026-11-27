@@ -534,6 +534,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             assert parts
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
+            if component in {"Clinic diagnostic bench", "Medbay telemetry station"}:
+                fixture = next(nodes[index] for index in groups[f"Occludable_{identifier}"]
+                               if nodes[index]["name"].startswith(component))
+                primitives = data["meshes"][fixture["mesh"]]["primitives"]
+                assert len({primitive["material"] for primitive in primitives}) == 3
         if name.endswith("_looted_vault"):
             core = [nodes[index]["name"] for index in groups["Occludable_core"]]
             assert sum(part.startswith("Vault lid hinge barrel") for part in core) == 4

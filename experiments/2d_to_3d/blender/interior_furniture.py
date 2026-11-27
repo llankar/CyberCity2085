@@ -134,7 +134,17 @@ def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
 
 
 def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen, *, telemetry=False):
-    box("Diagnostic housing", (x,y,.37), (w*.45,d*.47,.37), housing, .035).parent = group
+    for side in (-1, 1):
+        support_y = y+side*d*.32
+        box("Diagnostic equipment pedestal", (x+w*.085,support_y,.343),
+            (w*.31,d*.142,.315),housing,.034).parent = group
+        box("Diagnostic pedestal foot", (x+w*.06,support_y,.053),
+            (w*.36,d*.15,.053),steel,.018).parent = group
+        box("Diagnostic service grille", (x+w*.401,support_y,.41),
+            (w*.014,d*.113,.123),steel,.012).parent = group
+        for slot in (-1, 0, 1):
+            box("Diagnostic ventilation slot", (x+w*.416,support_y,.41+slot*.052),
+                (w*.009,d*.087,.009),housing,.005).parent = group
     box("Diagnostic steel rim", (x,y,.75), (w*.48,d*.48,.055), steel, .025).parent = group
     panel_count = 3 if d > w*2 else 2
     for panel in range(panel_count):
@@ -143,6 +153,9 @@ def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen, *, telemet
             (w*.28,d*.33/panel_count,.016), screen, .012).parent = group
         box("Diagnostic button bank", (x+w*.30,panel_y,.81),
             (w*.075,d*.22/panel_count,.025), housing, .012).parent = group
+        for key in (-1, 0, 1):
+            box("Diagnostic control key", (x+w*.30,panel_y+key*d*.112/panel_count,.84),
+                (w*.036,d*.027/panel_count,.011), steel,.006).parent = group
     if telemetry:
         for side in (-1, 1):
             post_x = x+side*w*.32
