@@ -92,6 +92,14 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
             "active_breachers": 1,
             "breach_steps_per_phase": 1,
         }
+    elif payload["objective_type"] in {"data_theft", "data_with_detour"}:
+        from game.mission_objectives import create_battle_objective
+
+        objective = create_battle_objective(mission)
+        payload["objective_geometry"] = {
+            "required_interactions": objective.required_interactions,
+            "once_per_turn": True,
+        }
     return payload
 
 

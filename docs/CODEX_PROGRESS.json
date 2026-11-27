@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Compare objective aliases and multi-stage progress in Godot and Arcade, starting with data retrieval and detours."
+    "next_action": "Audit the alternate field-proxy branch and port extraction marker progression using the existing Arcade objectives."
   },
   "tasks": [
+    {
+      "id": "MISSION-DATA-DOWNLOAD",
+      "title": "Preserve two squad turns for data downloads in Godot",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/encounter_generator.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/tactical_checkpoint.gd"],
+      "tests": ["Godot fog, handoff, mission objectives and unified checkpoints: 46 passed, 5 subtests passed."],
+      "evidence": ["Data theft and data detour share the Arcade interaction count. The native check spends one AP for the first interaction and rejects same-turn repetition even from another agent."],
+      "remaining": ["The optional field-proxy branch is not connected to this Godot objective."]
+    },
     {
       "id": "MISSION-INTERACTIVE-VICTORY",
       "title": "Require the marked objective action in Godot missions",

@@ -270,7 +270,10 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 		"containment":
 			ox = int(grid_cols * 0.35); oy = int(grid_rows * 0.50)
 			label = "Breach Zone"; action_key = ""; needs_marker = true
-		"data_with_detour", "data_theft", "data_extract", "intel_gather":
+		"data_with_detour", "data_theft":
+			label = "Hack Terminal"; action_key = "HACK"
+			progress_needed = int(geometry.get("required_interactions", 2))
+		"data_extract", "intel_gather":
 			label = "Hack Terminal";  action_key = "HACK"
 		"extraction", "extract_vip", "safe_extraction", "extract":
 			label = "Extract VIP";    action_key = "EXTRACT"
@@ -299,6 +302,7 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 		"label":            label,
 		"action_key":       action_key,
 		"progress_needed":  progress_needed,
+		"once_per_turn":    bool(geometry.get("once_per_turn", obj_type in ["data_theft", "data_with_detour"])),
 		"needs_marker":     needs_marker,
 		"interactive":      obj_type != "containment",
 		"interact_range":   2,   # grid cells within which the player can interact

@@ -115,6 +115,21 @@ func run() -> void:
 		assert(not mission._elimination_objective_met(), "an interactive objective still requires its action")
 	mission.objective = {"needs_marker": false, "type": "kill_all"}
 	assert(mission._elimination_objective_met(), "elimination missions still reward clearing the board")
+	var generator = load("res://scripts/encounter_generator.gd").new()
+	mission.objective = generator.build_objective("data_with_detour", 40, 28)
+	assert(mission.objective.progress_needed == 2, "data download takes two interactions")
+	mission.battle_ended = true # Skip presentation in the headless fixture.
+	mission.turn_number = 1
+	mission.active_player_index = 0
+	mission.player_units.assign([{"hp": 20, "ap": 3}, {"hp": 20, "ap": 3}])
+	mission._interact_with_objective()
+	assert(mission.objective_progress == 1 and not mission.objective_completed)
+	assert(mission.player_units[0].ap == 2)
+	mission.active_player_index = 1
+	mission._interact_with_objective()
+	assert(mission.objective_progress == 1 and mission.player_units[1].ap == 3)
+	mission.turn_number += 1
+	assert(mission._objective_interaction_available(), "next squad turn can complete the download")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")

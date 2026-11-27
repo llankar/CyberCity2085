@@ -41,6 +41,16 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_data_detour_uses_two_interaction_turns(self) -> None:
+        mission = _mission()
+        mission.objective_type = "data_with_detour"
+        state = GameState(characters=[Character("Vera")], selected_agent_names=["Vera"])
+        payload = build_godot_combat_payload(state, mission)
+        self.assertEqual(payload["mission"]["objective_geometry"], {
+            "required_interactions": 2,
+            "once_per_turn": True,
+        })
+
     def test_payload_carries_the_canonical_faction_tactics(self) -> None:
         from game.combat.tactical_identity import profile_for_theme
 

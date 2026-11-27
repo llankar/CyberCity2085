@@ -83,6 +83,7 @@ static func validate(snapshot: Dictionary, scene: Node) -> String:
 		for index in state[key]:
 			if not _integer(index, 0, state.player_units.size()-1): return "Invalid posture index"
 	if not state.get("objective") is Dictionary or not _cell(state.objective.get("cell"), scene.GRID_COLS, scene.GRID_ROWS): return "Invalid objective"
+	if state.objective.has("last_interaction_turn") and not _integer(state.objective.last_interaction_turn, 1, int(state.turn_number)): return "Invalid objective interaction turn"
 	var facings: Variant = snapshot.get("token_facings", {})
 	if not facings is Dictionary: return "Invalid token facing table"
 	var groups := {"p": "player_units", "e": "enemy_units", "v": "vehicle_units"}

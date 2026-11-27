@@ -382,7 +382,7 @@ func _sync_display() -> void:
 	# Objective proximity hint — overrides status line when actionable.
 	if turn_side == "player" and not objective.is_empty() \
 			and objective.get("needs_marker", false) and objective.get("interactive", true) \
-			and not objective_completed:
+			and not objective_completed and _objective_interaction_available():
 		var active := _current_active_player()
 		if not active.is_empty() and int(active.get("ap", 0)) > 0:
 			var apos     := _cell_position(active)
@@ -1076,6 +1076,10 @@ func _interact_with_objective() -> void:
 	if active.is_empty(): return
 	var ap := int(active.get("ap", 0))
 	if ap <= 0: return
+	if not _objective_interaction_available():
+		status_line = "Download in progress. Continue next squad turn."
+		_sync_display()
+		return
 
 	var label      := str(objective.get("label",           "Interact"))
 	var needed     := int(objective.get("progress_needed", 1))
@@ -1086,6 +1090,8 @@ func _interact_with_objective() -> void:
 	active["objective_contribution"] = int(active.get("objective_contribution", 0)) + 1
 	player_units[active_player_index] = active
 	objective_progress += 1
+	if objective.get("once_per_turn", false):
+		objective["last_interaction_turn"] = turn_number
 	CombatSignals.audio_event.emit("terminal" if action_key in ["HACK", "SABOTAGE", "RETRIEVE", "PLANT", "SEARCH", "REPAIR", "ACTIVATE"] else "door_open")
 
 	if objective_progress >= needed:
@@ -1101,6 +1107,8 @@ func _interact_with_objective() -> void:
 				str(active.get("name", "Agent")), label,
 				objective_progress, needed]
 		status_line = line
+		if objective.get("once_per_turn", false):
+			status_line += " Continue next squad turn."
 		_log_event(line)
 		_sync_display()
 
@@ -2356,6 +2364,9 @@ func _assassination_target_index() -> int:
 			target = index
 			best_priority = rank
 	return target
+
+func _objective_interaction_available() -> bool:
+	return not objective.get("once_per_turn", false) or int(objective.get("last_interaction_turn", -1)) != turn_number
 
 func _elimination_objective_met() -> bool:
 	var target := _assassination_target_index()

@@ -4,6 +4,7 @@
 - [x] ENEMY-CORPORATE-FOCUS — Followers can adopt their local commander's target if they can see and fire on it themselves. Walls, range and impaired commanders are covered by the native regression.
 - [x] MISSION-INTERACTIVE-VICTORY — Godot waits for the requested map interaction after the enemy squad is eliminated. Elimination and containment retain their existing win rules.
 - [ ] MISSION-OBJECTIVE-DIVERSITY — Audit Godot objective aliases against the Arcade mission contracts, prioritizing multi-stage objectives.
+- [x] MISSION-DATA-DOWNLOAD — Data theft and data detour use two interactions on distinct squad turns in Godot. The last interaction turn is retained in the objective checkpoint.
 
 > Périmètre actif au 2026-11-24 : les anciens lots cartes/illustrations/animations/atlas/calibrations/Combat Visual, Hangar, Operative Dossier, Cyberware, économie et intégration Arcade/Godot sont des archives clôturées par le propriétaire. Toute ancienne ligne `IN_PROGRESS` correspondante est historique et ne constitue plus une prochaine action.
 
