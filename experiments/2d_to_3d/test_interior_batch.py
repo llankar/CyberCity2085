@@ -740,6 +740,13 @@ def test_extended_interior_partitions_use_worn_steel():
             data = json.loads(glb.read(size))
         nodes = {node["name"]: node for node in data["nodes"]}
         _, selected = fixtures(name)
+        if name.endswith("_cyber_cafe"):
+            consoles = [identifier for identifier, kind in selected.items() if kind == "console"]
+            assert consoles
+            for identifier in consoles:
+                group = nodes[f"Occludable_{identifier}"]
+                parts = {data["nodes"][index]["name"] for index in group["children"]}
+                assert {f"{identifier} monitor foot", f"{identifier} monitor stand"} <= parts
         partitions = [identifier for identifier, kind in selected.items() if kind == "partition"]
         assert partitions, name
         for identifier in partitions:

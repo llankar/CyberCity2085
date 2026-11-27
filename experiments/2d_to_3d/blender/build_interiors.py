@@ -756,11 +756,21 @@ def build(name):
                     box(identifier+" leg", (x+w*sx*.34,y+d*sy*.32,.34),
                         (min(.053,w*.1),min(.053,d*.1),.34), steel).parent = group
             if kind == "console":
-                box(identifier+" terminal", (x,y+d*.19,.98), (w*.36,.074,.22), steel).parent = group
-                box(identifier+" display bezel", (x,y+d*.19-.077,.99),
-                    (w*.33,.025,.177), partition_cap).parent = group
-                box(identifier+" display", (x,y+d*.19-.105,.99),
-                    (w*.275,.013,.117), console_glass).parent = group
+                display_y = y+d*.19
+                cafe_station = name.endswith("_cyber_cafe")
+                display_z = 1.12 if cafe_station else .99
+                if cafe_station:
+                    box(identifier+" monitor foot", (x,display_y,.800),
+                        (w*.22,min(.11,d*.16),.017),steel,.010).parent = group
+                    box(identifier+" monitor stand", (x,display_y,.901),
+                        (w*.053,.038,.111),steel,.010).parent = group
+                box(identifier+" terminal", (x,display_y,display_z),
+                    (w*.36,.052 if cafe_station else .074,.18 if cafe_station else .22),steel).parent = group
+                bezel_y = display_y-(.055 if cafe_station else .077)
+                box(identifier+" display bezel", (x,bezel_y,display_z),
+                    (w*.33,.025,.177),partition_cap).parent = group
+                box(identifier+" display", (x,bezel_y-.028,display_z),
+                    (w*.275,.013,.117),console_glass).parent = group
                 box(identifier+" input tray", (x,y-d*.15,.796),
                     (w*.28,d*.13,.016), partition_cap).parent = group
                 for index in range(4):
