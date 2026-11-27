@@ -142,6 +142,39 @@ for row in survey["walls"]:
         place(model, group, (x,y,0), (length*.94,thickness*.94,1.40),
               yaw=math.pi/2 if vertical else 0, merge=True)
 assert containers == 14 and barriers == 3 and cranes == 2 and forklifts == 8
+
+# Trace the two vessels in source-image space so they stay outside the playable quay.
+floor_deck = make_material("Cargo vessel deck", (.095,.105,.10,1), .48,.78)
+for label, outline in (
+    ("North moored cargo vessel", ((91,0),(148,0),(159,22),(156,66),(123,228),
+                                  (106,267),(87,290),(52,294),(31,278),(24,250),(55,98))),
+    ("South moored cargo vessel", ((80,318),(107,310),(136,321),(145,343),(143,373),
+                                  (108,477),(83,538),(18,538),(15,500),(33,427),(54,353))),
+):
+    deck = [(px*gw/960-gw/2, gh/2-py*gh/540) for px, py in reversed(outline)]
+    mx = sum(x for x, _ in deck)/len(deck)
+    my = sum(y for _, y in deck)/len(deck)
+    vertices = [(mx+(x-mx)*.89,my+(y-my)*.89,-.025) for x,y in deck]
+    vertices += [(x,y,.47) for x,y in deck]
+    count = len(deck)
+    faces = [tuple(range(count,2*count))]
+    faces += [(i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count)]
+    mesh = bpy.data.meshes.new(label+" hull")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.materials.append(steel)
+    mesh.materials.append(floor_deck)
+    mesh.polygons[0].material_index = 1
+    hull = bpy.data.objects.new(label, mesh)
+    bpy.context.collection.objects.link(hull)
+    cargo_x = (83 if label.startswith("North") else 73)*gw/960-gw/2
+    center_y = gh/2-(199 if label.startswith("North") else 444)*gh/540
+    for index, color in enumerate(("green","red","blue")):
+        offset = index-1
+        load = build_container(hull, cargo_x+offset*.30, center_y+offset*1.18, 1.42, .90,
+                               skins[color], steel, beam, yaw=math.radians(74))
+        load.scale.z = .32
+        load.location.z = .47+.88*load.scale.z
+
 floor = make_material("Dockside source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")

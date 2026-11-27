@@ -241,6 +241,10 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
                 or (row.get("kind") != "water" and row.get("collision") is not False)}
     exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
     assert exported == expected
+    for label in ("North moored cargo vessel", "South moored cargo vessel"):
+        vessel = next(node for node in nodes if node["name"] == label)
+        assert "mesh" in vessel
+        assert len(vessel["children"]) == 3
     for identifier in ("east_upper_cabin", "east_lower_cabin"):
         cabin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
         parts = [nodes[index]["name"] for index in cabin["children"]]
