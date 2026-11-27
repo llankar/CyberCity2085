@@ -933,3 +933,5 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] STRATEGIC-CRISIS-PREVIEW — Command Core shows planned crisis effects, the optional route at risk, and unavailable paid responses.
 
 - [x] FINALE-FALLEN-MEMORIAL — Save the mission context of permanent agent losses and reflect surviving bonds in the epilogue.
+
+- [x] FINALE-RESOLVED-EPILOGUES — Include the final mission's earned reputation and relationship consequences in the agent epilogues.

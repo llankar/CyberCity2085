@@ -70,10 +70,10 @@ def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
     assert '_end_combat("retreat")' in scene
 
 
-def scenario(tmp_path, fund_reward=0, objective_type="extract"):
+def scenario(tmp_path, fund_reward=0, objective_type="extract", mission_id="unified_test"):
     agent=Character('Vera',role='sniper')
     state=GameState(characters=[agent],selected_agent_names=['Vera'])
-    mission=MissionTemplate(id='unified_test',title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type=objective_type,fund_reward=fund_reward)
+    mission=MissionTemplate(id=mission_id,title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type=objective_type,fund_reward=fund_reward)
     state.active_mission=mission
     path=write_godot_combat_handoff(state,mission,handoff_path=tmp_path/'handoff.json')
     path,session=create_session(state,mission,path)
@@ -96,6 +96,22 @@ def test_rescue_progress_survives_retreat_and_credits_real_contributors(tmp_path
     assert ("civilian_shield" in state.characters[0].reputation) == bool(rescued)
     assert resolve_godot_result(state, mission, result, session["session_id"]) is None
     assert sum(line in event for event in state.event_log) == 1
+
+
+def test_final_mission_epilogue_includes_its_own_reputation_award(tmp_path):
+    state, mission, session, result = scenario(tmp_path, mission_id="sm_act5_seven_minutes")
+    state.campaign.current_act = 5
+    state.campaign.act_progress = state.campaign.missions_required - 1
+    result["agents"][0]["objective_contribution"] = 2
+
+    resolve_godot_result(state, mission, result, session["session_id"])
+
+    ending = state.campaign.ending
+    assert ending is not None
+    assert any('Vera "Keymaker"' in line and "objective_specialist" in line for line in ending.agent_epilogues)
+    assert sum(event.startswith("[FINALE]") for event in state.event_log) == 1
+    assert resolve_godot_result(state, mission, result, session["session_id"]) is None
+    assert state.campaign.ending is ending
 
 
 def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tmp_path):

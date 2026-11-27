@@ -9,6 +9,7 @@ from game.narrative.relationship_consequences import apply_tactical_relationship
 
 
 def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, objective_progress=None):
+    ending_before = self.game_state.campaign.ending
     funds_before=self.game_state.available_funds
     transaction_start = len(self.game_state.funds.transaction_history)
     remaining_enemies = len(getattr(self, "enemy_units", []))
@@ -237,5 +238,11 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
         self.game_state.add_event(line)
     for change in relationship_changes:
         self.game_state.add_event(str(change["text"]))
+
+    ending = self.game_state.campaign.ending
+    if ending_before is None and ending is not None:
+        from game.campaign.ending import build_agent_epilogues
+
+        ending.agent_epilogues = build_agent_epilogues(self.game_state)
 
     return surviving_participants, all_player_units

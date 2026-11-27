@@ -79,6 +79,20 @@ def _agent_epilogue(character: object, fallen_names: set[str]) -> str:
     return f"{display_name} survives, carrying the squad's story into the new city."
 
 
+def build_agent_epilogues(game_state: "GameState") -> list[str]:
+    """Compose the squad's final record from resolved agent state."""
+    fallen_names = {name.split(' "', 1)[0] for name in game_state.fallen_agent_names}
+    fallen_missions = game_state.fallen_agent_missions
+    return [
+        *(_agent_epilogue(agent, fallen_names) for agent in game_state.characters),
+        *(
+            f"{name} fell during {fallen_missions[name]} and lives on in the squad's roll of honour."
+            if name in fallen_missions else f"{name} lives on in the squad's roll of honour."
+            for name in game_state.fallen_agent_names
+        ),
+    ]
+
+
 def evaluate_campaign_ending(game_state: "GameState") -> CampaignEnding:
     """Resolve the finale from accumulated world, intel, faction, and agent state."""
 
@@ -139,20 +153,11 @@ def evaluate_campaign_ending(game_state: "GameState") -> CampaignEnding:
     if world.ai_factions_status == "confirmed":
         world_lines.append("Humanity enters the new era knowing the hidden AIs exist.")
 
-    fallen_names = {name.split(' "', 1)[0] for name in game_state.fallen_agent_names}
-    fallen_missions = game_state.fallen_agent_missions
     return CampaignEnding(
         outcome_id=outcome_id,
         title=title,
         summary=summary,
         world_lines=world_lines,
-        agent_epilogues=[
-            *(_agent_epilogue(agent, fallen_names) for agent in game_state.characters),
-            *(
-                f"{name} fell during {fallen_missions[name]} and lives on in the squad's roll of honour."
-                if name in fallen_missions else f"{name} lives on in the squad's roll of honour."
-                for name in game_state.fallen_agent_names
-            ),
-        ],
+        agent_epilogues=build_agent_epilogues(game_state),
         resolved_day=game_state.calendar.current_day,
     )
