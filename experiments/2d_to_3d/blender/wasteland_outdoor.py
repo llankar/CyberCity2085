@@ -195,6 +195,11 @@ class WastelandOutdoors:
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
         self.convoy_crossing = convoy_crossing
+        if convoy_crossing:
+            self.convoy_tarps = {
+                "olive": make_material("Convoy weathered olive tarp", (.074,.082,.043,1), 0,.94),
+                "tan": make_material("Convoy weathered tan tarp", (.15,.114,.075,1), 0,.94),
+            }
         self.workshop_surface = None
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
@@ -1351,7 +1356,7 @@ class WastelandOutdoors:
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
         part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel)
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
-        if self.salt_flat or self.dust_road or self.wrecked_highway:
+        if self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing:
             for side in (-1, 1):
                 part("Wreck side window", (length*.35,side*width*.405,.94),
                      (length*.085,.012,.102), self.dark,.012)
@@ -1397,8 +1402,11 @@ class WastelandOutdoors:
                 part("Wreck flatbed crossmember", ((-.395+slot*.085)*length,0,.668),
                      (length*.021,width*.348,.028),self.dark,.009)
         else:
+            tarp = self.canvas
+            if self.convoy_crossing:
+                tarp = self.convoy_tarps["tan" if name == "convoy_e" else "olive"]
             part("Convoy tarpaulin load", (-length*.147,0,.94),
-                 (length*.303,width*.386,.286),self.canvas,.112)
+                 (length*.303,width*.386,.286),tarp,.112)
             for offset in (-.34,-.18,-.02):
                 part("Convoy tarp strap", (length*offset,0,1.23),
                      (.024,width*.36,.018),self.dark,.007)
