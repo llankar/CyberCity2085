@@ -7,7 +7,7 @@ from create_hardsurface_crate import box
 from library_placement import place
 
 
-def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_bedding=False):
+def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_bedding=False, privacy_side=0):
     long_y = d > w
     length, width = (d,w) if long_y else (w,d)
     parts = []
@@ -36,6 +36,12 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_be
                 piece("Stretcher rail upright",end*length*.29,side*width*.425,.57,.025,.025,.06,steel)
         for end in (-1,1):
             piece("Stretcher end handle",end*length*.465,0,.60,.029,width*.30,.025,steel)
+        if privacy_side:
+            across = privacy_side*width*.445
+            for end in (-1, 1):
+                piece("Privacy screen post", end*length*.32,across,1.05,.024,.024,.49,steel)
+            for fold in (-1, 0, 1):
+                piece("Privacy screen cloth", fold*length*.21,across,.995,length*.102,.025,.40,pad)
     else:
         piece("Bed mattress",0,0,.57,length*.44,width*.4,.075,linen)
         piece("Bed pillow",length*.30,0,.66,length*.105,width*.31,.045,linen)

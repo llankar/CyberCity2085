@@ -16,6 +16,7 @@ CONCRETE_FLOOR_REPAIR_MAPS = {
     "wasteland_inner_11_maintenance_depot",
     "wasteland_inner_08_data_relay_room",
     "wasteland_inner_13_data_relay_room",
+    "wasteland_inner_11_emergency_medbay",
 }
 AGED_CONCRETE_INTERIORS = ("_bunker_command_post", "_underground_market", "_ruined_clinic",
                           "_collapsed_tunnel", "_looted_vault", "_maintenance_depot",
