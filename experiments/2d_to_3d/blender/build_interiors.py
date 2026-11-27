@@ -197,8 +197,30 @@ def build(name):
     if name == "city_transit_train_tunnel":
         # The two continuous tracks are visible in the source texture but have
         # no obstacle trace. Align the rails to the four painted running lines.
-        for index, fraction in enumerate((.415,.465,.551,.599)):
-            box(f"Running rail {index+1}", (0,gh*(.5-fraction),.045), (gw/2,.035,.032), rail)
+        tracks = ((.415,.465), (.551,.599))
+        for track, (north, south) in enumerate(tracks, start=1):
+            y_edges = [gh*(.5-fraction) for fraction in (north, south)]
+            for index, y in enumerate(y_edges, start=1):
+                box(f"Running rail {track}.{index}", (0,y,.081), (gw/2,.035,.026), rail)
+            vertices, faces = [], []
+            count = round(gw/.42)
+            for index in range(count):
+                fraction = (index+.5)/count
+                # The lower track crosses two original maintenance walkways.
+                if track == 2 and (.324 < fraction < .375 or .645 < fraction < .701):
+                    continue
+                x = gw*(fraction-.5)
+                start = len(vertices)
+                vertices.extend((x+dx,y,z) for z in (.008,.052)
+                                for dx,y in ((-.065,y_edges[1]-.12),(.065,y_edges[1]-.12),
+                                             (.065,y_edges[0]+.12),(-.065,y_edges[0]+.12)))
+                faces.extend(tuple(start+i for i in face) for face in (
+                    (3,2,1,0),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)))
+            sleepers = bpy.data.meshes.new(f"Track {track} sleeper bed")
+            sleepers.from_pydata(vertices, [], faces)
+            sleepers.materials.append(partition_cap)
+            obj = bpy.data.objects.new(f"Track {track} sleeper bed", sleepers)
+            bpy.context.collection.objects.link(obj)
 
     floor = make_material("Original interior floor", (.13,.15,.17,1), .05,.84)
     nodes = floor.node_tree.nodes

@@ -28,3 +28,26 @@ def test_interior_batch_limits_replacements_to_modelled_footprints():
     _, metro = fixtures("city_transit_metro_interchange")
     assert metro["east_top_tracks"] == "track"
     assert metro["north_stairs_w"] == "stair"
+
+def test_train_tunnel_exports_edge_to_edge_rails_and_two_sleeper_beds():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors/"
+                "city_transit_train_tunnel/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Train Tunnel on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        data = json.loads(model.read(size))
+    rails = [node for node in data["nodes"] if node["name"].startswith("Running rail ")]
+    beds = [node for node in data["nodes"] if node["name"].endswith(" sleeper bed")]
+    assert len(rails) == 4
+    assert len(beds) == 2
+    for rail in rails:
+        mesh = data["meshes"][rail["mesh"]]
+        positions = [data["accessors"][p["attributes"]["POSITION"]] for p in mesh["primitives"]]
+        assert min(p["min"][0] for p in positions) <= -19.99
+        assert max(p["max"][0] for p in positions) >= 19.99
