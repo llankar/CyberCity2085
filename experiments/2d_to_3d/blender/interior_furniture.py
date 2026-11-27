@@ -478,6 +478,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             for side in (-1, 1):
                 part("Shelter table angle-iron leg", end*length*.34,side*width*.32,.34,.04,.04,.34,trim)
         part("Shelter table cross brace", 0,0,.19,length*.35,.032,.035,trim)
+        part("Shelter tin tray", -length*.22,width*.09,.788,length*.135,width*.20,.022,trim)
+        for along, across in ((-.23,.08), (.08,-.16), (.28,.13)):
+            radius = min(.054,width*.085,length*.055)
+            dx,dy = (across*width,along*length) if vertical else (along*length,across*width)
+            bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=radius, depth=.083,
+                                                location=(x+dx,y+dy,.827))
+            tin = bpy.context.object
+            tin.name = "Shelter food tin"
+            tin.data.materials.append(trim)
+            tin.parent = group
         merge_fixture_meshes(group, "Salvaged shelter table")
     elif kind == "shelter_kitchen":
         part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)

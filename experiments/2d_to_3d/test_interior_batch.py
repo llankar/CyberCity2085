@@ -475,6 +475,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             "sw_utility": "Looted open utility cabinet",
             **{f"vault_wall_{side}": "Vault ring marker lens" for side in ("nw", "ne", "sw", "se")},
         }
+    for index in ("07", "12"):
+        additions[f"wasteland_inner_{index}_apartment_shelter"] = {
+            "north_table": "Salvaged shelter table",
+            "table_center": "Salvaged shelter table",
+        }
     for name, fixtures_to_check in additions.items():
         path = (catalogue_environment(name) if name.startswith("wasteland_inner_")
                 else OUTPUT / name / "environment.glb")
@@ -495,6 +500,12 @@ def test_interior_maps_export_remaining_fixture_groups():
                             if nodes[index]["name"].startswith("Bunker upright terminal"))
             primitive, = data["meshes"][terminal["mesh"]]["primitives"]
             assert data["materials"][primitive["material"]]["name"] == "Bunker dim terminal glass"
+        if name.endswith("_apartment_shelter"):
+            table_index, = groups["Occludable_table_center"]
+            table = nodes[table_index]
+            roof = max(data["accessors"][item["attributes"]["POSITION"]]["max"][1]
+                       for item in data["meshes"][table["mesh"]]["primitives"])
+            assert roof + table["translation"][1] > .85
         if name.endswith("_emergency_medbay"):
             bed_index, = groups["Occludable_bed_center"]
             bed = nodes[bed_index]
