@@ -249,6 +249,8 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 platform = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert sum(nodes[i]["name"].startswith("Blue station cladding panel")
                            for i in platform["children"]) == 5
+                assert sum(nodes[i]["name"].startswith("Station tactile strip rib")
+                           for i in platform["children"]) == 15
         if name.endswith("_scavenger_plaza"):
             for row in surveyed:
                 if row["id"].endswith("_ruin"):

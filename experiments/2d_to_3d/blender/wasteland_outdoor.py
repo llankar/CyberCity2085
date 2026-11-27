@@ -208,6 +208,8 @@ class WastelandOutdoors:
             self.planter_silt = make_material("Flooded planter wet silt", (.085,.065,.034,1), 0,.79)
         self.scavenger_plaza = scavenger_plaza
         self.ruined_transit = ruined_transit
+        if ruined_transit:
+            self.platform_warning = make_material("Faded station safety yellow", (.42,.26,.05,1), .06,.86)
         self.cratered_waterfront = cratered_waterfront
         self.salt_flat = salt_flat
         self.dust_road = dust_road
@@ -1008,7 +1010,10 @@ class WastelandOutdoors:
                 (width*.057,depth*.027,.018), self.steel,.008).parent = group
         for bay in (-.38,-.24,-.10,.04,.32):
             box("Surviving platform warning strip", (x+rail_side*width*.32,y+bay*depth,.393),
-                (width*.026,depth*.064,.015),self.aggregate,.006).parent = group
+                (width*.026,depth*.064,.015),self.platform_warning,.006).parent = group
+            for offset in (-.041,0,.041):
+                box("Station tactile strip rib", (x+rail_side*width*.32,y+(bay+offset)*depth,.410),
+                    (width*.022,depth*.005,.005),self.platform_warning,.003).parent = group
 
     def add_transit_south_carriage(self):
         group = bpy.data.objects.new("South transit carriage", None)
