@@ -2131,3 +2131,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-BURNED-MARKET-OPEN-RUINS / DONE for export and native loading. Opened street-facing bays at different positions and added tilted fallen roof braces inside the surveyed ruins. Rebuilt the shared 02/07 export, loaded it in Godot, refreshed both plates and passed eleven outdoor tests. Next: move the open-ruin and floor review to another Wasteland family.
 
 - EXPERIMENTAL-FLOODED-CIVIC-FACADES / DONE for export and native loading. Compared the 04/09 source plate against Godot, opened a bay on the plaza-facing side of each ruin and joined the uneven facade posts with tilted lintels. Rebuilt the shared scene, refreshed both catalogue plates and passed eleven outdoor tests. Next: inspect the planter interiors and remaining flat vehicle shapes.
+
+- EXPERIMENTAL-FLOODED-PLANTER-RELIEF / DONE for export and native loading. Recessed the planter beds, varied the coping heights and left joints between adjacent blocks. Rebuilt shared 04/09 on E:, refreshed both plates and passed eleven outdoor tests. Next: compare flat vehicle markings with the original before masking them.

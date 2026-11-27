@@ -378,10 +378,11 @@ class WastelandOutdoors:
             if self.wrecked_highway and ("span" in name or "ramp" in name):
                 crest = [.44 + .13*(i%4) for i in range(n)]
             if self.flooded_square and name.startswith("planter_"):
-                crest = [height] * n
-                for (ax,ay), (bx,by) in zip(points, points[1:]+points[:1]):
-                    edge = self.concrete_box("Flooded planter coping", ((ax+bx)/2,(ay+by)/2,.28),
-                                             (math.hypot(bx-ax,by-ay)/2,.055,.095))
+                crest = [.14] * n
+                for index, ((ax,ay), (bx,by)) in enumerate(zip(points, points[1:]+points[:1])):
+                    top = (.31,.38,.35,.27)[index%4]
+                    edge = self.concrete_box("Flooded planter coping", ((ax+bx)/2,(ay+by)/2,top/2),
+                                             (math.hypot(bx-ax,by-ay)*.48,.055,top/2))
                     edge.rotation_euler.z = math.atan2(by-ay,bx-ax)
                     edge.parent = group
                 triangles = tessellate_polygon([[Vector(point) for point in points]])
@@ -395,7 +396,7 @@ class WastelandOutdoors:
                         continue
                     radius = min(radius,.23)
                     fragment = self.concrete_box("Flooded planter broken masonry",
-                                                 (*center,height+.034),
+                                                 (*center,crest[0]+.034),
                                                  (radius*.76,radius*.53,.055),.013)
                     fragment.rotation_euler.z = index*.79
                     fragment.parent = group
