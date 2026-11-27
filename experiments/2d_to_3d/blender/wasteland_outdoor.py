@@ -1657,6 +1657,11 @@ class WastelandOutdoors:
             for side in (-1,1):
                 part("Wagon sliding door", 0,side*width*.423,.803,
                      (length*.164,width*.025,.307), self.dark)
+                for elevation in (.49, 1.13):
+                    part("Wagon sliding door runner", length*.065,side*width*.455,elevation,
+                         (length*.238,.018,.026),self.steel)
+                part("Wagon sliding door pull", -length*.115,side*width*.457,.79,
+                     (.027,.024,.072),self.steel)
                 for bay in (-.35,-.22,.22,.35):
                     part("Wagon cladding rib", bay*length,side*width*.434,.82,
                          (.024,.018,.357), self.steel)

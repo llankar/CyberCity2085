@@ -498,6 +498,9 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert any(part.startswith(component) for part in parts), identifier
         assert sum(part.startswith("Wagon bogie") for part in parts) == 2
+        if identifier == "wagon_n1":
+            assert sum(part.startswith("Wagon sliding door runner") for part in parts) == 4
+            assert sum(part.startswith("Wagon sliding door pull") for part in parts) == 2
     bridge = next(node for node in nodes if node["name"] == "Trainyard turntable bridge")
     wagon = next(node for node in nodes if node["name"] == "Occludable_wagon_turntable")
     assert bridge["rotation"] == wagon["rotation"]
