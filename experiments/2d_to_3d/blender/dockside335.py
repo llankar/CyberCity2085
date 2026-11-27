@@ -14,6 +14,7 @@ from shipping_container import build_container
 from loading_crane import build_crane
 from industrial_forklift import build_forklift
 from interior_furniture import build_floor_grate, build_rack
+from dockside_vessels import VESSEL_OUTLINES
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -145,12 +146,7 @@ assert containers == 14 and barriers == 3 and cranes == 2 and forklifts == 8
 
 # Trace the two vessels in source-image space so they stay outside the playable quay.
 floor_deck = make_material("Cargo vessel deck", (.095,.105,.10,1), .48,.78)
-for label, outline in (
-    ("North moored cargo vessel", ((91,0),(148,0),(159,22),(156,66),(123,228),
-                                  (106,267),(87,290),(52,294),(31,278),(24,250),(55,98))),
-    ("South moored cargo vessel", ((80,318),(107,310),(136,321),(145,343),(143,373),
-                                  (108,477),(83,538),(18,538),(15,500),(33,427),(54,353))),
-):
+for label, outline in VESSEL_OUTLINES.items():
     deck = [(px*gw/960-gw/2, gh/2-py*gh/540) for px, py in reversed(outline)]
     mx = sum(x for x, _ in deck)/len(deck)
     my = sum(y for _, y in deck)/len(deck)

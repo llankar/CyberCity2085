@@ -4,6 +4,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
+from blender.dockside_vessels import VESSEL_OUTLINES
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
@@ -142,6 +143,11 @@ def main():
         survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
     if args.map == "wasteland_city_12_cratered_waterfront":
         survey["walls"].extend(WATERFRONT_WRECKS)
+    if args.map == "city_industrial_dockside_terminal":
+        survey["walls"].extend(
+            {"id": label, "polygon": [(2*x, 2*y) for x,y in outline]}
+            for label, outline in VESSEL_OUTLINES.items()
+        )
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)
@@ -187,6 +193,11 @@ def main():
             "west_edge_wreck_art": (98, 472, 200, 535),
             "west_basin_wreck_art": (204, 418, 247, 468),
             "east_basin_wreck_art": (455, 421, 505, 473),
+        })
+    if args.map == "city_industrial_dockside_terminal":
+        result = restore_donor_pavement(result, original, survey, {
+            "North moored cargo vessel": (264, 444, 322, 604),
+            "South moored cargo vessel": (270, 860, 330, 1030),
         })
     result.save(out/'floor.png')
     Image.fromarray(mask).save(out/'replacement_mask.png')
