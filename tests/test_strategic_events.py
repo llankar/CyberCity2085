@@ -11,6 +11,7 @@ from game.management.events import (
     EventTemplate,
     EVENT_CATEGORIES,
     apply_event_choice,
+    apply_event_effects,
     create_event_templates,
     expire_events,
 )
@@ -94,6 +95,24 @@ class StrategicEventsTest(unittest.TestCase):
         self.assertEqual(game_state.active_events, [])
         self.assertEqual(game_state.district.unrest, starting_unrest + 9)
         self.assertTrue(any("Expired event" in entry for entry in game_state.event_log))
+
+    def test_crisis_closes_only_an_optional_inactive_route(self):
+        from game.campaign.story_missions import STORY_MISSIONS_BY_ID
+
+        state = GameState()
+        ensure_mission_templates(state)
+        story = next(mission for mission in state.mission_templates if mission.id in STORY_MISSIONS_BY_ID)
+        optional = [mission for mission in state.mission_templates if mission.id not in STORY_MISSIONS_BY_ID]
+        state.active_mission = optional[0]
+        state.mission_templates = [story, *optional]
+        state.unavailable_mission_ids = [story.id, "retired-operation"]
+
+        apply_event_effects(state, {"mission_availability": -1})
+        self.assertEqual(state.unavailable_mission_ids, [optional[1].id])
+        state.active_mission = None
+        self.assertEqual(launch_selected_mission(state).id, story.id)
+        apply_event_effects(state, {"mission_availability": 1})
+        self.assertEqual(state.unavailable_mission_ids, [])
 
     def test_board_vote_applies_pressure_to_aegis(self):
         game_state = GameState()

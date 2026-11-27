@@ -42,6 +42,8 @@ def _selected_mission_leader(game_state: GameState):
 
 def ensure_mission_templates(game_state: GameState) -> None:
     """Ensure there is a selectable mission board and clamp the selected index."""
+    from .campaign.story_missions import STORY_MISSIONS_BY_ID
+
     if (
         not game_state.mission_templates
         or game_state.mission_board_generated_day != game_state.calendar.current_day
@@ -51,6 +53,12 @@ def ensure_mission_templates(game_state: GameState) -> None:
         game_state.mission_board_generated_day = game_state.calendar.current_day
         game_state.mission_board_version = 2
         game_state.selected_mission_index = 0
+    if game_state.unavailable_mission_ids:
+        open_board_ids = {mission.id for mission in game_state.mission_templates}
+        game_state.unavailable_mission_ids[:] = [
+            mission_id for mission_id in game_state.unavailable_mission_ids
+            if mission_id in open_board_ids and mission_id not in STORY_MISSIONS_BY_ID
+        ]
     game_state.selected_mission_index %= len(game_state.mission_templates)
 
 

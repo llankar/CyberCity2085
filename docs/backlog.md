@@ -928,4 +928,4 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Régression Godot : corriger l'indentation GDScript cassée pendant la traduction du HUD et ajouter un contrôle natif de parsing ainsi qu'un test réel de deux missions sur le runtime persistant. (19 novembre 2026)
 
 - [x] STRATEGIC-EVENT-FALLOUT — Paid crisis responses require funds before applying any effects. Named faction pressure targets the faction involved in the crisis.
-- [ ] STRATEGIC-MISSION-CLOSURES — Audit crisis closures and reopening against campaign-critical missions.
+- [x] STRATEGIC-MISSION-CLOSURES — Crisis closures affect optional inactive routes. Story missions and stale board entries are cleared from legacy closure lists.

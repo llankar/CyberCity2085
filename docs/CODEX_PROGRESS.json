@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit strategic fallout for district crises and faction decisions, then connect missing consequences through existing campaign rules."
+    "next_action": "Audit whether the strategic dashboard explains actual crisis consequences and which route was closed."
   },
   "tasks": [
+    {
+      "id": "STRATEGIC-MISSION-CLOSURES",
+      "title": "Protect story progress from crisis route closures",
+      "status": "DONE",
+      "files": ["game/mission_system.py", "game/management/events.py", "tests/test_strategic_events.py"],
+      "tests": ["Strategic events, critical choices and mission objectives: 23 passed, 3 subtests passed."],
+      "evidence": ["A crisis skips the story mission and the active contract, records the affected optional route, and preserves its reopening. Legacy story locks and obsolete route IDs are cleared when reading the board."],
+      "remaining": []
+    },
     {
       "id": "MISSION-PARTIAL-RESCUE-DEBRIEF",
       "title": "Recognize partial civilian rescue in the campaign debrief",

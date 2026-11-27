@@ -489,8 +489,14 @@ def apply_event_effects(game_state, effects: dict[str, Any]) -> None:
 
 def _lock_first_available_mission(game_state) -> None:
     """Mark one mission unavailable without removing the template from saves."""
+    from ..campaign.story_missions import STORY_MISSIONS_BY_ID
+    from ..mission_system import ensure_mission_templates
+
+    ensure_mission_templates(game_state)
     unavailable = set(game_state.unavailable_mission_ids)
+    active_id = getattr(game_state.active_mission, "id", None)
     for mission in game_state.mission_templates:
-        if mission.id not in unavailable:
+        if mission.id != active_id and mission.id not in unavailable and mission.id not in STORY_MISSIONS_BY_ID:
             game_state.unavailable_mission_ids.append(mission.id)
+            game_state.add_event(f"Route disrupted: {mission.title}.")
             return
