@@ -55,6 +55,9 @@ class GodotCombatBridgeTest(unittest.TestCase):
             "distance_weight": profile.distance_weight,
             "cover_bias": profile.cover_bias,
         })
+        mission.enemy_theme = "corp_37"
+        corporate = build_godot_combat_payload(state, mission)
+        self.assertEqual(corporate["mission"]["tactical_profile"]["command_radius_cells"], 4)
 
     def test_containment_payload_carries_shared_breach_geometry(self) -> None:
         game_state = GameState(

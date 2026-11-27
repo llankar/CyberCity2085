@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Apply the existing corporate command-link criteria to coordinated Godot targeting while preserving individual visibility."
+    "next_action": "Audit objective-specific behavior from mission handoff through Godot combat and campaign result, starting with extraction."
   },
   "tasks": [
+    {
+      "id": "ENEMY-CORPORATE-FOCUS",
+      "title": "Coordinate corporate target selection without sharing hidden targets",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd", "tests/test_godot_combat_bridge.py"],
+      "tests": ["Godot handoff, fog and containment: 21 passed, 2 subtests passed."],
+      "evidence": ["Active local commander focus is used only if independently visible and within follower weapon range. Opaque obstacles and commander impairment break the link."],
+      "remaining": ["Arcade-specific suppression and command accuracy were outside this focus-fire change."]
+    },
     {
       "id": "ENEMY-FACTION-PROFILE-HANDOFF",
       "title": "Apply canonical faction targeting and cover preferences in Godot",

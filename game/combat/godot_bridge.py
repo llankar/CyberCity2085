@@ -61,6 +61,7 @@ class GodotCombatLaunchResult:
 
 
 def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
+    from .command_network import COMMAND_RADIUS, CORPORATE_DOCTRINES
     from .tactical_identity import profile_for_theme
 
     profile = profile_for_theme(getattr(mission, "enemy_theme", ""))
@@ -83,6 +84,8 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
             "distance_weight": profile.distance_weight,
             "cover_bias": profile.cover_bias,
         }
+        if profile.key in CORPORATE_DOCTRINES:
+            payload["tactical_profile"]["command_radius_cells"] = COMMAND_RADIUS / 32
     if payload["objective_type"] == "containment":
         payload["objective_geometry"] = {
             "breach_half_width_cells": 3,

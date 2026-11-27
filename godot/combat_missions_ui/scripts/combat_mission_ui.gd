@@ -1747,7 +1747,7 @@ func _enemy_act(enemy_index: int) -> void:
 	var subtype := str(enemy.get("enemy_subtype", "grunt")).to_lower()
 	var ap: int = int(enemy.get("ap", 2))
 	var rng: int = _subtype_attack_range(subtype)
-	var ti: int = _select_visible_player_target(enemy, subtype, rng)
+	var ti: int = _enemy_engagement_target(enemy_index, subtype, rng)
 	var occupied := _enemy_known_occupied_cells(enemy_index)
 	# Search without using hidden player coordinates. Enemies reserve one AP so
 	# discovery during movement can still lead to an attack this turn.
@@ -1767,7 +1767,7 @@ func _enemy_act(enemy_index: int) -> void:
 			var search_key := "e%d" % enemy_index
 			if _unit_tokens.has(search_key):
 				_visual_move_token(search_key, start, destination, enemy)
-		ti = _select_visible_player_target(enemy, subtype, rng)
+		ti = _enemy_engagement_target(enemy_index, subtype, rng)
 		if ti < 0:
 			enemy["ap"] = 0
 			enemy_units[enemy_index] = enemy
@@ -2237,6 +2237,42 @@ func _visible_enemy_units_for_hud() -> Array[Dictionary]:
 		if _is_enemy_visible_to_player(index):
 			visible.append(enemy_units[index])
 	return visible
+
+func _enemy_engagement_target(enemy_index: int, subtype: String, attack_range: int) -> int:
+	var enemy := enemy_units[enemy_index]
+	var commander_index := _linked_enemy_commander(enemy_index)
+	if commander_index >= 0:
+		var commander := enemy_units[commander_index]
+		var focus := _select_visible_player_target(commander, "commander", _subtype_attack_range("commander"))
+		if focus >= 0 and _unit_can_see(enemy, player_units[focus]):
+			var offset := _cell_position(player_units[focus]) - _cell_position(enemy)
+			if absi(offset.x) + absi(offset.y) <= attack_range:
+				return focus
+	return _select_visible_player_target(enemy, subtype, attack_range)
+
+func _linked_enemy_commander(enemy_index: int) -> int:
+	var enemy := enemy_units[enemy_index]
+	var profile := _mission_data().get("tactical_profile", {}) as Dictionary
+	var radius := float(profile.get("command_radius_cells", 0))
+	if radius <= 0.0 or enemy.get("enemy_subtype", "") == "commander":
+		return -1
+	var origin := _cell_position(enemy)
+	var best := -1
+	var best_distance := INF
+	for index in range(enemy_units.size()):
+		var candidate := enemy_units[index]
+		if index == enemy_index or candidate.get("enemy_subtype", "") != "commander" \
+				or int(candidate.get("hp", 0)) <= 0 or candidate.get("enemy_theme") != enemy.get("enemy_theme"):
+			continue
+		var statuses: Array = candidate.get("status_effects", [])
+		if "suppressed" in statuses or "stunned" in statuses or "panicked" in statuses:
+			continue
+		var position := _cell_position(candidate)
+		var distance := origin.distance_to(position)
+		if distance <= radius and distance < best_distance and _battlefield.has_los(origin, position, []):
+			best = index
+			best_distance = distance
+	return best
 
 func _select_visible_player_target(enemy: Dictionary, subtype: String, attack_range: int) -> int:
 	var ep := _cell_position(enemy)

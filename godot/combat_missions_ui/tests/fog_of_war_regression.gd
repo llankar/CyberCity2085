@@ -88,6 +88,27 @@ func run() -> void:
 	mission.handoff = {"mission": {"tactical_profile": {"wounded_weight": 38, "distance_weight": 3}}}
 	assert(mission._select_visible_player_target(shooter, "grunt", 10) == 1, "Novatek prioritizes wounded targets")
 	assert(mission._select_visible_player_target(shooter, "grunt", 2) == 0, "doctrine cannot override range")
+	board.configure(Vector2(1280, 720), null, no_walls, center)
+	mission.handoff = {"mission": {"tactical_profile": {"command_radius_cells": 4}}}
+	mission.player_units.assign([
+		{"hp": 20, "position": Vector2i(6, 5)},
+		{"hp": 20, "position": Vector2i(5, 9)},
+	])
+	mission.enemy_units.assign([
+		{"hp": 20, "position": Vector2i(5, 5), "enemy_theme": "corp_37"},
+		{"hp": 20, "position": Vector2i(5, 8), "enemy_theme": "corp_37", "enemy_subtype": "commander"},
+	])
+	assert(mission._enemy_engagement_target(0, "grunt", 10) == 1, "linked follower shares commander target")
+	assert(mission._enemy_engagement_target(0, "grunt", 2) == 0, "follower cannot fire beyond range")
+	mission.enemy_units[0]["vision_range"] = 2
+	assert(mission._enemy_engagement_target(0, "grunt", 10) == 0, "command link cannot reveal targets")
+	mission.enemy_units[0].erase("vision_range")
+	mission.enemy_units[1]["status_effects"] = ["suppressed"]
+	assert(mission._enemy_engagement_target(0, "grunt", 10) == 0, "suppressed commander loses the link")
+	mission.enemy_units[1]["status_effects"] = []
+	var link_wall: Array[Dictionary] = [{"cell": Vector2i(5, 6), "solid": true}]
+	board.configure(Vector2(1280, 720), null, link_wall, center)
+	assert(mission._linked_enemy_commander(0) == -1, "opaque wall breaks commander link")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")
