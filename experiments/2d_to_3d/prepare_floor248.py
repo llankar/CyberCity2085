@@ -56,6 +56,17 @@ TECH_MARKET_DONORS = {
     "southeast_large_canopy": (1414, 836, 1460, 914),
 }
 
+WATERFRONT_WRECKS = (
+    {"id": "west_basin_wreck_art", "polygon": [
+        (251,470), (257,450), (319,384), (337,380), (352,391),
+        (349,415), (297,486), (276,495),
+    ]},
+    {"id": "east_basin_wreck_art", "polygon": [
+        (511,479), (512,404), (521,363), (542,350), (566,354),
+        (577,369), (570,438), (556,490), (533,504),
+    ]},
+)
+
 
 def restore_donor_pavement(floor, original, survey, donors):
     floor = floor.copy()
@@ -124,6 +135,8 @@ def main():
     survey['walls'].extend(args.decorative_rects)
     if args.map == "wasteland_city_11_ruined_transit_plaza":
         survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
+    if args.map == "wasteland_city_12_cratered_waterfront":
+        survey["walls"].extend(WATERFRONT_WRECKS)
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)
@@ -137,6 +150,11 @@ def main():
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
+    if args.map == "wasteland_city_12_cratered_waterfront":
+        result = restore_donor_pavement(result, original, survey, {
+            "west_basin_wreck_art": (204, 418, 247, 468),
+            "east_basin_wreck_art": (455, 421, 505, 473),
+        })
     result.save(out/'floor.png')
     Image.fromarray(mask).save(out/'replacement_mask.png')
     assert source.read_bytes()==raw

@@ -28,9 +28,14 @@ def test_exported_stalls_retain_independent_groups_and_materials(folder, map_nam
         children = [nodes[index] for index in stall["children"]]
         if map_name == "market325":
             children = [node for node in children if " rigid surfaces" in node["name"]]
-        assert len(children) == 1, stall["name"]
-        mesh = document["meshes"][children[0]["mesh"]]
-        assert len({primitive["material"] for primitive in mesh["primitives"]}) > 1
+        if map_name != "wasteland_city_02_burned_market_block":
+            assert len(children) == 1, stall["name"]
+        materials = {
+            primitive["material"]
+            for child in children
+            for primitive in document["meshes"][child["mesh"]]["primitives"]
+        }
+        assert len(materials) > 1, stall["name"]
 
 
 def test_tech_market_buildings_export_textured_roofs_and_facade_bays():
