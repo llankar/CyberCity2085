@@ -249,6 +249,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 parts = [nodes[i]["name"] for i in stall["children"]]
                 assert sum(part.startswith("Scavenger parts bin") for part in parts) == 3
+                stock = ("Scavenger reclaimed bearing" if identifier == "market_n"
+                         else "Scavenger used motor housing")
+                assert sum(part.startswith(stock) for part in parts) == 1
                 assert {part.split()[2].split(".")[0] for part in parts
                         if part.startswith("Salvaged canopy ")
                         and not part.startswith(("Salvaged canopy post", "Salvaged canopy bound hem"))} == fabrics

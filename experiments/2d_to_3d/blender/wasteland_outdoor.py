@@ -1188,6 +1188,22 @@ class WastelandOutdoors:
         for offset, cross, height in ((-.34,-.05,.05),(-.29,.065,.031),(.02,.045,.064),(.31,-.052,.045)):
             box("Scavenger recovered machine part", (length*offset,width*cross,.715+height),
                 (length*.024,width*.041,height), self.steel,.011).parent = group
+        if name in {"market_n", "market_w", "market_south", "market_se2"}:
+            radius = min(.074,length*.034,width*.09)
+            bpy.ops.mesh.primitive_torus_add(
+                major_segments=16, minor_segments=8, major_radius=radius, minor_radius=radius*.24,
+                location=(-length*.018,-width*.058,.715+radius*.40),
+                rotation=(.18,0,.25),
+            )
+            bearing = bpy.context.object
+            bearing.name = "Scavenger reclaimed bearing"
+            bearing.data.materials.append(self.steel)
+            bearing.parent = group
+        else:
+            coil = box("Scavenger used motor housing", (-length*.018,-width*.040,.766),
+                       (length*.032,width*.050,.051),self.steel,.018)
+            coil.rotation_euler.z = .31
+            coil.parent = group
         fabrics = covers.get(name, ())
         for index, fabric in enumerate(fabrics):
             half = length*(.20 if len(fabrics) == 2 else .26)
