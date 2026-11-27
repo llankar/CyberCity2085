@@ -1915,3 +1915,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DOWNTOWN-STREET-BARRIERS / DONE. Rebuilt both surveyed barriers with low concrete bases, steel bracing and cyan markers. The longer west barrier has five bays and the east barrier three. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: compare other high-impact street fixtures or vehicle silhouettes across the updated exterior captures.
 
 - EXPERIMENTAL-DOWNTOWN-VEHICLE-ORIENTATION / DONE. Matched seven vehicle angles to the original intersection artwork while fitting their rotated bounds to their surveyed footprints. Rebuilt on E:, captured Godot and passed 25 facade tests. Next: inspect the catalogue for other repeated placement artifacts.
+
+- EXPERIMENTAL-PARKING-GARAGE-VEHICLE-ANGLES / DONE. Reused the Downtown fitted-yaw logic for three diagonally parked cars, preserving their surveyed bounds. Rebuilt the Parking Garage on E:, rendered Godot and passed 26 urban tests. Next: compare other recurring large visual defects across the catalogue.

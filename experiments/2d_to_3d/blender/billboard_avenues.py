@@ -76,14 +76,15 @@ ROOF_FANS_BY_MAP = {
     "cybercity_street_06_transit_interchange": TRANSIT_06_ROOF_FANS,
 }
 
-DOWNTOWN_CAR_ANGLES = {
-    "car_north": -57,
-    "car_north_east": 68,
-    "car_midwest": 61,
-    "car_mideast": -48,
-    "car_southwest": -18,
-    "car_south": 68,
-    "car_southeast": -40,
+SURVEYED_CAR_ANGLES = {
+    "city_exterior_downtown_intersection": {
+        "car_north": -57, "car_north_east": 68, "car_midwest": 61,
+        "car_mideast": -48, "car_southwest": -18, "car_south": 68,
+        "car_southeast": -40,
+    },
+    "city_exterior_parking_garage": {
+        "car_n4": -57, "car_w": 19, "car_mideast": -22,
+    },
 }
 
 BUILDING_EXCEPTIONS = {
@@ -796,8 +797,9 @@ def build(name):
             vertical = d > w
             length, breadth = max(w,d), min(w,d)
             yaw = math.pi/2 if vertical else 0
-            if name == "city_exterior_downtown_intersection" and identifier in DOWNTOWN_CAR_ANGLES:
-                yaw = math.radians(DOWNTOWN_CAR_ANGLES[identifier])
+            surveyed_angle = SURVEYED_CAR_ANGLES.get(name, {}).get(identifier)
+            if surveyed_angle is not None:
+                yaw = math.radians(surveyed_angle)
                 breadth = min(breadth,length*.49)
                 c, s = abs(math.cos(yaw)), abs(math.sin(yaw))
                 fit = min(w/(length*c+breadth*s),d/(length*s+breadth*c))

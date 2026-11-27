@@ -8,6 +8,21 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def test_parking_garage_retains_angled_vehicle_placements():
+    path = catalogue_environment("city_exterior_parking_garage")
+    if not path.is_file():
+        pytest.skip("Build Parking Garage on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    for identifier, angle in (("car_n4", -57), ("car_w", 19), ("car_mideast", -22)):
+        import math
+        car = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        expected = abs(math.sin(math.radians(angle)/2))
+        assert any(abs(nodes[index].get("rotation", [0, 0])[1]) == pytest.approx(expected)
+                   for index in car["children"])
+
+
 def test_downtown_garden_kiosk_exports_roof_planting():
     path = catalogue_environment("city_exterior_downtown_intersection")
     if not path.is_file():
