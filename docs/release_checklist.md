@@ -11,6 +11,8 @@ Date: November 13, 2026
 - [ ] Physical controller check is blocked on this machine. Windows exposes a synthetic bus and the installed Godot enumerates zero joypads.
 - [ ] Visible installed combat handoff, physical controller, and listening review remain unverified. Historical global tactical visual and full campaign checks do not gate this candidate.
 
+QA build `e400dfdb` passed the frozen Windows data mission at 1280×720 from headquarters to debrief, promotions and return. A second run restored the enemy-phase checkpoint and finished the same path. This build contains test drivers and is separate from the production installer.
+
 Storage maintenance ? 26 November 2026: at the owner's request, obsolete E: build/validation staging copies were removed. Retained production builds are `cybercity-build-6d87cffadf8f4cce979b274c4b94861d` and `cybercity-build-f93795d303ee435fb61065a9a9ede679` under `E:/CyberCity2085-builds`. Older executable paths below are historical and may no longer exist. This cleanup does not constitute a new production build or a new test result.
 
 

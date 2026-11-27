@@ -5,14 +5,23 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "MISSION-OBJECTIVE-DIVERSITY"
+    "WINDOWS-RELEASE-ACCEPTANCE"
   ],
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit whether the strategic dashboard explains actual crisis consequences and which route was closed."
+    "next_action": "Review remaining release blockers, keeping frozen QA, physical controls and listening evidence separate from the production installer."
   },
   "tasks": [
+    {
+      "id": "WINDOWS-FROZEN-RETURN",
+      "title": "Run the real data objective and recovery path in the Windows QA executable",
+      "status": "DONE",
+      "files": ["docs/release_checklist.md", "tools/check_unified_return.py"],
+      "tests": ["Packaged headless smoke passed. Frozen Windows native data mission finished normally and after an enemy phase checkpoint resume."],
+      "evidence": ["E:/CyberCity2085-builds/qa-frozen-e400dfdb", "E:/CyberCity2085-builds/qa-frozen-resume-e400dfdb"],
+      "remaining": ["Production installer based on the newest runtime, physical controller, and listening review remain open."]
+    },
     {
       "id": "STRATEGIC-MISSION-CLOSURES",
       "title": "Protect story progress from crisis route closures",
