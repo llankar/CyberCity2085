@@ -510,6 +510,23 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+        # Irregular remnants rise out of the two intact glazing channels.
+        for side, fragments in ((-1, ((-.39,-.25,-.36,.14), (.12,.24,.20,.09))),
+                                (1, ((-.14,.03,-.05,.12), (.29,.41,.37,.18)))):
+            vertices, faces = [], []
+            for start, end, peak, height in fragments:
+                index = len(vertices)
+                for along, z in ((start,.774), (end,.774), (peak,.774+height)):
+                    u, v = along*length, side*width*.40
+                    dx, dy = (v,u) if vertical else (u,v)
+                    vertices.append((x+dx,y+dy,z))
+                faces.extend(((index,index+1,index+2), (index+2,index+1,index)))
+            mesh = bpy.data.meshes.new("Vault broken glazing")
+            mesh.from_pydata(vertices, [], faces)
+            mesh.materials.append(steel)
+            shards = bpy.data.objects.new("Vault broken glazing", mesh)
+            bpy.context.collection.objects.link(shards)
+            shards.parent = group
     elif kind == "medbay_care_desk":
         part("Care desk drawer cabinet", -length*.28,0,.36,length*.17,width*.40,.36,trim)
         for z in (.24,.45,.62):
