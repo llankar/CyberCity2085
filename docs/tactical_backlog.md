@@ -1597,3 +1597,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-PSI-FOCUS — Avoid spending AP on an ineffective cast and report the actual relief for living allies.
 
 - [x] TACTICAL-SUPPORT-TOOLTIPS — Explain squad stress relief and self-healing in the Godot action buttons.
+
+- [x] TACTICAL-MEDICAL-UTILITIES — Route the three equipped medical utilities to AP-based self-healing in Godot.

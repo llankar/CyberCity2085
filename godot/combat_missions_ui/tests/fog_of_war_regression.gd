@@ -233,6 +233,22 @@ func run() -> void:
 	mission._apply_psi_focus()
 	assert(mission.player_units[0].ap == 2 and mission.player_units[2].stress == 0)
 	assert(mission.player_units[1].stress == 35 and "8 stress" in mission.status_line)
+	var medical_healing := {"Trauma Patch": 12, "Med Kit Pro": 16, "Nano-Repair Kit": 18}
+	for item in medical_healing:
+		var patient := {"name": "Oracle", "hp": 10, "max_hp": 40, "ap": 3, "available_actions": [item]}
+		mission.player_units[0] = patient
+		mission._apply_medical_utility(item)
+		assert(patient.hp == 10 + medical_healing[item])
+		assert(patient.ap == 2 and item in mission.status_line)
+		patient.hp = 39
+		mission._apply_medical_utility(item)
+		assert(patient.hp == 40 and patient.ap == 1)
+		mission._apply_medical_utility(item)
+		assert(patient.ap == 1)
+		patient.hp = 20
+		patient.available_actions = []
+		mission._apply_medical_utility(item)
+		assert(patient.hp == 20 and patient.ap == 1)
 	mission._hud = load("res://scripts/hud_controller.gd").new()
 	assert(mission._attack_audio_event({}, "Mind Spike", "PSI") == "psi")
 	mission._configure_visual_hud()

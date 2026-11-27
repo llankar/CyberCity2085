@@ -89,7 +89,9 @@ func run() -> void:
 	check(scene.player_units[0]["stress"] == 25,"PSI retains original stress relief")
 	scene.player_units[0]["max_hp"] = 40
 	scene.player_units[0]["hp"] = 1
-	scene._apply_trauma_patch()
+	if "Trauma Patch" not in scene.player_units[0]["available_actions"]:
+		scene.player_units[0]["available_actions"].append("Trauma Patch")
+	scene._apply_medical_utility("Trauma Patch")
 	check(scene.player_units[0]["hp"] == 13,"healing retains original amount")
 	scene.player_units[0]["ap"] = 20
 	ap = scene.player_units[0]["ap"]

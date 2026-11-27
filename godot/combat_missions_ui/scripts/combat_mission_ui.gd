@@ -50,6 +50,8 @@ const _ACTION_DEFS: Dictionary = {
 	"Mind Spike":    {"type": "PSI",      "range": 12,"damage": 7, "heal": 0, "ap": 1},
 	"Psi Focus":     {"type": "PSI_HEAL", "range": 0, "damage": 0, "heal": 0, "ap": 1, "stress_relief": 25},
 	"Trauma Patch":  {"type": "HEAL",     "range": 0, "damage": 0, "heal": 12,"ap": 1},
+	"Med Kit Pro":   {"type": "HEAL",     "range": 0, "damage": 0, "heal": 16,"ap": 1},
+	"Nano-Repair Kit": {"type": "HEAL",   "range": 0, "damage": 0, "heal": 18,"ap": 1},
 	"Missile Salvo": {"type": "FIRE_AOE", "range": 24, "damage": 10, "heal": 0, "ap": 2, "aoe_radius": 2},
 	"VTOL Heavy Strike": {"type": "FIRE_AOE", "range": 999, "damage": 14, "heal": 0, "ap": 0, "aoe_radius": 2},
 }
@@ -1043,7 +1045,7 @@ func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> voi
 	elif atype == "PSI_HEAL":
 		_apply_psi_focus()
 	elif atype == "HEAL":
-		_apply_trauma_patch()
+		_apply_medical_utility(selected_action)
 	elif atype in ["DEFEND", "OVERWATCH"]:
 		_execute_action(selected_action)
 
@@ -1376,7 +1378,7 @@ func _execute_action(action_name: String) -> void:
 		_apply_psi_focus()
 		return
 	if atype == "HEAL":
-		_apply_trauma_patch()
+		_apply_medical_utility(action_name)
 		return
 	selected_action = action_name
 	pending_end_turn_confirmation = false
@@ -1428,28 +1430,30 @@ func _apply_psi_focus() -> void:
 	if int(active.get("ap", 0)) == 0:
 		_auto_advance_unit()
 
-func _apply_trauma_patch() -> void:
+func _apply_medical_utility(action_name: String) -> void:
 	var active := _current_active_player()
-	if active.is_empty(): return
+	if int(active.get("hp", 0)) <= 0 or action_name not in active.get("available_actions", []):
+		return
+	var cost := _action_ap_cost(action_name)
 	var ap := int(active.get("ap", 0))
-	if ap <= 0:
+	if ap < cost:
 		status_line = "No AP remaining."
 		_sync_display()
 		return
-	var heal_amt: int = int((_ACTION_DEFS.get("Trauma Patch", {}) as Dictionary).get("heal", 12))
+	var heal_amt := int(_ACTION_DEFS[action_name]["heal"])
 	var old_hp  := int(active.get("hp", 0))
 	var max_hp  := maxi(1, int(active.get("max_hp", 1)))
 	if old_hp >= max_hp:
 		status_line = "%s is already at full HP." % _active_unit_name()
 		_sync_display()
 		return
-	_spend_player_ap(active, 1)
+	_spend_player_ap(active, cost)
 	active["hp"] = mini(max_hp, old_hp + heal_amt)
 	player_units[active_player_index] = active
 	_visual_self_effect("heal")
 	CombatSignals.audio_event.emit("heal")
 	var healed := int(active.get("hp", 0)) - old_hp
-	var line := "%s: Trauma Patch +%d HP." % [_active_unit_name(), healed]
+	var line := "%s: %s +%d HP." % [_active_unit_name(), action_name, healed]
 	_log_event(line)
 	status_line = line
 	var pkey := "p%d" % active_player_index
@@ -1530,7 +1534,7 @@ func _resolve_selected_attack() -> void:
 		_apply_psi_focus()
 		return
 	if atype == "HEAL":
-		_apply_trauma_patch()
+		_apply_medical_utility(selected_action)
 		return
 	if _current_target().is_empty():
 		status_line = "No live target."
@@ -2551,9 +2555,12 @@ func _configure_visual_hud() -> void:
 	_hud.action_tooltips = {
 		"Psi Focus": "%d AP · Relieve up to %d stress per living, standing squad member." % [
 			_action_ap_cost("Psi Focus"), _ACTION_DEFS["Psi Focus"]["stress_relief"]],
-		"Trauma Patch": "%d AP · Restore up to %d HP to this agent." % [
-			_action_ap_cost("Trauma Patch"), _ACTION_DEFS["Trauma Patch"]["heal"]],
 	}
+	for action: String in _ACTION_DEFS:
+		var definition: Dictionary = _ACTION_DEFS[action]
+		if definition["type"] == "HEAL":
+			_hud.action_tooltips[action] = "%d AP · Restore up to %d HP to this agent." % [
+				_action_ap_cost(action), definition["heal"]]
 	if not _hud.has_signal("quality_changed"): return
 	_hud.mission_title = str(_mission_data().get("title", "TACTICAL INSERTION"))
 	_hud.objective_text = str(_mission_data().get("objective_text", "Complete the objective"))
