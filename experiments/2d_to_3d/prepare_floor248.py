@@ -111,6 +111,15 @@ BURNED_MARKET_AWNING_ART = (
     ]},
 )
 
+FLOODED_CIVIC_WRECK_ART = (
+    {"id": "southwest_curb_wreck_art", "polygon": [
+        (88,402), (98,386), (125,375), (144,388), (135,402), (107,426), (93,423),
+    ]},
+    {"id": "north_curb_wreck_art", "polygon": [
+        (578,101), (593,79), (609,73), (621,83), (615,99), (593,123), (583,118),
+    ]},
+)
+
 
 def restore_donor_pavement(floor, original, survey, donors):
     floor = floor.copy()
@@ -183,6 +192,8 @@ def main():
         survey["walls"].extend(DOWNTOWN_WRECK_ART)
     if args.map.endswith("_burned_market_block"):
         survey["walls"].extend(BURNED_MARKET_AWNING_ART)
+    if args.map.endswith("_flooded_civic_square"):
+        survey["walls"].extend(FLOODED_CIVIC_WRECK_ART)
     if args.map == "city_industrial_dockside_terminal":
         survey["walls"].extend(
             {"id": label, "polygon": [(2*x, 2*y) for x,y in outline]}

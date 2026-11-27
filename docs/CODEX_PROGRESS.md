@@ -2133,3 +2133,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FLOODED-CIVIC-FACADES / DONE for export and native loading. Compared the 04/09 source plate against Godot, opened a bay on the plaza-facing side of each ruin and joined the uneven facade posts with tilted lintels. Rebuilt the shared scene, refreshed both catalogue plates and passed eleven outdoor tests. Next: inspect the planter interiors and remaining flat vehicle shapes.
 
 - EXPERIMENTAL-FLOODED-PLANTER-RELIEF / DONE for export and native loading. Recessed the planter beds, varied the coping heights and left joints between adjacent blocks. Rebuilt shared 04/09 on E:, refreshed both plates and passed eleven outdoor tests. Next: compare flat vehicle markings with the original before masking them.
+
+- EXPERIMENTAL-FLOODED-CIVIC-WRECK-ART / DONE for two traced floor repairs. Removed the painted vehicle outlines at the southwest and north curbs from the experimental floor. Rebuilt shared 04/09 on E:, loaded the scene in Godot and refreshed both catalogue plates. Eleven outdoor tests passed. Next: inspect curb continuity and any paint still suggesting false cover.
