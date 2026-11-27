@@ -13,7 +13,7 @@ from interior_batch import INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
-    build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture,
+    build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture, build_server_bank,
 )
 from library_placement import place, reset_library_cache
 
@@ -52,6 +52,10 @@ def build(name):
     shader = screen.node_tree.nodes["Principled BSDF"]
     shader.inputs["Emission Color"].default_value = (.035,.52,.67,1)
     shader.inputs["Emission Strength"].default_value = .4
+    server_map = name in {
+        "cybercity_inner_05_server_room", "cybercity_inner_15_data_vault", "city_interior_server_room",
+    }
+    server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
     showcase = name in {"city_interior_blacksite_lab", "city_interior_medical_clinic"}
@@ -146,6 +150,10 @@ def build(name):
                                steel, partition_cap, screen)
         elif kind == "bed":
             build_bed(group, x, y, w, d, steel, linen, trim)
+        elif server_map and identifier != "west_storage" and (
+            identifier.startswith(("rack_", "server_")) or identifier.endswith(("_rack", "_server"))
+        ):
+            build_server_bank(group, x, y, w, d, server_housing, steel, screen)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)
         elif kind == "track":

@@ -250,3 +250,37 @@ def build_safehouse_fixture(group, kind, x, y, w, d, steel, enamel, rail):
         box("Shower riser", (x-w*.31,sy,1.08), (.025,.027,.40), rail).parent = group
         box("Shower head", (x-w*.23,sy,1.49), (w*.12,.083,.034), rail).parent = group
     box("Shower divider", (x,y, .66), (w*.41,.039,.51), steel).parent = group
+
+
+
+def build_server_bank(group, x, y, w, d, housing, frame, indicator):
+    vertical = d > w
+    length, depth = (d,w) if vertical else (w,d)
+    bay_count = max(1, round(length/1.3))
+    span = length*.95/bay_count
+    pieces = []
+
+    def part(label, along, across, z, half_length, half_depth, half_height, material):
+        dx,dy = (across,along) if vertical else (along,across)
+        sx,sy = (half_depth,half_length) if vertical else (half_length,half_depth)
+        pieces.append(box(label, (x+dx,y+dy,z), (sx,sy,half_height), material, .008))
+
+    for index in range(bay_count):
+        offset = ((index+.5)-bay_count/2)*span
+        part("Server cabinet frame", offset,0,.86,span*.48,depth*.45,.86,frame)
+        part("Server cabinet lid", offset,0,1.747,span*.46,depth*.465,.038,housing)
+        for side in (-1,1):
+            face = side*depth*.46
+            part("Server service face", offset,face,.90,span*.438,.025,.75,housing)
+            for tier in range(5):
+                z = .34+tier*.249
+                part("Server blade", offset,face+side*.027,z,span*.388,.013,.081,frame)
+                part("Server status LED", offset+span*.27,face+side*.043,z,
+                     span*.056,.011,.018,indicator)
+    bpy.ops.object.select_all(action="DESELECT")
+    for piece in pieces:
+        piece.select_set(True)
+    bpy.context.view_layer.objects.active = pieces[0]
+    bpy.ops.object.join()
+    bpy.context.object.name = "Server cabinet bank"
+    bpy.context.object.parent = group

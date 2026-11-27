@@ -315,3 +315,33 @@ def test_industrial_and_server_maps_export_remaining_fixture_groups():
             assert parts
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
+
+
+def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    for map_name, expected in (
+        ("cybercity_inner_05_server_room", 10),
+        ("cybercity_inner_15_data_vault", 8),
+        ("city_interior_server_room", 13),
+    ):
+        path = OUTPUT / map_name / "environment.glb"
+        if not path.is_file():
+            pytest.skip(f"Build {map_name} on E: first")
+        with path.open("rb") as glb:
+            size = struct.unpack("<4sIII4s", glb.read(20))[3]
+            data = json.loads(glb.read(size))
+        nodes = data["nodes"]
+        banks = {index for index, node in enumerate(nodes)
+                 if node["name"].startswith("Server cabinet bank")}
+        assert len(banks) == expected
+        assert banks <= {index for node in nodes if node["name"].startswith("Occludable_")
+                         for index in node.get("children", [])}
+        for index in banks:
+            parts = data["meshes"][nodes[index]["mesh"]]["primitives"]
+            materials = {data["materials"][part["material"]]["name"] for part in parts}
+            assert {"Server bank graphite", "Terminal display"} <= materials
