@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parent
 MAPS = ROOT.parents[1] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors")
 AGED_CONCRETE_INTERIORS = ("_bunker_command_post", "_underground_market", "_ruined_clinic",
-                          "_collapsed_tunnel", "_looted_vault", "_maintenance_depot")
+                          "_collapsed_tunnel", "_looted_vault", "_maintenance_depot",
+                          "_abandoned_safehouse", "_apartment_shelter")
 INTERIORS = (
     "city_interior_blacksite_lab",
     "city_interior_medical_clinic",
