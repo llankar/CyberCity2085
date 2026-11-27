@@ -10,6 +10,7 @@ var mailbox: Mailbox
 var status: Label
 var selection: Label
 var target_hint: Label
+var control_hints: Label
 var target_line: MeshInstance3D
 var outcome_panel: PanelContainer
 var outcome_title: Label
@@ -76,18 +77,31 @@ func _ready() -> void:
  smoke_outcome = OS.get_environment("CYBERCITY_TACTICAL_SMOKE_OUTCOME")
  var hud := CanvasLayer.new()
  add_child(hud)
- status = Label.new()
- status.position = Vector2(20, 85)
- status.add_theme_font_size_override("font_size", 22)
- hud.add_child(status)
+ var hud_stack := VBoxContainer.new()
+ hud_stack.position = Vector2(20, 24)
+ hud_stack.add_theme_constant_override("separation", 6)
+ hud.add_child(hud_stack)
  selection = Label.new()
- selection.position = Vector2(20, 48)
+ selection.add_theme_color_override("font_color", Color(.59,.91,1))
  selection.add_theme_font_size_override("font_size", 23)
- hud.add_child(selection)
+ hud_stack.add_child(selection)
+ status = Label.new()
+ status.add_theme_font_size_override("font_size", 19)
+ hud_stack.add_child(status)
  target_hint = Label.new()
- target_hint.position = Vector2(20, 287)
- target_hint.add_theme_font_size_override("font_size", 20)
- hud.add_child(target_hint)
+ target_hint.add_theme_font_size_override("font_size", 18)
+ hud_stack.add_child(target_hint)
+ control_hints = Label.new()
+ control_hints.add_theme_font_size_override("font_size", 16)
+ hud.add_child(control_hints)
+ control_hints.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+ control_hints.grow_vertical = Control.GROW_DIRECTION_BEGIN
+ control_hints.offset_left = 20
+ control_hints.offset_bottom = -20
+ for label: Label in [status, selection, target_hint, control_hints]:
+  label.add_theme_color_override("font_outline_color", Color(.025,.047,.063))
+  label.add_theme_constant_override("outline_size", 5)
+ update_control_hints()
  target_line = MeshInstance3D.new()
  var guide_mesh := CylinderMesh.new()
  guide_mesh.height = 1
@@ -222,8 +236,8 @@ func _process(delta: float) -> void:
   select_next_ally()
  refresh_selection()
  refresh_target_hint(get_viewport().get_mouse_position())
- status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move (amber: nearby cover)   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
-  scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
+ status.text = "%s  //  Round %d  %s\n%s" % [
+  scenario_title, state.round, state.turn, "  |  ".join(readout)]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
  if state.outcome != null:
@@ -375,6 +389,7 @@ func _process(delta: float) -> void:
     review_camera.size = 3.4
     status.hide()
     selection.hide()
+    control_hints.hide()
     target_hint.hide()
     target_line.hide()
     update_review_camera()
@@ -440,6 +455,12 @@ func close_battlefield() -> void:
  get_tree().quit()
 
 
+
+func update_control_hints() -> void:
+ control_hints.text = ("Click: select or move  //  Right click: %s  //  F / M / P: attack mode\n" +
+  "A: aid  //  Shift+A: aid ally  //  B: defend  //  O: overwatch\n" +
+  "Tab: next agent  //  T: end turn  //  Q / E: rotate  //  Wheel: zoom  //  Middle drag: pan  //  Home: focus  //  Esc: close") % attack_mode
+
 func run_render_benchmark() -> void:
  DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
  await benchmark_view("overview-orbit", true)
@@ -478,6 +499,7 @@ func send(command: Dictionary) -> void:
   pending_command = command
   target_line.hide()
   target_hint.text = ""
+  target_hint.hide()
   for marker in move_markers:
    marker.hide()
   if smoke:
@@ -541,6 +563,7 @@ func actor_at(screen_position: Vector2, side: String) -> String:
 
 func refresh_target_hint(screen_point: Vector2) -> void:
  target_hint.text = ""
+ target_hint.hide()
  target_line.hide()
  if playing_events or mailbox.pending:
   return
@@ -567,6 +590,7 @@ func refresh_target_hint(screen_point: Vector2) -> void:
    target_line.quaternion = Quaternion(Vector3.UP, axis.normalized())
    target_line.scale.y = axis.length()
    target_line.show()
+ target_hint.show()
  target_hint.text = "%s  //  %s  //  %s" % [enemy.name, attack_mode.capitalize(), label]
 
 
@@ -669,7 +693,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if not playing_events and not mailbox.state.is_empty():
      select_next_ally()
   if previous_mode != attack_mode and not playing_events:
-   status.text = status.text.replace("Right click: " + previous_mode, "Right click: " + attack_mode)
+   update_control_hints()
  if event is InputEventMouseMotion or event is InputEventKey:
   refresh_target_hint(get_viewport().get_mouse_position())
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
