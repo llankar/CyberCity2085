@@ -166,7 +166,7 @@ class WastelandOutdoors:
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
                  scavenger_plaza=False, ruined_transit=False, cratered_waterfront=False,
-                 salt_flat=False, dust_road=False, wrecked_highway=False, trainyard=False,
+                 salt_flat=False, dust_road=False, wrecked_highway=False, trainyard=False, irradiated_basin=False,
                  convoy_crossing=False):
         self.library = library
         self.gw, self.gh = grid
@@ -181,6 +181,7 @@ class WastelandOutdoors:
         self.cratered_waterfront = cratered_waterfront
         self.salt_flat = salt_flat
         self.dust_road = dust_road
+        self.irradiated_basin = irradiated_basin
         if scavenger_plaza:
             self.stall_fabric = {
                 label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
@@ -647,6 +648,19 @@ class WastelandOutdoors:
                 self.scavenger_perimeter_ruin(group, x, y, w, d)
             elif self.cratered_waterfront:
                 self.waterfront_warehouse_ruin(group, name, x, y, w, d)
+        elif self.irradiated_basin and name in {"west_ruin", "east_ruin"}:
+            self.concrete_box("Basin ruined foundation", (x,y,.062),
+                              (w*.46,d*.46,.062)).parent = group
+            bank = -1 if name == "west_ruin" else 1
+            self.concrete_box("Basin surviving bank wall", (x+bank*w*.39,y,.38),
+                              (w*.075,d*.46,.38)).parent = group
+            for side, height in ((-1,.57),(1,.29)):
+                self.concrete_box("Basin broken return wall", (x+bank*w*.14,y+side*d*.39,height*.5),
+                                  (w*.29,d*.076,height*.5)).parent = group
+            slab = self.concrete_box("Basin dislodged slab", (x-bank*w*.14,y,.22),
+                                     (w*.15,d*.19,.084))
+            slab.rotation_euler = (.24,0,bank*.18)
+            slab.parent = group
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
