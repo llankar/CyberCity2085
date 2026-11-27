@@ -10,6 +10,8 @@ from shapely.geometry import Point, Polygon, box
 MAPS = Path(__file__).resolve().parents[2] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
 ROOFTOPS = {"city_exterior_rooftop_access", "city_rooftop_skybridge_spine"}
+WATERFRONTS = {"city_exterior_waterfront_docks", "cybercity_street_04_waterfront_docks",
+               "cybercity_street_09_waterfront_docks"}
 
 
 def terrain(survey):
@@ -42,7 +44,7 @@ def terrain(survey):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("map", choices=sorted(ROOFTOPS))
+    parser.add_argument("map", choices=sorted(ROOFTOPS | WATERFRONTS))
     args = parser.parse_args()
     survey = json.loads((MAPS / f"{args.map}.wall-traces.json").read_text())
     (OUTPUT / args.map / "rooftop_terrain.json").write_text(json.dumps(terrain(survey)))

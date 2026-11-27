@@ -5,10 +5,10 @@ import pytest
 from shapely import union_all
 from shapely.geometry import LineString, Point, Polygon
 
-from rooftop_terrain import MAPS, ROOFTOPS, terrain
+from rooftop_terrain import MAPS, ROOFTOPS, WATERFRONTS, terrain
 
 
-@pytest.mark.parametrize("map_name", sorted(ROOFTOPS))
+@pytest.mark.parametrize("map_name", sorted(ROOFTOPS | WATERFRONTS))
 def test_rooftop_deck_has_no_faces_across_surveyed_voids(map_name):
     survey = json.loads((MAPS / f"{map_name}.wall-traces.json").read_text())
     geometry = terrain(survey)

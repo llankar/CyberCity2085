@@ -85,11 +85,11 @@ def textured_material(name, image, roughness):
     return material
 
 
-def build_rooftop_ground(out, floor, grid, canvas, library):
+def build_rooftop_ground(out, floor, grid, canvas, library, water=None):
     terrain = json.loads((out / "rooftop_terrain.json").read_text())
     gw,gh = grid
     cw,ch = canvas
-    deck_z, street_z = -.025, -3.6
+    deck_z, street_z = -.025, -1.35 if water else -3.6
 
     def vertex(point, height):
         x,y = point
@@ -105,12 +105,13 @@ def build_rooftop_ground(out, floor, grid, canvas, library):
             faces.append((first,first+1,first+2) if winding > 0 else (first,first+2,first+1))
         mesh = bpy.data.meshes.new(surface)
         mesh.from_pydata(vertices, [], faces)
-        mesh.materials.append(floor)
+        mesh.materials.append(water if water and surface == "street" else floor)
         uv = mesh.uv_layers.new()
         for loop in mesh.loops:
             x,y,_ = vertices[loop.vertex_index]
             uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
-        bpy.context.collection.objects.link(bpy.data.objects.new("Rooftop "+surface,mesh))
+        label = {"deck": "Waterfront quay deck", "street": "Waterfront basin surface"}[surface] if water else "Rooftop "+surface
+        bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
 
     vertices, faces = [], []
     for a,b in terrain["edges"]:
@@ -121,7 +122,10 @@ def build_rooftop_ground(out, floor, grid, canvas, library):
     mesh.from_pydata(vertices, [], faces)
     retaining = make_material("Canyon retaining concrete", (.046,.062,.078,1), .15,.86)
     mesh.materials.append(retaining)
-    bpy.context.collection.objects.link(bpy.data.objects.new("Rooftop canyon retaining walls",mesh))
+    label = "Waterfront quay retaining walls" if water else "Rooftop canyon retaining walls"
+    bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
+    if water:
+        return
     facade = bpy.data.objects.new("Canyon facade details", None)
     bpy.context.collection.objects.link(facade)
     rail = make_material("Facade floor divisions", (.027,.039,.050,1), .51,.57)
@@ -919,6 +923,9 @@ def build(name):
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
+    elif name.endswith("_waterfront_docks"):
+        water = textured_material("Waterfront basin water", out / "floor.png", .32)
+        build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library, water=water)
     elif bridge_access:
         rivers = {row["id"]: row["polygon"] for row in survey["walls"] if row.get("kind") == "water"}
         water = textured_material("Bridge river water", out / "floor.png", .32)
