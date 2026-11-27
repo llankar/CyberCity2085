@@ -13,6 +13,7 @@ parser.add_argument('--family',default='Industry')
 parser.add_argument('--reference-kind',choices=['inferred-map-view','isolated-art'],default='inferred-map-view')
 parser.add_argument('--anchor-kind',choices=['pedestal','base'],default='pedestal')
 parser.add_argument('--height',type=float,default=2.1)
+parser.add_argument('--prune-artifacts',action='store_true')
 parser.add_argument('--high-definition',type=Path,default=LAB/'generated/phase2/arm256/shape/mesh.glb')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 SOURCE=args.source.resolve();OUT=args.output.resolve()
@@ -21,6 +22,33 @@ if not math.isfinite(args.height) or not .1<=args.height<=20:raise ValueError('I
 OUT.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True);bpy.context.preferences.filepaths.save_version=0
 bpy.ops.import_scene.gltf(filepath=str(SOURCE));objects=[o for o in bpy.context.scene.objects if o.type=='MESH']
+if args.prune_artifacts:
+ import bmesh
+ for obj in objects:
+  mesh=bmesh.new()
+  mesh.from_mesh(obj.data)
+  bmesh.ops.remove_doubles(mesh,verts=list(mesh.verts),dist=1e-5)
+  remaining=set(mesh.verts)
+  components=[]
+  while remaining:
+   pending=[remaining.pop()]
+   component=[]
+   while pending:
+    vertex=pending.pop()
+    component.append(vertex)
+    for edge in vertex.link_edges:
+     neighbor=edge.other_vert(vertex)
+     if neighbor in remaining:
+      remaining.remove(neighbor)
+      pending.append(neighbor)
+   components.append(component)
+  if len(components)>1:
+   threshold=max(len(component) for component in components)/500
+   artifacts=[vertex for component in components if len(component)<threshold for vertex in component]
+   bmesh.ops.delete(mesh,geom=artifacts,context='VERTS')
+  mesh.to_mesh(obj.data)
+  mesh.free()
+  obj.data.update()
 points=[o.matrix_world@v.co for o in objects for v in o.data.vertices]
 lo=Vector([min(p[i] for p in points) for i in range(3)]);hi=Vector([max(p[i] for p in points) for i in range(3)])
 base=[p for p in points if p.z<lo.z+(hi.z-lo.z)*.035]

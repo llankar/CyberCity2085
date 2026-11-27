@@ -23,6 +23,8 @@ def main():
    if not args.refresh_materials or old.get('finish_input_sha256')!=digest:raise RuntimeError('Preserve existing output before changed rebuild: '+str(out))
   subprocess.run([sys.executable,str(SCRIPTS/'prepare_arm_material256.py'),'--source',str(paint/'colour.png'),'--output',str(out),'--surface',meta['surface'],'--keep-colour','--palette',meta.get('palette','none')],check=True)
   command=['powershell.exe','-NoProfile','-File',str(SCRIPTS/'run_blender.ps1'),'-Script','blender/finish_arm256.py','--source',str(paint/'mesh.glb'),'--output',str(out),'--asset-id',meta['id'],'--source-map',meta['map'],'--source-object',meta['object'],'--family',meta['family'],'--height',str(meta['height']),'--high-definition',str(windows(entry['shape'])/'mesh.glb'),'--reference-kind',meta['reference_kind'],'--anchor-kind','base']
+  if meta.get('prune_artifacts'):
+   command.append('--prune-artifacts')
   subprocess.run(command,check=True)
   data=json.loads((out/'asset.json').read_text());data['finish_input_sha256']=digest
   data['finish_recipe_sha256']=recipe
