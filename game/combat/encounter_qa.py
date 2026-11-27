@@ -292,6 +292,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
         return units, goal
     previous_snapshot = snapshot()
     unchanged_rounds = longest_unchanged_rounds = consecutive_unchanged = 0
+    enemy_turn_hp_gained = 0
     outcome = "turn_limit"
     for turn in range(1, max_turns + 1):
         result = engine.start_player_turn()
@@ -414,7 +415,12 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                 check_geometry()
         result = engine.end_battle_check()
         if not result.ended:
+            health_before_enemy_turn = [enemy.health for enemy in original_enemies]
             result = engine.start_enemy_turn()
+            enemy_turn_hp_gained += sum(
+                max(0, enemy.health - before)
+                for enemy, before in zip(original_enemies, health_before_enemy_turn)
+            )
         check_geometry()
         current_snapshot = snapshot()
         if current_snapshot == previous_snapshot:
@@ -441,6 +447,11 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                 allied_hp_lost=initial_hp-sum(max(0, u.health) for u in original_allies),
                 allied_losses=sum(u.health <= 0 for u in original_allies),
                 enemy_survivors=sum(u.health > 0 for u in original_enemies),
+                enemy_turn_hp_gained=enemy_turn_hp_gained,
+                enemy_survivor_health=[
+                    {"role": enemy.enemy_subtype, "hp": enemy.health, "max_hp": enemy.stats.max_hp}
+                    for enemy in original_enemies if enemy.health > 0
+                ],
                 infections=sum(c.starver_infection_days is not None for c in characters),
                 player_actions=dict(player_actions),
                 damaging_actions=dict(damaging_actions),

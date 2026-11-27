@@ -49,6 +49,9 @@ def test_sustained_profiles_finish_on_three_representative_maps(profile: str) ->
         assert row["geometry_checked"]
         assert row["longest_unchanged_rounds"] < 10
         assert row["damaging_actions"]
+        assert row["enemy_turn_hp_gained"] >= 0
+        assert len(row["enemy_survivor_health"]) == row["enemy_survivors"]
+        assert all(0 < unit["hp"] <= unit["max_hp"] for unit in row["enemy_survivor_health"])
         for action, count in row["damaging_actions"].items():
             assert 0 < count <= row["player_actions"][action]
             assert row["direct_damage"][action] >= count
