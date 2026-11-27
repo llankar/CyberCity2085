@@ -153,7 +153,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert sum(nodes[i]["name"].startswith(part) for i in quay["children"]) == expected
         if name.endswith("_ruined_transit_plaza"):
             for identifier, prefix, count in (
-                ("center_planter", "Station planter rim", 4),
+                ("center_planter", "Station planter rim", 6),
                 ("bench_n", "Station bench slat", 3),
                 ("bench_s", "Station bench slat", 3),
                 ("bench_n", "Station bench backrest", 1),

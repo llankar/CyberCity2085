@@ -625,16 +625,20 @@ class WastelandOutdoors:
             box(name+" footing", (x,y,.16), (w*.47,d*.47,.16), self.stone).parent = group
             box(name, (x,y,1.15), (w*.25,d*.25,1.0), self.stone).parent = group
         elif self.ruined_transit and name == "center_planter":
-            self.concrete_box("Station planter bed", (x,y,.10),
-                              (w*.46,d*.46,.10)).parent = group
+            box("Station planter bed", (x,y,.075),
+                (w*.46,d*.46,.075), self.dark).parent = group
             for side in (-1,1):
-                self.concrete_box("Station planter rim", (x+side*w*.40,y,.27),
-                                  (w*.065,d*.45,.17)).parent = group
+                for offset, height in ((-.23,.39), (.22,.29)):
+                    self.concrete_box("Station planter rim",
+                                      (x+side*w*.40,y+offset*d,height/2),
+                                      (w*.065,d*.20,height/2)).parent = group
                 self.concrete_box("Station planter rim", (x,y+side*d*.40,.27),
                                   (w*.36,d*.065,.17)).parent = group
             for dx,dy in ((-.20,.12), (.06,-.22), (.24,.19)):
-                self.concrete_box("Station planter rubble", (x+w*dx,y+d*dy,.26),
-                                  (w*.095,d*.085,.07)).parent = group
+                fragment = self.concrete_box("Station planter rubble", (x+w*dx,y+d*dy,.19),
+                                             (w*.095,d*.085,.07))
+                fragment.rotation_euler.z = dx
+                fragment.parent = group
         elif self.ruined_transit and name in {"bench_n", "bench_s"}:
             rear = 1 if name == "bench_n" else -1
             for side in (-1,1):
