@@ -549,6 +549,13 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
     }.items():
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert any(part.startswith(load) for part in parts), identifier
+        for index in groups[f"Occludable_{identifier}"]:
+            node = nodes[index]
+            if node["name"].split(".")[0] not in {"Convoy cab", "Convoy tarpaulin load"}:
+                continue
+            surfaces = data["meshes"][node["mesh"]]["primitives"]
+            materials = {data["materials"][part["material"]]["name"] for part in surfaces}
+            assert "Original rooftop artwork" in materials and len(materials) == 2
         assert sum(part.startswith("Convoy grille louver") for part in parts) == 3
         assert sum(part.startswith("Convoy headlamp lens") for part in parts) == 2
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6

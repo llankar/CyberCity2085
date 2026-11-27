@@ -1748,11 +1748,26 @@ class WastelandOutdoors:
         group.location = (x,y,0)
         group.rotation_euler.z = yaw + (0 if name == "convoy_e" else math.pi)
 
-        def part(label, position, scale, material, bevel=.035):
-            box(label, position, scale, material, bevel).parent = group
+        def part(label, position, scale, material, bevel=.035, *, project_top=False):
+            obj = box(label, position, scale, material, bevel)
+            obj.parent = group
+            if not (project_top and self.convoy_crossing and name.startswith("convoy_")):
+                return
+            mesh = obj.data
+            mesh.materials.append(self.surveyed_surface)
+            uv = mesh.uv_layers.active
+            transform = group.matrix_basis @ obj.matrix_basis
+            for face in mesh.polygons:
+                if face.normal.z < .9:
+                    continue
+                face.material_index = 1
+                for index in face.loop_indices:
+                    point = transform @ mesh.vertices[mesh.loops[index].vertex_index].co
+                    uv.data[index].uv = (point.x/self.gw+.5,point.y/self.gh+.5)
 
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
-        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel)
+        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel,
+             project_top=True)
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
         if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
                 or self.scavenger_plaza or self.ruined_downtown):
@@ -1850,7 +1865,7 @@ class WastelandOutdoors:
             if self.convoy_crossing:
                 tarp = self.convoy_tarps["tan" if name == "convoy_e" else "olive"]
             part("Convoy tarpaulin load", (-length*.147,0,.94),
-                 (length*.303,width*.386,.286),tarp,.112)
+                 (length*.303,width*.386,.286),tarp,.112,project_top=True)
             for offset in (-.34,-.18,-.02):
                 part("Convoy tarp strap", (length*offset,0,1.23),
                      (.024,width*.36,.018),self.dark,.007)
