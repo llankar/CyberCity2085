@@ -438,7 +438,7 @@ def test_interior_maps_export_remaining_fixture_groups():
     }
     for index in ("06", "11"):
         additions[f"wasteland_inner_{index}_maintenance_depot"] = {
-            "west_pit_n": "Inspection pit access rung", "west_pit_s": "Inspection pit access rung",
+            "west_pit_n": "Inspection pit curb warning strip", "west_pit_s": "Inspection pit end cap",
             "ne_tires": "Stacked spare tire",
             "east_machine_n": "Depot machine carriage stop",
             "east_machine_s": "Depot machine stop marker",

@@ -151,6 +151,8 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker or relay_room else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
+    depot = name.endswith("_maintenance_depot")
+    depot_warning = make_material("Depot worn yellow paint", (.65,.34,.035,1), .16,.71) if depot else None
     textured_partitions = metro or emergency_medbay or relay_room or server_map or name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
@@ -315,7 +317,7 @@ def build(name):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
         elif emergency_medbay and kind in {"machine", "table"}:
             build_diagnostic_bench(group, x, y, w, d, partition_cap, stretcher_frame, console_glass)
-        elif kind == "machine" and name.endswith("_maintenance_depot"):
+        elif kind == "machine" and depot:
             place(labs[kind], group, (x,y,.11), (length*.82,breadth*.62,.82), yaw=yaw)
             for side in (-1, 1):
                 offset = side*breadth*.40
@@ -329,7 +331,7 @@ def build(name):
                 box("Depot machine carriage stop", stop_center, stop_size, partition_cap,.016).parent = group
                 marker_center = (*stop_center[:2], .29)
                 marker_size = (stop_size[0]*.72,stop_size[1]*.64,.014)
-                box("Depot machine stop marker", marker_center, marker_size, warning,.006).parent = group
+                box("Depot machine stop marker", marker_center, marker_size, depot_warning,.006).parent = group
         elif kind in {"floor_generator", "safehouse_generator"}:
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
@@ -337,7 +339,7 @@ def build(name):
             build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail,
-                                     depot=name.endswith("_maintenance_depot"))
+                                     depot=depot)
         elif kind == "floor_grate":
             build_floor_grate(group, x, y, w, d, partition_cap, rail, steel)
         elif kind == "low_vent":
@@ -360,7 +362,7 @@ def build(name):
             build_facility_fixture(group, "relay_core", x, y, w, d, server_housing, partition_cap, console_glass)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "clinic_reception", "shelter_kitchen", "records_desk", "data_core"}:
             fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
-            fixture_display = console_glass if bunker else screen
+            fixture_display = depot_warning if kind == "inspection_pit" else console_glass if bunker else screen
             build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, fixture_display)
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)

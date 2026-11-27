@@ -525,6 +525,10 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         part("Inspection trench inset", 0,0,.006,length*.48,width*.48,.015,trim)
         for side in (-1,1):
             part("Inspection pit curb", 0,side*width*.44,.097,length*.48,width*.052,.097,steel)
+            part("Inspection pit curb warning strip", 0,side*width*.44,.200,
+                 length*.45,width*.025,.009,screen)
+            part("Inspection pit end cap", side*length*.463,0,.078,
+                 length*.025,width*.385,.078,steel)
             for i in range(4):
                 part("Inspection pit access rung", side*(.25+i*.058)*length,0,.055+i*.016,
                      length*.013,width*.34,.013,steel)
