@@ -370,7 +370,11 @@ class WastelandOutdoors:
                         inset = min(.095,.052/max(distance,.01))
                         vertices.append((x+(center[0]-x)*inset,y+(center[1]-y)*inset,
                                          z+(center[2]-z)*inset+.032+(index%3)*.022))
+                    vertices.extend((x,y,z-.105) for x,y,z in vertices[start:start+3])
                     faces.append((start,start+1,start+2))
+                    for edge in range(3):
+                        a, b = start+edge, start+(edge+1)%3
+                        faces.append((a,a+3,b+3,b))
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)
             self.project_concrete_uv(mesh)
@@ -378,8 +382,8 @@ class WastelandOutdoors:
                 mesh.materials.append(material)
             mesh.polygons[1].material_index = 2 if broken_deck else 1
             if broken_deck:
-                for face in mesh.polygons[2+2*n:]:
-                    face.material_index = 1
+                for index, face in enumerate(mesh.polygons[2+2*n:]):
+                    face.material_index = 1 if index%4 == 0 else 0
             for i in range(n):
                 mesh.polygons[2+n+i].material_index = 2 if i%3 == 0 else 1
             fragment = bpy.data.objects.new(name, mesh)
