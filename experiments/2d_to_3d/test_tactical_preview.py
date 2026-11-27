@@ -165,6 +165,16 @@ class TacticalPreviewTest(unittest.TestCase):
                 positions = {unit.position for unit in preview.units.values()}
                 self.assertEqual(len(positions), 3)
                 self.assertTrue(positions <= terrain.walkable_cells)
+                ally = preview.units["ally:0"]
+                options = preview.move_options(ally)
+                self.assertTrue(options, "Lead operative has no starting move")
+                move = preview.action("move", "ally:0", destination=options[0])
+                self.assertTrue(move["success"], move["message"])
+                self.assertEqual(move["state"]["units"][0]["cell"], options[0])
+                phase = preview.action("end_turn", "ally:0")
+                self.assertTrue(phase["success"], phase["message"])
+                self.assertIsNone(phase["state"]["outcome"])
+                self.assertEqual((phase["state"]["turn"], phase["state"]["round"]), ("player", 2))
         self.assertEqual(map_names, {entry["map"] for entry in catalogue})
 
     def test_scenarios_use_original_geometry_and_advance_round(self):
