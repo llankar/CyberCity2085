@@ -2,6 +2,32 @@ from catalogue_test_assets import catalogue_environment
 from interior_batch import AGED_CONCRETE_INTERIORS, INTERIORS, fixtures
 
 
+def test_all_selected_interior_obstacles_have_exported_geometry():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    if not OUTPUT.is_dir():
+        pytest.skip("Local experimental interior exports are unavailable")
+
+    def has_mesh(index, nodes):
+        node = nodes[index]
+        return "mesh" in node or any(has_mesh(child, nodes) for child in node.get("children", []))
+
+    for name in INTERIORS:
+        with catalogue_environment(name).open("rb") as model:
+            size = struct.unpack("<4sIII4s", model.read(20))[3]
+            nodes = json.loads(model.read(size))["nodes"]
+        geometry = {
+            node["name"].removeprefix("Occludable_").removeprefix("Floor_")
+            for index, node in enumerate(nodes) if has_mesh(index, nodes)
+        }
+        _, selected = fixtures(name)
+        assert set(selected) <= geometry, (name, sorted(set(selected) - geometry))
+
+
 def test_wasteland_concrete_exports_with_a_normal_texture():
     import json
     import struct
