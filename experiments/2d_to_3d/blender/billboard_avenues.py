@@ -141,6 +141,7 @@ def build(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
+    civic = name == "city_district_civic_center" or name.endswith("_civic_plaza")
     industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
     wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"),
@@ -198,20 +199,20 @@ def build(name):
             faces = [tuple(reversed(range(count))), tuple(range(count, 2*count))]
             faces.extend((j, (j+1)%count, (j+1)%count+count, j+count) for j in range(count))
             mesh = bpy.data.meshes.new(identifier)
-            is_planter = "planter" in identifier
+            is_planter = "planter" in identifier or (civic and identifier in {"nw_island", "sw_approach", "se_approach"})
             is_building = "building" in identifier
             height = 2.8+i%3*.5 if is_building else .68 if identifier.endswith("_high") else .31 if is_planter else .22
             mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in points], [], faces)
             mesh.materials.append(wall)
             if is_planter:
-                mesh.materials.append(gravel if name == "city_district_civic_center" else foliage)
+                mesh.materials.append(gravel if civic else foliage)
                 mesh.polygons[1].material_index = 1
             island = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(island)
             group = bpy.data.objects.new("Occludable_" + identifier, None)
             bpy.context.collection.objects.link(group)
             island.parent = group
-            if name == "city_district_civic_center" and (is_planter or "_tree" in identifier):
+            if civic and (is_planter or "_tree" in identifier):
                 if "_tree" in identifier or identifier == "monument_planter":
                     x = sum(px for px,_ in points)/count
                     y = sum(py for _,py in points)/count
@@ -225,15 +226,19 @@ def build(name):
                     area = (b-a).cross(c-a).length/2
                     if area < .022:
                         continue
-                    x,y,_ = (a+b+c)/3
-                    radius = min(.32,math.sqrt(area)*.53)
-                    z = 1.03 if "_tree" in identifier else height+.12
-                    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1, location=(x,y,z))
-                    shrub = bpy.context.object
-                    shrub.name = identifier + " foliage"
-                    shrub.scale = (radius,radius,radius*.82)
-                    shrub.data.materials.append(foliage if len(group.children)%3 else leaf_tips)
-                    shrub.parent = group
+                    center = (a+b+c)/3
+                    cluster = (center,) if area < .36 else tuple(center.lerp(v,.40) for v in (a,b,c))
+                    radius = min(.31,math.sqrt(area)*.47)
+                    z = 1.03 if "_tree" in identifier else height+.11
+                    for index, point in enumerate(cluster):
+                        bpy.ops.mesh.primitive_ico_sphere_add(
+                            subdivisions=2, radius=1, location=(point.x,point.y,z)
+                        )
+                        shrub = bpy.context.object
+                        shrub.name = identifier + " foliage"
+                        shrub.scale = (radius,radius*(.82+index*.09),radius*.76)
+                        shrub.data.materials.append(leaf_tips if index == 1 else foliage)
+                        shrub.parent = group
             if is_building:
                 mesh.materials.append(roof)
                 mesh.polygons[1].material_index = 1

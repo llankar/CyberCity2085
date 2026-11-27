@@ -111,3 +111,23 @@ def test_holo_square_exports_occludable_obstacles_and_landmark():
     parts = {nodes[index]["name"] for index in platform["children"]}
     assert {"Holo Square emitter", "Holo Square projection core"} <= parts
     assert sum(part.startswith("Holo Square projection ring ") for part in parts) == 4
+
+
+@pytest.mark.parametrize(("variant", "count"), [("05", 10), ("10", 8), ("11", 8)])
+def test_civic_plaza_polygon_planters_export_foliage(variant, count):
+    name = f"cybercity_street_{variant}_civic_plaza"
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    if not path.is_file():
+        pytest.skip("Run the Civic Plaza Blender batch on E: first")
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    roots = {node["name"]: node for node in nodes if node.get("children")}
+    trace_path = Path(__file__).resolve().parents[2] / "assets/maps" / f"{name}.wall-traces.json"
+    traces = json.loads(trace_path.read_text())["walls"]
+    assert {f"Occludable_{trace['id']}" for trace in traces} <= roots.keys()
+    polygons = [trace["id"] for trace in traces if "polygon" in trace]
+    assert len(polygons) == count
+    for identifier in polygons:
+        parts = [nodes[index]["name"] for index in roots[f"Occludable_{identifier}"]["children"]]
+        assert any(" foliage" in part for part in parts), identifier
