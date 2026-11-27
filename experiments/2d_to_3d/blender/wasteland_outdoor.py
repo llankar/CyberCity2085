@@ -232,7 +232,7 @@ class WastelandOutdoors:
                 "olive": make_material("Convoy weathered olive tarp", (.074,.082,.043,1), 0,.94),
                 "tan": make_material("Convoy weathered tan tarp", (.15,.114,.075,1), 0,.94),
             }
-        self.workshop_surface = None
+        self.surveyed_surface = None
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
         concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
@@ -468,8 +468,16 @@ class WastelandOutdoors:
                 mesh.materials.append(self.planter_silt)
                 mesh.polygons[1].material_index = 3
             if broken_deck:
+                textured_top = self.wrecked_highway and self.surveyed_surface is not None
+                if textured_top:
+                    mesh.materials.append(self.surveyed_surface)
                 for index, face in enumerate(mesh.polygons[2+2*n:]):
                     face.material_index = 1 if index%4 == 0 else 0
+                    if textured_top and index%4 == 0:
+                        face.material_index = 3
+                        for loop in face.loop_indices:
+                            x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
+                            mesh.uv_layers.active.data[loop].uv = (x/self.gw+.5,y/self.gh+.5)
             for i in range(n):
                 mesh.polygons[2+n+i].material_index = 2 if i%3 == 0 else 1
             fragment = bpy.data.objects.new(name, mesh)
@@ -1540,9 +1548,9 @@ class WastelandOutdoors:
         slab = self.concrete_box("Workshop slab", (x, y, .035),
                                  (width*.49, depth*.48, .035))
         slab.parent = group
-        if self.workshop_surface is not None:
+        if self.surveyed_surface is not None:
             mesh = slab.data
-            mesh.materials.append(self.workshop_surface)
+            mesh.materials.append(self.surveyed_surface)
             uv = mesh.uv_layers.active
             for face in mesh.polygons:
                 if face.normal.z < .9:

@@ -435,8 +435,8 @@ def build(name):
         (.07,.17,.19,1), (.27,.081,.05,1), (.17,.21,.095,1)
     )]
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
-    if wasteland and wasteland.trainyard:
-        wasteland.workshop_surface = roof
+    if wasteland and (wasteland.trainyard or wasteland.wrecked_highway):
+        wasteland.surveyed_surface = roof
     bridge_access = name.endswith("_bridge_access")
     guardrail_steel = make_material("Galvanized guardrail steel", (.25,.30,.34,1), .73,.53) if freeway or bridge_access else None
     def add_roof_fans(identifier, group, height):
