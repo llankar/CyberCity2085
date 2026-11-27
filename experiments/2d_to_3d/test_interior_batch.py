@@ -104,7 +104,8 @@ def test_warehouse_racks_export_stock_under_each_rack_occluder():
         pytest.skip("Build the experimental Warehouse on E: first")
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-        nodes = json.loads(model.read(size))["nodes"]
+        data = json.loads(model.read(size))
+        nodes = data["nodes"]
     racks = [node for node in nodes if node["name"].startswith("Occludable_row")]
     assert len(racks) == 10
     for rack in racks:
@@ -121,3 +122,5 @@ def test_warehouse_racks_export_stock_under_each_rack_occluder():
     for room, feature in (("east_office", " worktop"), ("east_stair", " nosing"), ("east_bay", " dock lip")):
         group = by_name[f"Occludable_{room}"]
         assert any(feature in nodes[index]["name"] for index in group["children"])
+    root_names = {nodes[index]["name"] for index in data["scenes"][data["scene"]]["nodes"]}
+    assert "east_office service floor" in root_names

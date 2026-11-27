@@ -31,6 +31,16 @@ bpy.context.preferences.filepaths.save_version = 0
 steel = make_material("Warehouse rack steel", (.075,.11,.15,1), .65,.48)
 beam = make_material("Warehouse rack safety beam", (.52,.17,.028,1), .45,.48)
 container_skin = make_material("Weathered container green", (.062,.15,.14,1), .65,.63)
+office_tile = make_material("Office raised service floor", (.08,.13,.17,1), .25,.78)
+tile_nodes = office_tile.node_tree.nodes
+tile_shader = tile_nodes.get("Principled BSDF")
+tile_sources = lab / "sources/environment169/blue_metal_plate"
+for filename, socket in (("diff.jpg", "Base Color"), ("rough.jpg", "Roughness")):
+    tile = tile_nodes.new("ShaderNodeTexImage")
+    tile.image = bpy.data.images.load(str(tile_sources / filename))
+    if socket == "Roughness":
+        tile.image.colorspace_settings.name = "Non-Color"
+    office_tile.node_tree.links.new(tile.outputs["Color"], tile_shader.inputs[socket])
 service_rooms = {"east_office", "east_stair", "east_bay"}
 cargo_count = wall_count = rack_count = container_count = rack_cargo_count = forklift_count = 0
 for row in survey["walls"]:
@@ -80,6 +90,8 @@ for row in survey["walls"]:
                 rack_cargo_count += 1
                 cargo_count += 1
     elif identifier == "east_office":
+        box(identifier+" service floor", (x,y,.005),
+            (w*.499,d*.499,.018), office_tile, .003)
         for side in (-1,1):
             box(identifier+" partition", (x,y+side*d*.47,.56),
                 (w*.47,.06,.56), steel).parent = group
