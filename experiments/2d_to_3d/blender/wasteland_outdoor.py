@@ -204,6 +204,8 @@ class WastelandOutdoors:
         self.ruined_downtown = ruined_downtown
         self.burned_market = burned_market
         self.flooded_square = flooded_square
+        if flooded_square:
+            self.planter_silt = make_material("Flooded planter wet silt", (.085,.065,.034,1), 0,.79)
         self.scavenger_plaza = scavenger_plaza
         self.ruined_transit = ruined_transit
         self.cratered_waterfront = cratered_waterfront
@@ -460,6 +462,9 @@ class WastelandOutdoors:
             for material in (self.stone, self.aggregate, self.seam):
                 mesh.materials.append(material)
             mesh.polygons[1].material_index = 2 if broken_deck else 1
+            if self.flooded_square and name.startswith("planter_"):
+                mesh.materials.append(self.planter_silt)
+                mesh.polygons[1].material_index = 3
             if broken_deck:
                 for index, face in enumerate(mesh.polygons[2+2*n:]):
                     face.material_index = 1 if index%4 == 0 else 0

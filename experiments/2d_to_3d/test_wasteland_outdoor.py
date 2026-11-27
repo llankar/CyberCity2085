@@ -288,6 +288,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     assert sum(part.startswith("Flooded ruin interior rubble") for part in parts) == 3
                 if row["id"].startswith("planter_"):
                     planter = by_name[f"Occludable_{row['id']}"]
+                    bed = next(nodes[i] for i in planter["children"] if nodes[i]["name"] == row["id"])
+                    materials = {data["materials"][part["material"]]["name"]
+                                 for part in data["meshes"][bed["mesh"]]["primitives"]}
+                    assert "Flooded planter wet silt" in materials
                     edges = [nodes[i] for i in planter["children"]
                              if nodes[i]["name"].startswith("Flooded planter coping")]
                     assert any(nodes[i]["name"].startswith("Flooded planter broken masonry")
