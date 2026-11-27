@@ -1,5 +1,6 @@
 """Check the local batch exports against the original obstacle surveys."""
 import json
+import math
 from pathlib import Path
 import struct
 
@@ -127,9 +128,15 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             ):
                 row = next(row for row in surveyed if row["id"] == identifier)
                 quay = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
-                assert sum(nodes[i]["name"].startswith(part) for i in quay["children"]) == (
-                    len(row["points"])-1
-                )*multiplier
+                expected = (len(row["points"])-1)*multiplier
+                if identifier != "quay_crater_w":
+                    cw, ch = json.loads(survey_path.read_text())["canvas_size"]
+                    gw, gh = json.loads(survey_path.with_name(f"{name}.walls.json").read_text())["grid"]
+                    expected = sum(
+                        max(1, round(math.hypot((bx-ax)*gw/cw, (by-ay)*gh/ch)/1.25))
+                        for (ax, ay), (bx, by) in zip(row["points"], row["points"][1:])
+                    )
+                assert sum(nodes[i]["name"].startswith(part) for i in quay["children"]) == expected
         if name.endswith("_ruined_transit_plaza"):
             for identifier, prefix, count in (
                 ("center_planter", "Station planter rim", 4),

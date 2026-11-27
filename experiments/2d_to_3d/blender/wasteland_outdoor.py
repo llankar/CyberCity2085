@@ -763,10 +763,14 @@ class WastelandOutdoors:
                 slab.rotation_euler = (0,tilt,yaw)
                 slab.parent = group
         else:
-            cap = self.concrete_box("Intact quay coping", (x,y,.35),
-                                    (length/2,width*.48,.09))
-            cap.rotation_euler.z = yaw
-            cap.parent = group
+            count = max(1, round(length/1.25))
+            for index in range(count):
+                offset = (index+.5)/count-.5
+                cap = self.concrete_box("Intact quay coping",
+                                        (x+(bx-ax)*offset,y+(by-ay)*offset,.35),
+                                        (length*.485/count,width*.48,.09))
+                cap.rotation_euler.z = yaw
+                cap.parent = group
 
     def transit_boundary(self, group, name, points, width):
         stairs = name.endswith("_stairs_guard")
