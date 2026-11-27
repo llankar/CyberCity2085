@@ -645,7 +645,16 @@ class WastelandOutdoors:
             else:
                 self.open_bus_wreck(group, x, y, length, breadth, angle)
         elif name.startswith("convoy_"):
-            self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
+            textured_truck = self.library / "convoy_canvas_truck/model.glb"
+            if (self.convoy_crossing and name in {"convoy_w", "convoy_e", "convoy_far_e"}
+                    and textured_truck.is_file()):
+                # The reconstructed hood points along local -X.
+                heading = yaw + (math.pi if name == "convoy_e" else 0)
+                for mesh in place(textured_truck, group, (x,y,0),
+                                  (length*.98,breadth*.97,2.25), yaw=heading, merge=True):
+                    mesh.name = "Convoy reconstructed canvas truck"
+            else:
+                self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
         elif self.flooded_square and name == "bus_west":
             angle = math.radians(82)
             breadth = min(breadth, length*.28)
