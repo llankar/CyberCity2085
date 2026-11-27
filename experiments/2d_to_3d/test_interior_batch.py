@@ -51,3 +51,23 @@ def test_train_tunnel_exports_edge_to_edge_rails_and_two_sleeper_beds():
         positions = [data["accessors"][p["attributes"]["POSITION"]] for p in mesh["primitives"]]
         assert min(p["min"][0] for p in positions) <= -19.99
         assert max(p["max"][0] for p in positions) >= 19.99
+
+def test_metro_column_details_keep_independent_visibility():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors/"
+                "city_transit_metro_interchange/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Metro Interchange on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    columns = [node for node in nodes if node["name"].startswith("Occludable_column_")]
+    assert len(columns) == 10
+    for column in columns:
+        parts = [nodes[index]["name"] for index in column["children"]]
+        assert sum(" station marker" in name for name in parts) == 1
+        assert sum(" cooling louver" in name for name in parts) == 3

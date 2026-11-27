@@ -119,6 +119,16 @@ def build(name):
             box(identifier+" base", (x,y,.10), (w*.49,d*.49,.10), ballast).parent = group
             box(identifier+" upright", (x,y,.88), (w*.39,d*.39,.80), steel).parent = group
             box(identifier+" cap", (x,y,1.67), (w*.45,d*.45,.09), partition_cap).parent = group
+            if name == "city_transit_metro_interchange":
+                facing = -1 if y > 0 else 1
+                front = y + facing*d*.39
+                box(identifier+" inset equipment panel", (x,front,1.01),
+                    (w*.28,d*.025,.45), partition_cap).parent = group
+                box(identifier+" station marker", (x,front+facing*d*.031,1.32),
+                    (w*.23,d*.012,.075), screen).parent = group
+                for level in range(3):
+                    box(identifier+" cooling louver", (x,front+facing*d*.031,.77+level*.08),
+                        (w*.19,d*.012,.016), trim).parent = group
         elif kind == "stair":
             direction = 1 if y > 0 else -1
             for i in range(8):
