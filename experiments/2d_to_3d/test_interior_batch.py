@@ -270,7 +270,7 @@ def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():
             assert any(part.startswith("Checkpoint reader display") for part in parts)
 
 
-def test_service_tunnel_and_warehouse_export_remaining_fixture_groups():
+def test_industrial_and_server_maps_export_remaining_fixture_groups():
     import json
     import struct
 
@@ -278,6 +278,16 @@ def test_service_tunnel_and_warehouse_export_remaining_fixture_groups():
     from interior_batch import OUTPUT
 
     additions = {
+        "cybercity_inner_15_data_vault": {
+            "nw_fans": "Vent fan deck", "ne_fans": "Vent fan deck",
+            "sw_fans": "Vent fan deck", "se_fans": "Vent fan deck",
+            "east_control": "east_control display",
+        },
+        "cybercity_inner_05_server_room": {
+            "nw_fans": "Vent fan deck", "ne_fans": "Vent fan deck",
+            "south_fans": "Vent fan deck", "nw_generator": None,
+            "west_storage": "Warehouse pallet rack",
+        },
         "cybercity_inner_13_warehouse_floor": {
             "bench_mid": "Workbench steel top", "bench_e": "Workbench steel top",
             "bench_w": "Workbench steel top", "bench_sw": "Workbench steel top",

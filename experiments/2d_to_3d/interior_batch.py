@@ -65,9 +65,10 @@ INTERIORS = (
 def fixtures(name):
     survey = json.loads((MAPS / f"{name}.wall-traces.json").read_text())
     selected = {}
+    server_interior = name in {"cybercity_inner_15_data_vault", "cybercity_inner_05_server_room"}
     safehouse_fixtures = {
         "west_gym_weight": "gym_weights", "south_tools": "workbench",
-        "south_generator": "safehouse_generator", "bath_sinks": "bath_sink",
+        "south_generator": "floor_generator", "bath_sinks": "bath_sink",
         "bath_showers": "bath_shower", "south_storage": "rack",
     } if name == "city_interior_safehouse" else {}
     for row in survey["walls"]:
@@ -90,6 +91,14 @@ def fixtures(name):
             selected[identifier] = "workbench"
         elif name == "cybercity_inner_13_warehouse_floor" and identifier == "barrel_s":
             selected[identifier] = "drums"
+        elif server_interior and identifier.endswith("_fans"):
+            selected[identifier] = "vent_fan"
+        elif server_interior and identifier == "east_control":
+            selected[identifier] = "console"
+        elif server_interior and identifier == "west_storage":
+            selected[identifier] = "rack"
+        elif server_interior and identifier == "nw_generator":
+            selected[identifier] = "floor_generator"
         elif name == "city_industrial_service_tunnel" and identifier == "nw_room_corner_fan":
             selected[identifier] = "vent_fan"
         elif name == "city_industrial_service_tunnel" and identifier.endswith("_valve"):
