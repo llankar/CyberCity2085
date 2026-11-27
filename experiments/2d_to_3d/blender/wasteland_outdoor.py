@@ -711,6 +711,8 @@ class WastelandOutdoors:
                                      (w*.15,d*.19,.084))
             slab.rotation_euler = (.24,0,bank*.18)
             slab.parent = group
+        elif self.ruined_downtown and name.startswith(("wall_", "barrier_", "rubble_")):
+            self.downtown_road_cover(group, name, x, y, length, breadth, yaw)
         elif any(part in name for part in ("ruin","rubble","wall","barrier")):
             for i in range(3):
                 self.concrete_box(name,(x+w*(i-1)/3,y,.18+.11*i),
@@ -1168,6 +1170,23 @@ class WastelandOutdoors:
             for offset in (-.32,.32):
                 box("Bus wreck wheel", (length*offset,side*width*.38,.23),
                     (.22,width*.12,.22), self.dark,.085).parent = group
+
+    def downtown_road_cover(self, group, name, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw
+        rubble = name.startswith("rubble_")
+        for index, height in enumerate((.21,.33,.26) if rubble else (.44,.63,.51)):
+            along = length*(index-1)*.31
+            cross = width*(.08 if index == 1 else -.06)
+            if rubble:
+                slab = self.concrete_box("Downtown fallen masonry", (along,cross,height*.48),
+                                        (length*.13,width*.32,height*.48), .045)
+                slab.rotation_euler.z = (.16,-.22,.12)[index]
+            else:
+                slab = self.concrete_guardrail("Downtown fractured road barrier",
+                                               length*.29,width*.80,height)
+                slab.location = (along,cross,0)
+            slab.parent = group
 
     def downtown_exposed_frame(self, group, name, x, y, width, depth):
         street_side = -1 if name.startswith("n") else 1
