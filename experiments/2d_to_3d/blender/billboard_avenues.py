@@ -378,7 +378,8 @@ def build(name):
         basin_triangles = [tuple(Vector(p) for p in triangle) for triangle in terrain["street"]]
     freeway = name.endswith("_elevated_freeway")
     flood_avenue = name.endswith("_flood_prone_avenue")
-    transport_facades = freeway or name.endswith("_transit_interchange") or flood_avenue
+    transit_interchange = name.endswith("_transit_interchange")
+    transport_facades = freeway or transit_interchange or flood_avenue
     deck_rails = {row["id"]: row["points"][0][1] for row in survey["walls"]
                   if row["id"] in {"highway_north_rail", "highway_south_rail"}}
     riot_square = name == "city_district_riot_square"
@@ -1156,12 +1157,12 @@ def build(name):
                     (x+w*offset,front+direction*.174,fascia_height),
                     (w*.135,.013,.027),signs[(i+int(offset > 0))%2],.006).parent = group
         if transport_facades and w >= 2.4 and height >= 3.2:
-            if name.endswith("_transit_interchange"):
+            if transit_interchange:
                 entry_width = min(.48,w*.14)
                 box(identifier+" transit entry surround", (x,front+direction*.045,.84),
                     (entry_width,.057,.84),frame,.015).parent = group
                 box(identifier+" transit entry door", (x,front+direction*.112,.81),
-                    (entry_width*.84,.018,.78),wall,.012).parent = group
+                    (entry_width*.84,.018,.78),frame,.012).parent = group
                 box(identifier+" transit entry canopy", (x,front+direction*.15,1.78),
                     (entry_width*1.17,.17,.052),frame,.016).parent = group
                 box(identifier+" transit entry canopy light", (x,front+direction*.29,1.728),
@@ -1223,11 +1224,14 @@ def build(name):
                 box(identifier + " rear service frame", (door_x,back-direction*.045,.81),
                     (service_width,.065,.81), frame).parent = group
                 box(identifier + " rear service door", (door_x,back-direction*.111,.77),
-                    (service_width*.82,.022,.73), wall).parent = group
-                if name.endswith("_transit_interchange"):
+                    (service_width*.82,.022,.73), frame if transit_interchange else wall).parent = group
+                if transit_interchange:
                     box(identifier+" transit rear service hood",
                         (door_x,back-direction*.15,1.72),
                         (service_width*1.12,.18,.046),frame,.012).parent = group
+                    box(identifier+" transit rear service marker",
+                        (door_x,back-direction*.332,1.72),
+                        (service_width*.48,.012,.018),signs[1],.005).parent = group
                     place(library / "wall_fixtures282/vent.glb", group,
                           (x-w*.37,back-direction*.075,.54),
                           (min(.60,w*.13),.14,.28),yaw=angle+math.pi,merge=True)
