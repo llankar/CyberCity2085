@@ -428,7 +428,8 @@ def build(name):
                 privacy_side = {"bed_ww": -1, "bed_e": 1}.get(identifier, 0) if emergency_medbay else 0
                 build_bed(group, x, y, w, d, stretcher_frame if salvaged_medical else steel, linen,
                           stretcher_pad if salvaged_medical else trim, stretcher=salvaged_medical,
-                          privacy_side=privacy_side)
+                          privacy_side=privacy_side,
+                          intensive_care=emergency_medbay and identifier == "bed_center")
         elif (relay_room and kind in {"relay_server", "rack"}) or (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):

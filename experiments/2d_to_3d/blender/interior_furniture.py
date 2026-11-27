@@ -7,7 +7,8 @@ from create_hardsurface_crate import box
 from library_placement import place
 
 
-def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_bedding=False, privacy_side=0):
+def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_bedding=False,
+              privacy_side=0, intensive_care=False):
     long_y = d > w
     length, width = (d,w) if long_y else (w,d)
     parts = []
@@ -29,6 +30,14 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_be
     if stretcher:
         piece("Stretcher body pad",-length*.08,0,.566,length*.32,width*.34,.046,pad)
         piece("Stretcher headrest",length*.335,0,.58,length*.08,width*.32,.056,pad)
+        if intensive_care:
+            piece("Treatment sheet",-length*.10,0,.626,length*.29,width*.32,.025,linen)
+            pole_along, pole_across = length*.30,width*.419
+            piece("Infusion stand",pole_along,pole_across,.89,.021,.021,.55,steel)
+            piece("Infusion hanger",pole_along-length*.045,pole_across,1.43,
+                  length*.062,.021,.020,steel)
+            piece("Infusion bag",pole_along-length*.088,pole_across,1.32,
+                  length*.026,.033,.074,linen)
         for side in (-1,1):
             piece("Stretcher undercarriage brace",0,side*width*.31,.19,length*.32,.025,.025,steel)
             piece("Stretcher side rail",0,side*width*.425,.62,length*.31,.025,.026,steel)

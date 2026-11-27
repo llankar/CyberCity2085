@@ -439,6 +439,7 @@ def test_interior_maps_export_remaining_fixture_groups():
     additions["wasteland_inner_11_emergency_medbay"] = {
         "central_machine": "Medbay telemetry station",
         "south_machine_w": "Clinic diagnostic bench",
+        "bed_center": "Clinic treatment bed",
     }
     for index in ("06", "11"):
         additions[f"wasteland_inner_{index}_maintenance_depot"] = {
@@ -460,13 +461,21 @@ def test_interior_maps_export_remaining_fixture_groups():
             pytest.skip(f"Build {name} on E: first")
         with path.open("rb") as glb:
             size = struct.unpack("<4sIII4s", glb.read(20))[3]
-            nodes = json.loads(glb.read(size))["nodes"]
+            data = json.loads(glb.read(size))
+        nodes = data["nodes"]
         groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
         for identifier, component in fixtures_to_check.items():
             parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
             assert parts
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
+        if name.endswith("_emergency_medbay"):
+            bed_index, = groups["Occludable_bed_center"]
+            bed = nodes[bed_index]
+            primitives = data["meshes"][bed["mesh"]]["primitives"]
+            height = max(data["accessors"][item["attributes"]["POSITION"]]["max"][1]
+                         for item in primitives)
+            assert height + bed["translation"][1] > 1.4
 
 
 def test_server_banks_export_as_grouped_cabinets_with_power_indicators():
