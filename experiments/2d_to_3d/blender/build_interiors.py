@@ -322,6 +322,14 @@ def build(name):
                 rail_center = (x+offset,y,.10) if vertical else (x,y+offset,.10)
                 rail_size = (breadth*.044,length*.46,.10) if vertical else (length*.46,breadth*.044,.10)
                 box("Depot machine guide rail", rail_center, rail_size, rail,.023).parent = group
+            for side in (-1, 1):
+                offset = side*length*.445
+                stop_center = (x,y+offset,.17) if vertical else (x+offset,y,.17)
+                stop_size = (breadth*.43,length*.035,.11) if vertical else (length*.035,breadth*.43,.11)
+                box("Depot machine carriage stop", stop_center, stop_size, partition_cap,.016).parent = group
+                marker_center = (*stop_center[:2], .29)
+                marker_size = (stop_size[0]*.72,stop_size[1]*.64,.014)
+                box("Depot machine stop marker", marker_center, marker_size, warning,.006).parent = group
         elif kind in {"floor_generator", "safehouse_generator"}:
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
