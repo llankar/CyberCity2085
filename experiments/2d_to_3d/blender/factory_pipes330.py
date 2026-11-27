@@ -115,10 +115,16 @@ for item in survey["walls"]:
             place(cargo, group, (x,y+d*offset,height), (w*.70,d*.30,.50), merge=True)
     else:
         box(identifier+" chassis", (x,y,.43), (w*.44,d*.46,.43), cabinet).parent = group
-        box(identifier+" panel bezel", (x,y-d*.12,.883),
-            (w*.39,d*.25,.028), trim).parent = group
-        box(identifier+" telemetry", (x,y-d*.12,.917),
-            (w*.33,d*.21,.012), display).parent = group
+        box(identifier+" recessed deck", (x,y,.874),
+            (w*.34,d*.38,.022), mount_steel).parent = group
+        for side in (-1, 1):
+            box(identifier+" safety rail", (x+side*w*.37,y,.94),
+                (w*.026,d*.40,.035), trim, .009).parent = group
+        for offset in (-.29, -.15, -.01, .13):
+            box(identifier+" deck crossbar", (x,y+d*offset,.913),
+                (w*.35,d*.018,.022), cabinet, .008).parent = group
+        box(identifier+" telemetry", (x,y-d*.36,.916),
+            (w*.24,d*.028,.012), display).parent = group
         for offset in (-.22,0,.22):
             box(identifier+" control", (x+w*offset,y+d*.25,.883),
                 (w*.041,d*.042,.025), trim, .006).parent = group

@@ -218,6 +218,9 @@ def test_factory_console_and_shelf_groups_are_native_geometry():
     for identifier in ("west_console", "east_console", "mid_console", "north_left_shelf", "north_right_shelf"):
         group = groups[f"Occludable_{identifier}"]
         assert any("mesh" in nodes[index] for index in group["children"])
+        if identifier.endswith("_console"):
+            parts = [nodes[index]["name"] for index in group["children"]]
+            assert sum(part.startswith(f"{identifier} deck crossbar") for part in parts) == 4
 
 def test_dockside_exports_all_surveyed_obstacle_groups():
     import json
