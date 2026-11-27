@@ -1727,3 +1727,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-06-ROOF-EQUIPMENT / DONE for six surveyed placements. Reused the roof fan module across five buildings, matching footprints to the original 06 artwork. Rebuilt the GLB on E:, rendered 235 meshes in Godot and passed four catalogue tests. Next: shift from isolated roof details to another family with larger reconstruction gaps.
 
 - EXPERIMENTAL-BRIDGE-GUARDRAILS / DONE. Reused the galvanized beam, posts, and reflectors on the two surveyed Bridge Access rails. Rebuilt the shared 14/15 model on E:, rendered 152 meshes in Godot, and passed four catalogue tests. Next: review bridge deck and river height separation.
+
+- EXPERIMENTAL-BRIDGE-DECK-RIVER-SEPARATION / DONE for shared Bridge Access 14/15 geometry. Rebuilt the deck and two surveyed river polygons at different heights with vertical fascia. Godot rendered 156 meshes in low review and five catalogue tests passed, including exported height checks. Next: inspect the result for visual seams and review adjacent waterfront families.

@@ -152,6 +152,44 @@ def build_rooftop_ground(out, floor, grid, canvas, library):
 
 
 
+def build_bridge_surfaces(floor, water, retaining, grid, canvas, north, south):
+    gw, gh = grid
+    cw, ch = canvas
+    deck_z, river_z = -.025, -1.35
+    # Each shoreline is the inside chain between the two map-edge vertices.
+    north_bank = [north[0], *reversed(north[2:])]
+    south_bank = [south[1], south[0], *reversed(south[4:])]
+    land = [(0,0), *north_bank, *south_bank, (0,ch)]
+
+    def point(p, z):
+        return Vector((p[0]*gw/cw-gw/2, gh/2-p[1]*gh/ch, z))
+
+    for label, outline, z, material in (
+        ("Bridge pavement and approach", land, deck_z, floor),
+        ("North river surface", north, river_z, water),
+        ("South river surface", south, river_z, water),
+    ):
+        vertices = [point(p,z) for p in outline]
+        if sum(a.x*b.y-b.x*a.y for a,b in zip(vertices,vertices[1:]+vertices[:1])) < 0:
+            vertices.reverse()
+        mesh = bpy.data.meshes.new(label)
+        mesh.from_pydata(vertices, [], tessellate_polygon([vertices]))
+        mesh.materials.append(material)
+        uv = mesh.uv_layers.new()
+        for loop in mesh.loops:
+            x,y,_ = vertices[loop.vertex_index]
+            uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
+        bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
+
+    for label, bank in (("North bridge fascia", north_bank), ("South bridge fascia", south_bank)):
+        vertices = [point(p,z) for z in (deck_z,river_z) for p in bank]
+        count = len(bank)
+        mesh = bpy.data.meshes.new(label)
+        mesh.from_pydata(vertices, [], [(i,i+1,i+1+count,i+count) for i in range(count-1)])
+        mesh.materials.append(retaining)
+        bpy.context.collection.objects.link(bpy.data.objects.new(label,mesh))
+
+
 def build_freeway_deck(floor, wall, frame, grid, canvas, rail_rows):
     gw, gh = grid
     _, ch = canvas
@@ -871,6 +909,10 @@ def build(name):
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
+    elif bridge_access:
+        rivers = {row["id"]: row["polygon"] for row in survey["walls"] if row.get("kind") == "water"}
+        water = textured_material("Bridge river water", out / "floor.png", .32)
+        build_bridge_surfaces(floor, water, wall, (gw,gh), (cw,ch), rivers["north_river"], rivers["south_river"])
     elif freeway and len(deck_rails) == 2:
         rail_rows = deck_rails["highway_north_rail"], deck_rails["highway_south_rail"]
         build_freeway_deck(floor, wall, frame, (gw,gh), (cw,ch), rail_rows)

@@ -78,3 +78,24 @@ def test_freeway_feeder_ramps_have_closed_decks():
         top_triangles = data["accessors"][top["indices"]]["count"] // 3
         shell_indices = data["accessors"][shell["indices"]]["count"]
         assert shell_indices == 3*top_triangles + 6*(top_triangles+2), label
+
+
+def test_bridge_deck_and_river_are_separated_in_height():
+    model = catalogue_environment("cybercity_street_14_bridge_access")
+    if not model.is_file():
+        pytest.skip("Local bridge export is unavailable")
+    with model.open("rb") as stream:
+        magic, _, _, size, chunk = struct.unpack("<4sIII4s", stream.read(20))
+        assert (magic, chunk) == (b"glTF", b"JSON")
+        data = json.loads(stream.read(size))
+    for label, low, high in (
+        ("Bridge pavement and approach", -.025, -.025),
+        ("North river surface", -1.35, -1.35),
+        ("South river surface", -1.35, -1.35),
+        ("North bridge fascia", -1.35, -.025),
+        ("South bridge fascia", -1.35, -.025),
+    ):
+        node = next(node for node in data["nodes"] if node["name"] == label)
+        primitive, = data["meshes"][node["mesh"]]["primitives"]
+        bounds = data["accessors"][primitive["attributes"]["POSITION"]]
+        assert (bounds["min"][1], bounds["max"][1]) == pytest.approx((low, high))
