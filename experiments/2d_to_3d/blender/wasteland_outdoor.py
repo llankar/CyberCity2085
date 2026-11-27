@@ -388,7 +388,7 @@ class WastelandOutdoors:
                 for i in range(n):
                     j = (i+1)%n
                     faces.append((layer+i,layer+j,layer+j+n,layer+i+n))
-            broken_deck = self.overpass and ("span" in name or "ramp" in name)
+            broken_deck = (self.overpass or self.wrecked_highway) and ("span" in name or "ramp" in name)
             if broken_deck:
                 # A dark intact substrate separates the lifted fragments.
                 # Each inset face stays inside the original surveyed outline.
