@@ -94,6 +94,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 if prefix:
                     parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
                     assert sum(part.startswith(prefix) for part in parts) == 3, identifier
+                    if identifier.startswith("rubble_"):
+                        assert sum(part.startswith("Downtown loose masonry fragment")
+                                   for part in parts) == 4, identifier
         if name.endswith("_dust_road_ambush"):
             for row in surveyed:
                 if "points" in row or "sandbag" in row["id"]:

@@ -1287,6 +1287,14 @@ class WastelandOutdoors:
                                                length*.29,width*.80,height)
                 slab.location = (along,cross,0)
             slab.parent = group
+        if rubble:
+            for along, cross, angle in ((-.38,.30,.44), (-.12,-.32,-.28),
+                                         (.18,.31,.60), (.37,-.28,-.47)):
+                chip = self.concrete_box("Downtown loose masonry fragment",
+                                         (length*along,width*cross,.064),
+                                         (length*.052,width*.095,.068),.028)
+                chip.rotation_euler.z = angle
+                chip.parent = group
 
     def downtown_exposed_frame(self, group, name, x, y, width, depth):
         street_side = -1 if name.startswith("n") else 1
