@@ -2067,3 +2067,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SCAVENGER-PLAZA-COUNTER-CARGO / DONE for export and native loading. Added varied recovered machine parts on the existing stall bins. Rebuilt the shared 05/10 model on E:, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: review perimeter masonry and larger sources of visual repetition.
 
 - EXPERIMENTAL-SCAVENGER-PERIMETER-RUBBLE / DONE. Added fallen masonry within the four ruin footprints. Rebuilt 05/10 on E:, refreshed the Godot view and gallery, and passed eleven outdoor tests. Next: prioritize outdoor maps with larger gaps at combat zoom.
+
+- EXPERIMENTAL-BURNED-MARKET-STALL-DEBRIS / DONE. Added fallen charred planks inside three roofless stall footprints. Rebuilt the shared export on E:, captured Godot and updated the gallery. Eleven outdoor tests passed. Next: compare the larger ruined storefronts.

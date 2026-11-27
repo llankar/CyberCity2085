@@ -1036,6 +1036,11 @@ class WastelandOutdoors:
             fabric = bpy.data.objects.new("Hanging canopy remnants", scraps)
             bpy.context.collection.objects.link(fabric)
             fabric.parent = group
+            for offset, angle in ((-.27,.23),(.19,-.32)):
+                scrap = box("Collapsed charred stall plank", (offset*length,0,.14),
+                            (length*.13,width*.075,.038),self.dark,.014)
+                scrap.rotation_euler = (.18,0,angle)
+                scrap.parent = group
             return
         if name == "stall_se":
             box("Blue corrugated market cover", (0,0,1.105),
