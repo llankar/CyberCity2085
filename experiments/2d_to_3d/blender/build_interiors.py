@@ -363,6 +363,21 @@ def build(name):
                 offset = (i+.5)*span-length/2
                 place(wall, group, (x if vertical else x+offset, y+offset if vertical else y, 0),
                       (span,breadth,1.7), yaw=yaw)
+            if name.endswith("_abandoned_safehouse") and identifier in {"north_wall", "south_wall"}:
+                north = identifier == "north_wall"
+                opening_centers = (168,369,591,842) if north else (122,487,822)
+                inner_face = y-d/2-.045 if north else y+d/2+.045
+                timber = make_material("Salvaged shelter timber", (.26,.145,.071,1), 0,.91)
+                for center in opening_centers:
+                    opening_x = center*gw/cw-gw/2
+                    box("Boarded opening recess", (opening_x,inner_face,1.03),
+                        (.94,.028,.43), partition_cap,.025).parent = group
+                    for z, slope in ((.81,.15),(1.03,-.22),(1.26,.12)):
+                        board_y = inner_face+(-.04 if north else .04)
+                        board = box("Shelter nailed timber board", (opening_x,board_y,z),
+                                    (1.01,.035,.064), timber,.016)
+                        board.rotation_euler.y = slope
+                        board.parent = group
         else:
             place(labs[kind], group, (x,y,0), (length*.97,breadth*.97,1.7), yaw=yaw)
 
