@@ -21,6 +21,7 @@ class WastelandOutdoors:
         self.overpass = overpass
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
+        self.workshop_surface = None
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
         concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
@@ -270,8 +271,20 @@ class WastelandOutdoors:
     def trainyard_workshop_ruin(self, group, name, x, y, width, depth):
         # The survey covers roofless workshops, with the surviving walls at
         # the back and an open, broken edge toward the north siding.
-        self.concrete_box("Workshop slab", (x, y, .035),
-                          (width*.49, depth*.48, .035)).parent = group
+        slab = self.concrete_box("Workshop slab", (x, y, .035),
+                                 (width*.49, depth*.48, .035))
+        slab.parent = group
+        if self.workshop_surface is not None:
+            mesh = slab.data
+            mesh.materials.append(self.workshop_surface)
+            uv = mesh.uv_layers.active
+            for face in mesh.polygons:
+                if face.normal.z < .9:
+                    continue
+                face.material_index = 1
+                for index in face.loop_indices:
+                    point = mesh.vertices[mesh.loops[index].vertex_index].co
+                    uv.data[index].uv = (.5+(x+point.x)/self.gw, .5+(y+point.y)/self.gh)
         self.concrete_box("Workshop rear wall", (x-width*.06, y+depth*.42, .38),
                           (width*.41, depth*.055, .38)).parent = group
         for side in (-1, 1):

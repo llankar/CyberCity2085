@@ -256,6 +256,8 @@ def build(name):
         (.07,.17,.19,1), (.27,.081,.05,1), (.17,.21,.095,1)
     )]
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
+    if wasteland and wasteland.trainyard:
+        wasteland.workshop_surface = roof
     guardrail_steel = make_material("Freeway galvanized steel", (.25,.30,.34,1), .73,.53) if freeway else None
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
