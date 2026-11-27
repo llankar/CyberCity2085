@@ -843,6 +843,12 @@ class WastelandOutdoors:
             for offset in (-.28,.06,.29):
                 box("Exposed transit roof rib", (offset*length,0,1.13),
                     (.052,width*.425,.058), self.steel,.018).parent = group
+            for side in (-1, 1):
+                for offset in (-.235,.215):
+                    box("Exposed transit seat pan", (offset*length,side*width*.285,.68),
+                        (length*.085,width*.087,.038),self.facade_blue,.018).parent = group
+                    box("Exposed transit seat back", (offset*length,side*width*.368,.817),
+                        (length*.083,width*.024,.14),self.steel,.018).parent = group
         else:
             box("Transit carriage roof", (0,0,1.18),
                 (length*.38,width*.425,.085), self.steel,.054).parent = group

@@ -2055,3 +2055,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-CRATERED-WATERFRONT-BASIN-WRECKS / DONE for export and native loading. Added inner deck stringers and buckled plates to both small wrecks while retaining hull positions. Rebuilt the waterfront GLB on E:, refreshed Godot and the comparison gallery and passed eleven outdoor tests including the new deck checks. Next: compare quay frontage and fractured edges against the source.
 
 - EXPERIMENTAL-CRATERED-WATERFRONT-QUAY-COPING / DONE for export and native loading. Broke the continuous intact coping into masonry blocks with visible joints along the original quay lines. Rebuilt the environment on E:, refreshed Godot and the 122-map gallery, and passed eleven outdoor tests. Next: review remaining exterior landmarks at combat zoom.
+
+- EXPERIMENTAL-RUINED-TRANSIT-CARRIAGE-SEATS / DONE for export and native loading. Added faded blue seats and steel backs to the roofless south carriage, leaving its aisle clear. Rebuilt on E:, refreshed the Godot overview and gallery, and passed eleven outdoor tests. Next: review platform edge details at tactical zoom.
