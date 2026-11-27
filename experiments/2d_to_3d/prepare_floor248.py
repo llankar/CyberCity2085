@@ -166,6 +166,20 @@ def main():
             crane_mask[round(top*sy):round(bottom*sy)] = 0
         sample = original.crop((round(455*sx),round(176*sy),round(489*sx),round(214*sy)))
         result = restore_surface_detail(result, crane_mask & mask, sample, round(34*sx))
+        # Continue the original sleeper pattern through the masked crossings.
+        # Match the source row so both sides of each track stay aligned.
+        crossing_donors = {
+            "crane_n": (646,130,695,156),
+            "crane_w": (151,328,192,352),
+            "crane_c": (539,328,580,352),
+        }
+        crossings = []
+        for row in survey["walls"]:
+            if row["id"] in crossing_donors:
+                x1,y1,x2,y2 = row["rect"]
+                _,top,_,bottom = crossing_donors[row["id"]]
+                crossings.append({"id": row["id"], "rect": [max(x1,83),max(y1,top),x2,min(y2,bottom)]})
+        result = restore_donor_pavement(result, original, {**survey, "walls": crossings}, crossing_donors)
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
     if args.map == "wasteland_city_12_cratered_waterfront":
