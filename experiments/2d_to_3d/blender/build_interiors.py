@@ -120,6 +120,15 @@ def build(name):
                 segment.rotation_euler = axis.to_track_quat("Z","Y").to_euler()
                 segment.data.materials.append(steel)
                 segment.parent = group
+                if name.endswith("_collapsed_tunnel") and axis.length > radius*4:
+                    for fraction in (.18,.82):
+                        bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=radius*1.23,
+                                                            depth=radius*.45, location=start.lerp(end,fraction))
+                        collar = bpy.context.object
+                        collar.name = identifier + " bolted coupling"
+                        collar.rotation_euler = segment.rotation_euler
+                        collar.data.materials.append(partition_cap)
+                        collar.parent = group
             for point in points:
                 bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=radius, location=point)
                 joint = bpy.context.object

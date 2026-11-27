@@ -161,7 +161,7 @@ def fixtures(name):
             selected[identifier] = "floor_generator"
         elif name == "city_industrial_service_tunnel" and identifier == "nw_room_corner_fan":
             selected[identifier] = "vent_fan"
-        elif name == "city_industrial_service_tunnel" and identifier.endswith("_valve"):
+        elif (name == "city_industrial_service_tunnel" or name.endswith("_collapsed_tunnel")) and identifier.endswith("_valve"):
             selected[identifier] = "service_valve"
         elif name == "city_industrial_service_tunnel" and identifier.endswith("_terminal"):
             selected[identifier] = "console"
