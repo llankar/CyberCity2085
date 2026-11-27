@@ -303,6 +303,11 @@ def test_interior_maps_export_remaining_fixture_groups():
         },
     }
     additions.update({
+        "city_interior_command_deck": {"north_display": "Command vertical display"},
+        "city_interior_police_records": {"south_control": "Command map display"},
+        "cybercity_inner_11_cyber_cafe": {"east_office_counter": "Workbench steel top"},
+        "wasteland_inner_05_looted_vault": {"sw_utility": "sw_utility panel"},
+        "wasteland_inner_10_looted_vault": {"sw_utility": "sw_utility panel"},
         "city_interior_penthouse_atrium": {
             "bath_sw": "Tub basin inset", "bath_se": "Tub basin inset", "south_lounge": "south_lounge cushions",
         },

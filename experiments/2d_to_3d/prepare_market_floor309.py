@@ -18,6 +18,7 @@ def pixels(rect):
 
 # Use pavement from the closest aisle with similar lighting to each stall.
 donor_rects = {
+    "west_awning": (132, 341, 150, 414),
     "market_nw": (311, 264, 381, 320),
     "market_nmid": (342, 265, 416, 319),
     "market_ne": (541, 263, 620, 308),

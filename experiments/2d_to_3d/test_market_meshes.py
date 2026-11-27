@@ -61,3 +61,16 @@ def test_tech_market_buildings_export_textured_roofs_and_facade_bays():
         materials = [data["materials"][part["material"]]
                      for part in data["meshes"][roof["mesh"]]["primitives"]]
         assert any("baseColorTexture" in material["pbrMetallicRoughness"] for material in materials)
+
+
+def test_neon_market_awning_is_independently_occludable():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/market325/environment.glb")
+    if not path.is_file():
+        pytest.skip("Build Neon Market on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    awning = next(node for node in nodes if node["name"] == "Occludable_west_awning")
+    parts = [nodes[index]["name"] for index in awning["children"]]
+    assert "West awning canopy" in parts
+    assert sum(name.startswith("West awning outer pole") for name in parts) == 2

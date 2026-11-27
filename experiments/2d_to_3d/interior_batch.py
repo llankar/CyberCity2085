@@ -73,6 +73,11 @@ def fixtures(name):
         "wasteland_inner_01_abandoned_safehouse", "wasteland_inner_06_abandoned_safehouse",
     }
     room_fixtures = {
+        "city_interior_command_deck": {"north_display": "command_wall"},
+        "city_interior_police_records": {"south_control": "command_console"},
+        "cybercity_inner_11_cyber_cafe": {"east_office_counter": "workbench"},
+        "wasteland_inner_05_looted_vault": {"sw_utility": "cabinet"},
+        "wasteland_inner_10_looted_vault": {"sw_utility": "cabinet"},
         "city_interior_penthouse_atrium": {
             "bath_sw": "bath_tub", "bath_se": "bath_tub", "south_lounge": "sofa",
         },

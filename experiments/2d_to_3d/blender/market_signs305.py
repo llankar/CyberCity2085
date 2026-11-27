@@ -1,4 +1,5 @@
 """Add practical lighting and trade signage to existing market stalls."""
+import json
 from pathlib import Path
 import sys
 
@@ -179,6 +180,30 @@ for group in groups:
     bpy.ops.object.convert(target="MESH")
     bpy.ops.object.join()
     bpy.context.object.name = group.name + " rigid surfaces"
+maps = Path(__file__).resolve().parents[3] / "assets/maps"
+map_name = "city_exterior_neon_market_alley"
+survey = json.loads((maps / f"{map_name}.wall-traces.json").read_text())
+gw, gh = json.loads((maps / f"{map_name}.walls.json").read_text())["grid"]
+cw, ch = survey["canvas_size"]
+x1,y1,x2,y2 = next(row["rect"] for row in survey["walls"] if row["id"] == "west_awning")
+x,y = (x1+x2)*gw/(2*cw)-gw/2,gh/2-(y1+y2)*gh/(2*ch)
+w,d = (x2-x1)*gw/cw,(y2-y1)*gh/ch
+awning = bpy.data.objects.new("Occludable_west_awning", None)
+bpy.context.collection.objects.link(awning)
+canvas = make_material("West awning weathered blue", (.024,.12,.23,1), .12,.78)
+top = box("West awning canopy", (x,y,1.88), (w*.49,d*.49,.047), canvas)
+top.rotation_euler.y = .12
+top.parent = awning
+for offset in (-.39,.39):
+    box("West awning outer pole", (x+w*.43,y+offset*d,.89),
+        (.034,.034,.89), housing).parent = awning
+for index in range(5):
+    offset = (index-2)*d*.194
+    seam = box("West awning seam", (x,y+offset,1.93), (w*.47,.014,.012), housing,.004)
+    seam.rotation_euler.y = .12
+    seam.parent = awning
+box("West awning valance", (x+w*.48,y,1.69), (.028,d*.48,.087), canvas).parent = awning
+
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
