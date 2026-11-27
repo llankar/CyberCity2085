@@ -1119,6 +1119,12 @@ class WastelandOutdoors:
             self.concrete_box("Broken workshop frontage",
                               (x+width*offset, y-depth*.43, .15),
                               (width*.10, depth*.05, .15)).parent = group
+        for offset, angle in ((-.32,.24),(.30,-.19)):
+            fragment = self.concrete_box("Fallen workshop masonry",
+                                         (x+width*offset,y-depth*.30,.16),
+                                         (width*.082,depth*.074,.10))
+            fragment.rotation_euler.z = angle
+            fragment.parent = group
         equipment = (
             ("Workshop service cabinet", "industrial_service267/model.glb", 130, 28, 43, 35, .65),
             ("Workshop parts crate", "cargo_crate274/model.glb", 201, 28, 29, 24, .43),
