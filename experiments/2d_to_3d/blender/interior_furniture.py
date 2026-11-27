@@ -489,6 +489,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             tin.data.materials.append(trim)
             tin.parent = group
         merge_fixture_meshes(group, "Salvaged shelter table")
+    elif kind == "shelter_sofa":
+        part("Shelter sofa frame", 0,0,.19,length*.46,width*.43,.15,steel)
+        part("Shelter sofa back", 0,width*.36,.52,length*.44,width*.085,.25,trim)
+        for position in (-1, 0, 1):
+            material = screen if position == 1 else trim
+            part("Mismatched sofa cushion", position*length*.28,-width*.062,.42,
+                 length*.13,width*.29,.094,material)
+        for end in (-1, 1):
+            part("Shelter sofa arm", end*length*.43,0,.50,length*.044,width*.39,.12,trim)
+        merge_fixture_meshes(group, "Shelter patched sofa")
     elif kind == "shelter_pantry":
         part("Pantry backing", 0,width*.40,.70,length*.46,width*.04,.70,steel)
         for end in (-1, 1):

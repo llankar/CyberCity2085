@@ -480,6 +480,7 @@ def test_interior_maps_export_remaining_fixture_groups():
             "north_table": "Salvaged shelter table",
             "table_center": "Salvaged shelter table",
             "west_cabinet": "Shelter improvised pantry",
+            "sofa_center": "Shelter patched sofa",
         }
     for name, fixtures_to_check in additions.items():
         path = (catalogue_environment(name) if name.startswith("wasteland_inner_")

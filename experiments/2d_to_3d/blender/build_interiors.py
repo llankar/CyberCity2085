@@ -614,6 +614,9 @@ def build(name):
                 ripple.scale = (spread,spread,1)
                 ripple.keyframe_insert(data_path="scale", frame=frame)
             ripple.animation_data.action.name = "AtriumWaterRipple"
+        elif kind == "sofa" and apartment_shelter:
+            build_facility_fixture(group, "shelter_sofa", x, y, w, d,
+                                   shelter_iron, bedding_canvas, bedding_blankets[0])
         elif kind == "sofa":
             box(identifier+" frame", (x,y,.18), (w*.47,d*.46,.16), steel).parent = group
             box(identifier+" cushions", (x,y,.37), (w*.43,d*.39,.088), upholstery).parent = group
