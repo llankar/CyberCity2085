@@ -170,7 +170,7 @@ func apply_presentation(config: Dictionary) -> bool:
  review_ambient_color = preview.review_ambient_color
  review_ambient_energy = preview.review_ambient_energy
  review_key_energy = preview.review_key_energy
- review_size = minf(preview.review_size, 31.0)
+ review_size = minf(preview.review_size, 22.0)
  save_review_capture = false
  preview.free()
  return true
@@ -234,6 +234,8 @@ func _process(delta: float) -> void:
  pending_command.clear()
  if actors[selected_ally].fallen:
   select_next_ally()
+ if last_sequence == 0:
+  focus_selected()
  refresh_selection()
  refresh_target_hint(get_viewport().get_mouse_position())
  status.text = "%s  //  Round %d  %s\n%s" % [
@@ -251,7 +253,6 @@ func _process(delta: float) -> void:
      push_error("Tactical allies must share their import and own separate animation players")
      get_tree().quit(22)
      return
-    focus_selected()
     if not review_target.is_equal_approx(cell_position(state.units[0].cell)):
      push_error("Camera did not focus the active operative")
      get_tree().quit(19)
