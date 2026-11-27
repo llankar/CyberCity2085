@@ -1411,10 +1411,14 @@ class WastelandOutdoors:
             part("Wreck front bumper", (length*.484,0,.45),
                  (.013,width*.42,.052), self.dark,.012)
         part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
+        wheel_radius = min(.30,width*.19)
+        if self.salt_flat:
+            wheel_radius = max(.17,wheel_radius)
+        wheel_center = wheel_radius if self.salt_flat else .30
         for side in (-1,1):
             for offset in (-.35,-.19,.35):
-                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=min(.30,width*.19),
-                    depth=width*.14, location=(length*offset,side*width*.41,.30),
+                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=wheel_radius,
+                    depth=width*.14, location=(length*offset,side*width*.41,wheel_center),
                     rotation=(math.pi/2,0,0))
                 wheel = bpy.context.object
                 wheel.name = "Convoy wheel"
