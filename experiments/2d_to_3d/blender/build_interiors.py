@@ -151,7 +151,7 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker or relay_room else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
-    textured_partitions = emergency_medbay or relay_room or server_map or name in {
+    textured_partitions = metro or emergency_medbay or relay_room or server_map or name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_10_penthouse_atrium",
