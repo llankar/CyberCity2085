@@ -886,6 +886,19 @@ def build(name):
             outward_back = x < 0 if vertical else y > 0
             group.rotation_euler.z = (math.pi/2 if vertical else 0) + (0 if outward_back else math.pi)
             continue
+        if name == "city_exterior_downtown_intersection" and identifier in {"west_barrier", "east_barrier"}:
+            box("Downtown barrier concrete base", (x,y,.13),
+                (w*.49,d*.46,.13),wall,.023).parent = group
+            box("Downtown barrier steel cap", (x,y,.38),
+                (w*.48,d*.31,.047),frame,.012).parent = group
+            bays = 5 if identifier == "west_barrier" else 3
+            for index in range(bays):
+                bay_x = x+w*((index+.5)/bays-.5)*.93
+                box("Downtown barrier steel brace", (bay_x,y,.24),
+                    (w*.045,d*.43,.17),frame,.013).parent = group
+                box("Downtown barrier marker", (bay_x,y-d*.32,.345),
+                    (w*.022,d*.035,.020),signs[0],.006).parent = group
+            continue
         if name == "city_district_riot_square" and identifier.startswith("barricade_"):
             box("Riot barricade footing", (x,y,.105),
                 (w*.46,d*.49,.105),wall,.025).parent = group

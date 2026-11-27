@@ -19,6 +19,10 @@ def test_downtown_garden_kiosk_exports_roof_planting():
     parts = [nodes[index]["name"] for index in kiosk["children"]]
     assert sum(part.startswith("Garden kiosk raised planter") for part in parts) == 2
     assert sum(part.startswith("Garden kiosk roof planting") for part in parts) == 10
+    for side, count in (("west", 5), ("east", 3)):
+        barrier = next(node for node in nodes if node["name"] == f"Occludable_{side}_barrier")
+        parts = [nodes[index]["name"] for index in barrier["children"]]
+        assert sum(part.startswith("Downtown barrier steel brace") for part in parts) == count
 
 
 def test_corporate_plaza_tower_entrances_face_the_square():
