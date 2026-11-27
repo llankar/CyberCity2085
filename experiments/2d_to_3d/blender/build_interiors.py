@@ -426,6 +426,10 @@ def build(name):
                 map_surface.scale = (hx,hy,1)
                 map_surface.data.materials.append(artwork)
                 map_surface.parent = group
+                for sx in (-1, 1):
+                    for sy in (-1, 1):
+                        box("Operations map corner clamp", (x+sx*hx*.94,y+sy*hy*.93,.858),
+                            (min(.09,hx*.15),min(.065,hy*.15),.022),partition_cap,.010).parent = group
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)

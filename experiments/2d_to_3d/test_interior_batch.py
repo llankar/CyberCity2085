@@ -462,6 +462,7 @@ def test_interior_maps_export_remaining_fixture_groups():
         additions[f"wasteland_inner_{index}_bunker_command_post"]["command_console"] = "Bunker upright terminal"
         additions[f"wasteland_inner_{index}_bunker_command_post"].update({
             "central_wall_w": "Bunker flank sandbags", "central_wall_e": "Bunker flank sandbags",
+            "central_table": "Operations map corner clamp",
         })
     for index in ("05", "10"):
         additions[f"wasteland_inner_{index}_looted_vault"] = {
