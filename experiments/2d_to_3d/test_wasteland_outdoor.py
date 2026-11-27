@@ -9,6 +9,19 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def test_freight_yard_has_four_complete_rail_profiles():
+    path = catalogue_environment("city_transit_freight_yard")
+    if not path.is_file():
+        pytest.skip("Build the experimental Freight Yard on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    for component in ("running rail", "rail web", "rail foot"):
+        rails = [node for node in nodes if node["name"].startswith(f"Freight yard {component}")]
+        assert len(rails) == 4
+        assert all("mesh" in rail for rail in rails)
+
+
 @pytest.mark.parametrize(("family", "first_map"), [
     ("outdoor", "wasteland_outdoor_01_dust_road_ambush"),
     ("city", "wasteland_city_01_ruined_downtown"),

@@ -1004,14 +1004,19 @@ def build(name):
         bpy.context.object.data.materials.append(floor)
     if name == "city_transit_freight_yard":
         railhead = make_material("Freight yard worn rail steel", (.14,.16,.17,1), .72,.48)
-        # Railheads are visual only and sit on the two painted tracks.
-        for left, right, rows in ((83,901,(133,153)), (128,868,(331,349))):
+        rail_web = make_material("Freight yard oxidized rail web", (.063,.049,.035,1), .63,.76)
+        # Keep the raised profiles over the painted rail lines and their original sleepers.
+        for left, right, rows in ((83,860,(132,146)), (128,868,(332,346))):
             center_x = (left+right)*gw/(2*cw)-gw/2
             half_length = (right-left)*gw/(2*cw)
             for row in rows:
                 rail_y = gh/2-row*gh/ch
-                box("Freight yard running rail", (center_x,rail_y,.006),
-                    (half_length,.024,.024),railhead,.008)
+                box("Freight yard rail foot", (center_x,rail_y,-.013),
+                    (half_length,.037,.012),rail_web,.006)
+                box("Freight yard rail web", (center_x,rail_y,.012),
+                    (half_length,.012,.015),rail_web,.003)
+                box("Freight yard running rail", (center_x,rail_y,.033),
+                    (half_length,.022,.008),railhead,.005)
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")
