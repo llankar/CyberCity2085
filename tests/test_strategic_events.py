@@ -98,6 +98,7 @@ class StrategicEventsTest(unittest.TestCase):
 
     def test_crisis_closes_only_an_optional_inactive_route(self):
         from game.campaign.story_missions import STORY_MISSIONS_BY_ID
+        from game.ui.components.departments.command import event_choice_details
 
         state = GameState()
         ensure_mission_templates(state)
@@ -107,6 +108,12 @@ class StrategicEventsTest(unittest.TestCase):
         state.mission_templates = [story, *optional]
         state.unavailable_mission_ids = [story.id, "retired-operation"]
 
+        state.funds.current_funds = 0
+        choice = EventChoice("close", "Close route", {"mission_availability": -1, "funds": -20})
+        detail, affordable = event_choice_details(state, choice)
+        self.assertFalse(affordable)
+        self.assertIn("Missing 20 funds", detail)
+        self.assertIn(f"Closes {optional[1].title}", detail)
         apply_event_effects(state, {"mission_availability": -1})
         self.assertEqual(state.unavailable_mission_ids, [optional[1].id])
         state.active_mission = None

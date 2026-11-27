@@ -929,3 +929,5 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 
 - [x] STRATEGIC-EVENT-FALLOUT — Paid crisis responses require funds before applying any effects. Named faction pressure targets the faction involved in the crisis.
 - [x] STRATEGIC-MISSION-CLOSURES — Crisis closures affect optional inactive routes. Story missions and stale board entries are cleared from legacy closure lists.
+
+- [x] STRATEGIC-CRISIS-PREVIEW — Command Core shows planned crisis effects, the optional route at risk, and unavailable paid responses.

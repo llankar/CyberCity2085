@@ -4,6 +4,29 @@ from game.ui.layouts.world_map_beacons import Rect
 from game.ui.theme.visual import CYAN, GOLD, MINT, RED, TEXT, MUTED, PURPLE
 
 
+def event_choice_details(game_state, choice):
+    from game.management.events import crisis_route_candidate
+
+    effects = choice.effects
+    cost = max(0, -int(effects.get("funds", 0)))
+    missing = max(0, cost - game_state.available_funds)
+    lines = [f"Missing {missing:,} funds"] if missing else []
+    if int(effects.get("mission_availability", 0)) < 0:
+        route = crisis_route_candidate(game_state)
+        lines.append(f"Closes {route.title}" if route else "No optional route to close")
+    for key, label in (
+        ("funds", "Funds"), ("agent_stress", "Agent stress"),
+        ("city_stability", "Stability"), ("city_unrest", "Unrest"),
+        ("media_heat", "Media heat"), ("faction_pressure", effects.get("faction") or "Faction hostility"),
+    ):
+        value = int(effects.get(key, 0))
+        if value:
+            lines.append(f"{label} {value:+,}")
+    if choice.summary:
+        lines.append(choice.summary)
+    return " / ".join(lines), missing == 0
+
+
 def draw_command(k, left, center, right):
     from game.management.weekly_planning import DIRECTIVES, build_management_forecast
 
@@ -120,11 +143,13 @@ def draw_command(k, left, center, right):
             "event_choices", list(enumerate(event.choices)), choice_area, 66
         ):
             actual, choice = choice
+            detail, affordable = event_choice_details(gs, choice)
             k.action(
                 button,
                 choice.label,
                 f"event_response_{selected}_{actual}",
-                tooltip=choice.label,
+                enabled=affordable,
+                tooltip=detail or choice.label,
             )
     else:
         if k.view.room_ui.texture_override:
