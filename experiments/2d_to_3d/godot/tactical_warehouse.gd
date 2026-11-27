@@ -78,9 +78,12 @@ func _ready() -> void:
  var hud := CanvasLayer.new()
  add_child(hud)
  var hud_stack := VBoxContainer.new()
- hud_stack.position = Vector2(20, 24)
  hud_stack.add_theme_constant_override("separation", 6)
  hud.add_child(hud_stack)
+ hud_stack.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+ hud_stack.offset_left = 20
+ hud_stack.offset_right = -20
+ hud_stack.offset_top = 24
  selection = Label.new()
  selection.add_theme_color_override("font_color", Color(.59,.91,1))
  selection.add_theme_font_size_override("font_size", 23)
@@ -94,11 +97,13 @@ func _ready() -> void:
  control_hints = Label.new()
  control_hints.add_theme_font_size_override("font_size", 16)
  hud.add_child(control_hints)
- control_hints.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+ control_hints.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
  control_hints.grow_vertical = Control.GROW_DIRECTION_BEGIN
  control_hints.offset_left = 20
+ control_hints.offset_right = -20
  control_hints.offset_bottom = -20
  for label: Label in [status, selection, target_hint, control_hints]:
+  label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
   label.add_theme_color_override("font_outline_color", Color(.025,.047,.063))
   label.add_theme_constant_override("outline_size", 5)
  update_control_hints()
@@ -249,6 +254,23 @@ func _process(delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
+    if not benchmark_combat and smoke_outcome.is_empty():
+     var window := get_window()
+     var original_size := window.size
+     window.size = Vector2i(800, 600)
+     for frame in 3:
+      await get_tree().process_frame
+     var viewport_size := get_viewport().get_visible_rect().size
+     var hints := control_hints.get_global_rect()
+     var readout_rect := status.get_global_rect()
+     if viewport_size.x > 800 or hints.end.x > viewport_size.x or hints.end.y > viewport_size.y or readout_rect.end.x > viewport_size.x:
+      push_error("Tactical HUD did not fit the narrow viewport")
+      get_tree().quit(22)
+      return
+     print("TACTICAL_NARROW_HUD_OK ", viewport_size)
+     window.size = original_size
+     for frame in 3:
+      await get_tree().process_frame
     if actors[ALLY].ring.get_node_or_null("SelectionRingOutline") == null:
      push_error("Selection ring has no contrast outline")
      get_tree().quit(22)
