@@ -951,6 +951,14 @@ def build(name):
                       (x+w*offset,front+direction*.05,upper_level),
                       (min(1.75,w*.34),.28,min(.85,height-upper_level-.22)), yaw=angle, merge=True)
         if name.endswith("_industrial_district") and height >= 2.4 and d >= 2.0:
+            rear = y-direction*d/2
+            door_width = min(.49,w*.17)
+            box(identifier+" industrial rear door frame", (x,rear-direction*.036,.88),
+                (door_width,.052,.88),frame,.014).parent = group
+            box(identifier+" industrial rear door panel", (x,rear-direction*.084,.84),
+                (door_width*.83,.021,.81),wall,.010).parent = group
+            box(identifier+" industrial rear door hood", (x,rear-direction*.11,1.82),
+                (door_width*1.12,.115,.052),frame,.012).parent = group
             for side in (-1,1):
                 flank = x+side*w/2
                 box(identifier+" industrial side lintel", (flank,y,height-.24),
