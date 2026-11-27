@@ -546,8 +546,12 @@ def test_interior_maps_export_remaining_fixture_groups():
                 assert sum(part.startswith("Vault ring armor cap") for part in parts) == 4
         if name.endswith("_collapsed_tunnel"):
             for identifier in ("collapsed_span_n", "collapsed_span_s"):
-                parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
-                assert sum(part.startswith("Tunnel exposed slab reinforcement") for part in parts) == 3
+                parts = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
+                assert sum(part["name"].startswith("Tunnel exposed slab reinforcement") for part in parts) == 3
+                slab = next(part for part in parts if part["name"] == identifier)
+                materials = {data["materials"][primitive["material"]]["name"]
+                             for primitive in data["meshes"][slab["mesh"]]["primitives"]}
+                assert materials == {"Wasteland aged concrete", "Original tunnel slab artwork"}
         if name.endswith("_maintenance_depot"):
             for identifier in ("west_pit_n", "west_pit_s"):
                 pit = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]

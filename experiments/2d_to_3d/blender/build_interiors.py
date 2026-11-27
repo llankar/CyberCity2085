@@ -116,6 +116,13 @@ def build(name):
             make_material("Shelter patched brown blanket", (.079,.055,.041,1), 0,.96),
         )
     looted_vault = name.endswith("_looted_vault")
+    collapsed_tunnel = name.endswith("_collapsed_tunnel")
+    if collapsed_tunnel:
+        slab_top = make_material("Original tunnel slab artwork", (.15,.14,.12,1), 0,.93)
+        artwork = slab_top.node_tree.nodes.new("ShaderNodeTexImage")
+        artwork.image = bpy.data.images.load(str(MAPS / f"{name}.png"))
+        slab_top.node_tree.links.new(artwork.outputs["Color"],
+                                     slab_top.node_tree.nodes["Principled BSDF"].inputs["Base Color"])
     if looted_vault:
         steel = make_material("Vault oxidized steel", (.051,.045,.037,1), .46,.78)
         vault_marker = make_material("Vault red marker lens", (.48,.025,.012,1), .14,.48,.35)
@@ -253,9 +260,10 @@ def build(name):
             mesh.from_pydata([(x,y,0) for x,y in outline]+top, [], faces)
             concrete_rubble = concrete_partitions and kind == "rubble"
             concrete_top = concrete_rubble or (concrete_partitions and exposed_concrete_walls)
+            projected_slab = collapsed_tunnel and kind == "rubble"
             mesh.materials.append(aged_concrete if concrete_partitions else steel)
-            if not concrete_top:
-                mesh.materials.append(partition_cap)
+            if projected_slab or not concrete_top:
+                mesh.materials.append(slab_top if projected_slab else partition_cap)
                 for face in mesh.polygons[1:top_face_count]:
                     face.material_index = 1
             if concrete_partitions or (textured_partitions and kind == "partition"):
@@ -264,7 +272,8 @@ def build(name):
                     for face in mesh.polygons[:top_face_count]:
                         for loop in face.loop_indices:
                             x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
-                            uv.data[loop].uv = (x/1.7,y/1.7)
+                            uv.data[loop].uv = ((x/gw+.5,y/gh+.5) if projected_slab and face.index > 0
+                                                 else (x/1.7,y/1.7))
                 u_start = 0
                 for edge, face in enumerate(mesh.polygons[top_face_count:]):
                     start, end = outline[edge], outline[(edge+1) % count]
@@ -282,7 +291,7 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
-            if kind == "rubble" and name.endswith("_collapsed_tunnel"):
+            if kind == "rubble" and collapsed_tunnel:
                 # Seat exposed reinforcement along the longest break in each slab.
                 edge = max(range(count), key=lambda i: math.dist(outline[i],outline[(i+1)%count]))
                 start = Vector(top[edge])
