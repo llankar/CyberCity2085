@@ -88,3 +88,17 @@ def test_floor_detail_restores_texture_without_touching_original_aisles():
     changed = np.asarray(restore_surface_detail(original, mask, sample, 16))
     assert np.array_equal(changed[mask == 0], np.asarray(original)[mask == 0])
     assert int(np.ptp(changed[23:41, 23:41, 0])) > 30
+
+
+def test_donor_pavement_is_confined_to_the_traced_polygon():
+    from PIL import Image
+    from prepare_floor248 import restore_donor_pavement
+
+    source = Image.new("RGB", (32,32), (100,110,120))
+    base = Image.new("RGB", (32,32), (20,30,40))
+    polygon = [(8,8),(24,8),(8,24)]
+    survey = {"canvas_size": (32,32), "walls": [{"id": "awning", "polygon": polygon}]}
+    repaired = restore_donor_pavement(base, source, survey, {"awning": (0,0,5,5)})
+    assert repaired.getpixel((10,10))[0] > 70
+    assert repaired.getpixel((23,23)) == base.getpixel((23,23))
+    assert repaired.getpixel((7,10)) == base.getpixel((7,10))

@@ -3,7 +3,7 @@ import json,hashlib,argparse
 from pathlib import Path
 import cv2
 import numpy as np
-from PIL import Image, ImageChops, ImageFilter, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
@@ -47,6 +47,46 @@ def restore_surface_detail(floor, mask, sample, tile_size):
     alpha = ImageChops.multiply(mask_image, mask_image.filter(ImageFilter.GaussianBlur(4)))
     return Image.composite(textured, floor, alpha)
 
+
+TECH_MARKET_DONORS = {
+    "western_canopy": (750, 228, 818, 318),
+    "central_market_stall": (1010, 356, 1076, 436),
+    "east_center_market": (1320, 616, 1414, 648),
+    "south_center_market": (1062, 904, 1120, 980),
+    "southeast_large_canopy": (1414, 836, 1460, 914),
+}
+
+
+def restore_donor_pavement(floor, original, survey, donors):
+    floor = floor.copy()
+    original = original.convert("RGB")
+    cw, ch = survey["canvas_size"]
+    sx, sy = floor.width/cw, floor.height/ch
+
+    def pixel(point):
+        return round(point[0]*sx), round(point[1]*sy)
+
+    for row in survey["walls"]:
+        if row["id"] not in donors:
+            continue
+        x1,y1,x2,y2 = donors[row["id"]]
+        donor = original.crop((*pixel((x1,y1)), *pixel((x2,y2))))
+        points = [pixel(point) for point in row["polygon"]]
+        xs, ys = zip(*points)
+        left, top = min(xs), min(ys)
+        patch = Image.new("RGB", (max(xs)-left+1,max(ys)-top+1))
+        mirror = ImageOps.mirror(donor)
+        for iy,y in enumerate(range(0,patch.height,donor.height)):
+            for ix,x in enumerate(range(0,patch.width,donor.width)):
+                tile = mirror if ix % 2 else donor
+                patch.paste(ImageOps.flip(tile) if iy % 2 else tile, (x,y))
+        mask = Image.new("L", patch.size)
+        ImageDraw.Draw(mask).polygon([(x-left,y-top) for x,y in points], fill=255)
+        alpha = ImageChops.multiply(mask, mask.filter(ImageFilter.GaussianBlur(max(2, sx*2))))
+        alpha = alpha.point(lambda value: round(value*.82))
+        floor.paste(patch,(left,top),alpha)
+    return floor
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--map',default=NAME)
@@ -69,7 +109,10 @@ def main():
     out=args.output.resolve()
     if not out.is_relative_to((LAB/'generated').resolve()):raise ValueError('Output must remain in E: generated experiments')
     out.mkdir(parents=True,exist_ok=True)
-    result,mask=prepare(Image.open(source),survey,include_side_walls=args.include_side_walls)
+    original = Image.open(source)
+    result,mask=prepare(original,survey,include_side_walls=args.include_side_walls)
+    if args.map == "city_district_tech_market":
+        result = restore_donor_pavement(result, original, survey, TECH_MARKET_DONORS)
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
     result.save(out/'floor.png')
