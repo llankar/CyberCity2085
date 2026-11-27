@@ -175,6 +175,11 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map == "wasteland_outdoor_12_salt_flat_ambush":
+        cw, ch = survey["canvas_size"]
+        sx, sy = result.width/cw, result.height/ch
+        sample = original.crop((round(448*sx),round(175*sy),round(495*sx),round(217*sy)))
+        result = restore_surface_detail(result, mask, sample, round(46*sx))
     for suffix, (sample_rect, road_rows) in ROAD_GRAIN_SAMPLES.items():
         if not args.map.endswith(suffix):
             continue
