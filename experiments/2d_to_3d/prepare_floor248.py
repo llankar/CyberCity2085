@@ -57,6 +57,10 @@ TECH_MARKET_DONORS = {
 }
 
 WATERFRONT_WRECKS = (
+    {"id": "west_edge_wreck_art", "polygon": [
+        (0,385), (40,364), (86,353), (153,340), (203,339),
+        (211,351), (196,382), (155,418), (75,463), (0,493),
+    ]},
     {"id": "west_basin_wreck_art", "polygon": [
         (251,470), (257,450), (319,384), (337,380), (352,391),
         (349,415), (297,486), (276,495),
@@ -152,6 +156,7 @@ def main():
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
     if args.map == "wasteland_city_12_cratered_waterfront":
         result = restore_donor_pavement(result, original, survey, {
+            "west_edge_wreck_art": (98, 472, 200, 535),
             "west_basin_wreck_art": (204, 418, 247, 468),
             "east_basin_wreck_art": (455, 421, 505, 473),
         })

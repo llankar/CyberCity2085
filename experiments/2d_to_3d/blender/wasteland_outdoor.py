@@ -15,6 +15,7 @@ from shipping_container import build_container
 class WastelandOutdoors:
     def add_waterfront_wrecks(self):
         for name, stern, bow, beam in (
+            ("West edge cargo wreck", (13,445), (204,345), 59),
             ("West basin wreck", (274,477), (340,390), 40),
             ("East basin wreck", (537,482), (553,359), 47),
         ):
@@ -43,6 +44,11 @@ class WastelandOutdoors:
                 frame = box("Exposed shipwreck deck frame", (length*offset,0,.38),
                             (.044,width*.35,.042), self.steel,.012)
                 frame.parent = hull
+            if name == "West edge cargo wreck":
+                for offset in (-.29, -.10, .09):
+                    hatch = box("Open cargo hatch coaming", (length*offset,0,.43),
+                                (length*.07,width*.26,.09), self.steel,.022)
+                    hatch.parent = hull
             hull.location = ((ax+bx)/2,(ay+by)/2,0)
             hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
 
