@@ -2,7 +2,7 @@
 [ext_resource type="Script" path="res://laboratory247.gd" id="1"]
 [node name="WastelandOutdoorReview" type="Node3D"]
 script = ExtResource("1")
-review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/wasteland_outdoor_07_ashfield_ruins/"
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/wasteland320/"
 review_size = 38.0
 review_ambient_color = Color(0.90, 0.78, 0.67, 1)
 review_ambient_energy = 0.56

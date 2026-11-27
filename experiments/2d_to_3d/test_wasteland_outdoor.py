@@ -6,6 +6,22 @@ import struct
 import pytest
 
 
+def test_ashfield_variants_share_the_detailed_environment():
+    import re
+
+    experiment = Path(__file__).resolve().parent
+    maps = experiment.parents[1] / "assets/maps"
+    first, second = (f"wasteland_outdoor_{variant}_ashfield_ruins" for variant in ("02", "07"))
+    surveys = [json.loads((maps / (name+".wall-traces.json")).read_text()) for name in (first,second)]
+    assert surveys[0]["canvas_size"] == surveys[1]["canvas_size"]
+    assert surveys[0]["walls"] == surveys[1]["walls"]
+    assert (maps / (first+".png")).read_bytes() == (maps / (second+".png")).read_bytes()
+    scenes = ("wasteland320_cast", second)
+    folders = [re.search(r'^review_folder = "(.+)"$', (experiment / "godot" / (scene+".tscn")).read_text(),
+                         re.MULTILINE).group(1) for scene in scenes]
+    assert folders[0] == folders[1]
+
+
 @pytest.mark.parametrize(("family", "first_map"), [
     ("outdoor", "wasteland_outdoor_01_dust_road_ambush"),
     ("city", "wasteland_city_01_ruined_downtown"),

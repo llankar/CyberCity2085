@@ -1615,3 +1615,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DUST-ROAD-HEAVY-WRECKS / DONE for three surveyed vehicles per map. Differentiated the large southeast tanker and two flatbeds, matching their dominant axes and retaining the original survey. Both GLBs rebuilt on E:, ten tests passed and 06 rendered in Godot. Next: refine roadside barricades and sandbag silhouettes.
 
 - EXPERIMENTAL-DUST-ROAD-COVER / DONE for roadside barriers and sandbags in variants 01 and 06. Added salvage panels on low masonry with end braces, and rounded staggered sandbag stacks inside the traced bounds. Both GLBs rebuilt on E:, ten tests passed and Godot rendered 01. Next: compare remaining Ashfield structures and their material treatment.
+
+- EXPERIMENTAL-ASHFIELD-VARIANT-PARITY / DONE. Verified that the two variants use identical source pixels and matching geometry surveys. Variant 07 now loads the detailed wasteland320 environment already used by 02, while retaining its own map entry. Twelve tests passed and Godot imported 230 meshes for 07. Next: check other duplicate-art variants for differences in experimental asset quality.
