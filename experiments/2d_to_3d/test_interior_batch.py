@@ -421,7 +421,7 @@ def test_clinic_and_shelter_plumbing_is_exported_as_geometry():
         **{f"wasteland_inner_{index}_{family}": count for family, variants, count in (
             ("apartment_shelter", ("07", "12"), 3),
             ("ruined_clinic", ("03", "08"), 2),
-            ("abandoned_safehouse", ("01", "06"), 3),
+            ("abandoned_safehouse", ("01", "06"), 4),
         ) for index in variants},
     }
     for name, expected in maps.items():

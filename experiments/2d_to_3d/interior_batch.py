@@ -128,6 +128,8 @@ def fixtures(name):
             selected[identifier] = "rack"
         elif plumbing_interior and identifier.endswith("_stove"):
             selected[identifier] = "stove"
+        elif name.endswith("_abandoned_safehouse") and identifier == "kitchen_nw":
+            selected[identifier] = "stove"
         elif name == "city_interior_corporate_lobby" and identifier.endswith("_meeting"):
             selected[identifier] = "meeting_table"
         elif name == "city_interior_corporate_lobby" and identifier.endswith("_utility"):

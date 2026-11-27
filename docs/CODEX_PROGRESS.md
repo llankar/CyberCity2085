@@ -1767,3 +1767,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-BUNKER-SERVER-BANKS / DONE. Reused the detailed server bank fixtures on both surveyed north racks. Rebuilt Bunker Command Post 04/09 on E: and ran a native tactical exchange through round 2. Next: review the command room artwork and rack readability at the tactical zoom.
 
 - EXPERIMENTAL-BUNKER-SIDE-DESKS / DONE. Both side desks now use the dedicated command workstation with input banks and display, in the original footprints. Rebuilt the shared 04/09 model on E:, refreshed the Godot overview and passed seventeen interior tests. Next: compare tactical readability across distinct bunker and hideout environments.
+
+- EXPERIMENTAL-ABANDONED-SAFEHOUSE-KITCHEN / DONE for the surveyed kitchen fixture. Replaced the generic table with a cabinet and cooktop on the shared 01/06 model, rebuilt on E:, rendered the overview in Godot and passed seventeen interior tests. Next: inspect boarded openings and larger room identity gaps across Wasteland interiors.
