@@ -208,6 +208,13 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                         for (ax, ay), (bx, by) in zip(row["points"], row["points"][1:])
                     )
                 assert sum(nodes[i]["name"].startswith(part) for i in quay["children"]) == expected
+                if identifier != "quay_crater_w":
+                    bollards = sum(
+                        math.hypot((bx-ax)*gw/cw, (by-ay)*gh/ch) >= .85
+                        for (ax, ay), (bx, by) in zip(row["points"], row["points"][1:])
+                    )
+                    assert sum(nodes[i]["name"].startswith("Quay bollard crown")
+                               for i in quay["children"]) == bollards
         if name.endswith("_ruined_transit_plaza"):
             for identifier, prefix, count in (
                 ("center_planter", "Station planter rim", 6),

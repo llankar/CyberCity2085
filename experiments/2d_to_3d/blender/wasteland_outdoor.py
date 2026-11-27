@@ -936,6 +936,18 @@ class WastelandOutdoors:
                                         (length*.485/count,width*.48,.09))
                 cap.rotation_euler.z = yaw
                 cap.parent = group
+            if length >= .85:
+                radius = min(.069,width*.22)
+                for label, size, elevation, height in (
+                    ("Quay bollard stem", radius, .55, .22),
+                    ("Quay bollard crown", radius*1.35, .669, .052),
+                ):
+                    bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=size, depth=height,
+                                                       location=(x,y,elevation))
+                    bollard = bpy.context.object
+                    bollard.name = label
+                    bollard.data.materials.append(self.steel)
+                    bollard.parent = group
 
     def transit_boundary(self, group, name, points, width):
         stairs = name.endswith("_stairs_guard")
