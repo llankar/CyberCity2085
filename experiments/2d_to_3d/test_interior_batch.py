@@ -302,6 +302,26 @@ def test_interior_maps_export_remaining_fixture_groups():
             "south_inner_room_valve": "Service valve handwheel",
         },
     }
+    additions.update({
+        "cybercity_inner_09_apartment_block": {
+            "sofa_s3": "sofa_s3 cushions", "chair_s3": "chair_s3 back",
+            "bath_s": "Tub basin inset", "south_monitor": "south_monitor display",
+        },
+        "city_interior_control_center": {
+            "north_display": "Command vertical display", "sw_sofa": "sw_sofa cushions",
+        },
+        "cybercity_inner_01_control_center": {
+            "north_display": "Command vertical display", "west_sofa": "west_sofa cushions",
+            "west_coffee": "west_coffee worktop",
+        },
+        "city_interior_cyber_cafe": {
+            "bath_sinks": "Washbasin bowl", "bath_cubicles": "Stall privacy divider",
+            "west_storage": "Warehouse pallet rack",
+        },
+        "cybercity_inner_06_blacksite_lab": {
+            "nw_bench": "nw_bench worktop", "nw_sink": "Washbasin bowl",
+        },
+    })
     additions["city_interior_corporate_lobby"] = {
         "west_meeting": "Meeting table top", "east_meeting": "Meeting table top",
         "west_south_utility": None, "east_south_utility": None,

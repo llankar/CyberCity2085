@@ -138,7 +138,7 @@ def build(name):
         elif kind == "floor_generator":
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
-        elif kind in {"gym_weights", "bath_sink", "bath_shower", "bath_tub", "bath_toilet", "stove"}:
+        elif kind in {"gym_weights", "bath_sink", "bath_shower", "bath_tub", "bath_toilet", "toilet_stalls", "stove"}:
             build_safehouse_fixture(group, kind, x, y, w, d, steel, linen, rail)
         elif kind in {"workbench", "drums", "service_valve"}:
             build_industrial_fixture(group, kind, x, y, w, d, steel, partition_cap, rail)
@@ -146,7 +146,7 @@ def build(name):
             box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),
                   (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
-        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console"}:
+        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall"}:
             build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],

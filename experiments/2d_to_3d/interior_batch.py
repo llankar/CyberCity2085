@@ -72,6 +72,15 @@ def fixtures(name):
         "wasteland_inner_03_ruined_clinic", "wasteland_inner_08_ruined_clinic",
         "wasteland_inner_01_abandoned_safehouse", "wasteland_inner_06_abandoned_safehouse",
     }
+    room_fixtures = {
+        "cybercity_inner_09_apartment_block": {"bath_s": "bath_tub"},
+        "city_interior_control_center": {"north_display": "command_wall"},
+        "cybercity_inner_01_control_center": {"north_display": "command_wall"},
+        "city_interior_cyber_cafe": {
+            "bath_sinks": "bath_sink", "bath_cubicles": "toilet_stalls", "west_storage": "rack",
+        },
+        "cybercity_inner_06_blacksite_lab": {"nw_sink": "bath_sink"},
+    }.get(name, {})
     safehouse_fixtures = {
         "west_gym_weight": "gym_weights", "south_tools": "workbench",
         "south_generator": "floor_generator", "bath_sinks": "bath_sink",
@@ -91,6 +100,8 @@ def fixtures(name):
             continue
         if identifier in safehouse_fixtures:
             selected[identifier] = safehouse_fixtures[identifier]
+        elif identifier in room_fixtures:
+            selected[identifier] = room_fixtures[identifier]
         elif plumbing_interior and "sink" in identifier:
             selected[identifier] = "bath_sink"
         elif plumbing_interior and "shower" in identifier:

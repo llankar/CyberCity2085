@@ -266,6 +266,14 @@ def build_safehouse_fixture(group, kind, x, y, w, d, steel, enamel, rail):
             for side in (-1,1):
                 fitted("Stove burner", side*length*.22,0,.854,length*.13,breadth*.24,.021,steel)
         return
+    if kind == "toilet_stalls":
+        for offset in (-.26,.26):
+            sy = y+offset*d
+            box("Stall toilet", (x-w*.22,sy,.33), (w*.19,d*.135,.28), enamel).parent = group
+            box("Stall cistern", (x-w*.35,sy,.65), (w*.09,d*.16,.18), enamel).parent = group
+        for offset in (-.47,0,.47):
+            box("Stall privacy divider", (x,y+offset*d,.70), (w*.44,.035,.64), steel).parent = group
+        return
     box("Shower tiled base", (x,y,.075), (w*.49,d*.49,.075), enamel).parent = group
     box("Shower plumbing wall", (x-w*.42,y,.83), (w*.068,d*.48,.74), steel).parent = group
     for offset in (-.17,.17):
@@ -341,6 +349,13 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             tire.name = "Stacked spare tire"
             tire.data.materials.append(trim)
             tire.parent = group
+    elif kind == "command_wall":
+        part("Command display support", 0,0,.32,length*.48,width*.44,.32,trim)
+        for index in range(5):
+            offset = (index-2)*length*.186
+            part("Command display housing", offset,0,1.26,length*.09,width*.29,.62,steel)
+            part("Command vertical display", offset,-width*.305,1.28,length*.078,.023,.43,screen)
+            part("Command display visor", offset,0,1.91,length*.092,width*.33,.036,trim)
     else:
         part("Command workstation chassis", 0,0,.39,length*.47,width*.41,.39,trim)
         part("Command workstation desk", 0,0,.83,length*.48,width*.46,.064,steel)
