@@ -403,6 +403,16 @@ def build(name):
     civic_surface = textured_material(
         "Civic weathered concrete", LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
     ) if civic else wall
+    if civic:
+        nodes = civic_surface.node_tree.nodes
+        links = civic_surface.node_tree.links
+        texture = nodes.new("ShaderNodeTexImage")
+        texture.image = bpy.data.images.load(str(LAB / "sources/environment169/concrete_wall_001/nor_gl.jpg"))
+        texture.image.colorspace_settings.name = "Non-Color"
+        normal = nodes.new("ShaderNodeNormalMap")
+        normal.inputs["Strength"].default_value = .38
+        links.new(texture.outputs["Color"], normal.inputs["Color"])
+        links.new(normal.outputs["Normal"], nodes["Principled BSDF"].inputs["Normal"])
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)
     palette = ((.025, .60, .73, 1), (.63, .039, .31, 1), (.88, .36, .043, 1))
     signs = []

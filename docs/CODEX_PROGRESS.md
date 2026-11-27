@@ -1935,3 +1935,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FLOOD-PRONE-VEHICLE-ANGLES / DONE. Matched four diagonal cars to the source with the fitted-yaw placement shared by Downtown and Parking Garage. Rebuilt the Street 13/14 GLB, captured Street 13 in Godot and passed eleven terrain tests. Next: pivot from individual placements to a comparative review by map family.
 
 - EXPERIMENTAL-CATALOGUE-COMPARISON-FRAMING / DONE. Trimmed uniform isometric capture margins to show the actual geometry at a larger scale, keeping a padded frame. Top-down grid scaling is unchanged. Two framing tests passed and all 122 Full HD plates were regenerated on E:. Next: use the clearer plates to fix repeating mesh or material defects by family.
+
+- EXPERIMENTAL-CIVIC-CONCRETE-NORMALS / DONE. Connected the existing concrete normal texture to the shared civic facade material at reduced strength. Rebuilt five civic maps on E: and verified the normal texture in each GLB. Twenty-six facade tests passed and stale Godot overviews refreshed. Next: compare the new finish at combat scale before applying it to other map families.

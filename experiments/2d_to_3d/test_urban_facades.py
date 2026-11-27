@@ -320,6 +320,9 @@ def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
                 if "TEXCOORD_0" in part["attributes"]
                 and "baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]}
     assert {"Civic weathered concrete", "Original rooftop artwork"} <= textured
+    concrete = next(material for material in data["materials"]
+                    if material["name"] == "Civic weathered concrete")
+    assert "normalTexture" in concrete
     assert sum(" civic roof coping" in part["name"] for part in parts) >= 3
     if name == "city_district_riot_square":
         assert any(" civic facade band" in part["name"] for part in parts)
