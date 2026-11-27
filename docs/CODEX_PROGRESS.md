@@ -1705,3 +1705,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-CATALOGUE-COMPARISONS / DONE for the current six-map art batch. Extend package_multimap255.py with --catalogue-maps to use the catalogue's actual scene asset folders. Generated six 1920x1080 side-by-side sheets and an offline index on E: and checked dimensions and links. Next: use the comparisons to prioritize large silhouette and material mismatches. The catalogue remains 122 maps.
 
 - EXPERIMENTAL-TOP-DOWN-COMPARISONS / DONE for the six-map art batch. Captured all six in Godot orthographic top-down mode and packaged original-vs-top-down Full HD plates on E: with --top-down. Kept the isometric gallery alongside it. Next: compare footprint coverage and select a larger mismatch to fix.
+
+- EXPERIMENTAL-TOP-DOWN-GRID-ALIGNMENT / DONE. The overpass comparison revealed different map widths caused by Godot viewport margins and the original image aspect ratio. Crop the orthographic capture to the tactical grid and present both sides at the same cell scale. Regenerated the six comparison sheets on E:. Next: use grid-aligned plates for the next environment geometry batch.

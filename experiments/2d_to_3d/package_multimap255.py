@@ -45,7 +45,20 @@ def main():
    if not native.is_file():raise FileNotFoundError(native)
   image=Image.new('RGB',(1920,1080),(7,15,22));draw=ImageDraw.Draw(image)
   for x,path in [(0,original),(960,native)]:
-   thumbnail=ImageOps.contain(Image.open(path).convert('RGB'),(960,960))
+   panel = Image.open(path).convert('RGB')
+   if args.top_down:
+    # The review camera spans 28 vertical world units; normalize both panels
+    # to the tactical grid so the same cell occupies the same area.
+    grid_width, grid_height = json.loads(original.with_suffix('.walls.json').read_text())['grid']
+    if path == native:
+     map_width = round(panel.height*grid_width/28)
+     map_height = round(panel.height*grid_height/28)
+     if map_width > panel.width or map_height > panel.height:
+      raise ValueError(f'Top-down capture clips the tactical grid: {native}')
+     left, top = (panel.width-map_width)//2, (panel.height-map_height)//2
+     panel = panel.crop((left, top, left+map_width, top+map_height))
+    panel = panel.resize((960, round(960*grid_height/grid_width)), Image.Resampling.LANCZOS)
+   thumbnail=ImageOps.contain(panel,(960,960))
    image.paste(thumbnail,(x+(960-thumbnail.width)//2,80+(960-thumbnail.height)//2))
   view = 'TOP DOWN' if args.top_down else 'ISOMETRIC'
   draw.text((30,30),name+' // ORIGINAL 2D',fill='white');draw.text((990,30),'EXPERIMENTAL GODOT // '+view,fill='white')
