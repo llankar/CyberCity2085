@@ -258,6 +258,14 @@ def main():
             "south_crossing_wreck_art": (485,439,514,471),
             "west_curb_wreck_art": (161,315,196,342),
         })
+        sx = result.width / survey["canvas_size"][0]
+        sy = result.height / survey["canvas_size"][1]
+        wreck_repairs = np.zeros_like(mask)
+        for row in DOWNTOWN_WRECK_ART:
+            points = np.array([(round(x*sx), round(y*sy)) for x,y in row["polygon"]],
+                              dtype=np.int32)
+            cv2.fillPoly(wreck_repairs, [points], 255)
+        result = restore_surface_detail(result, wreck_repairs & mask, road_sample, round(32*sx))
     if args.map == "wasteland_city_12_cratered_waterfront":
         result = restore_donor_pavement(result, original, survey, {
             "west_edge_wreck_art": (98, 472, 200, 535),
