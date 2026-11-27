@@ -2077,3 +2077,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-IRRADIATED-BASIN-RETAINING-MASONRY / DONE. Rebuilt straight retaining segments as eroded concrete blocks of varying heights within their original traces. Re-exported the shared 05/10 model, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: inspect the terrain seams around residue and barrel clusters.
 
 - EXPERIMENTAL-BASIN-BARREL-FLOOR / DONE for export and native loading. Sampled original gravel detail and applied it only in the replacement mask of the eight barrel clusters. Rebuilt the shared 05/10 model on E:, captured Godot and refreshed the gallery. Eleven outdoor tests passed. Next: review other outdoor families at tactical zoom for larger remaining gaps.
+
+- EXPERIMENTAL-WRECKED-HIGHWAY-LIGHTING / DONE for native overview. Reduced the orange cast and light intensity in both 03/08 presets to bring the asphalt closer to the original. Captured variant 08, updated the catalogue plates, and passed two framing tests. Next: rebuild the block-like fractured ramp profile visible in the overview.
