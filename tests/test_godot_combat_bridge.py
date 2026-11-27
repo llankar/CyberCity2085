@@ -41,6 +41,21 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_payload_carries_the_canonical_faction_tactics(self) -> None:
+        from game.combat.tactical_identity import profile_for_theme
+
+        mission = _mission()
+        mission.enemy_theme = "novatek_hybrid"
+        state = GameState(characters=[Character("Vera")], selected_agent_names=["Vera"])
+        profile = profile_for_theme(mission.enemy_theme)
+        payload = build_godot_combat_payload(state, mission)
+        self.assertEqual(payload["mission"]["tactical_profile"], {
+            "wounded_weight": profile.wounded_weight,
+            "specialist_weight": profile.specialist_weight,
+            "distance_weight": profile.distance_weight,
+            "cover_bias": profile.cover_bias,
+        })
+
     def test_containment_payload_carries_shared_breach_geometry(self) -> None:
         game_state = GameState(
             characters=[Character("Vera")], selected_agent_names=["Vera"]

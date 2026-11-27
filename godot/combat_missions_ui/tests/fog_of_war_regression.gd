@@ -81,6 +81,13 @@ func run() -> void:
 	mission.enemy_units.assign([{"hp": 20, "ap": 2, "position": Vector2i(5, 5), "enemy_subtype": "grunt"}])
 	mission._enemy_act(0)
 	assert(mission.enemy_units[0]["position"] == Vector2i(5, 5), "grunt holds an available firing position")
+	mission.player_units.assign([
+		{"hp": 20, "max_hp": 20, "position": Vector2i(6, 5)},
+		{"hp": 6, "max_hp": 20, "position": Vector2i(9, 5)},
+	])
+	mission.handoff = {"mission": {"tactical_profile": {"wounded_weight": 38, "distance_weight": 3}}}
+	assert(mission._select_visible_player_target(shooter, "grunt", 10) == 1, "Novatek prioritizes wounded targets")
+	assert(mission._select_visible_player_target(shooter, "grunt", 2) == 0, "doctrine cannot override range")
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")

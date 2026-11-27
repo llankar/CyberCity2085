@@ -1779,7 +1779,8 @@ func _enemy_act(enemy_index: int) -> void:
 	var dist := absi(ep.x - tp.x) + absi(ep.y - tp.y)
 
 	# Reserve one AP to shoot. Trained enemies may reposition to low cover.
-	var prefers_cover := subtype in ["elite", "commander"]
+	var profile := _mission_data().get("tactical_profile", {}) as Dictionary
+	var prefers_cover := subtype in ["elite", "commander"] and float(profile.get("cover_bias", 1.0)) >= 1.0
 	var has_shot := dist <= rng
 	var covered: bool = prefers_cover and _battlefield.has_low_cover_toward(ep, tp)
 	var move_ap := maxi(0, ap - 1) if not has_shot or (prefers_cover and not covered) else 0
@@ -2239,25 +2240,36 @@ func _visible_enemy_units_for_hud() -> Array[Dictionary]:
 
 func _select_visible_player_target(enemy: Dictionary, subtype: String, attack_range: int) -> int:
 	var ep := _cell_position(enemy)
+	var profile := _mission_data().get("tactical_profile", {}) as Dictionary
 	var best := -1
 	var best_score := -INF
+	var best_in_range := false
 	for index in range(player_units.size()):
 		var player := player_units[index] as Dictionary
 		if not _unit_can_see(enemy, player):
 			continue
 		var position := _cell_position(player)
 		var distance := absi(ep.x - position.x) + absi(ep.y - position.y)
-		var score := -float(distance)
-		if distance <= attack_range and subtype in ["sniper", "elite", "commander"]:
+		var in_range := distance <= attack_range
+		var score := -float(distance) * float(profile.get("distance_weight", 1.0))
+		if in_range and not profile.is_empty():
+			var max_hp := int(player.get("max_hp", player.get("hp", 1)))
+			if int(player.get("hp", 0)) < max_hp * 0.4:
+				score += int(profile.get("wounded_weight", 0))
+			var role := str(player.get("role", "")).to_lower()
+			if role in ["psi", "sniper", "commander"]:
+				score += int(profile.get("specialist_weight", 0))
+			elif role in ["samurai", "assault", "heavy"]:
+				score += int(profile.get("specialist_weight", 0)) * 0.5
+		if in_range and subtype in ["sniper", "elite", "commander"]:
 			# Prefer an available shot at an exposed target over a slightly closer guard.
 			score -= 1.5 * int(player.get("defense", 4))
 			if index in defend_indices:
 				score -= 6.0
-		elif distance > attack_range:
-			score -= 100.0
-		if score > best_score:
+		if (in_range and not best_in_range) or (in_range == best_in_range and score > best_score):
 			best_score = score
 			best = index
+			best_in_range = in_range
 	return best
 
 func _current_active_player() -> Dictionary:

@@ -61,6 +61,9 @@ class GodotCombatLaunchResult:
 
 
 def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
+    from .tactical_identity import profile_for_theme
+
+    profile = profile_for_theme(getattr(mission, "enemy_theme", ""))
     payload = {
         "id": mission.id,
         "title": mission.title,
@@ -73,6 +76,13 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
         "fund_reward": mission.fund_reward,
         "enemy_theme": getattr(mission, "enemy_theme", ""),
     }
+    if profile.key != "generic":
+        payload["tactical_profile"] = {
+            "wounded_weight": profile.wounded_weight,
+            "specialist_weight": profile.specialist_weight,
+            "distance_weight": profile.distance_weight,
+            "cover_bias": profile.cover_bias,
+        }
     if payload["objective_type"] == "containment":
         payload["objective_geometry"] = {
             "breach_half_width_cells": 3,

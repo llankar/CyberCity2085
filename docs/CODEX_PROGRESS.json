@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit existing faction doctrine data and identify where Godot can apply it to coordinated enemy decisions."
+    "next_action": "Apply the existing corporate command-link criteria to coordinated Godot targeting while preserving individual visibility."
   },
   "tasks": [
+    {
+      "id": "ENEMY-FACTION-PROFILE-HANDOFF",
+      "title": "Apply canonical faction targeting and cover preferences in Godot",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd", "tests/test_godot_combat_bridge.py"],
+      "tests": ["Godot handoff, fog and containment: 21 passed and 2 subtests passed."],
+      "evidence": ["Godot uses the Python profile for wounded, specialist and distance weights and cover preference. Novatek selects a wounded visible target within range. Legacy payloads retain role-based defaults."],
+      "remaining": []
+    },
     {
       "id": "ENEMY-FIRING-POSITIONS",
       "title": "Prioritize reachable firing positions and low cover in Godot",
