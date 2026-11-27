@@ -92,7 +92,10 @@ def build(name):
     }
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
-    concrete_partitions = bunker or name.endswith(("_underground_market", "_ruined_clinic", "_collapsed_tunnel"))
+    continuous_wall_uvs = name.endswith(("_looted_vault", "_maintenance_depot"))
+    concrete_partitions = bunker or continuous_wall_uvs or name.endswith((
+        "_underground_market", "_ruined_clinic", "_collapsed_tunnel",
+    ))
     if concrete_partitions:
         aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
         nodes = aged_concrete.node_tree.nodes
@@ -191,15 +194,18 @@ def build(name):
                         for loop in face.loop_indices:
                             x,y,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
                             uv.data[loop].uv = (x/1.7,y/1.7)
+                u_start = 0
                 for edge, face in enumerate(mesh.polygons[top_face_count:]):
                     start, end = outline[edge], outline[(edge+1) % count]
                     repeats = math.dist(start, end) / 1.7
                     upper_left = top[edge][2]/1.5 if concrete_rubble else 1
                     upper_right = top[(edge+1)%count][2]/1.5 if concrete_rubble else 1
                     for loop, coord in zip(face.loop_indices, (
-                        (0, 0), (repeats, 0), (repeats, upper_right), (0, upper_left)
+                        (u_start, 0), (u_start+repeats, 0), (u_start+repeats, upper_right), (u_start, upper_left)
                     )):
                         uv.data[loop].uv = coord
+                    if continuous_wall_uvs:
+                        u_start += repeats
                 if not concrete_partitions:
                     partition_meshes.append(mesh)
             partition = bpy.data.objects.new(identifier, mesh)
