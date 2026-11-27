@@ -1092,7 +1092,7 @@ def build(name):
         uv = shell.data.uv_layers.active
         for face in shell.data.polygons:
             if face.normal.z < .9:
-                if (civic or transport_facades or industrial) and abs(face.normal.z) < .1:
+                if (civic or transport_facades or industrial or name.endswith("_downtown_intersection")) and abs(face.normal.z) < .1:
                     for loop_index in face.loop_indices:
                         point = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
                         along = point.y if abs(face.normal.x) > .5 else point.x
