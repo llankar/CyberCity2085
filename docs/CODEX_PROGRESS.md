@@ -2073,3 +2073,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-BURNED-MARKET-STOREFRONTS / DONE for export and native loading. Added buckled blue shutters and charred jambs inside ruined storefront footprints. Rebuilt the shared market model on E:, refreshed the Godot overview and 122-map gallery, and passed eleven outdoor tests. Next: compare another outdoor family at tactical scale to identify larger remaining gaps.
 
 - EXPERIMENTAL-IRRADIATED-BASIN-RUINS / DONE for export and native loading. Replaced solid proxies with open foundations, surviving bank walls and fallen slabs inside the two surveyed footprints. Rebuilt 05/10 on E:, refreshed the overview and gallery, and passed eleven outdoor tests. Next: inspect the basin retaining walls at combat zoom.
+
+- EXPERIMENTAL-IRRADIATED-BASIN-RETAINING-MASONRY / DONE. Rebuilt straight retaining segments as eroded concrete blocks of varying heights within their original traces. Re-exported the shared 05/10 model, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: inspect the terrain seams around residue and barrel clusters.

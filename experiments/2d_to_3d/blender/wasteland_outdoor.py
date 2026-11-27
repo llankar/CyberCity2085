@@ -328,6 +328,18 @@ class WastelandOutdoors:
                 elif name in {"quay_west", "quay_east", "quay_crater_w"}:
                     self.waterfront_quay_segment(group, name, ax, ay, bx, by, width)
                     continue
+                elif self.irradiated_basin:
+                    count = max(1, round(length/.62))
+                    yaw = math.atan2(by-ay,bx-ax)
+                    for block_index in range(count):
+                        offset = (block_index+.5)/count
+                        block_height = height*(.74,.90,1.0)[block_index%3]
+                        block = self.concrete_box("Basin retaining masonry",
+                                                  (ax+(bx-ax)*offset,ay+(by-ay)*offset,block_height/2),
+                                                  (length*.485/count,width*.47,block_height/2),.035)
+                        block.rotation_euler.z = yaw
+                        block.parent = group
+                    continue
                 elif self.overpass:
                     segment = self.concrete_guardrail(name,length,width,height)
                     segment.location = ((ax+bx)/2,(ay+by)/2,0)
