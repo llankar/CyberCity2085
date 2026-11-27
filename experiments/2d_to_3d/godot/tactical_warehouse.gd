@@ -25,6 +25,7 @@ var cover_move_material: StandardMaterial3D
 var actor_models: Dictionary[String, PackedScene] = {}
 var last_sequence := -1
 var smoke := false
+var smoke_outcome := ""
 var closing := false
 var pending_command := {}
 var smoke_command_sent_usec := 0
@@ -60,6 +61,7 @@ func _ready() -> void:
  mailbox = Mailbox.new(session)
  cutaway.configure(self, [], review_camera, true)
  smoke = OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1"
+ smoke_outcome = OS.get_environment("CYBERCITY_TACTICAL_SMOKE_OUTCOME")
  var hud := CanvasLayer.new()
  add_child(hud)
  status = Label.new()
@@ -279,20 +281,8 @@ func _process(delta: float) -> void:
      push_error("Unexpected tactical shot audio")
      get_tree().quit(17)
      return
-    if OS.get_environment("CYBERCITY_TACTICAL_SMOKE_VICTORY") == "1":
-     if not outcome_panel.visible or outcome_title.text != "Victory" or not outcome_details.text.ends_with("2 / 2"):
-      push_error("The victory outcome did not reach the skirmish panel")
-      get_tree().quit(24)
-      return
-     await RenderingServer.frame_post_draw
-     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_victory.png") != OK:
-      get_tree().quit(25)
-      return
-     outcome_close.pressed.emit()
-     if not closing:
-      get_tree().quit(26)
-      return
-     print("TACTICAL_VICTORY_PANEL_OK map=", scenario_title)
+    if smoke_outcome == "victory":
+     verify_smoke_outcome("victory", 2)
      return
     await RenderingServer.frame_post_draw
     if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
@@ -304,10 +294,16 @@ func _process(delta: float) -> void:
      push_error(mailbox.message)
      get_tree().quit(10)
      return
+    if smoke_outcome == "defeat":
+     send({"action": "end_turn", "actor": ALLY})
+     return
     smoke_patient = ALLY if mailbox.events.is_empty() else mailbox.events[0].target
     smoke_hp = int(unit_state(smoke_patient).hp)
     use_action("first_aid", smoke_patient)
    4:
+    if smoke_outcome == "defeat":
+     verify_smoke_outcome("defeat", 0)
+     return
     var patient := unit_state(smoke_patient)
     if not mailbox.success or int(patient.hp) != mini(smoke_hp + 2, int(patient.max_hp)):
      get_tree().quit(11)
@@ -376,6 +372,22 @@ func show_outcome(state: Dictionary) -> void:
  target_hint.hide()
  target_line.hide()
  outcome_panel.show()
+
+
+func verify_smoke_outcome(expected: String, standing: int) -> void:
+ if not outcome_panel.visible or outcome_title.text != expected.capitalize() or not outcome_details.text.ends_with("%d / 2" % standing):
+  push_error("The %s outcome did not reach the skirmish panel" % expected)
+  get_tree().quit(24)
+  return
+ await RenderingServer.frame_post_draw
+ if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_%s.png" % expected) != OK:
+  get_tree().quit(25)
+  return
+ outcome_close.pressed.emit()
+ if not closing:
+  get_tree().quit(26)
+  return
+ print("TACTICAL_OUTCOME_PANEL_OK result=", expected, " map=", scenario_title)
 
 
 func close_battlefield() -> void:
