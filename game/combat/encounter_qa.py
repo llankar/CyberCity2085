@@ -382,6 +382,12 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                                 action_name = "melee"
                             elif getattr(getattr(actor, "character", None), "role", "") == "psi":
                                 action_name = "psi"
+                        if action_name in {"melee", "psi", "missiles"}:
+                            specialist = build_attack_context(actor, target, action_name, cover_nodes=cover)
+                            if (not specialist.in_range or specialist.line_blocked
+                                    or specialist.ap_cost > actor.action_points
+                                    or specialist.hit_chance <= 0 or specialist.normal_damage <= 0):
+                                action_name = "fire"
                         result = perform(action_name, actor=actor, target=target)
                         if result.success and action_name == "first_aid":
                             aid_used_this_turn.add(id(actor))
