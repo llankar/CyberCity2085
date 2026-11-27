@@ -741,6 +741,19 @@ class WastelandOutdoors:
             self.overpass_ruin(group, name, x, y, w, d)
         elif self.scavenger_plaza and ("ruin" in name or name == "ne_corner"):
             self.scavenger_perimeter_ruin(group, x, y, w, d)
+        elif self.ruined_transit and name in {"top_ruin", "west_top_ruin"}:
+            self.concrete_box("Station ruin foundation", (x,y,.08),
+                              (w*.465,d*.46,.08)).parent = group
+            for side in (-1, 1):
+                height = .97 if side < 0 else .65
+                self.concrete_box("Station ruin fractured pier", (x+side*w*.355,y,height/2),
+                                  (w*.105,d*.37,height/2),.052).parent = group
+            self.concrete_box("Station ruin rear wall", (x,y+d*.365,.37),
+                              (w*.34,d*.079,.37),.048).parent = group
+            slab = self.concrete_box("Station ruin slipped slab", (x+w*.065,y-d*.125,.30),
+                                     (w*.21,d*.218,.095),.036)
+            slab.rotation_euler.y = -.23
+            slab.parent = group
         elif self.city and ("ruin" in name or name == "ne_corner"):
             self.concrete_box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16)).parent = group
             for side in (-1,1):

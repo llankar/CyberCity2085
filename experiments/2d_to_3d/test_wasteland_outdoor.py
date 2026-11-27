@@ -216,6 +216,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     assert sum(nodes[i]["name"].startswith("Quay bollard crown")
                                for i in quay["children"]) == bollards
         if name.endswith("_ruined_transit_plaza"):
+            for identifier in ("top_ruin", "west_top_ruin"):
+                ruin = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert sum(nodes[i]["name"].startswith("Station ruin fractured pier")
+                           for i in ruin["children"]) == 2
             for identifier, prefix, count in (
                 ("center_planter", "Station planter rim", 6),
                 ("bench_n", "Station bench slat", 3),
