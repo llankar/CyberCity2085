@@ -271,6 +271,9 @@ def main():
         floor_command = [sys.executable, str(ROOT / "prepare_floor248.py"), "--map", name,
                          "--output", str(OUTPUT / name), "--objects", ",".join(selected),
                          "--include-side-walls"]
+        if name == "city_industrial_service_tunnel":
+            concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001/diff.jpg"
+            floor_command += ["--surface-detail", str(concrete)]
         if decorative:
             floor_command += ["--decorative-rects", json.dumps(
                 [{"id": row["id"], "rect": row["rect"]} for row in decorative], separators=(",", ":")
