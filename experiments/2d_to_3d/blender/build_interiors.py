@@ -92,7 +92,7 @@ def build(name):
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
     textured_partitions = name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
-        "city_interior_safehouse", "city_interior_cyber_cafe",
+        "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
         "cybercity_inner_13_warehouse_floor",
     }
@@ -326,7 +326,15 @@ def build(name):
             place(labs[kind], group, (x,y,0), (length*.97,breadth*.97,1.7), yaw=yaw)
 
     if partition_meshes:
-        wall_finish = bpy.data.materials["Wall269 worn steel PBR"]
+        finish_name = "Wall269 worn steel PBR"
+        if finish_name not in bpy.data.materials:
+            # Some interiors use traced partitions throughout and have no
+            # rectangular wall modules to bring in the shared material.
+            retained = set(bpy.data.objects)
+            bpy.ops.import_scene.gltf(filepath=str(wall))
+            for obj in set(bpy.data.objects) - retained:
+                bpy.data.objects.remove(obj, do_unlink=True)
+        wall_finish = bpy.data.materials[finish_name]
         for mesh in partition_meshes:
             mesh.materials[0] = wall_finish
 

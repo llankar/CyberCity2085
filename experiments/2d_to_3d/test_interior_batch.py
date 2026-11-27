@@ -465,7 +465,7 @@ def test_extended_interior_partitions_use_worn_steel():
     from interior_batch import OUTPUT
 
     for name in (
-        "city_interior_safehouse", "city_interior_cyber_cafe",
+        "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
         "cybercity_inner_13_warehouse_floor",
     ):
