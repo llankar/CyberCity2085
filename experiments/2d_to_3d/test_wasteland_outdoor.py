@@ -601,6 +601,9 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
                 positions = data["accessors"][primitive["attributes"]["POSITION"]]
                 assert wheel["translation"][1] == pytest.approx(positions["max"][0], abs=1e-5)
         if identifier == "convoy_mw":
+            assert sum(part.startswith("Convoy tanker rear fender") for part in parts) == 2
+            assert any(part.startswith("Convoy tanker cradle beam") for part in parts)
+            assert not any(part.startswith("Convoy cargo bed") for part in parts)
             assert sum(part.startswith("Convoy tanker dished end") for part in parts) == 2
             assert any(part.startswith("Convoy tanker inspection hatch") for part in parts)
             assert sum(part.startswith("Convoy tanker saddle bracket") for part in parts) == 4

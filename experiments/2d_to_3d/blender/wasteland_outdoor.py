@@ -1881,6 +1881,14 @@ class WastelandOutdoors:
                      (.021,width*.10,.166),self.convoy_rubber,.012)
             part("Wreck rear underride beam", (-length*.462,0,.41),
                  (.031,width*.43,.043),body_steel,.016)
+        elif self.convoy_crossing and name == "convoy_mw":
+            part("Convoy tanker cradle beam", (-length*.143,0,.59),
+                 (length*.315,width*.245,.089),body_steel,.027)
+            for side in (-1,1):
+                part("Convoy tanker rear fender", (-length*.27,side*width*.415,.756),
+                     (length*.143,width*.075,.045),body_steel,.037)
+            part("Convoy tanker rear bumper", (-length*.459,0,.397),
+                 (.036,width*.408,.058),body_steel,.017)
         else:
             part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
         # Keep the wheel tops above the chassis underside at .31 m.
