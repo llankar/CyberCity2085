@@ -71,3 +71,16 @@ def test_billboard_planters_export_one_two_tone_foliage_mesh_per_group():
         assert nodes.index(plant) in grouped
         primitives = data["meshes"][plant["mesh"]]["primitives"]
         assert len({primitive["material"] for primitive in primitives}) == 2
+
+def test_civic_kiosk_exports_controls_under_the_occlusion_group():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "city_district_civic_center/environment.glb")
+    if not path.is_file():
+        pytest.skip("Run the civic Blender batch on E: first")
+    with path.open("rb") as glb:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", glb.read(20))
+        nodes = json.loads(glb.read(size))["nodes"]
+    kiosk = next(node for node in nodes if node["name"] == "Occludable_northwest_kiosk")
+    parts = {nodes[index]["name"] for index in kiosk["children"]}
+    assert {f"northwest_kiosk {part}" for part in ("screen", "screen bezel", "hood", "control shelf")} <= parts
+    assert sum(" service vent" in part for part in parts) == 3

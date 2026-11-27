@@ -363,11 +363,29 @@ def build(name):
         if identifier.endswith(("_sign", "_kiosk", "_guard", "_terminal")) or identifier.startswith("ticket_"):
             is_kiosk = not identifier.endswith("_sign")
             height = 1.55 if is_kiosk else .95
-            box(identifier + " plinth", (x, y, .11), (w*.49, d*.47, .11), frame).parent = group
-            box(identifier, (x, y, height/2), (w*.42, d*.29, height/2), wall).parent = group
-            direction = -1 if y > 0 else 1
-            box(identifier + " screen", (x, y+direction*d*.30, height*.72),
-                (w*.36, .03, height*.20), signs[i % len(signs)]).parent = group
+            width, depth = max(w,d), min(w,d)
+            vertical = d > w
+            accent = signs[i % len(signs)]
+            parts = [
+                ("plinth", (0,0,.075), (width*.49,depth*.47,.075), frame),
+                ("housing", (0,0,height*.5), (width*.42,depth*.27,height*.5), wall),
+                ("screen bezel", (0,-depth*.282,height*.71),
+                 (width*.38,depth*.038,height*.225), frame),
+                ("screen", (0,-depth*.324,height*.71),
+                 (width*.33,depth*.011,height*.17), accent),
+                ("hood", (0,-depth*.075,height+.035), (width*.46,depth*.385,.04), frame),
+            ]
+            if is_kiosk:
+                parts.append(("control shelf", (0,-depth*.35,height*.43),
+                              (width*.34,depth*.085,.039), frame))
+                for slot in range(3):
+                    parts.append(("service vent", (0,-depth*.281,height*(.17+slot*.05)),
+                                  (width*.25,depth*.012,.012), frame))
+            for label, position, half_size, material in parts:
+                box(f"{identifier} {label}", position, half_size, material).parent = group
+            group.location = (x,y,0)
+            outward_back = x < 0 if vertical else y > 0
+            group.rotation_euler.z = (math.pi/2 if vertical else 0) + (0 if outward_back else math.pi)
             continue
         if any(kind in identifier for kind in ("bench", "planter", "barrier", "barricade", "_seat")):
             if "bench" in identifier or identifier.endswith("_seat"):
