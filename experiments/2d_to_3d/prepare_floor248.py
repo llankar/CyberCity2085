@@ -86,6 +86,16 @@ WATERFRONT_WRECKS = (
     ]},
 )
 
+DOWNTOWN_WRECK_ART = (
+    {"id": "east_curb_wreck_art", "polygon": [
+        (582,182), (639,171), (648,174), (696,165), (708,184),
+        (697,198), (645,205), (586,208),
+    ]},
+    {"id": "north_edge_wreck_art", "polygon": [
+        (544,40), (579,16), (600,31), (592,51), (556,68), (542,58),
+    ]},
+)
+
 
 def restore_donor_pavement(floor, original, survey, donors):
     floor = floor.copy()
@@ -154,6 +164,8 @@ def main():
         survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
     if args.map == "wasteland_city_12_cratered_waterfront":
         survey["walls"].extend(WATERFRONT_WRECKS)
+    if args.map.endswith("_ruined_downtown"):
+        survey["walls"].extend(DOWNTOWN_WRECK_ART)
     if args.map == "city_industrial_dockside_terminal":
         survey["walls"].extend(
             {"id": label, "polygon": [(2*x, 2*y) for x,y in outline]}
@@ -233,6 +245,11 @@ def main():
         result = restore_donor_pavement(result, original, {**survey, "walls": crossings}, crossing_donors)
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
+    if args.map.endswith("_ruined_downtown"):
+        result = restore_donor_pavement(result, original, survey, {
+            "east_curb_wreck_art": (664,207,709,237),
+            "north_edge_wreck_art": (447,48,476,91),
+        })
     if args.map == "wasteland_city_12_cratered_waterfront":
         result = restore_donor_pavement(result, original, survey, {
             "west_edge_wreck_art": (98, 472, 200, 535),
