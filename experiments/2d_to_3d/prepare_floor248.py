@@ -189,6 +189,10 @@ def main():
         survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
     if args.map == "wasteland_city_12_cratered_waterfront":
         survey["walls"].extend(WATERFRONT_WRECKS)
+        survey["walls"].append({"id": "fallen_crane_jib_art", "polygon": [
+            (778,493), (803,455), (872,383), (913,333), (959,293),
+            (959,321), (926,353), (891,403), (824,479), (803,510),
+        ]})
         for label, stern, bow, beam in SKIFFS:
             dx, dy = bow[0]-stern[0], bow[1]-stern[1]
             span = math.hypot(dx,dy)
