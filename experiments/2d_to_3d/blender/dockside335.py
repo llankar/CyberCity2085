@@ -69,7 +69,8 @@ for row in survey["walls"]:
         build_floor_grate(group, x, y, width, depth, grate_inset, steel, steel)
     elif is_crane:
         build_crane(group, x, y, width, depth, steel, beam,
-                    height=3.8 if "north" in identifier else 4.4)
+                    height=3.8 if "north" in identifier else 4.4,
+                    lattice_jib=True)
         cranes += 1
     elif is_barrier:
         count = max(1, math.ceil(depth / 2))

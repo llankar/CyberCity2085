@@ -263,7 +263,13 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
         pytest.skip("Build the experimental Dockside Terminal on E: first")
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-        nodes = json.loads(model.read(size))["nodes"]
+        gltf = json.loads(model.read(size))
+    nodes = gltf["nodes"]
+    cranes = [node for node in nodes if node["name"].startswith("Dockside loading crane")]
+    assert len(cranes) == 2
+    for crane in cranes:
+        primitives = gltf["meshes"][crane["mesh"]]["primitives"]
+        assert sum(gltf["accessors"][part["indices"]]["count"] for part in primitives) >= 540
     survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_dockside_terminal.wall-traces.json"
     survey = json.loads(survey_path.read_text())
     expected = {f"Occludable_{row['id']}" for row in survey["walls"]
