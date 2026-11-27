@@ -252,7 +252,22 @@ class WastelandOutdoors:
             for i, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 height = .56 + .15*(i % 3)
                 length = math.hypot(bx-ax,by-ay)
-                if name in {"northeast_barricade", "southwest_barricade"}:
+                if self.dust_road:
+                    center = ((ax+bx)/2, (ay+by)/2)
+                    yaw = math.atan2(by-ay,bx-ax)
+                    segment = self.concrete_box("Dust road masonry base", (*center,.15),
+                                                (length*.49,width*.46,.15))
+                    rail = box("Dust road salvaged wall panel", (*center,.38),
+                               (length*.44,width*.27,.12), self.steel,.024)
+                    rail.rotation_euler.z = yaw
+                    rail.parent = group
+                    for offset in (-.38,.32):
+                        post = box("Dust road wall brace",
+                                   (center[0]+offset*(bx-ax),center[1]+offset*(by-ay),.26),
+                                   (.045,width*.48,.26), self.dark,.013)
+                        post.rotation_euler.z = yaw
+                        post.parent = group
+                elif name in {"northeast_barricade", "southwest_barricade"}:
                     midpoint = ((ax+bx)/2, (ay+by)/2)
                     yaw = math.atan2(by-ay,bx-ax)
                     segment = box("Scavenger scrap barricade", (*midpoint,height/2),
@@ -495,6 +510,16 @@ class WastelandOutdoors:
                 barrel = bpy.context.object
                 barrel.data.materials.append(self.steel)
                 barrel.parent = group
+        elif self.dust_road and "sandbag" in name:
+            group.location = (x,y,0)
+            group.rotation_euler.z = yaw
+            for layer, offsets in enumerate(((-.36,-.12,.12,.36), (-.25,0,.25))):
+                for index, offset in enumerate(offsets):
+                    bag = box("Dust road staggered sandbag",
+                              (length*offset,breadth*.035*(-1)**index,.108+layer*.165),
+                              (length*.117,breadth*(.38-layer*.055),.105), self.canvas,.078)
+                    bag.rotation_euler.z = .07*(-1)**(index+layer)
+                    bag.parent = group
         elif "sandbag" in name:
             for layer in range(2):
                 for offset in (-.31,0,.31):

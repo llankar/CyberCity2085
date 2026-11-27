@@ -1613,3 +1613,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-SALT-FLAT-FENCES / DONE for five surveyed polylines. Replaced solid walls with open two-rail fences, uneven posts and leaning braces; preserved source tactical boundaries. Rebuilt the GLB on E:, passed ten tests and rendered in Godot. Next: inspect Dust Road Ambush for distinct reference-specific cover and vehicle silhouettes.
 
 - EXPERIMENTAL-DUST-ROAD-HEAVY-WRECKS / DONE for three surveyed vehicles per map. Differentiated the large southeast tanker and two flatbeds, matching their dominant axes and retaining the original survey. Both GLBs rebuilt on E:, ten tests passed and 06 rendered in Godot. Next: refine roadside barricades and sandbag silhouettes.
+
+- EXPERIMENTAL-DUST-ROAD-COVER / DONE for roadside barriers and sandbags in variants 01 and 06. Added salvage panels on low masonry with end braces, and rounded staggered sandbag stacks inside the traced bounds. Both GLBs rebuilt on E:, ten tests passed and Godot rendered 01. Next: compare remaining Ashfield structures and their material treatment.
