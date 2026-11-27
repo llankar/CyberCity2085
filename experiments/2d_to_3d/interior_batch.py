@@ -103,6 +103,16 @@ def fixtures(name):
             selected[identifier] = "rack"
         elif plumbing_interior and identifier.endswith("_stove"):
             selected[identifier] = "stove"
+        elif name == "city_interior_corporate_lobby" and identifier.endswith("_meeting"):
+            selected[identifier] = "meeting_table"
+        elif name == "city_interior_corporate_lobby" and identifier.endswith("_utility"):
+            selected[identifier] = "cabinet"
+        elif name.endswith("_maintenance_depot") and "_pit_" in identifier:
+            selected[identifier] = "inspection_pit"
+        elif name.endswith("_maintenance_depot") and identifier.endswith("_tires"):
+            selected[identifier] = "spare_tires"
+        elif name.endswith("_bunker_command_post") and identifier.endswith(("_map", "_control")):
+            selected[identifier] = "command_console"
         elif identifier.endswith("_tracks"):
             selected[identifier] = "track"
         elif name == "cybercity_inner_13_warehouse_floor" and identifier.startswith("bench_"):

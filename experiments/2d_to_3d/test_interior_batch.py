@@ -270,7 +270,7 @@ def test_checkpoint_bays_export_open_rooms_under_individual_cutaways():
             assert any(part.startswith("Checkpoint reader display") for part in parts)
 
 
-def test_industrial_and_server_maps_export_remaining_fixture_groups():
+def test_interior_maps_export_remaining_fixture_groups():
     import json
     import struct
 
@@ -302,6 +302,19 @@ def test_industrial_and_server_maps_export_remaining_fixture_groups():
             "south_inner_room_valve": "Service valve handwheel",
         },
     }
+    additions["city_interior_corporate_lobby"] = {
+        "west_meeting": "Meeting table top", "east_meeting": "Meeting table top",
+        "west_south_utility": None, "east_south_utility": None,
+    }
+    for index in ("06", "11"):
+        additions[f"wasteland_inner_{index}_maintenance_depot"] = {
+            "west_pit_n": "Inspection pit access rung", "west_pit_s": "Inspection pit access rung",
+            "ne_tires": "Stacked spare tire",
+        }
+    for index in ("04", "09"):
+        additions[f"wasteland_inner_{index}_bunker_command_post"] = {
+            identifier: "Command map display" for identifier in ("north_map", "west_control", "east_control")
+        }
     for name, fixtures_to_check in additions.items():
         path = OUTPUT / name / "environment.glb"
         if not path.is_file():

@@ -307,3 +307,43 @@ def build_server_bank(group, x, y, w, d, housing, frame, indicator):
     bpy.ops.object.join()
     bpy.context.object.name = "Server cabinet bank"
     bpy.context.object.parent = group
+
+
+
+def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
+    vertical = d > w
+    length, width = (d,w) if vertical else (w,d)
+
+    def part(label, along, across, z, half_length, half_width, half_height, material):
+        dx,dy = (across,along) if vertical else (along,across)
+        sx,sy = (half_width,half_length) if vertical else (half_length,half_width)
+        box(label, (x+dx,y+dy,z), (sx,sy,half_height), material, .013).parent = group
+
+    if kind == "meeting_table":
+        part("Meeting table top", 0,0,.73,length*.44,width*.23,.046,steel)
+        part("Meeting table pedestal", 0,0,.34,length*.15,width*.13,.34,trim)
+        for side in (-1,1):
+            part("Meeting seat", 0,side*width*.36,.42,length*.21,width*.105,.058,trim)
+            part("Meeting seat back", 0,side*width*.45,.62,length*.23,width*.034,.19,steel)
+    elif kind == "inspection_pit":
+        part("Inspection trench inset", 0,0,.006,length*.48,width*.48,.015,trim)
+        for side in (-1,1):
+            part("Inspection pit curb", 0,side*width*.44,.097,length*.48,width*.052,.097,steel)
+            for i in range(4):
+                part("Inspection pit access rung", side*(.25+i*.058)*length,0,.055+i*.016,
+                     length*.013,width*.34,.013,steel)
+    elif kind == "spare_tires":
+        radius = min(w,d)*.30
+        for level in range(3):
+            bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=8, major_radius=radius,
+                                             minor_radius=.079, location=(x,y,.09+level*.155))
+            tire = bpy.context.object
+            tire.name = "Stacked spare tire"
+            tire.data.materials.append(trim)
+            tire.parent = group
+    else:
+        part("Command workstation chassis", 0,0,.39,length*.47,width*.41,.39,trim)
+        part("Command workstation desk", 0,0,.83,length*.48,width*.46,.064,steel)
+        part("Command map display", 0,width*.14,.908,length*.39,width*.235,.026,screen)
+        for side in (-1,1):
+            part("Command input bank", side*length*.27,-width*.26,.906,length*.12,width*.108,.024,trim)

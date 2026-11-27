@@ -14,6 +14,7 @@ from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
     build_checkpoint_fixture, build_industrial_fixture, build_safehouse_fixture, build_server_bank,
+    build_facility_fixture,
 )
 from library_placement import place, reset_library_cache
 
@@ -145,6 +146,8 @@ def build(name):
             box("Vent fan deck", (x,y,.34), (w*.48,d*.47,.34), partition_cap).parent = group
             place(library / "roof_twin_fan/optimized.glb", group, (x,y,.68),
                   (length*.92,breadth*.92,.38), yaw=yaw, merge=True)
+        elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console"}:
+            build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
         elif kind == "security_bay":
             build_security_bay(group, identifier, x, y, w, d, wall, labs["crate"],
                                steel, partition_cap, screen)
