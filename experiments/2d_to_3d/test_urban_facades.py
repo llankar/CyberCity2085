@@ -5,6 +5,8 @@ import struct
 
 import pytest
 
+from catalogue_test_assets import catalogue_environment
+
 
 @pytest.mark.parametrize("name", [
     "city_exterior_billboard_avenue",
@@ -15,8 +17,7 @@ import pytest
     "cybercity_street_08_neon_market_alley",
 ])
 def test_lateral_facade_bands_keep_building_occlusion(name):
-    folder = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
-    path = folder / name / "environment.glb"
+    path = catalogue_environment(name)
     if not path.is_file():
         pytest.skip("Run the urban Blender batch on E: first")
     with path.open("rb") as glb:
@@ -116,7 +117,7 @@ def test_holo_square_exports_occludable_obstacles_and_landmark():
 @pytest.mark.parametrize(("variant", "count"), [("05", 10), ("10", 8), ("11", 8)])
 def test_civic_plaza_polygon_planters_export_foliage(variant, count):
     name = f"cybercity_street_{variant}_civic_plaza"
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    path = catalogue_environment(name)
     if not path.is_file():
         pytest.skip("Run the Civic Plaza Blender batch on E: first")
     with path.open("rb") as glb:
@@ -160,7 +161,7 @@ def test_riot_square_and_safehouse_export_surveyed_fixtures(name, folder, fixtur
 @pytest.mark.parametrize("variant", ["08", "09"])
 def test_freeway_rails_follow_survey_segments(variant):
     name = f"cybercity_street_{variant}_elevated_freeway"
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    path = catalogue_environment(name)
     if not path.is_file():
         pytest.skip("Build the freeway on E: first")
     with path.open("rb") as glb:
@@ -223,7 +224,7 @@ def test_freeway_rails_follow_survey_segments(variant):
     ("cybercity_street_11_civic_plaza", "nw_block"),
 ])
 def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
-    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    path = catalogue_environment(name)
     if not path.is_file():
         pytest.skip("Build the civic map on E: first")
     with path.open("rb") as model:
