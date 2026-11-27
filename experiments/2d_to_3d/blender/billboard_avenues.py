@@ -13,7 +13,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place, reset_library_cache
 from loading_crane import build_crane
 from shipping_container import build_container
-from freight_stock import SOUTH_SIDING_LOADS
+from freight_stock import FREIGHT_CONTAINER_COUNTS, SOUTH_SIDING_LOADS
 from wasteland_outdoor import WastelandOutdoors
 from industrial_forklift import build_forklift
 
@@ -872,9 +872,13 @@ def build(name):
             continue
         if "container" in identifier or "cargo" in identifier:
             vertical = d > w
-            build_container(group, x, y, max(w,d), min(w,d),
-                            shipping_skins[i % len(shipping_skins)], frame, wall,
-                            yaw=math.pi/2 if vertical else 0)
+            count = FREIGHT_CONTAINER_COUNTS.get(identifier, 1) if name == "city_transit_freight_yard" else 1
+            breadth = min(w,d)/count
+            for index in range(count):
+                offset = (index-(count-1)/2)*breadth
+                build_container(group, x+offset if vertical else x, y if vertical else y+offset,
+                                max(w,d), breadth, shipping_skins[(i+index) % len(shipping_skins)],
+                                frame, wall, yaw=math.pi/2 if vertical else 0)
             continue
         if identifier.startswith(("bus_", "truck_", "station_")):
             shelter = identifier.startswith("station_")
