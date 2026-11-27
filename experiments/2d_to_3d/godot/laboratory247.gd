@@ -61,7 +61,8 @@ func _ready() -> void:
     continue
    checked_map_materials[material] = true
    if material.resource_name not in [
-    "Original avenue pavement", "Original rooftop artwork", "Irradiated basin water",
+    "Original avenue pavement", "Original rooftop artwork", "Original interior floor",
+    "Irradiated basin water",
     "Flooded paving under shallow water", "Cratered waterfront water",
     "Waterfront basin water", "Shallow avenue floodwater", "Bridge river water",
    ]:
