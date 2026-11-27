@@ -558,6 +558,9 @@ def build(name):
                     (w*.06,.019,.021), screen).parent = group
         elif apartment_shelter and kind == "table":
             build_facility_fixture(group, "shelter_table", x, y, w, d, shelter_wood, shelter_iron, screen)
+        elif relay_room and kind in {"table", "console"}:
+            build_facility_fixture(group, "command_console", x, y, w, d,
+                                   server_housing, partition_cap, console_glass)
         elif kind in {"table","console"}:
             box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop).parent = group
             for sx in (-1,1):
