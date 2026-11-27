@@ -207,7 +207,7 @@ class WastelandOutdoors:
         pixels = np.empty(len(source.pixels), dtype=np.float32)
         source.pixels.foreach_get(pixels)
         concrete_tint = (.62, .58, .54)
-        if overpass:
+        if overpass or wrecked_highway:
             concrete_tint = (.40, .40, .38)
         elif flooded_square:
             concrete_tint = (.34, .40, .43)
@@ -222,7 +222,7 @@ class WastelandOutdoors:
         roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
         roughness.image.colorspace_settings.name = "Non-Color"
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
-        if overpass or flooded_square or ruined_downtown:
+        if overpass or wrecked_highway or flooded_square or ruined_downtown:
             detail = nodes.new("ShaderNodeTexImage")
             detail.image = bpy.data.images.load(str(concrete_path / "nor_gl.jpg"), check_existing=True)
             detail.image.colorspace_settings.name = "Non-Color"
@@ -358,6 +358,8 @@ class WastelandOutdoors:
             if "planter" in name:
                 height = .24
             crest = [height + .19*(i%4) for i in range(n)]
+            if self.wrecked_highway and ("span" in name or "ramp" in name):
+                crest = [.44 + .13*(i%4) for i in range(n)]
             if self.flooded_square and name.startswith("planter_"):
                 crest = [height] * n
                 for (ax,ay), (bx,by) in zip(points, points[1:]+points[:1]):
