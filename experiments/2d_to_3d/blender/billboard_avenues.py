@@ -1164,6 +1164,12 @@ def build(name):
                     (entry_width*.84,.018,.78),wall,.012).parent = group
                 box(identifier+" transit entry canopy", (x,front+direction*.15,1.78),
                     (entry_width*1.17,.17,.052),frame,.016).parent = group
+                box(identifier+" transit entry canopy light", (x,front+direction*.29,1.728),
+                    (entry_width*.81,.022,.012),signs[0],.005).parent = group
+                for side in (-1,1):
+                    box(identifier+" transit entry jamb",
+                        (x+side*entry_width,front+direction*.095,.87),
+                        (.035,.073,.84),frame,.009).parent = group
             upper_level = height*.62
             box(identifier + " transport facade lintel", (x,front+direction*.035,upper_level-.09),
                 (w*.47,.065,.055), frame,.012).parent = group
