@@ -61,6 +61,14 @@ TECH_MARKET_DONORS = {
     "southeast_large_canopy": (1414, 836, 1460, 914),
 }
 
+# Sample clean asphalt on each original. Restrict the transferred grain to
+# vehicle footprints on the road, leaving the dirt shoulder repairs alone.
+ROAD_GRAIN_SAMPLES = {
+    "_ruined_downtown": ((453,247,483,281), (0,540)),
+    "_convoy_crossing": ((202,209,230,230), (221,291)),
+    "_wrecked_highway": ((453,281,484,307), (190,345)),
+}
+
 WATERFRONT_WRECKS = (
     {"id": "west_edge_wreck_art", "polygon": [
         (0,385), (40,364), (86,353), (153,340), (203,339),
@@ -165,15 +173,19 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
-    if args.map.endswith("_ruined_downtown"):
+    for suffix, (sample_rect, road_rows) in ROAD_GRAIN_SAMPLES.items():
+        if not args.map.endswith(suffix):
+            continue
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
         road_repairs = np.zeros_like(mask)
         for row in survey["walls"]:
-            if row["id"].startswith(("wreck_", "bus_", "truck_")) and "rect" in row:
+            if row["id"].startswith(("wreck_", "bus_", "truck_", "convoy_")) and "rect" in row:
                 x1,y1,x2,y2 = row["rect"]
-                road_repairs[round(y1*sy):round(y2*sy), round(x1*sx):round(x2*sx)] = 255
-        road_sample = original.crop((round(453*sx),round(247*sy),round(483*sx),round(281*sy)))
+                top, bottom = max(y1,road_rows[0]), min(y2,road_rows[1])
+                road_repairs[round(top*sy):round(bottom*sy), round(x1*sx):round(x2*sx)] = 255
+        x1,y1,x2,y2 = sample_rect
+        road_sample = original.crop((round(x1*sx),round(y1*sy),round(x2*sx),round(y2*sy)))
         result = restore_surface_detail(result, road_repairs & mask, road_sample, round(32*sx))
     if args.map == "city_transit_freight_yard":
         # Recover paving grain without pasting a second set of rails or lamps.
