@@ -274,10 +274,16 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
     pursuit_targets = {}
     dodges = 0
 
+    damaging_actions = Counter()
+    direct_damage = Counter()
+
     def perform(action, **kwargs):
         result = engine.perform_action(action, **kwargs)
         if result.success:
             player_actions[action] += 1
+            if result.damage > 0:
+                damaging_actions[action] += 1
+                direct_damage[action] += result.damage
         return result
     def snapshot():
         units = tuple((unit.position, unit.health, tuple(sorted(unit.status_effects)))
@@ -431,5 +437,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                 enemy_survivors=sum(u.health > 0 for u in original_enemies),
                 infections=sum(c.starver_infection_days is not None for c in characters),
                 player_actions=dict(player_actions),
+                damaging_actions=dict(damaging_actions),
+                direct_damage=dict(direct_damage),
                 announced=dict(announced), dodges=dodges,
                 interruptions=sum("Enemy plan interrupted" in line for line in state.logs))

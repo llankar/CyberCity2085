@@ -48,6 +48,10 @@ def test_sustained_profiles_finish_on_three_representative_maps(profile: str) ->
         assert row["outcome"] in {"victory", "defeat"}
         assert row["geometry_checked"]
         assert row["longest_unchanged_rounds"] < 10
+        assert row["damaging_actions"]
+        for action, count in row["damaging_actions"].items():
+            assert 0 < count <= row["player_actions"][action]
+            assert row["direct_damage"][action] >= count
 
 
 @pytest.mark.parametrize(
