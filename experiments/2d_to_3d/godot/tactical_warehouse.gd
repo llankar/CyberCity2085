@@ -506,6 +506,17 @@ func verify_smoke_outcome(expected: String, standing: int) -> void:
  if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_%s.png" % expected) != OK:
   get_tree().quit(25)
   return
+ get_window().size = Vector2i(800, 600)
+ for frame in 3:
+  await get_tree().process_frame
+ var viewport_rect := get_viewport().get_visible_rect()
+ if viewport_rect.size != Vector2(800, 600) or not viewport_rect.encloses(
+  outcome_panel.get_global_rect()
+ ) or not viewport_rect.encloses(outcome_close.get_global_rect()) or not outcome_close.has_focus():
+  push_error("The result panel or its focused close button did not fit at 800x600")
+  get_tree().quit(25)
+  return
+ print("TACTICAL_NARROW_OUTCOME_OK result=", expected)
  outcome_close.pressed.emit()
  if not closing:
   get_tree().quit(26)
