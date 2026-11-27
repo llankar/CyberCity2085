@@ -507,6 +507,8 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
     parts = [nodes[index]["name"] for index in bridge["children"]]
     assert any(part.startswith("Turntable circular rim") for part in parts)
     assert sum(part.startswith("Turntable bridge rail") for part in parts) == 2
+    assert sum(part.startswith("Turntable bridge deck") for part in parts) == 1
+    assert sum(part.startswith("Turntable bridge edge beam") for part in parts) == 2
     assert sum(part.startswith("Turntable sleeper") for part in parts) == 15
     for identifier, fragments in (("northwest_ruin", 3), ("northeast_ruin", 2)):
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]

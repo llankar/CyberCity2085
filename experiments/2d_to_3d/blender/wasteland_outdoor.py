@@ -1595,11 +1595,15 @@ class WastelandOutdoors:
         rim.parent = bridge
 
         gauge = wagon_width * .63
+        box("Turntable bridge deck", (0,0,.023),
+            (length*.486,gauge*.79,.023),self.dark,.009).parent = bridge
         for index in range(-7, 8):
             sleeper = box("Turntable sleeper", (index*length/16, 0, .052),
                           (length/48, gauge*.75, .030), self.dark, .008)
             sleeper.parent = bridge
         for side in (-1, 1):
+            box("Turntable bridge edge beam", (0,side*gauge*.78,.041),
+                (length*.482,.024,.024),self.steel,.007).parent = bridge
             rail = box("Turntable bridge rail", (0, side*gauge/2, .095),
                        (length/2, .026, .024), self.steel, .008)
             rail.parent = bridge
