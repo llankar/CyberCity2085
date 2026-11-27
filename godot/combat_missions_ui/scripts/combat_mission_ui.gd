@@ -1709,15 +1709,22 @@ func _resolve_enemy_turn() -> void:
 		if int(enemy_units[i].get("hp", 0)) > 0:
 			enemy_units[i]["ap"] = 2
 	var containment: bool = objective.get("type", "") == "containment"
-	var breacher := _containment_breacher_index() if containment else -1
+	var defending: bool = objective.get("type", "") == "defend"
+	if defending and _defense_zone_breached():
+		_end_combat("defeat", "Defense failed: a hostile entered the marked zone.")
+		return
+	var breacher := _containment_breacher_index() if containment or defending else -1
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) <= 0: continue
 		if containment:
 			if i == breacher: _enemy_containment_act(i)
-		else:
+		elif not (defending and i == breacher and _advance_defense_breacher(i)):
 			_enemy_act(i)
 		if containment and _containment_breached():
 			_end_combat("defeat", "Containment failed: a hostile crossed the marked breach zone.")
+			return
+		if defending and _defense_zone_breached():
+			_end_combat("defeat", "Defense failed: a hostile entered the marked zone.")
 			return
 	turn_side    = "player"
 	turn_number += 1
@@ -1727,6 +1734,14 @@ func _resolve_enemy_turn() -> void:
 	if _player_alive_count() == 0:
 		_end_combat("defeat")
 		return
+	if defending:
+		var hold_turns := int(objective.get("defend_turns_required", 4))
+		objective_progress = mini(turn_number - 1, hold_turns)
+		if turn_number > hold_turns:
+			objective_completed = true
+			_complete_mission()
+			return
+		status_line = "Hold position: turn %d/%d." % [turn_number, hold_turns]
 	if objective.has("hold_until_turn"):
 		if turn_number >= int(objective["hold_until_turn"]):
 			objective_completed = true
@@ -1919,6 +1934,34 @@ func _enemy_containment_act(enemy_index: int) -> void:
 
 func _containment_breached() -> bool:
 	return preload("res://scripts/containment_objective.gd").breached(enemy_units, objective)
+
+func _defense_zone_breached() -> bool:
+	var zone := Battlefield.defense_zone_cells(objective["cell"])
+	for enemy in enemy_units:
+		if int(enemy.get("hp", 0)) > 0 and _cell_position(enemy) in zone:
+			return true
+	return false
+
+func _advance_defense_breacher(enemy_index: int) -> bool:
+	var enemy := enemy_units[enemy_index]
+	var start := _cell_position(enemy)
+	var occupied := _enemy_known_occupied_cells(enemy_index)
+	var best_route: Array[Vector2i] = []
+	for cell in Battlefield.defense_zone_cells(objective["cell"]):
+		if _battlefield.is_wall(cell) or cell in occupied:
+			continue
+		var route: Array[Vector2i] = _battlefield.find_path(start, cell, occupied)
+		if route.size() >= 2 and (best_route.is_empty() or route.size() < best_route.size()):
+			best_route = route
+	if best_route.is_empty() or _is_cell_occupied(best_route[1], -1, enemy_index):
+		return false
+	var destination := best_route[1]
+	enemy["position"] = destination
+	enemy["ap"] = 0
+	var key := "e%d" % enemy_index
+	if _unit_tokens.has(key):
+		_visual_move_token(key, start, destination, enemy)
+	return true
 
 func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void:
 	var enemy  := enemy_units[enemy_index] as Dictionary
@@ -2420,7 +2463,8 @@ func _elimination_objective_met() -> bool:
 		objective_completed = true
 		objective_progress = int(objective.get("progress_needed", 1))
 		return true
-	if objective.get("needs_marker", false) and not str(objective.get("action_key", "")).is_empty():
+	if objective.get("type", "") == "defend" or (objective.get("needs_marker", false) \
+			and not str(objective.get("action_key", "")).is_empty()):
 		return false
 	var eliminated := _enemy_alive_count() == 0
 	if eliminated and objective.get("type", "") == "containment":
@@ -2576,6 +2620,9 @@ func _update_visual_context() -> void:
 	if not _hud.has_signal("quality_changed"): return
 	if objective.get("type", "") == "containment":
 		_hud.objective_text = "HOLD // %s" % str(_mission_data().get("objective_text","Hold the breach zone"))
+	elif objective.get("type", "") == "defend":
+		_hud.objective_text = "HOLD %d/%d // Keep hostiles outside the marked zone." % [
+			objective_progress, int(objective.get("defend_turns_required", 4))]
 	else:
 		_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}

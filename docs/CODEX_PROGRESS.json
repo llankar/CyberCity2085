@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Audit Godot defend and civilian-rescue contracts against Arcade; prioritize defend, which currently falls back to elimination."
+    "next_action": "Port Arcade's three civilian rescue stages and reachable markers to the Godot objective."
   },
   "tasks": [
+    {
+      "id": "MISSION-DEFENSE-ZONE",
+      "title": "Resolve Godot defense by holding the marked zone",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Native Godot, handoff, mission objectives and containment: 36 passed, 5 subtests passed."],
+      "evidence": ["Native test verifies the last hold phase, defeat on a legal breach, and avoiding an enemy already in the zone at deployment."],
+      "remaining": []
+    },
     {
       "id": "MISSION-FIELD-PROXY",
       "title": "Trigger the alternate download route at a visibly guarded terminal",

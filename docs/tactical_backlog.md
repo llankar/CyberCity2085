@@ -8,6 +8,7 @@
 - [x] MISSION-WITNESS-EXTRACTION — Securing the witness reveals the extraction marker on the same connected floor region. The next squad turn can complete evacuation.
 - [x] MISSION-SABOTAGE-HOLD — Arming the relay costs one AP and starts the existing Arcade hold window. Victory follows the enemy phase only if the squad survives.
 - [x] MISSION-FIELD-PROXY — A visible hostile guarding the terminal during the first breach opens the alternate relay route in Godot. Clearing the guard first preserves the two-step direct route.
+- [x] MISSION-DEFENSE-ZONE — Defend uses the Arcade hold duration. A selected breacher advances along legal routes toward the marked three-by-three zone. A breach fails the mission.
 
 > Périmètre actif au 2026-11-24 : les anciens lots cartes/illustrations/animations/atlas/calibrations/Combat Visual, Hangar, Operative Dossier, Cyberware, économie et intégration Arcade/Godot sont des archives clôturées par le propriétaire. Toute ancienne ligne `IN_PROGRESS` correspondante est historique et ne constitue plus une prochaine action.
 

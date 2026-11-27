@@ -238,6 +238,8 @@ func _draw_cover_nodes() -> void:
 func _draw_objective() -> void:
 	var center:=cell_to_world(objective_cell)
 	var pixel:=_screen_unit()
+	if objective_data.get("type", "") == "defend":
+		_draw_defense_zone()
 	if objective_data.get("type", "") == "containment":
 		var half_width:=int(objective_data.get("breach_half_width_cells",3))
 		for row in range(objective_cell.y-half_width,objective_cell.y+half_width+1):

@@ -8,7 +8,8 @@ static func breacher_index(enemy_units: Array, objective: Dictionary) -> int:
 		var enemy := enemy_units[index] as Dictionary
 		if int(enemy.get("hp", 0)) <= 0: continue
 		var cell := enemy.get("position", Vector2i.ZERO) as Vector2i
-		var distance := maxi(0, cell.x - target.x) + absi(cell.y - target.y)
+		var dx := cell.x - target.x
+		var distance := (absi(dx) if objective.get("type") == "defend" else maxi(0, dx)) + absi(cell.y - target.y)
 		if distance < best_distance:
 			best_distance = distance
 			best = index

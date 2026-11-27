@@ -197,6 +197,30 @@ func run() -> void:
 		mission._resolve_enemy_turn()
 		assert(sink.outcome == ("victory" if survives else "defeat"))
 		assert(mission.objective_completed == survives)
+	mission.objective = generator.build_objective("defend", 40, 28)
+	mission.objective.cell = Vector2i(14, 14)
+	mission.player_units[0].hp = 20
+	mission.turn_number = 3
+	mission.turn_side = "enemy"
+	mission.objective_completed = false
+	sink.outcome = ""
+	assert(not mission._elimination_objective_met())
+	mission._resolve_enemy_turn()
+	assert(sink.outcome.is_empty() and mission.objective_progress == 3)
+	mission.turn_side = "enemy"
+	mission._resolve_enemy_turn()
+	assert(sink.outcome == "victory" and mission.objective_progress == 4)
+	mission.turn_side = "enemy"
+	mission.turn_number = 4
+	mission.objective_completed = false
+	mission.enemy_units.assign([{"hp": 20, "position": Vector2i(16, 14)}])
+	mission._resolve_enemy_turn()
+	assert(mission.enemy_units[0].position == Vector2i(15, 14), "breacher advances to the defense zone")
+	assert(sink.outcome == "defeat" and not mission.objective_completed)
+	mission.objective.cell = Vector2i(14, 14)
+	mission.enemy_units[0].position = Vector2i(15, 14)
+	layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
+	assert(not mission._defense_zone_breached(), "deployment cannot place a guard inside the marked defense zone")
 	sink.free()
 	mission.free()
 	board.free()

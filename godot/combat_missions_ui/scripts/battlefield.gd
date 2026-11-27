@@ -503,8 +503,21 @@ func _draw_cover_nodes() -> void:
 
 # ── Objective ─────────────────────────────────────────────────────────────────
 
+static func defense_zone_cells(marker: Vector2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	for y in range(maxi(0, marker.y - 1), mini(GRID_ROWS, marker.y + 2)):
+		for x in range(maxi(0, marker.x - 1), mini(GRID_COLS, marker.x + 2)):
+			cells.append(Vector2i(x, y))
+	return cells
+
+func _draw_defense_zone() -> void:
+	for cell in defense_zone_cells(objective_cell):
+		draw_colored_polygon(_iso_corners_inner(cell, 0.10), Color(1.0, 0.62, 0.18, 0.28))
+
 func _draw_objective() -> void:
 	var center := cell_to_world(objective_cell)
+	if objective_data.get("type", "") == "defend":
+		_draw_defense_zone()
 	if objective_data.get("type", "") == "containment":
 		var half_width := int(objective_data.get("breach_half_width_cells", 3))
 		for row in range(objective_cell.y - half_width, objective_cell.y + half_width + 1):

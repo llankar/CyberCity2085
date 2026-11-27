@@ -85,12 +85,18 @@ static func place_encounter(players: Array[Dictionary], enemies: Array[Dictionar
 			if best.x >= 0:
 				unit["position"] = best
 				occupied.append(best)
+	var threatened := {}
+	if objective.get("type", "") == "defend":
+		for enemy in enemies:
+			if int(enemy.get("hp", 0)) > 0:
+				for cell in Battlefield.defense_zone_cells(enemy["position"]):
+					threatened[cell] = true
 	var desired: Vector2i = objective.get("cell", origin)
 	var closest := origin
 	var distance := 99999
 	for cell: Vector2i in floor_cells:
 		var candidate_distance := absi(cell.x-desired.x) + absi(cell.y-desired.y)
-		if candidate_distance < distance and not occupied.has(cell):
+		if candidate_distance < distance and not occupied.has(cell) and not threatened.has(cell):
 			closest = cell
 			distance = candidate_distance
 	objective["cell"] = closest

@@ -267,6 +267,9 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 	var needs_marker:    bool = true
 
 	match obj_type:
+		"defend":
+			ox = int(grid_cols * 0.35); oy = int(grid_rows * 0.50)
+			label = "Hold Position"; action_key = ""
 		"containment":
 			ox = int(grid_cols * 0.35); oy = int(grid_rows * 0.50)
 			label = "Breach Zone"; action_key = ""; needs_marker = true
@@ -310,7 +313,8 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 		"field_proxy_offset": [-4, 3] if obj_type == "data_with_detour" else [],
 		"hold_turns_after_interaction": int(geometry.get("hold_turns_after_interaction", 1)) if obj_type in ["sabotage", "sabotage_window"] else 0,
 		"needs_marker":     needs_marker,
-		"interactive":      obj_type != "containment",
+		"interactive":      obj_type not in ["containment", "defend"],
+		"defend_turns_required": int(geometry.get("defend_turns_required", 4)),
 		"interact_range":   2,   # grid cells within which the player can interact
 		"breach_half_width_cells": int(geometry.get("breach_half_width_cells", 3)),
 		"active_breachers": int(geometry.get("active_breachers", 1)),

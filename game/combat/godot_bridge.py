@@ -92,6 +92,10 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
             "active_breachers": 1,
             "breach_steps_per_phase": 1,
         }
+    elif payload["objective_type"] == "defend":
+        payload["objective_geometry"] = {
+            "defend_turns_required": max(4, (mission.duration_days or 1) * 4),
+        }
     elif payload["objective_type"] in {
         "data_theft", "data_with_detour", "extract", "safe_extraction", "sabotage", "sabotage_window",
     }:
