@@ -56,6 +56,15 @@ class WastelandOutdoors:
                             (length*.012,width*.224,.09),self.steel,.016).parent = hull
                     box("Exposed cargo hold floor", (length*offset,0,.347),
                         (length*.055,width*.220,.012),self.dark,.008).parent = hull
+            else:
+                for side in (-1, 1):
+                    box("Basin wreck inner deck stringer", (-length*.06,side*width*.22,.389),
+                        (length*.30,.030,.040),self.steel,.009).parent = hull
+                for offset, angle in ((-.19,.23),(.12,-.29)):
+                    plate = box("Basin wreck buckled deck plate", (length*offset,0,.405),
+                                (length*.075,width*.14,.022),self.steel,.012)
+                    plate.rotation_euler = (.16,0,angle)
+                    plate.parent = hull
             hull.location = ((ax+bx)/2,(ay+by)/2,0)
             hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
 

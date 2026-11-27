@@ -114,6 +114,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     assert sum(part.startswith("Cargo hatch longitudinal coaming") for part in parts) == 6
                     assert sum(part.startswith("Cargo hatch end coaming") for part in parts) == 6
                     assert sum(part.startswith("Exposed cargo hold floor") for part in parts) == 3
+                else:
+                    assert sum(part.startswith("Basin wreck inner deck stringer") for part in parts) == 2
+                    assert sum(part.startswith("Basin wreck buckled deck plate") for part in parts) == 2
             surfaces = {node["name"]: node for node in nodes if node["name"].startswith("Water surface ")}
             assert surfaces.keys() == {"Water surface "+row["id"] for row in surveyed if row.get("kind") == "water"}
             assert all("mesh" in node for node in surfaces.values())
