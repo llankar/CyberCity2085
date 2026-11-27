@@ -49,6 +49,7 @@ func _ready() -> void:
    player.get_animation("AtriumWaterRipple").loop_mode = Animation.LOOP_LINEAR
    player.play("AtriumWaterRipple")
  var checked_map_materials := {}
+ var filtered_textures := {}
  for instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
   if instance.mesh == null:
    continue
@@ -59,19 +60,31 @@ func _ready() -> void:
    if material == null or checked_map_materials.has(material):
     continue
    checked_map_materials[material] = true
-   if material.resource_name not in ["Original avenue pavement", "Original rooftop artwork"]:
+   if material.resource_name not in [
+    "Original avenue pavement", "Original rooftop artwork", "Irradiated basin water",
+    "Flooded paving under shallow water", "Cratered waterfront water",
+    "Waterfront basin water", "Shallow avenue floodwater", "Bridge river water",
+   ]:
     continue
    if material.albedo_texture == null:
     continue
-   var pixels := material.albedo_texture.get_image()
-   if pixels == null or pixels.is_empty():
-    continue
-   var had_mipmaps := pixels.has_mipmaps()
-   if not had_mipmaps and pixels.generate_mipmaps() == OK:
-    material.albedo_texture = ImageTexture.create_from_image(pixels)
+   var source_texture := material.albedo_texture
+   var had_mipmaps := false
+   if filtered_textures.has(source_texture):
+    material.albedo_texture = filtered_textures[source_texture]
+   else:
+    var pixels := source_texture.get_image()
+    if pixels == null or pixels.is_empty():
+     continue
+    had_mipmaps = pixels.has_mipmaps()
+    if not had_mipmaps:
+     if pixels.generate_mipmaps() != OK:
+      continue
+     material.albedo_texture = ImageTexture.create_from_image(pixels)
+     filtered_textures[source_texture] = material.albedo_texture
    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
    if low_review or OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1":
-    print("MAP_TEXTURE_FILTER %s had_mipmaps=%s has_mipmaps=%s" % [material.resource_name, had_mipmaps, pixels.has_mipmaps()])
+    print("MAP_TEXTURE_FILTER %s had_mipmaps=%s has_mipmaps=true" % [material.resource_name, had_mipmaps])
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
   # architecture only. Recreate that visual floor in this independent review.
