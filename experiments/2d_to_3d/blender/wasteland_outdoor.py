@@ -1810,6 +1810,11 @@ class WastelandOutdoors:
                 band.name = "Convoy tank band"
                 band.data.materials.append(self.dark)
                 band.parent = group
+                if self.convoy_crossing:
+                    for side in (-1, 1):
+                        part("Convoy tanker saddle bracket",
+                             (length*offset,side*radius*.66,.725),
+                             (length*.023,radius*.27,.105), self.dark,.018)
         elif name == "convoy_me":
             for row in (-1,1):
                 for slot in (-1,0,1):

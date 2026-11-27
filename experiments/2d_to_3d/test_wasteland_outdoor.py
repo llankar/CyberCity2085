@@ -495,6 +495,7 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         if identifier == "convoy_mw":
             assert sum(part.startswith("Convoy tanker dished end") for part in parts) == 2
             assert any(part.startswith("Convoy tanker inspection hatch") for part in parts)
+            assert sum(part.startswith("Convoy tanker saddle bracket") for part in parts) == 4
         if identifier == "convoy_me":
             assert sum(part.startswith("Convoy crate lid batten") for part in parts) == 12
 
