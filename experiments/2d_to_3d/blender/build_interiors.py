@@ -100,7 +100,15 @@ def build(name):
     }
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
-    exposed_concrete_walls = name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
+    apartment_shelter = name.endswith("_apartment_shelter")
+    if apartment_shelter:
+        bedding_canvas = make_material("Shelter faded canvas", (.092,.085,.061,1), 0,.94)
+        bedding_blankets = (
+            make_material("Shelter olive blanket", (.063,.071,.043,1), 0,.96),
+            make_material("Shelter faded teal blanket", (.034,.063,.065,1), 0,.94),
+            make_material("Shelter patched brown blanket", (.079,.055,.041,1), 0,.96),
+        )
+    exposed_concrete_walls = apartment_shelter or name.endswith(("_collapsed_tunnel", "_ruined_clinic"))
     continuous_wall_uvs = exposed_concrete_walls or name.endswith(("_looted_vault", "_maintenance_depot"))
     concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
     if concrete_partitions:
@@ -370,10 +378,13 @@ def build(name):
         elif kind == "operating_table":
             build_operating_table(group, x, y, w, d, partition_cap, steel, screen)
         elif kind == "bed":
-            floor_bedding = name.endswith("_apartment_shelter") and identifier in {"bed_ne1", "bed_ne2", "bed_ne3"}
-            build_bed(group, x, y, w, d, stretcher_frame if ruined_clinic else steel, linen,
-                      stretcher_pad if ruined_clinic else trim,
-                      stretcher=ruined_clinic, floor_bedding=floor_bedding)
+            shelter_beds = ("bed_ne1", "bed_ne2", "bed_ne3")
+            if apartment_shelter and identifier in shelter_beds:
+                blanket = bedding_blankets[shelter_beds.index(identifier)]
+                build_bed(group, x, y, w, d, steel, bedding_canvas, blanket, floor_bedding=True)
+            else:
+                build_bed(group, x, y, w, d, stretcher_frame if ruined_clinic else steel, linen,
+                          stretcher_pad if ruined_clinic else trim, stretcher=ruined_clinic)
         elif (bunker and identifier in {"north_servers_w", "north_servers_e"}) or (server_map and (
             identifier.startswith(("rack_", "server_", "north_server_")) or identifier.endswith(("_rack", "_server"))
         )):
