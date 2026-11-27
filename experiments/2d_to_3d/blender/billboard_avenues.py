@@ -922,6 +922,19 @@ def build(name):
                 box(identifier + " glazing", (x,y,.95), (w*.45,d*.43,.19), seat).parent = group
                 for sx in (-1,1):
                     for sy in (-1,1):
+                        if transit_interchange and identifier.startswith("bus_"):
+                            vertical = d > w
+                            radius = .17
+                            bpy.ops.mesh.primitive_cylinder_add(
+                                vertices=16, radius=radius, depth=min(w,d)*.16,
+                                location=(x+sx*w*(.39 if vertical else .32),
+                                          y+sy*d*(.32 if vertical else .39),radius),
+                                rotation=(0,math.pi/2,0) if vertical else (math.pi/2,0,0))
+                            wheel = bpy.context.object
+                            wheel.name = identifier+" bus tire"
+                            wheel.data.materials.append(wall)
+                            wheel.parent = group
+                            continue
                         box(identifier + " wheel", (x+sx*w*.32,y+sy*d*.31,.18),
                             (w*.10,d*.16,.18), wall).parent = group
                 if transit_interchange and identifier.startswith("bus_"):
