@@ -1889,3 +1889,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RIOT-SQUARE-ROOF-HVAC / DONE for the southeast twin fan. Reused the existing surveyed HVAC builder for the polygonal roof, with a fitted mounting curb over its painted footprint. Rebuilt on E:, rendered Godot and passed 22 facade tests. Other painted rooftop fixtures remain. Next: move to a map with larger flat landmarks.
 
 - EXPERIMENTAL-FREEWAY-TRANSVERSE-CAPS / DONE. Modeled eight transverse pier caps beneath the elevated deck, spanning the paired pier lines. Rebuilt the three distinct freeway exports on E: including the shared 08/09 deck, passed 22 facade tests and rendered 08 in Godot. Next: compare the new profile at low camera and prioritize systemic silhouette gaps across the catalogue.
+
+- EXPERIMENTAL-RIOT-BARRICADE-SILHOUETTES / DONE. Rebuilt both surveyed Riot Square barricades as open steel rails on low footings, keeping their existing cutaway groups and tactical traces. Rebuilt on E:, captured the Godot overview and passed 22 facade tests. Next: compare barricade silhouettes across the Wasteland variants.

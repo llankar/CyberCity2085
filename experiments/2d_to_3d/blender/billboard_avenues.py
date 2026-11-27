@@ -812,6 +812,16 @@ def build(name):
             outward_back = x < 0 if vertical else y > 0
             group.rotation_euler.z = (math.pi/2 if vertical else 0) + (0 if outward_back else math.pi)
             continue
+        if name == "city_district_riot_square" and identifier.startswith("barricade_"):
+            box("Riot barricade footing", (x,y,.105),
+                (w*.46,d*.49,.105),wall,.025).parent = group
+            for elevation in (.31,.64):
+                box("Riot barricade rail", (x,y,elevation),
+                    (w*.15,d*.49,.038),frame,.009).parent = group
+            for offset in (-.44,-.22,0,.22,.44):
+                box("Riot barricade upright", (x,y+d*offset,.40),
+                    (w*.12,.055,.28),frame,.010).parent = group
+            continue
         if any(kind in identifier for kind in ("bench", "planter", "barrier", "barricade", "_seat")):
             if "bench" in identifier or identifier.endswith("_seat"):
                 length, depth = max(w,d), min(w,d)
