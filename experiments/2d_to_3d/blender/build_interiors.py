@@ -131,6 +131,7 @@ def build(name):
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_05_server_room", "cybercity_inner_10_penthouse_atrium",
         "cybercity_inner_13_warehouse_floor",
+        "city_industrial_data_vault",
     }
     partition_meshes = []
     for row in survey["walls"] + manifest.get("decorative", []):
@@ -218,6 +219,16 @@ def build(name):
             partition = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(partition)
             partition.parent = group
+            if name == "city_industrial_data_vault" and identifier.startswith("north_barrier_"):
+                start, end = max(zip(outline,outline[1:]+outline[:1]), key=lambda edge: math.dist(*edge))
+                dx,dy = end[0]-start[0],end[1]-start[1]
+                length = math.hypot(dx,dy)
+                midpoint = ((start[0]+end[0])/2+dy/length*.025,
+                            (start[1]+end[1])/2-dx/length*.025, 1.04)
+                strip = box("Vault barrier status light", midpoint,
+                            (min(.42,length*.22),.035,.043),screen,.01)
+                strip.rotation_euler.z = math.atan2(dy,dx)
+                strip.parent = group
             if kind == "rubble":
                 center_x = sum(x for x,y in outline)/count
                 center_y = sum(y for x,y in outline)/count

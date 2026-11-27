@@ -1825,3 +1825,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-INDUSTRIAL-VAULT-SERVER-BANKS / DONE. Replaced four generic server cabinets with detailed joined rack banks, retaining each surveyed cutaway group. Verified all four groups in the GLB, rendered the 58-mesh scene in Godot and passed nineteen interior tests. Next: compare the vault's barrier and central equipment silhouettes against source art.
 
 - EXPERIMENTAL-INDUSTRIAL-VAULT-CORE / DONE. The original depicts a squat blue data terminal. Replaced the generic vertical pod with a merged armored core, inset screen and light channels inside its surveyed footprint. Rebuilt on E:, rendered in Godot and passed nineteen interior tests. Next: review the core and partition opening from tactical camera.
+
+- EXPERIMENTAL-INDUSTRIAL-VAULT-PARTITIONS / DONE. Applied world-scale worn steel UVs to the surveyed partitions and set two cyan status lights on the northern barriers. Rebuilt on E:, passed nineteen interior tests and reached round 2 in the native Data Vault skirmish. Next: carry a comparable prop pass to another distinct map.
