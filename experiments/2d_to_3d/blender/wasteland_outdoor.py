@@ -95,6 +95,8 @@ class WastelandOutdoors:
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
+        if self.ruined_downtown:
+            self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
 
@@ -353,6 +355,16 @@ class WastelandOutdoors:
     def downtown_exposed_frame(self, group, name, x, y, width, depth):
         street_side = -1 if name.startswith("n") else 1
         height = 2.35 if name in {"nw_ruin", "se_ruin"} else 1.75
+        facade_y = y+street_side*depth*.486
+        missing_bay = -1 if name.startswith(("nw", "se")) else 1
+        for bay in (-1, 0, 1):
+            if bay == missing_bay:
+                continue
+            for offset, panel_height in ((-.075,.12), (.075,.085)):
+                box("Surviving blue facade panel", (x+(bay*.31+offset)*width, facade_y, .49),
+                    (width*.065,.021,panel_height), self.facade_blue,.012).parent = group
+            box("Corroded facade rail", (x+bay*.31*width, facade_y, .66),
+                (width*.14,.032,.025), self.steel,.01).parent = group
         for side in (-1, 1):
             box("Exposed corner column", (x+side*width*.35, y+street_side*depth*.35, height/2),
                 (.075, .075, height/2), self.steel).parent = group

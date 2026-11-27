@@ -40,6 +40,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     parts = [nodes[index]["name"] for index in node["children"]]
                     assert sum(part.startswith("Exposed corner column") for part in parts) == 2
                     assert any(part.startswith("Broken upper floor remnant") for part in parts)
+                    assert sum(part.startswith("Surviving blue facade panel") for part in parts) == 4
 
 @pytest.mark.parametrize("variant", ("03", "08"))
 def test_collapsed_span_export_includes_textured_fracture_faces(variant):

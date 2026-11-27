@@ -1559,3 +1559,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RUINED-DOWNTOWN-FRAMES / DONE for exposed structural frames on six surveyed ruins per variant. Added open girders, columns and surviving upper-floor fragments to 01 and 06. Both GLBs rebuilt on E:, ten targeted tests passed and Godot rendered 06. Next: differentiate the large wrecks and refine the damaged facades.
 
 - EXPERIMENTAL-RUINED-DOWNTOWN-HEAVY-WRECKS / DONE for three surveyed heavy wrecks per variant. Added two angled, partially roofless bus shells and a truck fitted to their original bounds in 01 and 06. Both exports rebuilt on E:, ten targeted tests passed and Godot rendered 06. Next: add original facade color and panel remnants to the ruined blocks.
+
+- EXPERIMENTAL-RUINED-DOWNTOWN-CLADDING / DONE for the surveyed street-facing ruins. Added surviving faded blue panels and corroded mounting rails, with gaps based on the orientation of each ruin. Both variants rebuilt on E:, ten targeted tests passed and Godot rendered 06. Next: inspect a different Wasteland family for larger flat structures.
