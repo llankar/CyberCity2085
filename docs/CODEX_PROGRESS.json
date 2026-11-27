@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Port sabotage counterpush timing from the existing Arcade objective, then design the currently unconnected optional field-proxy trigger."
+    "next_action": "Connect the existing optional field-proxy branch to a concrete tactical trigger and preserve objective progress through checkpoint restore."
   },
   "tasks": [
+    {
+      "id": "MISSION-SABOTAGE-HOLD",
+      "title": "Survive the Godot sabotage counterpush before victory",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/encounter_generator.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/tactical_checkpoint.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd"],
+      "tests": ["Godot fog, handoff, mission objectives and unified checkpoints: 46 passed, 5 subtests passed."],
+      "evidence": ["Native regression exercises arming, refusal to rearm, and victory or defeat at the end of the enemy phase."],
+      "remaining": []
+    },
     {
       "id": "MISSION-WITNESS-EXTRACTION",
       "title": "Separate witness pickup from evacuation in Godot",

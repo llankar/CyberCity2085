@@ -1077,7 +1077,8 @@ func _interact_with_objective() -> void:
 	var ap := int(active.get("ap", 0))
 	if ap <= 0: return
 	if not _objective_interaction_available():
-		status_line = "Objective in progress. Continue next squad turn."
+		status_line = "Charge armed. Survive the counterpush." if objective.has("hold_until_turn") \
+			else "Objective in progress. Continue next squad turn."
 		_sync_display()
 		return
 
@@ -1095,6 +1096,13 @@ func _interact_with_objective() -> void:
 	CombatSignals.audio_event.emit("terminal" if action_key in ["HACK", "SABOTAGE", "RETRIEVE", "PLANT", "SEARCH", "REPAIR", "ACTIVATE"] else "door_open")
 
 	if objective_progress >= needed:
+		var hold_turns := int(objective.get("hold_turns_after_interaction", 0))
+		if hold_turns > 0:
+			objective["hold_until_turn"] = turn_number + hold_turns
+			status_line = "Charge armed. Survive the counterpush."
+			_log_event(status_line)
+			_sync_display()
+			return
 		objective_completed = true
 		var line := "%s: %s — OBJECTIVE COMPLETE!" % [
 				str(active.get("name", "Agent")), label]
@@ -1696,6 +1704,12 @@ func _resolve_enemy_turn() -> void:
 	if _player_alive_count() == 0:
 		_end_combat("defeat")
 		return
+	if objective.has("hold_until_turn"):
+		if turn_number >= int(objective["hold_until_turn"]):
+			objective_completed = true
+			_complete_mission()
+			return
+		status_line = "Charge armed. Survive the counterpush."
 	_banner.show_banner("player", turn_number)
 	CombatSignals.turn_changed.emit("player", turn_number)
 	CombatSignals.audio_event.emit("turn_player")
@@ -1969,7 +1983,7 @@ func _is_cell_occupied(cell: Vector2i, exclude_player: int, exclude_enemy: int) 
 
 func _complete_mission() -> void:
 	turn_side   = "ended"
-	status_line = "Extraction clear. Mission complete."
+	status_line = "Relay destroyed. Mission complete." if objective.has("hold_until_turn") else "Mission complete."
 	_log_event("── MISSION COMPLETE ──")
 	_refresh_initiative()
 	_sync_display()
@@ -2374,7 +2388,8 @@ func _assassination_target_index() -> int:
 	return target
 
 func _objective_interaction_available() -> bool:
-	return not objective.get("once_per_turn", false) or int(objective.get("last_interaction_turn", -1)) != turn_number
+	return not objective.has("hold_until_turn") and (not objective.get("once_per_turn", false) \
+		or int(objective.get("last_interaction_turn", -1)) != turn_number)
 
 func _elimination_objective_met() -> bool:
 	var target := _assassination_target_index()

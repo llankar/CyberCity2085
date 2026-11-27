@@ -1,5 +1,14 @@
 extends SceneTree
 
+class ResultSink extends Control:
+	var outcome := ""
+
+	func show_banner(_side: String, _turn: int) -> void:
+		pass
+
+	func show_results(result: String, _data: Dictionary, _root: String, _pipe: String, _audio) -> void:
+		outcome = result
+
 func _initialize() -> void:
 	call_deferred("run")
 
@@ -143,6 +152,30 @@ func run() -> void:
 	assert(not board.find_path(witness, exit).is_empty(), "extraction stays reachable")
 	assert(board.objective_cell == exit and mission.objective.label == "Reach Extraction")
 	assert(not mission.objective_completed and not mission._objective_interaction_available())
+	mission.objective = generator.build_objective("sabotage_window", 40, 28)
+	mission.objective_progress = 0
+	mission.player_units[0].ap = 3
+	mission._interact_with_objective()
+	assert(not mission.objective_completed)
+	assert(mission.objective.hold_until_turn == mission.turn_number + 1)
+	mission._interact_with_objective()
+	assert(mission.player_units[0].ap == 2, "arming only spends AP once")
+	assert(not mission._elimination_objective_met(), "clearing hostiles cannot skip the hold")
+	var sink := ResultSink.new()
+	mission._banner = sink
+	mission._results = sink
+	mission.player_units[0]["name"] = "Witness Escort"
+	mission.player_units[0]["max_hp"] = 20
+	var armed_turn: int = mission.turn_number
+	for survives in [true, false]:
+		mission.turn_number = armed_turn
+		mission.turn_side = "enemy"
+		mission.objective_completed = false
+		mission.player_units[0].hp = 20 if survives else 0
+		mission._resolve_enemy_turn()
+		assert(sink.outcome == ("victory" if survives else "defeat"))
+		assert(mission.objective_completed == survives)
+	sink.free()
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")
