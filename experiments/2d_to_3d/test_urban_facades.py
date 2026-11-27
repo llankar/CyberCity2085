@@ -235,3 +235,7 @@ def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
     assert {"Civic weathered concrete", "Original rooftop artwork"} <= textured
     if name == "city_district_riot_square":
         assert any(" civic facade band" in part["name"] for part in parts)
+        monument = next(node for node in nodes if node["name"] == "Occludable_statue_planter")
+        monument_parts = {nodes[index]["name"] for index in monument["children"]}
+        assert {"Monument lower octagon", "Monument upper plinth",
+                "Monument tapered bronze sculpture", "Monument bronze crest"} <= monument_parts

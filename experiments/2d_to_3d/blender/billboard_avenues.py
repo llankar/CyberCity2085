@@ -342,7 +342,36 @@ def build(name):
                     x = sum(px for px,_ in points)/count
                     y = sum(py for _,py in points)/count
                     box(identifier + " central support", (x,y,.58), (.10,.10,.36), frame).parent = group
-                    if identifier in {"monument_planter", "statue_planter"}:
+                    if identifier == "statue_planter":
+                        bronze = make_material("Riot Square aged bronze", (.18,.107,.058,1), .72,.51)
+                        for label, radius, z, depth, material in (
+                            ("Monument lower octagon", .92, .39, .16, frame),
+                            ("Monument bronze molding", .73, .51, .082, bronze),
+                            ("Monument upper plinth", .55, .64, .21, wall),
+                        ):
+                            bpy.ops.mesh.primitive_cylinder_add(
+                                vertices=8, radius=radius, depth=depth, location=(x,y,z)
+                            )
+                            piece = bpy.context.object
+                            piece.name = label
+                            piece.data.materials.append(material)
+                            piece.parent = group
+                        bpy.ops.mesh.primitive_cone_add(vertices=8, radius1=.37, radius2=.18,
+                                                        depth=.72, location=(x,y,1.10))
+                        column = bpy.context.object
+                        column.name = "Monument tapered bronze sculpture"
+                        column.rotation_euler.y = -.19
+                        column.data.materials.append(bronze)
+                        column.parent = group
+                        bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=8,
+                            major_radius=.31, minor_radius=.064, location=(x-.07,y,1.46),
+                            rotation=(math.pi/2,.12,0))
+                        crest = bpy.context.object
+                        crest.name = "Monument bronze crest"
+                        crest.data.materials.append(bronze)
+                        crest.parent = group
+                        monument_center = Vector((x,y,0))
+                    elif identifier == "monument_planter":
                         box("Civic monument pedestal", (x,y,.47), (.58,.54,.19), frame).parent = group
                         box("Civic monument beacon", (x,y,1.02), (.14,.14,.11), signs[2]).parent = group
                 vertices = [Vector((x,y,0)) for x,y in points]
@@ -356,6 +385,8 @@ def build(name):
                     radius = min(.31,math.sqrt(area)*.47)
                     z = 1.03 if "_tree" in identifier else height+.11
                     for index, point in enumerate(cluster):
+                        if identifier == "statue_planter" and (point-monument_center).length < 1.10:
+                            continue
                         bpy.ops.mesh.primitive_ico_sphere_add(
                             subdivisions=2, radius=1, location=(point.x,point.y,z)
                         )
