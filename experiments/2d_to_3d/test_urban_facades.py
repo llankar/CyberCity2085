@@ -112,6 +112,12 @@ def test_holo_square_exports_occludable_obstacles_and_landmark():
     parts = {nodes[index]["name"] for index in platform["children"]}
     assert {"Holo Square emitter", "Holo Square projection core"} <= parts
     assert sum(part.startswith("Holo Square projection ring ") for part in parts) == 4
+    for corner in ("nw", "ne", "sw", "se"):
+        label = f"sign_{corner}_base"
+        island = nodes[roots[f"Occludable_{label}"][0]]
+        parts = [nodes[index]["name"] for index in island["children"]]
+        assert f"{label} display bezel" in parts
+        assert sum(part.startswith(f"{label} display") and "bezel" not in part for part in parts) == 2
 
 
 @pytest.mark.parametrize(("variant", "count"), [("05", 10), ("10", 8), ("11", 8)])

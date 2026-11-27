@@ -616,10 +616,21 @@ def build(name):
                     core.data.materials.append(signs[0])
                     core.parent = island
                 else:
-                    box(identifier+" projector", (sx,sy,.55),
-                        ((max(widths)-min(widths))*.18,(max(depth)-min(depth))*.16,.32), frame).parent = island
-                    box(identifier+" display", (sx,sy,1.04),
-                        ((max(widths)-min(widths))*.26,.026,.29), signs[i%len(signs)]).parent = island
+                    half_width = (max(widths)-min(widths))*.26
+                    yaw = .52 if sx*sy > 0 else -.52
+                    box(identifier+" projector", (sx,sy,.39),
+                        (half_width*.69,.18,.22),frame,.028).parent = island
+                    bezel = box(identifier+" display bezel", (sx,sy,.99),
+                                (half_width,.061,.43),frame,.028)
+                    bezel.rotation_euler.z = yaw
+                    bezel.parent = island
+                    sign_material = signs[1] if identifier == "sign_sw_base" else signs[0]
+                    for side in (-1,1):
+                        panel = box(identifier+" display", (sx-side*math.sin(yaw)*.064,
+                                    sy+side*math.cos(yaw)*.064,1.02),
+                                    (half_width*.84,.013,.35),sign_material,.014)
+                        panel.rotation_euler.z = yaw
+                        panel.parent = island
             continue
         if "rect" in row:
             x1, y1, x2, y2 = row["rect"]
