@@ -637,6 +637,9 @@ def build(name):
             build_facility_fixture(group, fixture, x, y, w, d, steel, partition_cap, console_glass)
         elif apartment_shelter and kind == "table":
             build_facility_fixture(group, "shelter_table", x, y, w, d, shelter_wood, shelter_iron, screen)
+        elif looted_vault and kind == "table":
+            build_facility_fixture(group, "vault_looters_table", x, y, w, d,
+                                   steel, partition_cap, rail)
         elif relay_room and kind in {"table", "console"}:
             build_facility_fixture(group, "relay_console", x, y, w, d,
                                    server_housing, partition_cap, console_glass)

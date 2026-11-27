@@ -499,6 +499,15 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
             part("Clinic idle terminal", length*offset,width*.13,1.045,.17,.045,.15,steel)
         part("Clinic records tray", length*.04,width*.14,.877,.16,.11,.022,trim)
         merge_fixture_meshes(group, "Ruined clinic reception")
+    elif kind == "vault_looters_table":
+        for end in (-1, 1):
+            part("Salvage table trestle", end*length*.33,0,.34,.047,width*.38,.34,trim)
+        part("Salvage table worktop", 0,0,.70,length*.47,width*.44,.046,steel)
+        part("Salvage sorting tray", -length*.20,width*.09,.782,length*.20,width*.22,.036,trim)
+        for offset, inset in ((-.29,.15),(-.12,.03),(.24,-.08)):
+            part("Discarded vault fitting", offset*length,inset*width,.829,
+                 length*.059,width*.076,.036,screen)
+        merge_fixture_meshes(group, "Vault salvage sorting table")
     elif kind == "vault_display":
         part("Vault display cabinet", 0,0,.32,length*.41,width*.39,.32,trim)
         part("Vault display tray", 0,0,.66,length*.44,width*.43,.046,steel)

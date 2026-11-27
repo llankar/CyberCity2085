@@ -464,6 +464,9 @@ def test_interior_maps_export_remaining_fixture_groups():
             "core": "Vault lid locking boss",
             "table_nw": "Vault broken glazing",
             "table_se": "Vault broken glazing",
+            "ne_desk": "Vault salvage sorting table",
+            "sw_desk": "Vault salvage sorting table",
+            "se_desk": "Vault salvage sorting table",
             **{f"vault_wall_{side}": "Vault ring marker lens" for side in ("nw", "ne", "sw", "se")},
         }
     for name, fixtures_to_check in additions.items():
