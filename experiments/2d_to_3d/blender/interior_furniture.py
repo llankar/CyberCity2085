@@ -459,6 +459,16 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+    elif kind == "relay_core":
+        part("Relay recessed base", 0,0,.13,length*.46,width*.44,.13,trim)
+        for lane in (-1, 0, 1):
+            across = lane*width*.265
+            part("Relay processor enclosure", 0,across,.57,length*.40,width*.119,.31,steel)
+            for bay in (-1, 0, 1):
+                along = bay*length*.24
+                part("Relay processor access plate", along,across,.893,length*.102,width*.096,.017,trim)
+                part("Relay processor status strip", along,across,.913,length*.062,width*.018,.009,screen)
+        merge_fixture_meshes(group, "Wasteland relay processor array")
     elif kind == "data_core":
         part("Data core floor plinth", 0,0,.14,length*.47,width*.47,.14,trim)
         part("Armored data core chassis", 0,0,.56,length*.34,width*.35,.40,steel)

@@ -149,7 +149,7 @@ def build(name):
     server_housing = make_material("Server bank graphite", (.025,.041,.053,1), .59,.64) if server_map or bunker or relay_room else None
     checkpoint = name == "city_industrial_security_checkpoint"
     warning = make_material("Checkpoint amber hardware", (.48,.24,.045,1), .55,.51) if checkpoint else None
-    textured_partitions = server_map or name in {
+    textured_partitions = relay_room or server_map or name in {
         "city_interior_blacksite_lab", "city_interior_medical_clinic",
         "city_interior_safehouse", "city_interior_cyber_cafe", "city_industrial_service_tunnel",
         "cybercity_inner_10_penthouse_atrium",
@@ -343,6 +343,8 @@ def build(name):
                 group.matrix_world = Matrix.Translation(pivot) @ Matrix.Rotation(angle,4,"Z") @ Matrix.Translation(-pivot)
             else:
                 build_facility_fixture(group, kind, x, y, w, d, steel, partition_cap, screen)
+        elif relay_room and kind == "data_core":
+            build_facility_fixture(group, "relay_core", x, y, w, d, server_housing, partition_cap, console_glass)
         elif kind in {"meeting_table", "inspection_pit", "spare_tires", "command_console", "command_wall", "command_table", "vault_core", "clinic_reception", "shelter_kitchen", "records_desk", "data_core"}:
             fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
             build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, screen)
