@@ -151,7 +151,8 @@ class WastelandOutdoors:
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
                  scavenger_plaza=False, ruined_transit=False, cratered_waterfront=False,
-                 salt_flat=False, dust_road=False, wrecked_highway=False, trainyard=False):
+                 salt_flat=False, dust_road=False, wrecked_highway=False, trainyard=False,
+                 convoy_crossing=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -177,6 +178,7 @@ class WastelandOutdoors:
             self.blue_sheet = make_material("Weathered blue corrugated steel", (.055,.13,.17,1), .52,.78)
         self.wrecked_highway = wrecked_highway
         self.trainyard = trainyard
+        self.convoy_crossing = convoy_crossing
         self.workshop_surface = None
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
@@ -385,6 +387,8 @@ class WastelandOutdoors:
         yaw = math.pi/2 if vertical else 0
         wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34,
                      "wreck_far_e": -.09, "wreck_middle5": -.12}
+        convoy_flatbeds = {"wreck_w": .24, "wreck_ne": .37,
+                           "wreck_se": -.46, "wreck_southwest": .22}
         if self.trainyard and ("wagon" in name or name == "north_tank"):
             if name == "wagon_turntable":
                 yaw = math.atan2(54*self.gh/self.ch, 66*self.gw/self.cw)
@@ -414,6 +418,12 @@ class WastelandOutdoors:
             # Counter the convoy placement half-turn so the cab follows the reference axis.
             self.convoy_vehicle(group, "convoy_mw" if tanker else name,
                                 x, y, length*fit, breadth*fit, angle+math.pi)
+        elif self.convoy_crossing and name in convoy_flatbeds:
+            angle = convoy_flatbeds[name]
+            breadth = min(breadth, length*.38)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.convoy_vehicle(group, name, x, y, length*fit, breadth*fit, angle)
         elif self.wrecked_highway and name in wreck_yaws:
             angle = -wreck_yaws[name]
             c,s = abs(math.cos(angle)),abs(math.sin(angle))

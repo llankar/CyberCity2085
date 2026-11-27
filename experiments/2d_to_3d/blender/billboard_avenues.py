@@ -347,7 +347,8 @@ def build(name):
                                    salt_flat=name.endswith("_salt_flat_ambush"),
                                    dust_road=name.endswith("_dust_road_ambush"),
                                    wrecked_highway=name.endswith("_wrecked_highway"),
-                                   trainyard=name.endswith("_rusted_trainyard"))
+                                   trainyard=name.endswith("_rusted_trainyard"),
+                                   convoy_crossing=name.endswith("_convoy_crossing"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
     civic_surface = textured_material(

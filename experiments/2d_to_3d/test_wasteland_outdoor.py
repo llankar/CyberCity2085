@@ -43,6 +43,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                                           ("truck_e", "Wreck flatbed side rail")):
                 wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert any(nodes[i]["name"].startswith(component) for i in wreck["children"])
+        if name.endswith("_convoy_crossing"):
+            for identifier in ("wreck_w", "wreck_ne", "wreck_se", "wreck_southwest"):
+                wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
+                           for i in wreck["children"]) == 7
         if name.endswith("_salt_flat_ambush"):
             for row in surveyed:
                 if "points" not in row:
