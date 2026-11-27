@@ -162,3 +162,23 @@ def test_factory_console_and_shelf_groups_are_native_geometry():
     for identifier in ("west_console", "east_console", "mid_console", "north_left_shelf", "north_right_shelf"):
         group = groups[f"Occludable_{identifier}"]
         assert any("mesh" in nodes[index] for index in group["children"])
+
+def test_dockside_exports_all_surveyed_forklifts():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/dockside338/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Dockside Terminal on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    forklifts = [node for node in nodes if node["name"].startswith("Occludable_")
+                 and node["name"].endswith("_forklift")]
+    assert len(forklifts) == 8
+    for forklift in forklifts:
+        parts = [nodes[index]["name"] for index in forklift["children"]]
+        assert sum(" fork" in part for part in parts) == 2
+        assert sum(" wheel" in part for part in parts) == 4

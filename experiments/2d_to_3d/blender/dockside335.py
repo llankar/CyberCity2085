@@ -12,6 +12,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place
 from shipping_container import build_container
 from loading_crane import build_crane
+from industrial_forklift import build_forklift
 
 started = time.perf_counter()
 root = Path(__file__).resolve().parents[3]
@@ -33,14 +34,18 @@ skins = {key: make_material("Dockside container "+key, (*color,1), .65,.63)
          for key,color in (("green",(.062,.15,.14)),("blue",(.044,.093,.22)),("red",(.24,.063,.034)))}
 steel = make_material("Dockside door hardware", (.075,.11,.15,1), .65,.48)
 beam = make_material("Dockside locking rods", (.52,.17,.028,1), .45,.48)
-instances = containers = barriers = cranes = 0
+instances = containers = barriers = cranes = forklifts = 0
+converted = set()
 for row in survey["walls"]:
     identifier = row["id"]
     is_container = "container" in identifier
     is_barrier = identifier.startswith("quay_barrier_")
     is_crane = identifier.startswith("crane_")
-    if identifier not in selected and not (is_container or is_barrier or is_crane):
+    is_forklift = identifier.endswith("_forklift")
+    is_cargo = identifier.endswith(("_crates", "_crate"))
+    if identifier not in selected and not (is_container or is_barrier or is_crane or is_forklift or is_cargo):
         continue
+    converted.add(identifier)
     xs, ys = zip(*row["polygon"])
     a, c, b, d = min(xs), max(xs), min(ys), max(ys)
     if is_crane:
@@ -71,6 +76,9 @@ for row in survey["walls"]:
         build_container(group,x,y,length,thickness,skins[color],steel,beam,
                         yaw=math.pi/2 if vertical else 0)
         containers += 1
+    elif is_forklift:
+        build_forklift(group, identifier, x, y, width, depth, beam, steel)
+        forklifts += 1
     elif identifier.endswith("generator"):
         vertical = depth > width
         length, thickness = (depth,width) if vertical else (width,depth)
@@ -78,10 +86,16 @@ for row in survey["walls"]:
               yaw=math.pi/2 if vertical else 0)
         instances += 1
     else:
-        for offset in (-.25,.25):
-            place(cargo, group, (x+offset*width,y,0), (width*.45,depth*.92,1.05))
+        vertical = depth > width
+        length, thickness = (depth,width) if vertical else (width,depth)
+        count = 1 if length < thickness*1.35 else 2
+        for index in range(count):
+            offset = ((index+.5)/count-.5)*length
+            position = (x if vertical else x+offset, y+offset if vertical else y, 0)
+            place(cargo, group, position, (length*.92/count,thickness*.92,1.05),
+                  yaw=math.pi/2 if vertical else 0, merge=True)
             instances += 1
-assert instances == 4 and containers == 9 and barriers == 3 and cranes == 2
+assert containers == 9 and barriers == 3 and cranes == 2 and forklifts == 8
 floor = make_material("Dockside source ground", (.13,.15,.17,1), .05,.84)
 nodes = floor.node_tree.nodes
 texture = nodes.new("ShaderNodeTexImage")
@@ -96,6 +110,6 @@ bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_forma
 elapsed = round(time.perf_counter()-started, 2)
 (output / "assembly.json").write_text(json.dumps({
     "map": name, "instances": instances, "containers": containers, "barriers": barriers, "cranes": cranes, "reused_model_families": 4,
-    "new_model_families": 1, "blender_seconds": elapsed, "converted_groups": sorted(selected)
+    "new_model_families": 1, "blender_seconds": elapsed, "forklifts": forklifts, "converted_groups": sorted(converted)
 }, indent=2))
 print("DOCKSIDE338_EXPORTED", instances, elapsed)
