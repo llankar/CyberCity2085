@@ -1,4 +1,4 @@
-﻿import json
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -44,7 +44,7 @@ class TacticalPreviewTest(unittest.TestCase):
     def test_oracle_has_independent_psi_ap_and_can_receive_adjacent_aid(self):
         preview = scenario_preview("metro")
         sniper, oracle = (preview.units[key] for key in ("ally:0", "ally:1"))
-        self.assertTrue(preview.action("move", "ally:0", destination=[17, 14])["success"])
+        self.assertTrue(preview.action("move", "ally:0", destination=[17, 13])["success"])
         oracle.health = oracle.stats.hp = 6
         self.assertTrue(preview.action("first_aid", "ally:0", target_id="ally:1")["success"])
         self.assertEqual(oracle.health, 8)
@@ -78,7 +78,7 @@ class TacticalPreviewTest(unittest.TestCase):
         self.assertEqual(ally.action_points, 2)
 
     def test_rooftop_canyons_block_movement_without_spending_ap(self):
-        cases = (("rooftop", (19, 4), [18, 4]), ("skybridge", (15, 12), [16, 12]))
+        cases = (("rooftop", (19, 3), [18, 3]), ("skybridge", (15, 11), [16, 11]))
         for name, start, destination in cases:
             with self.subTest(map=name):
                 preview = scenario_preview(name)
@@ -128,7 +128,7 @@ class TacticalPreviewTest(unittest.TestCase):
         ally = preview.units["ally:0"]
         enemy = preview.units["enemy:0"]
         position = enemy.position
-        enemy.position = (7 * CELL_SIZE, 11 * CELL_SIZE)
+        enemy.position = (7 * CELL_SIZE, 10 * CELL_SIZE)
         hint = preview.snapshot()["units"][0]["targeting"]["enemy:0"]["fire"]
         self.assertTrue(hint["line_blocked"])
         self.assertTrue(hint["in_range"])
@@ -154,6 +154,14 @@ class TacticalPreviewTest(unittest.TestCase):
                 preview = scenario_preview(key)
                 terrain = preview.engine.terrain_profile
                 map_names.add(Path(terrain.image_path).stem)
+                geometry = json.loads(Path(terrain.image_path).with_suffix(".walls.json").read_text())
+                width, height = geometry["grid"]
+                authored_blocked = {tuple(cell) for wall in geometry["walls"] for cell in wall["cells"]}
+                presented_blocked = {
+                    (column, row) for column in range(width) for row in range(height)
+                    if (column * CELL_SIZE, (height - 1 - row) * CELL_SIZE) not in terrain.walkable_cells
+                }
+                self.assertEqual(authored_blocked, presented_blocked)
                 positions = {unit.position for unit in preview.units.values()}
                 self.assertEqual(len(positions), 3)
                 self.assertTrue(positions <= terrain.walkable_cells)

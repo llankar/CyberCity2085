@@ -19,7 +19,7 @@ from game.character import Character
 from game.cover_system import CoverNode
 from game.management.equipment import default_equipment_catalog, equip_starter_loadout
 from game.map_geometry import load_map_geometry
-from game.map_terrain import build_terrain_profile
+from game.map_terrain import TerrainProfile
 from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_mailbox import TacticalMailbox
@@ -27,16 +27,16 @@ from tactical_preview import TacticalPreview
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 SCENARIOS = {
-    "warehouse": ("city_industrial_warehouse_floor", (19, 14), (29, 14)),
-    "metro": ("city_transit_metro_interchange", (16, 14), (23, 14)),
-    "downtown": ("city_exterior_downtown_intersection", (18, 10), (25, 10)),
-    "rooftop": ("city_exterior_rooftop_access", (12, 12), (18, 12)),
-    "skybridge": ("city_rooftop_skybridge_spine", (14, 12), (20, 12)),
-    "factory": ("city_industrial_factory_floor", (15, 11), (22, 11)),
-    "lab": ("city_interior_research_lab", (16, 14), (23, 14)),
-    "apartments": ("city_district_apartment_block", (21, 12), (28, 12)),
-    "ashfield": ("wasteland_outdoor_02_ashfield_ruins", (18, 14), (25, 14)),
-    "substation": ("city_industrial_power_substation", (21, 10), (28, 10)),
+    "warehouse": ("city_industrial_warehouse_floor", (19, 13), (29, 13)),
+    "metro": ("city_transit_metro_interchange", (16, 13), (23, 13)),
+    "downtown": ("city_exterior_downtown_intersection", (18, 9), (25, 9)),
+    "rooftop": ("city_exterior_rooftop_access", (12, 11), (18, 11)),
+    "skybridge": ("city_rooftop_skybridge_spine", (14, 11), (20, 11)),
+    "factory": ("city_industrial_factory_floor", (15, 10), (22, 10)),
+    "lab": ("city_interior_research_lab", (16, 13), (23, 13)),
+    "apartments": ("city_district_apartment_block", (21, 11), (28, 11)),
+    "ashfield": ("wasteland_outdoor_02_ashfield_ruins", (18, 13), (25, 13)),
+    "substation": ("city_industrial_power_substation", (21, 9), (28, 9)),
 }
 TITLES = {
     "warehouse": "Warehouse", "metro": "Metro Interchange", "downtown": "Downtown Intersection",
@@ -45,10 +45,10 @@ TITLES = {
     "ashfield": "Ashfield Ruins", "substation": "Power Substation",
 }
 SUPPORT_CELLS = {
-    "warehouse": (20, 15), "metro": (17, 13), "downtown": (19, 11),
-    "rooftop": (13, 13), "skybridge": (15, 11),
-    "factory": (16, 10), "lab": (17, 13), "apartments": (22, 13),
-    "ashfield": (19, 13), "substation": (22, 9),
+    "warehouse": (20, 14), "metro": (17, 12), "downtown": (19, 10),
+    "rooftop": (13, 12), "skybridge": (15, 10),
+    "factory": (16, 9), "lab": (17, 12), "apartments": (22, 12),
+    "ashfield": (19, 12), "substation": (22, 8),
 }
 CATALOG = Path(__file__).with_name("godot") / "preproduction_catalog.json"
 
@@ -91,12 +91,22 @@ def scenario_preview(scenario: str) -> TacticalPreview:
     map_name = SCENARIOS[scenario][0] if scenario in SCENARIOS else scenario
     background = ROOT / "assets/maps" / f"{map_name}.png"
     geometry = load_map_geometry(background)
-    if not geometry:
-        raise RuntimeError(f"Invalid original map geometry: {map_name}")
-    width, height = geometry["grid"]
-    terrain = build_terrain_profile(str(background), width * CELL_SIZE, height * CELL_SIZE)
-    if terrain.source != "manual_wall_traces_v1":
+    if not geometry or not geometry.get("reviewed") or geometry.get("method") != "manual_wall_traces_v1":
         raise RuntimeError(f"Tactical geometry is unavailable: {map_name}")
+    width, height = geometry["grid"]
+
+    def world_cell(column, row):
+        # Godot draws cell centres from the source texture's top-left origin.
+        return column * CELL_SIZE, (height - 1 - row) * CELL_SIZE
+
+    walls = geometry["walls"]
+    blocked = {world_cell(*cell) for wall in walls for cell in wall["cells"]}
+    opaque = {world_cell(*cell) for wall in walls if wall.get("blocks_sight", True)
+              for cell in wall["cells"]}
+    walkable = {world_cell(column, row) for column in range(width) for row in range(height)} - blocked
+    terrain = TerrainProfile(str(background), width * CELL_SIZE, height * CELL_SIZE, CELL_SIZE,
+                             frozenset(walkable), 255, source=geometry["method"],
+                             sight_blocked_cells=frozenset(opaque))
 
     if scenario in SCENARIOS:
         _, ally_cell, enemy_cell = SCENARIOS[scenario]
