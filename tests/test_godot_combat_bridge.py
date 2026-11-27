@@ -41,6 +41,18 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_rescue_and_recon_share_arcade_marker_offsets(self) -> None:
+        state = GameState(characters=[Character("Vera")], selected_agent_names=["Vera"])
+        mission = _mission()
+        for kind, offsets in (("civilian_rescue", [[2, -1], [-2, -2]]),
+                              ("recon_scan", [[3, 0], [1, -3]])):
+            with self.subTest(kind=kind):
+                mission.objective_type = kind
+                geometry = build_godot_combat_payload(state, mission)["mission"]["objective_geometry"]
+                self.assertEqual(geometry["required_interactions"], 3)
+                self.assertEqual(geometry["phase_offsets"], offsets)
+                self.assertEqual(len(geometry["phase_labels"]), 3)
+
     def test_data_detour_uses_two_interaction_turns(self) -> None:
         mission = _mission()
         mission.objective_type = "data_with_detour"

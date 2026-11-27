@@ -98,6 +98,7 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
         }
     elif payload["objective_type"] in {
         "data_theft", "data_with_detour", "extract", "safe_extraction", "sabotage", "sabotage_window",
+        "civilian_rescue", "recon_scan",
     }:
         from game.mission_objectives import GRID_SIZE, create_battle_objective
 
@@ -110,6 +111,11 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
             x, y = objective.marker_positions[1]
             # Arcade's world Y points up while Godot's grid rows point down.
             payload["objective_geometry"]["extraction_offset"] = [x // GRID_SIZE, -y // GRID_SIZE]
+        if objective.kind in {"civilian_rescue", "recon_scan"}:
+            payload["objective_geometry"]["phase_offsets"] = [
+                [x // GRID_SIZE, -y // GRID_SIZE] for x, y in objective.marker_positions[1:]
+            ]
+            payload["objective_geometry"]["phase_labels"] = objective.phase_labels
         if objective.hold_turns_after_interaction:
             payload["objective_geometry"]["hold_turns_after_interaction"] = objective.hold_turns_after_interaction
     return payload

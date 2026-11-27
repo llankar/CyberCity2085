@@ -265,6 +265,8 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 	var action_key:      String
 	var progress_needed: int  = 1
 	var needs_marker:    bool = true
+	var phase_offsets: Array = []
+	var phase_labels: Array = []
 
 	match obj_type:
 		"defend":
@@ -283,7 +285,13 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 			progress_needed = int(geometry.get("required_interactions", 2))
 		"extraction", "extract_vip":
 			label = "Extract VIP";    action_key = "EXTRACT"
-		"rescue_hostage", "rescue", "civilian_rescue":
+		"civilian_rescue":
+			action_key = "RESCUE"
+			phase_offsets = geometry.get("phase_offsets", [[2, -1], [-2, -2]])
+			phase_labels = geometry.get("phase_labels", ["GROUP ALPHA", "GROUP BETA", "GROUP GAMMA"])
+			label = str(phase_labels[0])
+			progress_needed = int(geometry.get("required_interactions", 3))
+		"rescue_hostage", "rescue":
 			label = "Free Hostage";   action_key = "RESCUE"
 		"sabotage", "demolition", "destroy_target", "sabotage_window":
 			label = "Sabotage";       action_key = "SABOTAGE"
@@ -293,7 +301,13 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 			label = "Retrieve";       action_key = "RETRIEVE"
 		"plant_explosive", "bomb_plant":
 			label = "Plant Bomb";     action_key = "PLANT"
-		"investigate", "search", "patrol", "recon_scan":
+		"recon_scan":
+			action_key = "SEARCH"
+			phase_offsets = geometry.get("phase_offsets", [[3, 0], [1, -3]])
+			phase_labels = geometry.get("phase_labels", ["SCAN ALPHA", "SCAN BETA", "SCAN GAMMA"])
+			label = str(phase_labels[0])
+			progress_needed = int(geometry.get("required_interactions", 3))
+		"investigate", "search", "patrol":
 			label = "Investigate";    action_key = "SEARCH"; progress_needed = 3
 		"repair", "fix":
 			label = "Repair";         action_key = "REPAIR"
@@ -308,7 +322,9 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
 		"label":            label,
 		"action_key":       action_key,
 		"progress_needed":  progress_needed,
-		"once_per_turn":    bool(geometry.get("once_per_turn", obj_type in ["data_theft", "data_with_detour", "safe_extraction", "extract"])),
+		"once_per_turn":    bool(geometry.get("once_per_turn", not phase_offsets.is_empty() or obj_type in ["data_theft", "data_with_detour", "safe_extraction", "extract"])),
+		"phase_offsets":    phase_offsets,
+		"phase_labels":     phase_labels,
 		"extraction_offset": geometry.get("extraction_offset", [-4, 3]) if obj_type in ["extract", "safe_extraction"] else [],
 		"field_proxy_offset": [-4, 3] if obj_type == "data_with_detour" else [],
 		"hold_turns_after_interaction": int(geometry.get("hold_turns_after_interaction", 1)) if obj_type in ["sabotage", "sabotage_window"] else 0,

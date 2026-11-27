@@ -85,6 +85,10 @@ static func validate(snapshot: Dictionary, scene: Node) -> String:
 	if not state.get("objective") is Dictionary or not _cell(state.objective.get("cell"), scene.GRID_COLS, scene.GRID_ROWS): return "Invalid objective"
 	if state.objective.has("extraction_cell") and not _cell(state.objective.extraction_cell, scene.GRID_COLS, scene.GRID_ROWS): return "Invalid extraction cell"
 	if state.objective.has("field_proxy_cell") and not _cell(state.objective.field_proxy_cell, scene.GRID_COLS, scene.GRID_ROWS): return "Invalid field proxy cell"
+	var phase_cells: Variant = state.objective.get("phase_cells", [])
+	if not phase_cells is Array or phase_cells.size() > 2: return "Invalid objective phase cells"
+	for cell in phase_cells:
+		if not _cell(cell, scene.GRID_COLS, scene.GRID_ROWS): return "Invalid objective phase cell"
 	if state.objective.has("hold_until_turn") and not _integer(state.objective.hold_until_turn, int(state.turn_number), 100001): return "Invalid objective hold deadline"
 	if state.objective.has("last_interaction_turn") and not _integer(state.objective.last_interaction_turn, 1, int(state.turn_number)): return "Invalid objective interaction turn"
 	var facings: Variant = snapshot.get("token_facings", {})

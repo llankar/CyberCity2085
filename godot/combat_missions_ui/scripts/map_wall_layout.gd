@@ -113,3 +113,19 @@ static func place_encounter(players: Array[Dictionary], enemies: Array[Dictionar
 			if separation > int(objective.get("interact_range", 2)) and candidate_distance < exit_distance and not occupied.has(cell):
 				objective[marker + "_cell"] = [cell.x, cell.y]
 				exit_distance = candidate_distance
+	var offsets: Array = objective.get("phase_offsets", [])
+	if not offsets.is_empty():
+		var used: Array[Vector2i] = [closest]
+		var followups: Array = []
+		for offset in offsets:
+			var preferred := closest + Vector2i(int(offset[0]), int(offset[1]))
+			var next := used.back() as Vector2i
+			var best_distance := 99999
+			for cell in floor_cells:
+				var candidate_distance := absi(cell.x-preferred.x) + absi(cell.y-preferred.y)
+				if candidate_distance < best_distance and not used.has(cell) and not occupied.has(cell):
+					next = cell
+					best_distance = candidate_distance
+			used.append(next)
+			followups.append([next.x, next.y])
+		objective["phase_cells"] = followups

@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Port Arcade's three civilian rescue stages and reachable markers to the Godot objective."
+    "next_action": "Audit whether tactical objective progress affects the campaign debrief and consequences on partial rescue and mission failure."
   },
   "tasks": [
+    {
+      "id": "MISSION-RESCUE-RECON-STAGES",
+      "title": "Deliver three sequential civilian rescue and recon markers in Godot",
+      "status": "DONE",
+      "files": ["game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/encounter_generator.gd", "godot/combat_missions_ui/scripts/map_wall_layout.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/tactical_checkpoint.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd", "tests/test_godot_combat_bridge.py"],
+      "tests": ["Godot native, handoff, mission objectives and unified checkpoints: 47 passed, 7 subtests passed."],
+      "evidence": ["Native scene reaches victory after three distinct reachable markers on separate squad turns for both mission types. Python handoff test checks canonical marker offsets and stage count."],
+      "remaining": ["If deployment leaves too few unoccupied floor tiles the final stage stays at the preceding marker."]
+    },
     {
       "id": "MISSION-DEFENSE-ZONE",
       "title": "Resolve Godot defense by holding the marked zone",

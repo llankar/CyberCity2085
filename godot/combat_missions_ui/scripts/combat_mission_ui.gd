@@ -1122,6 +1122,12 @@ func _interact_with_objective() -> void:
 		var exit_cell: Array = objective.get("extraction_cell", [])
 		if exit_cell.size() == 2:
 			_move_objective_marker(exit_cell, "Reach Extraction")
+		var phase_cells: Array = objective.get("phase_cells", [])
+		var phase_labels: Array = objective.get("phase_labels", [])
+		if objective_progress <= phase_cells.size() and objective_progress < phase_labels.size():
+			var next_label := str(phase_labels[objective_progress])
+			_move_objective_marker(phase_cells[objective_progress - 1], next_label)
+			branch_note = "Next marker: %s. Continue next squad turn." % next_label
 		var line := "%s: %s (%d/%d)" % [
 				str(active.get("name", "Agent")), label,
 				objective_progress, int(objective.get("progress_needed", needed))]
@@ -2623,6 +2629,9 @@ func _update_visual_context() -> void:
 	elif objective.get("type", "") == "defend":
 		_hud.objective_text = "HOLD %d/%d // Keep hostiles outside the marked zone." % [
 			objective_progress, int(objective.get("defend_turns_required", 4))]
+	elif not objective.get("phase_labels", []).is_empty():
+		_hud.objective_text = "%d/%d // %s" % [
+			objective_progress, int(objective.get("progress_needed", 1)), str(objective.get("label", ""))]
 	else:
 		_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}

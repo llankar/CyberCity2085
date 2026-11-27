@@ -221,6 +221,29 @@ func run() -> void:
 	mission.enemy_units[0].position = Vector2i(15, 14)
 	layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
 	assert(not mission._defense_zone_breached(), "deployment cannot place a guard inside the marked defense zone")
+	mission.enemy_units.clear()
+	for kind in ["civilian_rescue", "recon_scan"]:
+		mission.objective = generator.build_objective(kind, 40, 28)
+		mission.objective_progress = 0
+		mission.objective_completed = false
+		sink.outcome = ""
+		layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
+		var visited: Array[Vector2i] = []
+		for step in range(3):
+			var marker: Vector2i = mission.objective.cell
+			assert(not board.is_wall(marker) and marker not in visited)
+			if not visited.is_empty():
+				assert(not board.find_path(visited.back(), marker).is_empty())
+			visited.append(marker)
+			assert(mission.objective.label == mission.objective.phase_labels[step])
+			mission.player_units[0].position = marker
+			mission.player_units[0].ap = 2
+			mission._interact_with_objective()
+			assert(mission.objective_progress == step + 1)
+			if step < 2:
+				assert(sink.outcome.is_empty() and not mission._objective_interaction_available())
+			mission.turn_number += 1
+		assert(sink.outcome == "victory" and mission.objective_completed)
 	sink.free()
 	mission.free()
 	board.free()
