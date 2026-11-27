@@ -1577,3 +1577,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FLOODED-CIVIC-BUS / DONE for the west-side wreck in variants 04 and 09. Reused the open bus shell, angled and fitted to the surveyed footprint on both maps. Both exports rebuilt on E:, ten focused tests passed and variant 09 rendered in Godot. Next: compare Scavenger Plaza against its original makeshift barriers and structures.
 
 - EXPERIMENTAL-SCAVENGER-PLAZA-BARRICADES / DONE for both traced barricades on 05 and 10. Replaced uniform concrete with scrap metal panels braced along the original polylines. Both GLBs rebuilt on E:, ten targeted tests passed and Godot rendered variant 10. Next: differentiate the salvaged stalls from one another using the source canopy layout.
+
+- EXPERIMENTAL-SCAVENGER-PLAZA-STALLS / DONE for twelve traced stalls per map in variants 05 and 10. Replaced repeated shop instances with open parts counters and single or paired canvas covers fitted to the source color layout. Both GLBs rebuilt on E:, ten tests passed and variant 10 rendered in Godot. Next: differentiate the vehicle hulks and preserve more of the perimeter ruin silhouettes.

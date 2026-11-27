@@ -85,7 +85,7 @@ class WastelandOutdoors:
 
     def __init__(self, library, grid, canvas, *, city=False, overpass=False,
                  ruined_downtown=False, burned_market=False, flooded_square=False,
-                 wrecked_highway=False, trainyard=False):
+                 scavenger_plaza=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
@@ -94,6 +94,13 @@ class WastelandOutdoors:
         self.ruined_downtown = ruined_downtown
         self.burned_market = burned_market
         self.flooded_square = flooded_square
+        self.scavenger_plaza = scavenger_plaza
+        if scavenger_plaza:
+            self.stall_fabric = {
+                label: make_material(f"Salvaged canvas {label}", (*color,1), .02,.93)
+                for label, color in (("rust", (.28,.12,.08)), ("sand", (.31,.24,.15)),
+                                     ("blue", (.065,.14,.19)), ("olive", (.14,.16,.09)))
+            }
         if burned_market:
             self.scorched_canvas = make_material("Scorched market canvas", (.23,.16,.10,1), .03,.93)
             self.red_canvas = make_material("Scorched rust-red canvas", (.23,.065,.037,1), .03,.94)
@@ -337,6 +344,8 @@ class WastelandOutdoors:
                   (length*.97,breadth*.97,1.42), yaw=yaw)
         elif self.burned_market and "stall" in name:
             self.burned_market_stall(group, name, x, y, length, breadth, yaw)
+        elif self.scavenger_plaza and name.startswith("market_"):
+            self.scavenger_stall(group, name, x, y, length, breadth, yaw)
         elif "stall" in name or name.startswith("market_"):
             place(self.library / "market_southeast_display/shop.glb", group, (x,y,0),
                   (length*.96,breadth*.96,1.6), yaw=yaw, merge=True)
@@ -443,6 +452,38 @@ class WastelandOutdoors:
                                       (width*.11, depth*.16, .065))
             piece.rotation_euler.y = offset
             piece.parent = group
+
+    def scavenger_stall(self, group, name, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw
+        covers = {
+            "market_nw": ("rust",), "market_n": ("sand","olive"),
+            "market_ne": ("sand","blue"), "market_w": ("blue",),
+            "market_sw": ("blue","rust"), "market_e": ("olive",),
+            "market_south": ("sand","blue"), "market_sw2": ("rust","sand"),
+            "market_se2": ("blue",),
+        }
+        box("Salvaged market counter", (0,0,.36), (length*.43,width*.27,.22), self.steel).parent = group
+        for offset in (-.32, 0, .30):
+            box("Scavenger parts bin", (length*offset,0,.64),
+                (length*.085,width*.15,.075), self.dark).parent = group
+        fabrics = covers.get(name, ())
+        for index, fabric in enumerate(fabrics):
+            half = length*(.20 if len(fabrics) == 2 else .26)
+            center = length*((index-.5)*.45 if len(fabrics) == 2 else .14)
+            depth = width*.40
+            for side in (-1,1):
+                for end in (-1,1):
+                    box("Salvaged canopy post", (center+end*half,side*depth,.58),
+                        (.037,.037,.58), self.dark).parent = group
+            mesh = bpy.data.meshes.new("Salvaged canvas")
+            mesh.from_pydata([(center-half,-depth,1.14), (center+half,-depth,1.16),
+                              (center+half,depth,1.12), (center-half,depth,1.15),
+                              (center,0,1.32)], [], [(0,1,4),(1,2,4),(2,3,4),(3,0,4)])
+            mesh.materials.append(self.stall_fabric[fabric])
+            cloth = bpy.data.objects.new("Salvaged canopy "+fabric, mesh)
+            bpy.context.collection.objects.link(cloth)
+            cloth.parent = group
 
     def burned_market_stall(self, group, name, x, y, length, width, yaw):
         group.location = (x, y, 0)

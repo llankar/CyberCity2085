@@ -29,6 +29,12 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_scavenger_plaza"):
+            for identifier, fabrics in (("market_n", {"sand", "olive"}), ("market_center", set())):
+                stall = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                parts = [nodes[i]["name"] for i in stall["children"]]
+                assert sum(part.startswith("Scavenger parts bin") for part in parts) == 3
+                assert {part.split()[2].split(".")[0] for part in parts
+                        if part.startswith("Salvaged canopy ") and "post" not in part} == fabrics
             for row in surveyed:
                 if row["id"] not in {"northeast_barricade", "southwest_barricade"}:
                     continue
