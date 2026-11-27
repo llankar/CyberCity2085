@@ -1725,3 +1725,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-ROOF-BATCH / DONE for five additional source-matched roof fans. Placed them on the north-east, west, east and southern roofs of Transit Interchange 11/12 using the existing module. Rebuilt the shared GLB, rendered 315 meshes in Godot and passed four catalogue tests. Next: assess a separate transport map or consolidate the next set of surveyed props.
 
 - EXPERIMENTAL-TRANSIT-06-ROOF-EQUIPMENT / DONE for six surveyed placements. Reused the roof fan module across five buildings, matching footprints to the original 06 artwork. Rebuilt the GLB on E:, rendered 235 meshes in Godot and passed four catalogue tests. Next: shift from isolated roof details to another family with larger reconstruction gaps.
+
+- EXPERIMENTAL-BRIDGE-GUARDRAILS / DONE. Reused the galvanized beam, posts, and reflectors on the two surveyed Bridge Access rails. Rebuilt the shared 14/15 model on E:, rendered 152 meshes in Godot, and passed four catalogue tests. Next: review bridge deck and river height separation.

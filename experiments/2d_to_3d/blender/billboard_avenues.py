@@ -286,7 +286,8 @@ def build(name):
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
     if wasteland and wasteland.trainyard:
         wasteland.workshop_surface = roof
-    guardrail_steel = make_material("Freeway galvanized steel", (.25,.30,.34,1), .73,.53) if freeway else None
+    bridge_access = name.endswith("_bridge_access")
+    guardrail_steel = make_material("Galvanized guardrail steel", (.25,.30,.34,1), .73,.53) if freeway or bridge_access else None
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
         if row.get("kind") == "water":
@@ -296,15 +297,16 @@ def build(name):
             continue
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
+            steel_guardrail = freeway or (bridge_access and identifier.startswith("bridge_") and identifier.endswith("_rail"))
             group = None
-            if freeway or name in ROOFTOPS or name == "city_district_civic_center":
+            if steel_guardrail or name in ROOFTOPS or name == "city_district_civic_center":
                 group = bpy.data.objects.new("Occludable_" + identifier, None)
                 bpy.context.collection.objects.link(group)
             for segment, ((ax,ay),(bx,by)) in enumerate(zip(points, points[1:])):
                 width = row["width"] * gw/cw
                 length = math.hypot(bx-ax, by-ay)
                 yaw = math.atan2(by-ay,bx-ax)
-                if freeway:
+                if steel_guardrail:
                     beam = box(identifier+" steel beam", ((ax+bx)/2,(ay+by)/2,.54),
                                (length/2,width*.37,.067), guardrail_steel,.015)
                     beam.rotation_euler.z = yaw
