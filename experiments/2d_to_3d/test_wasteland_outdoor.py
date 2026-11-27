@@ -558,6 +558,12 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
             surfaces = data["meshes"][node["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in surfaces}
             assert "Original rooftop artwork" in materials and len(materials) == 2
+            if node["name"].split(".")[0] in {"Convoy cab", "Convoy tanker vessel"}:
+                assert "Convoy worn body steel" in materials
+                steel = next(material for material in data["materials"]
+                             if material["name"] == "Convoy worn body steel")
+                assert "normalTexture" in steel
+                assert "metallicRoughnessTexture" in steel["pbrMetallicRoughness"]
         assert sum(part.startswith("Convoy grille louver") for part in parts) == 3
         assert sum(part.startswith("Convoy headlamp lens") for part in parts) == 2
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6

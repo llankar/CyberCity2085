@@ -272,6 +272,21 @@ class WastelandOutdoors:
             self.deck_backing = self.seam.copy()
             self.deck_backing.name = "Road fracture backing"
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
+        if convoy_crossing:
+            self.convoy_steel = self.steel.copy()
+            self.convoy_steel.name = "Convoy worn body steel"
+            tree = self.convoy_steel.node_tree
+            shader = tree.nodes["Principled BSDF"]
+            texture_root = library.parents[1] / "sources/environment169/blue_metal_plate"
+            normal = tree.nodes.new("ShaderNodeNormalMap")
+            normal.inputs["Strength"].default_value = .34
+            for filename, target in (("rough.jpg", shader.inputs["Roughness"]),
+                                     ("nor_gl.jpg", normal.inputs["Color"])):
+                image = tree.nodes.new("ShaderNodeTexImage")
+                image.image = bpy.data.images.load(str(texture_root / filename), check_existing=True)
+                image.image.colorspace_settings.name = "Non-Color"
+                tree.links.new(image.outputs["Color"], target)
+            tree.links.new(normal.outputs["Normal"], shader.inputs["Normal"])
         if self.ruined_downtown or self.flooded_square or self.ruined_transit or self.cratered_waterfront:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
@@ -1781,7 +1796,8 @@ class WastelandOutdoors:
             project_art(obj, source)
 
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
-        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel,
+        body_steel = self.convoy_steel if self.convoy_crossing else self.steel
+        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), body_steel,
              source=cab_sources.get(name))
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
         if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
@@ -1824,7 +1840,7 @@ class WastelandOutdoors:
                 depth=length*.59, location=(-length*.13,0,1.04), rotation=(0,math.pi/2,0))
             tank = bpy.context.object
             tank.name = "Convoy tanker vessel"
-            tank.data.materials.append(self.steel)
+            tank.data.materials.append(body_steel)
             tank.parent = group
             if group.name == "Occludable_convoy_mw":
                 project_art(tank, (316,238,419,273), min_up=.30)
@@ -1839,7 +1855,7 @@ class WastelandOutdoors:
                     cap.scale.x = min(.10,length*.025)/radius
                     for face in cap.data.polygons:
                         face.use_smooth = True
-                    cap.data.materials.append(self.steel)
+                    cap.data.materials.append(body_steel)
                     cap.parent = group
                 bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius*.42,
                     depth=.072, location=(-length*.13,0,1.06+radius))
