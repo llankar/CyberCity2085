@@ -1028,8 +1028,20 @@ def build(name):
             box("Freight wagon underframe", (x,y,.20),
                 (length*.48,width*.44,.09),rail_web,.018).parent = wagon
             for side in (-1,1):
-                box("Freight wagon bogie", (x+side*length*.29,y,.095),
-                    (length*.105,width*.38,.095),rail_web,.028).parent = wagon
+                bogie_x = x+side*length*.29
+                box("Freight wagon bogie", (bogie_x,y,.134),
+                    (length*.105,width*.29,.055),rail_web,.028).parent = wagon
+                for axle in (-1,1):
+                    for wheel_side in (-1,1):
+                        bpy.ops.mesh.primitive_cylinder_add(
+                            vertices=12, radius=.085, depth=.048,
+                            location=(bogie_x+axle*length*.057,y+wheel_side*width*.30,.074),
+                            rotation=(math.pi/2,0,0),
+                        )
+                        wheel = bpy.context.object
+                        wheel.name = "Freight wagon steel wheel"
+                        wheel.data.materials.append(railhead)
+                        wheel.parent = wagon
             load = build_container(wagon, x, y, length*.95, width*.90,
                                    wagon_skin, railhead, rail_web)
             load.scale.z = .40

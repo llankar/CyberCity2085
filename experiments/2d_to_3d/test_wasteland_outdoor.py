@@ -25,6 +25,7 @@ def test_freight_yard_has_four_complete_rail_profiles():
     for wagon in wagons:
         parts = [nodes[index]["name"] for index in wagon["children"]]
         assert sum(part.startswith("Freight wagon bogie") for part in parts) == 2
+        assert sum(part.startswith("Freight wagon steel wheel") for part in parts) == 8
         assert any(part.startswith("Warehouse shipping container") for part in parts)
 
 
