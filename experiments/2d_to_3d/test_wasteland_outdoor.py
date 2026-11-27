@@ -333,6 +333,11 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert any(part.startswith(load) for part in parts), identifier
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
+        if identifier == "convoy_mw":
+            assert sum(part.startswith("Convoy tanker dished end") for part in parts) == 2
+            assert any(part.startswith("Convoy tanker inspection hatch") for part in parts)
+        if identifier == "convoy_me":
+            assert sum(part.startswith("Convoy crate lid batten") for part in parts) == 12
 
 
 @pytest.mark.parametrize("variant", ("03", "08"))

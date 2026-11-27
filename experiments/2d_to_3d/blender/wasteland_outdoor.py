@@ -1320,22 +1320,6 @@ class WastelandOutdoors:
             tank.name = "Rail tanker cylinder"
             tank.data.materials.append(self.steel)
             tank.parent = group
-            if self.convoy_crossing:
-                radius = min(.43,width*.33)
-                for end in (-.425,.165):
-                    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12,
-                        radius=radius, location=(length*end,0,1.04))
-                    cap = bpy.context.object
-                    cap.name = "Convoy tanker dished end"
-                    cap.scale.x = min(.10,length*.025)/radius
-                    cap.data.materials.append(self.steel)
-                    cap.parent = group
-                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius*.42,
-                    depth=.072, location=(-length*.13,0,1.06+radius))
-                hatch = bpy.context.object
-                hatch.name = "Convoy tanker inspection hatch"
-                hatch.data.materials.append(self.dark)
-                hatch.parent = group
             for offset in (-.31,0,.31):
                 bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
                     major_radius=radius, minor_radius=.019,
@@ -1409,6 +1393,22 @@ class WastelandOutdoors:
             tank.name = "Convoy tanker vessel"
             tank.data.materials.append(self.steel)
             tank.parent = group
+            if self.convoy_crossing:
+                radius = min(.43,width*.33)
+                for end in (-.425,.165):
+                    bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12,
+                        radius=radius, location=(length*end,0,1.04))
+                    cap = bpy.context.object
+                    cap.name = "Convoy tanker dished end"
+                    cap.scale.x = min(.10,length*.025)/radius
+                    cap.data.materials.append(self.steel)
+                    cap.parent = group
+                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius*.42,
+                    depth=.072, location=(-length*.13,0,1.06+radius))
+                hatch = bpy.context.object
+                hatch.name = "Convoy tanker inspection hatch"
+                hatch.data.materials.append(self.dark)
+                hatch.parent = group
             for offset in (-.31,.03):
                 bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
                     major_radius=min(.43,width*.33), minor_radius=.023,
