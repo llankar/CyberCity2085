@@ -1967,9 +1967,28 @@ class WastelandOutdoors:
             for side in (-1,1):
                 part("Wreck flatbed side rail", (-length*.135,side*width*.365,.75),
                      (length*.291,.036,.081),self.steel,.012)
-            for slot in range(7):
-                part("Wreck flatbed crossmember", ((-.395+slot*.085)*length,0,.668),
+            crossmember_offsets = (-.40,-.14,.107) if stripped_flatbed else tuple(
+                -.395+slot*.085 for slot in range(7)
+            )
+            for offset in crossmember_offsets:
+                part("Wreck flatbed crossmember", (offset*length,0,.668),
                      (length*.021,width*.348,.028),self.dark,.009)
+            if stripped_flatbed:
+                for offset in (-.35,-.19):
+                    bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=.052,
+                        depth=width*.72, location=(length*offset,0,wheel_radius),
+                        rotation=(math.pi/2,0,0))
+                    axle = bpy.context.object
+                    axle.name = "Wreck exposed rear axle"
+                    axle.data.materials.append(body_steel)
+                    axle.parent = group
+                bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=.047,
+                    depth=length*.49, location=(-length*.079,0,wheel_radius+.018),
+                    rotation=(0,math.pi/2,0))
+                shaft = bpy.context.object
+                shaft.name = "Wreck exposed drive shaft"
+                shaft.data.materials.append(body_steel)
+                shaft.parent = group
         else:
             tarp = self.canvas
             if self.convoy_crossing:

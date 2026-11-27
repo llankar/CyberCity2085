@@ -235,7 +235,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
             for identifier in ("wreck_w", "wreck_ne", "wreck_se", "wreck_southwest"):
                 wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
-                           for i in wreck["children"]) == 7
+                           for i in wreck["children"]) == 3
         if name.endswith("_salt_flat_ambush"):
             poles = [node for node in nodes if node["name"].startswith("Salt flat abandoned utility pole")]
             assert len(poles) == 4
@@ -563,6 +563,8 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
     assert flatbeds
     for parts in flatbeds:
         assert sum(part.startswith("Wreck exposed frame rail") for part in parts) == 2
+        assert sum(part.startswith("Wreck exposed rear axle") for part in parts) == 2
+        assert sum(part.startswith("Wreck exposed drive shaft") for part in parts) == 1
         assert not any(part.startswith("Convoy cargo bed") for part in parts)
     for identifier, load in {
         "convoy_w": "Convoy tarpaulin load", "convoy_mw": "Convoy tanker vessel",
