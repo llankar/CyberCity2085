@@ -893,7 +893,8 @@ def build(name):
             build_crane(group, x, y, w, d, frame, shipping_skins[1],
                         height=3.8, outreach=min(2.65, max(w,d)),
                         basin_depth=DOCK_BASIN_DEPTH, submerged_feet=submerged_feet,
-                        compact_footings=name == "city_transit_freight_yard")
+                        compact_footings=name == "city_transit_freight_yard",
+                        lattice_jib=name == "city_transit_freight_yard")
             continue
         if "container" in identifier or "cargo" in identifier:
             vertical = d > w

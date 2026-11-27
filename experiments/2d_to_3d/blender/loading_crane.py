@@ -38,6 +38,13 @@ def build_crane(group, x, y, width, depth, steel, beam, *, height, outreach=2.65
         for side in (-1, 1):
             member("Freight crane end post", (x,y+side*chord_span*.5,height+chord_height*.5),
                    (.105,.085,chord_height*.5), steel)
+            # Brace the upper leg back into the span, above the wagon clearance.
+            brace_run = min(.75, chord_span*.19)
+            brace_rise = .72
+            member("Freight crane knee brace",
+                   (x,y+side*(chord_span-brace_run)*.5,height-brace_rise*.5),
+                   (.09,math.hypot(brace_run,brace_rise)*.5,.085), steel)
+            parts[-1].rotation_euler.x = -side*math.atan2(brace_rise,brace_run)
     # The jib extends toward the harbor, above ground level.
     if lattice_jib:
         rise = .34

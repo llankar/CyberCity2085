@@ -70,6 +70,13 @@ def test_freight_yard_has_four_complete_rail_profiles():
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
         gltf = json.loads(model.read(size))
     nodes = gltf["nodes"]
+    cranes = [node for node in nodes if node["name"].startswith("Dockside loading crane")]
+    assert len(cranes) == 3
+    for crane in cranes:
+        primitives = gltf["meshes"][crane["mesh"]]["primitives"]
+        triangle_indices = sum(gltf["accessors"][part["indices"]]["count"] for part in primitives)
+        # Guard against exporting the simpler solid-jib portal in the freight yard.
+        assert triangle_indices >= 864
     for component in ("running rail", "rail web", "rail foot"):
         rails = [node for node in nodes if node["name"].startswith(f"Freight yard {component}")]
         assert len(rails) == 4
