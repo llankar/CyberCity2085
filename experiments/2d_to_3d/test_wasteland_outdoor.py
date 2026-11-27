@@ -326,7 +326,8 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         pytest.skip("Build Convoy Crossing on E: first")
     with path.open("rb") as model:
         size = struct.unpack("<4sIII4s", model.read(20))[3]
-        nodes = json.loads(model.read(size))["nodes"]
+        data = json.loads(model.read(size))
+    nodes = data["nodes"]
     groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
     for identifier, load in {
         "convoy_w": "Convoy tarpaulin load", "convoy_mw": "Convoy tanker vessel",
@@ -336,6 +337,12 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert any(part.startswith(load) for part in parts), identifier
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
+        for index in groups[f"Occludable_{identifier}"]:
+            wheel = nodes[index]
+            if wheel["name"].startswith("Convoy wheel"):
+                primitive = data["meshes"][wheel["mesh"]]["primitives"][0]
+                positions = data["accessors"][primitive["attributes"]["POSITION"]]
+                assert wheel["translation"][1] == pytest.approx(positions["max"][0], abs=1e-5)
         if identifier == "convoy_mw":
             assert sum(part.startswith("Convoy tanker dished end") for part in parts) == 2
             assert any(part.startswith("Convoy tanker inspection hatch") for part in parts)
