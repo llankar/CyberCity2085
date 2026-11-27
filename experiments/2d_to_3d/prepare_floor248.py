@@ -287,6 +287,11 @@ def main():
         result = restore_donor_pavement(result, original, {**survey, "walls": crossings}, crossing_donors)
     if args.map.endswith("_rusted_trainyard"):
         result = restore_donor_pavement(result, original, survey, {"wagon_turntable": (642,196,710,232)})
+    if args.map == "wasteland_city_11_ruined_transit_plaza":
+        # Sample the same horizontal track so the rail and sleeper heights
+        # line up across the area formerly occupied by the painted car.
+        result = restore_donor_pavement(result, original, survey,
+                                        {"south_carriage_art": (52,453,256,502)})
     if args.map.endswith("_flooded_civic_square"):
         sx = result.width / survey["canvas_size"][0]
         sy = result.height / survey["canvas_size"][1]
