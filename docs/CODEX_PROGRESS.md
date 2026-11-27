@@ -1931,3 +1931,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-FLOOD-PRONE-ROOF-FANS / DONE. Traced two paired ventilation units on the northwest and southeast roofs of the shared Street 13/14 map and fitted the existing 3D fan modules. Rebuilt on E:, loaded Street 13 in Godot and passed eleven terrain tests. Next: review larger street-level features across distinct exterior families.
 
 - EXPERIMENTAL-FLOOD-PRONE-STREET-BARRIERS / DONE. Rebuilt six surveyed barriers with segmented concrete, steel caps and paired amber reflectors. Preserved cover traces and tested the shared Street 13/14 render through Street 14. Eleven terrain tests passed. Next: assess the remaining vehicle angles and larger landmarks across the family.
+
+- EXPERIMENTAL-FLOOD-PRONE-VEHICLE-ANGLES / DONE. Matched four diagonal cars to the source with the fitted-yaw placement shared by Downtown and Parking Garage. Rebuilt the Street 13/14 GLB, captured Street 13 in Godot and passed eleven terrain tests. Next: pivot from individual placements to a comparative review by map family.

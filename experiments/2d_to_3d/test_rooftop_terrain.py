@@ -47,6 +47,9 @@ def test_native_export_preserves_terrain_levels(map_name):
             name.startswith("Quay rubber fender") for name in nodes
         )
     elif map_name == FLOODED_AVENUE:
+        for car in ("car_mid", "car_e", "car_s", "car_nw"):
+            parts = [data["nodes"][index] for index in nodes[f"Occludable_{car}"]["children"]]
+            assert any(.10 < abs(part.get("rotation", [0, 0])[1]) < .65 for part in parts)
         for identifier in ("barrier_nw", "barrier_nw2", "barrier_sw", "barrier_sw2", "barrier_e", "barrier_ne"):
             parts = [data["nodes"][index]["name"] for index in nodes[f"Occludable_{identifier}"]["children"]]
             sections = sum(part.startswith("Flood barrier concrete section") for part in parts)

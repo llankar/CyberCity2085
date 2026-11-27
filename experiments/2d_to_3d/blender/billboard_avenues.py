@@ -101,6 +101,9 @@ SURVEYED_CAR_ANGLES = {
     "city_exterior_parking_garage": {
         "car_n4": -57, "car_w": 19, "car_mideast": -22,
     },
+    "cybercity_street_13_flood_prone_avenue": {
+        "car_mid": -18, "car_e": 29, "car_s": -67, "car_nw": -33,
+    },
 }
 
 BUILDING_EXCEPTIONS = {
