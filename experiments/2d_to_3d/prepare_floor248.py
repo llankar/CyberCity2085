@@ -231,6 +231,18 @@ def main():
         ImageOps.colorize(concrete.convert("L"), "#151f27", "#667685").save(out / "facade_concrete.png")
     if args.surface_detail:
         result = restore_surface_detail(result, mask, Image.open(args.surface_detail), max(16, result.width//40))
+    if args.map.endswith("_transit_interchange"):
+        cw, ch = survey["canvas_size"]
+        sx, sy = result.width/cw, result.height/ch
+        shelter_repairs = np.zeros_like(mask)
+        for row in survey["walls"]:
+            if row["id"].startswith("station_") and "rect" in row:
+                left, top, right, bottom = row["rect"]
+                shelter_repairs[round(top*sy):round(bottom*sy), round(left*sx):round(right*sx)] = 255
+        sample = (170,232,213,248) if args.map.startswith("cybercity_street_06_") else (232,230,276,243)
+        left, top, right, bottom = sample
+        paving = original.crop((round(left*sx),round(top*sy),round(right*sx),round(bottom*sy)))
+        result = restore_surface_detail(result, shelter_repairs & mask, paving, round(28*sx))
     if args.map.endswith(("_scavenger_plaza", "_burned_market_block")):
         cw, ch = survey["canvas_size"]
         sx, sy = result.width/cw, result.height/ch
