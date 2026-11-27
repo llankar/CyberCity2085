@@ -4,8 +4,12 @@ import bpy
 from create_hardsurface_crate import box
 
 
-def build_container(group, x, y, w, d, container_skin, steel, beam, yaw=0.0):
+def build_container(group, x, y, w, d, container_skin, steel, beam, yaw=0.0, *, ribbed_roof=False):
     parts = [box("Container body", (0,0,.88), (w*.46,d*.44,.88), container_skin)]
+    if ribbed_roof:
+        for offset in (-.32,-.16,0,.16,.32):
+            parts.append(box("Container roof stiffener", (w*offset,0,1.765),
+                             (min(.035,w*.017),d*.41,.022),container_skin,.008))
     for side in (-1, 1):
         for rib in range(11):
             parts.append(box("Container corrugation", ((rib-5)*w*.078,side*d*.45,.88),

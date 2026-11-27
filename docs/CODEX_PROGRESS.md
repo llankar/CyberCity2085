@@ -2217,3 +2217,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-TICKET-FIXTURES / DONE for export and native loading. Added a ticket reader and recessed dispensing tray to both ticket machines in the shared 11/12 scene. Rebuilt on E:, loaded in Godot, refreshed the two comparisons and passed four outdoor tests. Next: compare a different transit family against its source layout.
 
 - EXPERIMENTAL-FREIGHT-RAIL-SPLICES / DONE for export and native loading. Added paired splice plates to each of the four running rails, leaving the surveyed track routes and original sleepers intact. Rebuilt Freight Yard on E:, loaded it in Godot, refreshed the comparison and passed eleven outdoor tests. Next: inspect the yard crossings at combat zoom.
+
+- EXPERIMENTAL-FREIGHT-CONTAINER-ROOF-RELIEF / DONE for export and native loading. Compared the yard plate and added roof stiffeners to the stationary containers, joined into their existing meshes. Rebuilt on E:, loaded the scene in Godot, refreshed the comparison and passed eleven outdoor tests. Next: refine the blurred paving under the cranes without touching rail continuity.
