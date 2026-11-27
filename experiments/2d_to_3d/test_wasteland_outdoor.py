@@ -10,6 +10,17 @@ import pytest
 from catalogue_test_assets import catalogue_environment
 
 
+def assert_road_cap_above_backing(data, fragment):
+    materials = data["materials"]
+    primitives = data["meshes"][fragment["mesh"]]["primitives"]
+    by_material = {materials[part["material"]]["name"]: part for part in primitives}
+    cap = by_material["Original rooftop artwork"]["attributes"]
+    backing = by_material["Road fracture backing"]["attributes"]
+    accessors = data["accessors"]
+    assert "TEXCOORD_0" in cap
+    assert accessors[cap["POSITION"]]["min"][1] > accessors[backing["POSITION"]]["max"][1]
+
+
 def test_ashfield_exposed_wall_uprights_have_grounded_plates():
     model = catalogue_environment("wasteland_outdoor_02_ashfield_ruins")
     if not model.is_file():
@@ -429,15 +440,7 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
         assert f"Occludable_{obstacle}" in root_nodes
         fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
                         if nodes[index]["name"] == obstacle)
-        faces = data["meshes"][fragment["mesh"]]["primitives"]
-        exposed = next(part for part in faces
-                       if data["materials"][part["material"]]["name"] == "Original rooftop artwork")
-        assert "TEXCOORD_0" in exposed["attributes"]
-        dark = next(part for part in faces
-                    if data["materials"][part["material"]]["name"] == "Dark fractured concrete edge")
-        assert data["accessors"][exposed["attributes"]["POSITION"]]["max"][1] > (
-            data["accessors"][dark["attributes"]["POSITION"]]["max"][1]
-        )
+        assert_road_cap_above_backing(data, fragment)
         roadbed = root_nodes[f"{obstacle} retained roadbed"]
         materials = {primitive["material"] for primitive in data["meshes"][roadbed["mesh"]]["primitives"]}
         assert aggregate in materials
@@ -511,6 +514,7 @@ def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
         materials = {data["materials"][primitive["material"]]["name"]
                      for primitive in data["meshes"][deck["mesh"]]["primitives"]}
         assert {"Original rooftop artwork", "Exposed concrete aggregate"} <= materials
+        assert_road_cap_above_backing(data, deck)
 
 
 @pytest.mark.parametrize("variant", ("04", "09"))

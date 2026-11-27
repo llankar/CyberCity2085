@@ -268,6 +268,9 @@ class WastelandOutdoors:
             links.new(detail.outputs["Color"], normal.inputs["Color"])
             links.new(normal.outputs["Normal"], shader.inputs["Normal"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
+        if overpass or wrecked_highway:
+            self.deck_backing = self.seam.copy()
+            self.deck_backing.name = "Road fracture backing"
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
         if self.ruined_downtown or self.flooded_square or self.ruined_transit or self.cratered_waterfront:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
@@ -479,6 +482,8 @@ class WastelandOutdoors:
                 textured_top = self.surveyed_surface is not None
                 if textured_top:
                     mesh.materials.append(self.surveyed_surface)
+                mesh.materials.append(self.deck_backing)
+                mesh.polygons[1].material_index = len(mesh.materials)-1
                 for index, face in enumerate(mesh.polygons[2+2*n:]):
                     face.material_index = 1 if index%4 == 0 else 0
                     if textured_top and index%4 == 0:
