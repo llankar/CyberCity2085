@@ -131,6 +131,10 @@ def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
     assert any(part.startswith("Turntable circular rim") for part in parts)
     assert sum(part.startswith("Turntable bridge rail") for part in parts) == 2
     assert sum(part.startswith("Turntable sleeper") for part in parts) == 15
+    for identifier, fragments in (("northwest_ruin", 3), ("northeast_ruin", 2)):
+        parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+        assert sum(part.startswith("Broken workshop frontage") for part in parts) == fragments
+        assert any(part.startswith("Workshop rear wall") for part in parts)
 
 
 def test_turntable_ballast_stays_inside_the_wagon_footprint():

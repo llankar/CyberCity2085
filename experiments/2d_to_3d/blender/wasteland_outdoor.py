@@ -250,6 +250,8 @@ class WastelandOutdoors:
                     box(name, (x+(0 if vertical else offset*w),y+(offset*d if vertical else 0),.12+.19*layer),
                         (w*(.41 if vertical else .146),d*(.146 if vertical else .41),.11),
                         self.canvas, .08).parent = group
+        elif self.trainyard and name in {"northwest_ruin", "northeast_ruin"}:
+            self.trainyard_workshop_ruin(group, name, x, y, w, d)
         elif self.city and ("ruin" in name or name == "ne_corner"):
             self.concrete_box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16)).parent = group
             for side in (-1,1):
@@ -264,6 +266,24 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def trainyard_workshop_ruin(self, group, name, x, y, width, depth):
+        # The survey covers roofless workshops, with the surviving walls at
+        # the back and an open, broken edge toward the north siding.
+        self.concrete_box("Workshop slab", (x, y, .035),
+                          (width*.49, depth*.48, .035)).parent = group
+        self.concrete_box("Workshop rear wall", (x-width*.06, y+depth*.42, .38),
+                          (width*.41, depth*.055, .38)).parent = group
+        for side in (-1, 1):
+            self.concrete_box("Workshop return wall",
+                              (x+side*width*.44, y+depth*.14, .28),
+                              (min(.18, width*.055), depth*.32, .28)).parent = group
+        for offset in ((-.32, .04, .32) if name == "northwest_ruin" else (-.22, .23)):
+            self.concrete_box("Broken workshop frontage",
+                              (x+width*offset, y-depth*.43, .15),
+                              (width*.10, depth*.05, .15)).parent = group
+        place(self.library / "industrial_service267/model.glb", group,
+              (x-width*.23, y+depth*.15, .07), (min(width*.26, 2.2), depth*.34, .58))
 
     def trainyard_turntable(self, x, y, yaw, wagon_width):
         bridge = bpy.data.objects.new("Trainyard turntable bridge", None)
