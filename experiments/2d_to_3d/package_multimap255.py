@@ -10,24 +10,35 @@ FOLDERS=['showcase245','residential253','lab248','factory249','metro250','wastel
 
 def main():
  parser = argparse.ArgumentParser(description=__doc__)
- parser.add_argument('--catalogue-maps', nargs='+', metavar='MAP',
-                     help='Render comparison sheets for selected catalogue IDs using their latest local captures')
+ maps = parser.add_mutually_exclusive_group()
+ maps.add_argument('--catalogue-maps', nargs='+', metavar='MAP',
+                   help='Render comparison sheets for selected catalogue IDs using their latest local captures')
+ maps.add_argument('--all-catalogue', action='store_true',
+                   help='Render comparison sheets for the entire catalogue')
  parser.add_argument('--top-down', action='store_true',
                      help='Compare the original with a Godot top-down capture')
  args = parser.parse_args()
- if args.top_down and not args.catalogue_maps:
-  parser.error('--top-down requires --catalogue-maps')
- if args.catalogue_maps:
+ if args.top_down and not (args.catalogue_maps or args.all_catalogue):
+  parser.error('--top-down requires a catalogue selection')
+ if args.catalogue_maps or args.all_catalogue:
   from catalogue_test_assets import catalogue_environment
   catalogue = json.loads((Path(__file__).parent/'godot/preproduction_catalog.json').read_text())
   entries = {row['map']: row for row in catalogue}
-  unknown = set(args.catalogue_maps) - entries.keys()
+  selected_maps = list(entries) if args.all_catalogue else args.catalogue_maps
+  unknown = set(selected_maps) - entries.keys()
   if unknown:
    parser.error('Unknown map IDs: '+', '.join(sorted(unknown)))
   capture = 'top_down.png' if args.top_down else 'godot_overview.png'
-  selection = [(name, name, entries[name]['scope'], catalogue_environment(name).with_name(capture))
-               for name in dict.fromkeys(args.catalogue_maps)]
-  out = LAB/'generated/phase2'/('catalogue_top_down' if args.top_down else 'catalogue_comparisons')
+  selection = []
+  for name in dict.fromkeys(selected_maps):
+   model = catalogue_environment(name)
+   native = model.with_name(capture)
+   description = entries[name].get('scope', entries[name]['family'])
+   if native.is_file() and model.is_file() and native.stat().st_mtime < model.stat().st_mtime:
+    description += ' · Capture predates the current 3D export.'
+   selection.append((name, name, description, native))
+  output_name = 'catalogue_top_down' if args.top_down else 'catalogue_comparisons'
+  out = LAB/'generated/phase2'/(output_name+'_all' if args.all_catalogue else output_name)
   title = 'CyberCity 2085 // original and experimental 3D'
   video = ''
  else:
