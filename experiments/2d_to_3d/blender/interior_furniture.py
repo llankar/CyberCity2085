@@ -49,3 +49,42 @@ def build_rack(group, x, y, w, d, steel, beam):
     bpy.ops.object.join()
     bpy.context.object.name = "Warehouse pallet rack"
     bpy.context.object.parent = group
+
+
+def build_containment_chamber(group, x, y, w, d, steel, trim, screen):
+    box("Containment footprint deck", (x, y, .075), (w*.50, d*.50, .075), steel).parent = group
+    box("Containment specimen tray", (x, y, .27), (w*.28, d*.37, .12), trim).parent = group
+    for side in (-1, 1):
+        edge = x + side*w*.34
+        box("Containment drive housing", (edge, y, .38), (w*.14, d*.44, .26), steel).parent = group
+        box("Containment light rail", (x+side*w*.215, y, .49),
+            (.025, d*.35, .028), screen).parent = group
+        for offset in (-.31, 0, .31):
+            box("Containment clamp", (edge, y+offset*d, .67),
+                (w*.11, d*.077, .043), trim).parent = group
+        box("Containment end bulkhead", (x, y+side*d*.396, .40),
+            (w*.20, d*.055, .17), steel).parent = group
+
+
+def build_medical_scanner(group, x, y, w, d, enamel, trim, screen):
+    from math import pi
+
+    box("Scanner chassis", (x, y, .13), (w*.48, d*.47, .13), trim).parent = group
+    box("Scanner patient table", (x, y-d*.09, .40),
+        (w*.23, d*.34, .08), enamel).parent = group
+    box("Scanner table pad", (x, y-d*.13, .50), (w*.19, d*.22, .035), screen).parent = group
+    radius = min(w*.33, .57)
+    gantry_y = y+d*.20
+    box("Scanner gantry support", (x, gantry_y, .37), (w*.43, d*.13, .24), enamel).parent = group
+    for label, offset, tube, material in (
+        ("Scanner gantry shell", 0, .12, enamel),
+        ("Scanner gantry light", -.10, .028, screen),
+    ):
+        bpy.ops.mesh.primitive_torus_add(
+            major_segments=32, minor_segments=10, major_radius=radius, minor_radius=tube,
+            location=(x, gantry_y+offset, .60+radius), rotation=(pi/2, 0, 0),
+        )
+        ring = bpy.context.object
+        ring.name = label
+        ring.data.materials.append(material)
+        ring.parent = group

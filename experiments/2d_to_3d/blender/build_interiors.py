@@ -11,7 +11,7 @@ HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(HERE), str(HERE.parent)]
 from interior_batch import INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
-from interior_furniture import build_bed, build_rack
+from interior_furniture import build_bed, build_containment_chamber, build_medical_scanner, build_rack
 from library_placement import place, reset_library_cache
 
 
@@ -118,7 +118,12 @@ def build(name):
         vertical = d > w
         length, breadth = (d,w) if vertical else (w,d)
         yaw = math.pi/2 if vertical else 0
-        if kind == "bed":
+        if name == "city_interior_blacksite_lab" and identifier == "central_chamber":
+            wall_finish = bpy.data.materials["Wall269 worn steel PBR"]
+            build_containment_chamber(group, x, y, w, d, wall_finish, partition_cap, screen)
+        elif name == "city_interior_medical_clinic" and identifier == "northeast_scanner":
+            build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
+        elif kind == "bed":
             build_bed(group, x, y, w, d, steel, linen, trim)
         elif kind == "rack":
             build_rack(group, x, y, w, d, steel, trim)

@@ -221,3 +221,12 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
                 and "baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]
                 for part in primitives
             ), node["name"]
+
+        if name == "city_interior_blacksite_lab":
+            identifier = "central_chamber"
+            required_parts = {"Containment footprint deck", "Containment specimen tray"}
+        else:
+            identifier = "northeast_scanner"
+            required_parts = {"Scanner gantry shell", "Scanner patient table"}
+        fixture = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+        assert required_parts <= {nodes[index]["name"] for index in fixture["children"]}
