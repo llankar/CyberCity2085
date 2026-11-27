@@ -468,7 +468,7 @@ class WastelandOutdoors:
                 mesh.materials.append(self.planter_silt)
                 mesh.polygons[1].material_index = 3
             if broken_deck:
-                textured_top = self.wrecked_highway and self.surveyed_surface is not None
+                textured_top = self.surveyed_surface is not None
                 if textured_top:
                     mesh.materials.append(self.surveyed_surface)
                 for index, face in enumerate(mesh.polygons[2+2*n:]):

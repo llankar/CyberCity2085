@@ -430,7 +430,9 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
         fragment = next(nodes[index] for index in root_nodes[f"Occludable_{obstacle}"]["children"]
                         if nodes[index]["name"] == obstacle)
         faces = data["meshes"][fragment["mesh"]]["primitives"]
-        exposed = next(part for part in faces if part["material"] == aggregate)
+        exposed = next(part for part in faces
+                       if data["materials"][part["material"]]["name"] == "Original rooftop artwork")
+        assert "TEXCOORD_0" in exposed["attributes"]
         dark = next(part for part in faces
                     if data["materials"][part["material"]]["name"] == "Dark fractured concrete edge")
         assert data["accessors"][exposed["attributes"]["POSITION"]]["max"][1] > (
