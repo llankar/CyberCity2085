@@ -75,6 +75,11 @@ def test_collapsed_span_export_includes_textured_fracture_faces(variant):
     assert len(guardrail_groups) == 4
     for group in guardrail_groups:
         assert all(" sloped guardrail" in nodes[index]["name"] for index in group["children"])
+    for quadrant in ("nw", "ne", "sw", "se"):
+        for suffix, part in (("inner_ruin", "Fallen retaining slab"),
+                             ("ruin", "Surviving corner pier")):
+            ruin = root_nodes[f"Occludable_{quadrant}_{suffix}"]
+            assert any(nodes[index]["name"].startswith(part) for index in ruin["children"])
 
 
 def test_convoy_crossing_has_distinct_cargo_trucks():

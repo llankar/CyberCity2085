@@ -303,6 +303,8 @@ class WastelandOutdoors:
                         self.canvas, .08).parent = group
         elif self.trainyard and name in {"northwest_ruin", "northeast_ruin"}:
             self.trainyard_workshop_ruin(group, name, x, y, w, d)
+        elif self.overpass and name.endswith("_ruin"):
+            self.overpass_ruin(group, name, x, y, w, d)
         elif self.city and ("ruin" in name or name == "ne_corner"):
             self.concrete_box(name+" rubble base", (x,y,.16), (w*.47,d*.46,.16)).parent = group
             for side in (-1,1):
@@ -317,6 +319,29 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def overpass_ruin(self, group, name, x, y, width, depth):
+        self.concrete_box("Ruined foundation", (x, y, .065),
+                          (width*.47, depth*.45, .065)).parent = group
+        front = 1 if name.startswith(("nw", "ne")) else -1
+        side = -1 if name.startswith(("nw", "sw")) else 1
+        if "_inner_" in name:
+            for offset, height in ((-.27, .72), (.17, .43)):
+                self.concrete_box("Broken ramp-side retaining wall",
+                                  (x+offset*width, y+front*depth*.28, height/2),
+                                  (width*.17, depth*.095, height/2)).parent = group
+            debris = self.concrete_box("Fallen retaining slab", (x, y-front*depth*.14, .31),
+                                       (width*.29, depth*.13, .08))
+            debris.rotation_euler.x = front*.25
+            debris.parent = group
+        else:
+            for offset, height in ((-.32, 1.48), (0, 1.08), (.30, .59)):
+                self.concrete_box("Fractured exterior wall",
+                                  (x+side*offset*width, y+front*depth*.39, height/2),
+                                  (width*.13, depth*.07, height/2)).parent = group
+            self.concrete_box("Surviving corner pier",
+                              (x+side*width*.40, y-front*depth*.09, .66),
+                              (width*.08, depth*.28, .66)).parent = group
 
     def trainyard_workshop_ruin(self, group, name, x, y, width, depth):
         # The survey covers roofless workshops, with the surviving walls at
