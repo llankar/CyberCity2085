@@ -316,6 +316,7 @@ def test_interior_maps_export_remaining_fixture_groups():
         "wasteland_inner_10_looted_vault": {"sw_utility": "sw_utility panel"},
         "city_interior_penthouse_atrium": {
             "bath_sw": "Tub basin inset", "bath_se": "Tub basin inset", "south_lounge": "south_lounge cushions",
+            "center_fountain": "center_fountain inset water",
         },
         "cybercity_inner_10_penthouse_atrium": {"sw_plant": "sw_plant foliage"},
         "cybercity_inner_12_maintenance_tunnel": {

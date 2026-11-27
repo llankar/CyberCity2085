@@ -269,16 +269,23 @@ def build(name):
             market = library / "market_southeast_display/shop.glb"
             place(market, group, (x,y,0), (length*.98,breadth*.98,1.8), yaw=yaw, merge=True)
         elif kind == "fountain":
-            for label, z, depth, scale, material in (
-                ("basin", .18, .36, .47, steel), ("water", .36, .025, .39, screen),
-                ("fountain head", .58, .44, .14, trim),
-            ):
-                bpy.ops.mesh.primitive_cylinder_add(vertices=32, radius=1, depth=depth, location=(x,y,z))
-                piece = bpy.context.object
-                piece.name = identifier + " " + label
-                piece.scale = (w*scale, d*scale, 1)
-                piece.data.materials.append(material)
-                piece.parent = group
+            water = make_material("Atrium blue water", (.013,.12,.19,1), .20,.25,.10)
+            box(identifier+" stone plinth", (x,y,.135), (w*.49,d*.49,.135), partition_cap).parent = group
+            box(identifier+" inset water", (x,y,.282), (w*.406,d*.406,.015), water,.01).parent = group
+            for side in (-1,1):
+                box(identifier+" long coping", (x+side*w*.455,y,.327),
+                    (w*.042,d*.49,.054), rail,.014).parent = group
+                box(identifier+" short coping", (x,y+side*d*.455,.327),
+                    (w*.414,d*.042,.054), rail,.014).parent = group
+                box(identifier+" submerged light", (x+side*w*.344,y,.305),
+                    (.015,d*.35,.009), console_glass,.004).parent = group
+            box(identifier+" central jet housing", (x,y,.38), (w*.115,d*.115,.10), steel).parent = group
+            bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
+                major_radius=min(w,d)*.18, minor_radius=.012, location=(x,y,.304))
+            ripple = bpy.context.object
+            ripple.name = identifier+" ripple"
+            ripple.data.materials.append(console_glass)
+            ripple.parent = group
         elif kind == "sofa":
             box(identifier+" frame", (x,y,.18), (w*.47,d*.46,.16), steel).parent = group
             box(identifier+" cushions", (x,y,.37), (w*.43,d*.39,.088), upholstery).parent = group
