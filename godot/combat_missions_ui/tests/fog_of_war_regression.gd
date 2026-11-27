@@ -76,6 +76,13 @@ func run() -> void:
 	mission._enemy_act(0)
 	assert(mission.enemy_units[0].position == Vector2i(20, 12), "search continues after the initial center sweep")
 	assert(mission.player_units[0].hp == 20, "the patrol has no knowledge of hidden targets")
+	var sector_wall: Array[Dictionary] = [{"cell": Vector2i(20, 7), "solid": true}]
+	board.configure(Vector2(1280, 720), null, sector_wall, center)
+	mission.enemy_units.assign([{"hp": 20, "ap": 3, "position": center}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0].position == Vector2i(18, 14), "blocked sector falls back to a reachable waypoint")
+	assert(mission.player_units[0].hp == 20)
+	board.configure(Vector2(1280, 720), null, no_walls, center)
 	mission.turn_number = 1
 	var shooter := {"hp": 20, "position": Vector2i(5, 5)}
 	mission.player_units.assign([

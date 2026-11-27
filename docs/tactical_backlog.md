@@ -1601,3 +1601,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-MEDICAL-UTILITIES — Route the three equipped medical utilities to AP-based self-healing in Godot.
 
 - [x] TACTICAL-PASSIVE-UTILITY-BUTTONS — Show implemented equipment commands in the Godot HUD.
+
+- [x] GODOT-ENEMY-BLOCKED-PATROL — Keep unalerted enemy search moving when the selected patrol sector is obstructed.

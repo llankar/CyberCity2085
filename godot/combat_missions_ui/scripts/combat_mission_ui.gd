@@ -1844,12 +1844,19 @@ func _enemy_act(enemy_index: int) -> void:
 	if ti < 0:
 		var start := _cell_position(enemy)
 		var search_goal := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
+		var route: Array[Vector2i] = []
 		# After the initial sweep to the center, keep searching fixed sectors.
 		var patrol_phase := floori(float(maxi(1, turn_number) - 1) / 8.0)
 		if patrol_phase > 0:
 			var offsets := [Vector2i(0, -7), Vector2i(-10, 0), Vector2i(0, 7), Vector2i(10, 0)]
-			search_goal += offsets[posmod(patrol_phase - 1 + enemy_index, offsets.size())]
-		var route: Array[Vector2i] = _battlefield.find_path(start, search_goal, occupied, true)
+			for alternate in offsets.size():
+				var sector := posmod(patrol_phase - 1 + enemy_index + alternate, offsets.size())
+				var waypoint: Vector2i = search_goal + offsets[sector]
+				route = _battlefield.find_path(start, waypoint, occupied)
+				if not route.is_empty():
+					break
+		if route.is_empty():
+			route = _battlefield.find_path(start, search_goal, occupied, true)
 		var search_steps := mini(maxi(0, ap - 1), maxi(0, route.size() - 1))
 		for step in range(1, search_steps + 1):
 			if _is_cell_occupied(route[step], -1, enemy_index):
