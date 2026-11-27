@@ -2075,3 +2075,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-IRRADIATED-BASIN-RUINS / DONE for export and native loading. Replaced solid proxies with open foundations, surviving bank walls and fallen slabs inside the two surveyed footprints. Rebuilt 05/10 on E:, refreshed the overview and gallery, and passed eleven outdoor tests. Next: inspect the basin retaining walls at combat zoom.
 
 - EXPERIMENTAL-IRRADIATED-BASIN-RETAINING-MASONRY / DONE. Rebuilt straight retaining segments as eroded concrete blocks of varying heights within their original traces. Re-exported the shared 05/10 model, refreshed Godot and the gallery, and passed eleven outdoor tests. Next: inspect the terrain seams around residue and barrel clusters.
+
+- EXPERIMENTAL-BASIN-BARREL-FLOOR / DONE for export and native loading. Sampled original gravel detail and applied it only in the replacement mask of the eight barrel clusters. Rebuilt the shared 05/10 model on E:, captured Godot and refreshed the gallery. Eleven outdoor tests passed. Next: review other outdoor families at tactical zoom for larger remaining gaps.
