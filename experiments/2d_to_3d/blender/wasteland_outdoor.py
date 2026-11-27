@@ -10,6 +10,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place
 from loading_crane import build_crane
 from shipping_container import build_container
+from waterfront_skiffs import SKIFFS
 
 
 class WastelandOutdoors:
@@ -65,6 +66,26 @@ class WastelandOutdoors:
                                 (length*.075,width*.14,.022),self.steel,.012)
                     plate.rotation_euler = (.16,0,angle)
                     plate.parent = hull
+            hull.location = ((ax+bx)/2,(ay+by)/2,0)
+            hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
+
+        for name, stern, bow, beam in SKIFFS:
+            ax, ay = self.coordinates(*stern)
+            bx, by = self.coordinates(*bow)
+            length = math.hypot(bx-ax,by-ay)
+            width = beam*self.gw/self.cw
+            outline = ((-.5,-.36), (.18,-.5), (.5,0), (.18,.5), (-.5,.36))
+            vertices = [(px*length*taper,py*width*taper,z)
+                        for taper,z in ((.73,.04),(1,.22)) for px,py in outline]
+            mesh = bpy.data.meshes.new("Landing skiff shell")
+            mesh.from_pydata(vertices, [], [(0,1,2,3,4)] +
+                             [(i,(i+1)%5,(i+1)%5+5,i+5) for i in range(5)])
+            mesh.materials.append(self.steel)
+            hull = bpy.data.objects.new(f"East landing skiff {name}", mesh)
+            bpy.context.collection.objects.link(hull)
+            for offset in (-.24,.06):
+                box("Landing skiff bench", (length*offset,0,.19),
+                    (length*.07,width*.34,.026), self.dark,.008).parent = hull
             hull.location = ((ax+bx)/2,(ay+by)/2,0)
             hull.rotation_euler.z = math.atan2(by-ay,bx-ax)
 

@@ -1,11 +1,12 @@
 """Remove source prop drawings only under surveyed replacement rectangles on E:."""
-import json,hashlib,argparse
+import json,hashlib,argparse,math
 from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 from blender.dockside_vessels import VESSEL_OUTLINES
 from blender.freight_stock import SOUTH_SIDING_LOADS
+from blender.waterfront_skiffs import SKIFFS
 ROOT=Path(__file__).resolve().parents[2];LAB=Path('E:/CyberCity2085-3d-lab')
 NAME='city_interior_research_lab'
 
@@ -188,6 +189,13 @@ def main():
         survey["walls"].append({"id": "south_carriage_art", "rect": [347, 453, 613, 502]})
     if args.map == "wasteland_city_12_cratered_waterfront":
         survey["walls"].extend(WATERFRONT_WRECKS)
+        for label, stern, bow, beam in SKIFFS:
+            dx, dy = bow[0]-stern[0], bow[1]-stern[1]
+            half = beam*.68 / math.hypot(dx,dy)
+            survey["walls"].append({"id": f"landing_skiff_{label}_art", "polygon": [
+                (x-side*dy*half, y+side*dx*half)
+                for (x,y),side in ((stern,-1),(bow,-1),(bow,1),(stern,1))
+            ]})
     if args.map.endswith("_ruined_downtown"):
         survey["walls"].extend(DOWNTOWN_WRECK_ART)
     if args.map.endswith("_burned_market_block"):
