@@ -180,7 +180,9 @@ class WastelandOutdoors:
         vertical = d > w
         length, breadth = (d,w) if vertical else (w,d)
         yaw = math.pi/2 if vertical else 0
-        if self.city and name.startswith(("bus_", "truck_")):
+        if name.startswith("convoy_"):
+            self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
+        elif self.city and name.startswith(("bus_", "truck_")):
             self.vehicle(group, name, x,y,w,d)
         elif name.startswith(("wreck_", "truck_", "convoy_", "car_")):
             place(self.library / "derelict_suv275/model.glb", group, (x,y,0),
@@ -244,6 +246,53 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def convoy_vehicle(self, group, name, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw + (0 if name == "convoy_e" else math.pi)
+
+        def part(label, position, scale, material, bevel=.035):
+            box(label, position, scale, material, bevel).parent = group
+
+        part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
+        part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel)
+        part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
+        part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
+        for side in (-1,1):
+            for offset in (-.35,-.19,.35):
+                bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=min(.30,width*.19),
+                    depth=width*.14, location=(length*offset,side*width*.41,.30),
+                    rotation=(math.pi/2,0,0))
+                wheel = bpy.context.object
+                wheel.name = "Convoy wheel"
+                wheel.data.materials.append(self.dark)
+                wheel.parent = group
+        if name == "convoy_mw":
+            bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=min(.43,width*.33),
+                depth=length*.59, location=(-length*.13,0,1.04), rotation=(0,math.pi/2,0))
+            tank = bpy.context.object
+            tank.name = "Convoy tanker vessel"
+            tank.data.materials.append(self.steel)
+            tank.parent = group
+            for offset in (-.31,.03):
+                bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
+                    major_radius=min(.43,width*.33), minor_radius=.023,
+                    location=(length*offset,0,1.04), rotation=(0,math.pi/2,0))
+                band = bpy.context.object
+                band.name = "Convoy tank band"
+                band.data.materials.append(self.dark)
+                band.parent = group
+        elif name == "convoy_me":
+            for row in (-1,1):
+                for slot in (-1,0,1):
+                    part("Convoy strapped crate", ((-.147+slot*.19)*length,row*width*.205,.83),
+                         (length*.079,width*.155,.18),self.canvas)
+        else:
+            part("Convoy tarpaulin load", (-length*.147,0,.94),
+                 (length*.303,width*.386,.286),self.canvas,.112)
+            for offset in (-.34,-.18,-.02):
+                part("Convoy tarp strap", (length*offset,0,1.23),
+                     (.024,width*.36,.018),self.dark,.007)
 
     def vehicle(self, group, name, x,y,w,d):
         vertical = d>w

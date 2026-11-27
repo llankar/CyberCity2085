@@ -65,3 +65,22 @@ def test_collapsed_span_export_includes_textured_fracture_faces():
     assert len(guardrail_groups) == 4
     for group in guardrail_groups:
         assert all(" sloped guardrail" in nodes[index]["name"] for index in group["children"])
+
+
+def test_convoy_crossing_has_distinct_cargo_trucks():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "wasteland_outdoor_11_convoy_crossing/environment.glb")
+    if not path.is_file():
+        pytest.skip("Build Convoy Crossing on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    for identifier, load in {
+        "convoy_w": "Convoy tarpaulin load", "convoy_mw": "Convoy tanker vessel",
+        "convoy_me": "Convoy strapped crate", "convoy_e": "Convoy tarpaulin load",
+        "convoy_far_e": "Convoy tarpaulin load",
+    }.items():
+        parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+        assert any(part.startswith(load) for part in parts), identifier
+        assert sum(part.startswith("Convoy wheel") for part in parts) == 6
