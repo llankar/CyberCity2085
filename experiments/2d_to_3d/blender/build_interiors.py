@@ -80,6 +80,8 @@ def build(name):
         name in {"city_transit_metro_interchange", "cybercity_inner_13_warehouse_floor"}) else None
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
+    worktop = make_material("Brushed equipment worktop", (.055,.078,.090,1), .58,.63)
+    console_glass = make_material("Console low-light display", (.018,.17,.22,1), .12,.40, .18)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
     shader = screen.node_tree.nodes["Principled BSDF"]
     shader.inputs["Emission Color"].default_value = (.035,.52,.67,1)
@@ -306,15 +308,23 @@ def build(name):
                 box(identifier+" status", (x+w*.26,y-d*.49,level),
                     (w*.06,.019,.021), screen).parent = group
         elif kind in {"table","console"}:
-            box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), trim).parent = group
+            box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop).parent = group
             for sx in (-1,1):
                 for sy in (-1,1):
                     box(identifier+" leg", (x+w*sx*.34,y+d*sy*.32,.34),
                         (min(.053,w*.1),min(.053,d*.1),.34), steel).parent = group
             if kind == "console":
                 box(identifier+" terminal", (x,y+d*.19,.98), (w*.36,.074,.22), steel).parent = group
-                box(identifier+" display", (x,y+d*.19-.08,.99),
-                    (w*.31,.018,.16), screen).parent = group
+                box(identifier+" display bezel", (x,y+d*.19-.077,.99),
+                    (w*.33,.025,.177), partition_cap).parent = group
+                box(identifier+" display", (x,y+d*.19-.105,.99),
+                    (w*.275,.013,.117), console_glass).parent = group
+                box(identifier+" input tray", (x,y-d*.15,.796),
+                    (w*.28,d*.13,.016), partition_cap).parent = group
+                for index in range(4):
+                    offset = (index-1.5)*w*.105
+                    box(identifier+" control key", (x+offset,y-d*.15,.815),
+                        (w*.039,d*.052,.009), rail,.004).parent = group
         elif kind == "wall":
             count = max(1, round(length/2))
             span = length/count

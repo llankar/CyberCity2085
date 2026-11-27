@@ -486,3 +486,28 @@ def test_extended_interior_partitions_use_worn_steel():
                 and data["materials"][part["material"]]["name"] == "Wall269 worn steel PBR"
                 for part in mesh["primitives"]
             ), (name, identifier)
+
+
+def test_console_uses_separate_metal_worktop_and_recessed_display():
+    import json
+    import struct
+
+    from interior_batch import OUTPUT
+
+    path = OUTPUT / "city_industrial_service_tunnel" / "environment.glb"
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        data = json.loads(glb.read(size))
+    nodes = {node["name"]: node for node in data["nodes"]}
+    terminal = "southeast_terminal"
+    root = nodes[f"Occludable_{terminal}"]
+    parts = [data["nodes"][index]["name"] for index in root["children"]]
+    assert f"{terminal} display bezel" in parts
+    assert sum(name.startswith(f"{terminal} control key") for name in parts) == 4
+    for label, expected in (
+        ("worktop", "Brushed equipment worktop"), ("display", "Console low-light display"),
+    ):
+        mesh = data["meshes"][nodes[f"{terminal} {label}"]["mesh"]]
+        material = data["materials"][mesh["primitives"][0]["material"]]
+        assert material["name"] == expected
+        assert max(material.get("emissiveFactor", [0])) < .25
