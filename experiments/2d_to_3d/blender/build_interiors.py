@@ -91,6 +91,13 @@ def build(name):
     upholstery = make_material("Lobby upholstery", (.16,.085,.045,1) if ruined else (.08,.20,.23,1), 0,.86)
     leaves = make_material("Indoor foliage", (.07,.19,.09,1), 0,.86)
     worktop = make_material("Brushed equipment worktop", (.055,.078,.090,1), .58,.63)
+    cafe = name.endswith("_cyber_cafe")
+    if cafe:
+        cafe_worktop = make_material("Original cafe worktop artwork", (.2,.2,.2,1), 0,.83)
+        nodes = cafe_worktop.node_tree.nodes
+        artwork = nodes.new("ShaderNodeTexImage")
+        artwork.image = bpy.data.images.load(str(MAPS / f"{name}.png"))
+        cafe_worktop.node_tree.links.new(artwork.outputs["Color"], nodes["Principled BSDF"].inputs["Base Color"])
     console_glass = make_material("Console low-light display", (.018,.17,.22,1), .12,.40, .18)
     screen = make_material("Terminal display", (.035,.52,.67,1), .08,.32)
     shader = screen.node_tree.nodes["Principled BSDF"]
@@ -750,14 +757,26 @@ def build(name):
             build_facility_fixture(group, "relay_console", x, y, w, d,
                                    server_housing, partition_cap, console_glass)
         elif kind in {"table","console"}:
-            box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop).parent = group
+            desktop = box(identifier+" worktop", (x,y,.72), (w*.48,d*.46,.065), worktop)
+            desktop.parent = group
+            if cafe and kind == "console":
+                mesh = desktop.data
+                mesh.materials.append(cafe_worktop)
+                uv = mesh.uv_layers.active
+                for face in mesh.polygons:
+                    if face.normal.z < .9:
+                        continue
+                    face.material_index = 1
+                    for index in face.loop_indices:
+                        vertex = mesh.vertices[mesh.loops[index].vertex_index].co
+                        uv.data[index].uv = ((x+vertex.x)/gw+.5, (y+vertex.y)/gh+.5)
             for sx in (-1,1):
                 for sy in (-1,1):
                     box(identifier+" leg", (x+w*sx*.34,y+d*sy*.32,.34),
                         (min(.053,w*.1),min(.053,d*.1),.34), steel).parent = group
             if kind == "console":
                 display_y = y+d*.19
-                cafe_station = name.endswith("_cyber_cafe")
+                cafe_station = cafe
                 display_z = 1.12 if cafe_station else .99
                 if cafe_station:
                     box(identifier+" monitor foot", (x,display_y,.800),
