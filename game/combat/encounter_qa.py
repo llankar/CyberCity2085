@@ -1,6 +1,7 @@
 """Deterministic developer simulations, using the real reference combat engine."""
 
-from collections import Counter
+from collections import Counter, deque
+from math import hypot
 from pathlib import Path
 import random
 
@@ -16,8 +17,9 @@ from game.mission_objectives import create_battle_objective
 from game.stats import PlayerStats
 from game.unit import Unit
 from .attack_resolution import build_attack_context
+from .battlefield import trace_sight_line
 from .engine import CombatEngine
-from .pack_maneuvers import neighbors, approach_step
+from .pack_maneuvers import CELL, neighbors, approach_step
 from .state import CombatState
 
 
@@ -169,6 +171,31 @@ def first_reachable_approach(actor, destinations, legal, *, width, height):
         if step is not None:
             return destination, step
     return None, None
+
+
+def first_reachable_fire_lane(actor, targets, legal, cover):
+    """Find the nearest reachable cell with a clear rifle shot."""
+    if not targets:
+        return None
+    origin = actor.position
+    range_pixels = max(1, actor.attack_range) * CELL
+    frontier = deque([(origin, None)])
+    visited = {origin}
+    while frontier:
+        cell, first_step = frontier.popleft()
+        if first_step is not None and any(
+            hypot(cell[0] - target.position[0], cell[1] - target.position[1]) <= range_pixels
+            and trace_sight_line(cell, target.position, cover).clear
+            for target in targets
+        ):
+            return first_step
+        for adjacent in neighbors(cell):
+            if adjacent not in visited and legal(*adjacent):
+                visited.add(adjacent)
+                frontier.append((adjacent, first_step or (
+                    adjacent[0] - origin[0], adjacent[1] - origin[1],
+                )))
+    return None
 
 
 def objective_threat_distance(enemy, objective):
@@ -395,6 +422,11 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                         if not result.success and action_name != "fire":
                             perform("fire", actor=actor, target=shootable[0])
                     elif targets:
+                        if objective_kind == "eliminate" and squad_profile != "rifle":
+                            step = first_reachable_fire_lane(actor, targets, legal, cover)
+                            if step is not None and perform("move", actor=actor, move_delta=step).success:
+                                check_geometry()
+                                continue
                         destinations = sorted(targets, key=lambda target: (
                             target is not hvt if policy.startswith("objective") and hvt else False,
                             actor.distance_to(target)))

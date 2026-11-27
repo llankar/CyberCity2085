@@ -5,7 +5,18 @@ import random
 from types import SimpleNamespace
 
 from game.combat.pack_maneuvers import approach_step, neighbors, route_step_to_any
+from game.combat.encounter_qa import first_reachable_fire_lane
 from game.combat.objective_movement import objective_route_step
+from game.cover_system import CoverNode
+
+
+def test_ranged_approach_flanks_intervening_high_cover():
+    actor = SimpleNamespace(position=(0, 0), attack_range=5)
+    target = SimpleNamespace(position=(128, 0))
+    wall = CoverNode(2, 0, "high", False)
+    legal = lambda x, y: 0 <= x <= 128 and 0 <= y <= 64 and (x, y) not in {(32, 0), (64, 0), target.position}
+    assert first_reachable_fire_lane(actor, [target], legal, [wall]) == (0, 32)
+    assert first_reachable_fire_lane(actor, [target], lambda x, y: False, [wall]) is None
 
 
 def distance(start, goals, legal):
