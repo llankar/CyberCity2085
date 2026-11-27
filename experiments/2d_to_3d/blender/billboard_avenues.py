@@ -818,6 +818,11 @@ def build(name):
     if wasteland and wasteland.flooded_square:
         water = textured_material("Flooded paving under shallow water", out / "floor.png", .29)
         wasteland.add_flooded_square_surface(water)
+    if name == "wasteland_city_12_cratered_waterfront":
+        water = textured_material("Cratered waterfront water", out / "floor.png", .25)
+        for row in survey["walls"]:
+            if row.get("kind") == "water":
+                wasteland.add_water_surface("Water surface "+row["id"], water, row["polygon"])
     if wasteland and wasteland.overpass:
         wasteland.add_overpass_ramps(floor)
     if name in ROOFTOPS:

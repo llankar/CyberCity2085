@@ -21,9 +21,14 @@ class WastelandOutdoors:
                      (825,159), (815,203), (789,218), (784,302), (790,390),
                      (765,419), (698,422), (624,421), (570,464), (379,464),
                      (327,424), (222,424), (181,447), (148,416), (144,346))
-        vertices = [(*self.coordinates(px*self.cw/960, py*self.ch/540), -.012)
-                    for px, py in reversed(shoreline)]
-        name = "Flooded civic square water surface"
+        self.add_water_surface("Flooded civic square water surface", material,
+                               [(px*self.cw/960, py*self.ch/540) for px, py in shoreline])
+
+    def add_water_surface(self, name, material, shoreline):
+        points = [self.coordinates(*point) for point in shoreline]
+        if sum(ax*by-bx*ay for (ax,ay),(bx,by) in zip(points, points[1:]+points[:1])) < 0:
+            points.reverse()
+        vertices = [(x,y,-.012) for x,y in points]
         mesh = bpy.data.meshes.new(name)
         mesh.from_pydata(vertices, [], [tuple(range(len(vertices)))])
         mesh.materials.append(material)

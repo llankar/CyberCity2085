@@ -28,6 +28,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+        if name.endswith("_cratered_waterfront"):
+            surfaces = {node["name"]: node for node in nodes if node["name"].startswith("Water surface ")}
+            assert surfaces.keys() == {"Water surface "+row["id"] for row in surveyed if row.get("kind") == "water"}
+            assert all("mesh" in node for node in surfaces.values())
         if name.endswith("_ruined_transit_plaza"):
             south = next(node for node in nodes if node["name"] == "South transit carriage")
             parts = [nodes[i]["name"] for i in south["children"]]
