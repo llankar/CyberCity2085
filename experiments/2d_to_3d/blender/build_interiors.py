@@ -10,7 +10,7 @@ from mathutils.geometry import tessellate_polygon
 
 HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(HERE), str(HERE.parent)]
-from interior_batch import INTERIORS, MAPS, OUTPUT
+from interior_batch import AGED_CONCRETE_INTERIORS, INTERIORS, MAPS, OUTPUT
 from create_hardsurface_crate import box, make_material
 from interior_furniture import (
     build_bed, build_containment_chamber, build_medical_scanner, build_rack, build_security_bay,
@@ -93,9 +93,7 @@ def build(name):
     bunker = name.endswith("_bunker_command_post")
     underground_market = name.endswith("_underground_market")
     continuous_wall_uvs = name.endswith(("_looted_vault", "_maintenance_depot"))
-    concrete_partitions = bunker or continuous_wall_uvs or name.endswith((
-        "_underground_market", "_ruined_clinic", "_collapsed_tunnel",
-    ))
+    concrete_partitions = name.endswith(AGED_CONCRETE_INTERIORS)
     if concrete_partitions:
         aged_concrete = make_material("Wasteland aged concrete", (.28,.25,.21,1), 0,.88)
         nodes = aged_concrete.node_tree.nodes
@@ -103,7 +101,8 @@ def build(name):
         concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001"
         for filename, socket in (("diff.jpg", "Base Color"), ("rough.jpg", "Roughness")):
             layer = nodes.new("ShaderNodeTexImage")
-            layer.image = bpy.data.images.load(str(concrete / filename))
+            image_path = out / "aged_concrete_diffuse.jpg" if socket == "Base Color" else concrete / filename
+            layer.image = bpy.data.images.load(str(image_path))
             if socket == "Roughness":
                 layer.image.colorspace_settings.name = "Non-Color"
             links.new(layer.outputs["Color"], nodes["Principled BSDF"].inputs[socket])

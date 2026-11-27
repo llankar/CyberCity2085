@@ -7,6 +7,8 @@ import sys
 ROOT = Path(__file__).resolve().parent
 MAPS = ROOT.parents[1] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors")
+AGED_CONCRETE_INTERIORS = ("_bunker_command_post", "_underground_market", "_ruined_clinic",
+                          "_collapsed_tunnel", "_looted_vault", "_maintenance_depot")
 INTERIORS = (
     "city_interior_blacksite_lab",
     "city_interior_medical_clinic",
@@ -250,6 +252,13 @@ def main():
                 [{"id": row["id"], "rect": row["rect"]} for row in decorative], separators=(",", ":")
             )]
         subprocess.run(floor_command, check=True)
+        if name.endswith(AGED_CONCRETE_INTERIORS):
+            from PIL import Image, ImageEnhance
+
+            concrete = OUTPUT.parents[2] / "sources/environment169/concrete_wall_001/diff.jpg"
+            with Image.open(concrete) as source:
+                toned = ImageEnhance.Brightness(source.convert("RGB")).enhance(.62)
+                toned.save(OUTPUT / name / "aged_concrete_diffuse.jpg", quality=94)
         if name.endswith("_bunker_command_post"):
             from PIL import Image
 
