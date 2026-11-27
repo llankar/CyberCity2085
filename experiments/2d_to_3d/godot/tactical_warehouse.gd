@@ -566,11 +566,14 @@ func play_phase_events(events: Array) -> void:
   var hit: Variant = event.get("hit", true if int(event.damage) > 0 else null)
   effects.tactical_attack("melee" if melee else "fire", target_center(attacker),
    cell_position(event.to_cell) + Vector3.UP*.85, hit, int(event.damage), event.actor == ALLY)
-  status.text = "%s  //  Enemy phase\n%s → %s   %d damage" % [
-   scenario_title, event.actor, event.target, event.damage]
+  var attacker_name := str(unit_state(event.actor).get("name", event.actor))
+  var target_name := str(unit_state(event.target).get("name", event.target))
+  var result: String = effects.attack_outcome_text(hit, int(event.damage))
+  status.text = "%s  //  Enemy phase\n%s → %s   %s" % [
+   scenario_title, attacker_name, target_name, result]
   await get_tree().create_timer(.42).timeout
   if smoke:
-   print("TACTICAL_PHASE_EVENT_PLAYED actor=", event.actor, " damage=", event.damage)
+   print("TACTICAL_PHASE_EVENT_PLAYED ", attacker_name, " → ", target_name, " ", result)
 
 
 func fire_at(screen_position: Vector2) -> void:

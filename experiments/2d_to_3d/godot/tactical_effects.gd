@@ -22,11 +22,18 @@ func tactical_attack(action: String, from: Vector3, target: Vector3, hit: Varian
  show_attack_outcome(target, hit, damage)
 
 
+func attack_outcome_text(hit: Variant, damage: int) -> String:
+ if hit == null:
+  return "NO HP LOST"
+ if hit == false:
+  return "MISS"
+ return "NO DAMAGE" if damage <= 0 else "-%d HP" % damage
+
+
 func show_attack_outcome(target: Vector3, hit: Variant, damage: int) -> void:
  var label := Label3D.new()
  label.name = "AttackOutcome"
- label.text = "NO HP LOST" if hit == null else (
-  "MISS" if hit == false else ("NO DAMAGE" if damage <= 0 else "-%d HP" % damage))
+ label.text = attack_outcome_text(hit, damage)
  label.modulate = Color(.82,.87,.91) if hit != true else (
   Color(1,.77,.34) if damage <= 0 else Color(1,.49,.32))
  label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
