@@ -10,9 +10,18 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Review remaining release blockers, keeping frozen QA, physical controls and listening evidence separate from the production installer."
+    "next_action": "Review production release acceptance gaps, including physical controller and human listening, without repeating automated checks for identical files."
   },
   "tasks": [
+    {
+      "id": "WINDOWS-PRODUCTION-INSTALLER-INTEGRITY",
+      "title": "Verify production installer slices and matching installed components",
+      "status": "DONE",
+      "files": ["docs/release_checklist.md", "docs/CODEX_PROGRESS.md"],
+      "tests": ["SHA-256 recorded for the setup and 3 data slices. Installed Godot, combat and HUD scripts, audio manager and all 90 packaged audio files match 44c9b5c6."],
+      "evidence": ["The current installed smoke report is OK for build ee240a3e. Changes since that build are documentation only."],
+      "remaining": ["Physical controller and human listening remain unverified."]
+    },
     {
       "id": "WINDOWS-FROZEN-RETURN",
       "title": "Run the real data objective and recovery path in the Windows QA executable",

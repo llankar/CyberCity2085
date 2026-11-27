@@ -11,6 +11,17 @@ Date: November 13, 2026
 
 Setup and its three BIN files are in `E:/CyberCity2085-builds/cybercity-build-fa0884b7dc3f4a45b3c35a732a144ea6/dist/installer`.
 
+SHA-256 for the installer set:
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `5AB5072D2D2AF212C053A626BB3059AD83524673095AD5B7B8A5C927F5C25F5F` |
+| CyberCity2085-Setup-1.bin | `3B2CACC2BC6735D55BB6F850FE0D60E103EA4D1F5CB7947640E0920CAFDD6BB3` |
+| CyberCity2085-Setup-2.bin | `302B3CC790405B3AA222A2F8F47CE27F1995100E3FF25918A5BEF9222DBC8DF4` |
+| CyberCity2085-Setup-3.bin | `6F74F510B7B02369810816B54C1CADCA5CB9B4C1DF18FD491159C068E8E6687A` |
+
+The installed Godot executable, tested tactical and audio scripts, and all 90 installed audio files match the previous candidate by SHA-256. The earlier mixer and injected-input results cover those matching components. Physical controls and listening still require observation.
+
 ## Previous Windows candidate · 44c9b5c6
 
 - [x] Standalone build and separate silent installation on E:. Installed executable passes headless resource, test-save and Godot startup checks.
