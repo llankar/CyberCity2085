@@ -70,7 +70,7 @@ func _ready() -> void:
    if not had_mipmaps and pixels.generate_mipmaps() == OK:
     material.albedo_texture = ImageTexture.create_from_image(pixels)
    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
-   if low_review:
+   if low_review or OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1":
     print("MAP_TEXTURE_FILTER %s had_mipmaps=%s has_mipmaps=%s" % [material.resource_name, had_mipmaps, pixels.has_mipmaps()])
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
