@@ -1659,3 +1659,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-COLUMNS / DONE for Ruined Transit Plaza. Replaced four plain pillars with modeled footings, blue cladding facing the plaza and corroded frame details. Retained the surveyed bounds and rebuilt the GLB on E:. Ten tests passed and Godot reached round 2. Next: review the perimeter walls near the platform approaches.
 
 - EXPERIMENTAL-TRANSIT-BOUNDARIES / DONE for seven surveyed lines. Replaced uniform walls with low curbs and coping around the station and open post-and-rail guards near the stairs. Kept the original tactical footprints and openings. Ten tests passed, the GLB was rebuilt on E: and Godot reached round 2. Next: review the central planter and benches at tactical zoom.
+
+- EXPERIMENTAL-TRANSIT-FURNITURE / DONE for the surveyed central planter and two benches. Added a recessed rubble bed and slatted blue seating inside their original footprints. Rebuilt the GLB on E:, ten tests passed and Godot reached round 2. Next: compare actual tactical framing against the broader catalogue and prioritize any larger quality gaps.

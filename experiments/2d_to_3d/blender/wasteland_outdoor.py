@@ -505,6 +505,24 @@ class WastelandOutdoors:
         elif "column" in name or name == "monument":
             box(name+" footing", (x,y,.16), (w*.47,d*.47,.16), self.stone).parent = group
             box(name, (x,y,1.15), (w*.25,d*.25,1.0), self.stone).parent = group
+        elif self.ruined_transit and name == "center_planter":
+            self.concrete_box("Station planter bed", (x,y,.10),
+                              (w*.46,d*.46,.10)).parent = group
+            for side in (-1,1):
+                self.concrete_box("Station planter rim", (x+side*w*.40,y,.27),
+                                  (w*.065,d*.45,.17)).parent = group
+                self.concrete_box("Station planter rim", (x,y+side*d*.40,.27),
+                                  (w*.36,d*.065,.17)).parent = group
+            for dx,dy in ((-.20,.12), (.06,-.22), (.24,.19)):
+                self.concrete_box("Station planter rubble", (x+w*dx,y+d*dy,.26),
+                                  (w*.095,d*.085,.07)).parent = group
+        elif self.ruined_transit and name in {"bench_n", "bench_s"}:
+            for side in (-1,1):
+                self.concrete_box("Station bench support", (x+side*w*.34,y,.19),
+                                  (w*.065,d*.34,.19)).parent = group
+            for slat in (-1,0,1):
+                box("Station bench slat", (x,y+slat*d*.23,.405),
+                    (w*.46,d*.10,.033), self.facade_blue,.014).parent = group
         elif any(part in name for part in ("platform","planter","bench","table")):
             height = .52 if name.startswith(("table","bench")) else .20
             box(name, (x,y,height/2), (w*.48,d*.48,height/2), self.stone).parent = group
