@@ -1,6 +1,6 @@
 """Python authority for the isolated Godot tactical preview."""
 from game.combat.engine import CombatEngine
-from game.combat.movement import CELL_SIZE
+from game.combat.movement import CELL_SIZE, can_enter_cell
 from game.combat_actions import available_combat_actions
 
 
@@ -16,6 +16,24 @@ class TacticalPreview:
             for index, unit in enumerate(team)
         }
         self.unit_ids = {id(unit): key for key, unit in self.units.items()}
+
+    def move_options(self, unit) -> list[list[int]]:
+        engine = self.engine
+        state = engine.state
+        if state.turn != "player" or unit.health <= 0 or unit.action_points <= 0:
+            return []
+        x, y = unit.position
+        blocked = {(node.world_x, node.world_y) for node in engine.cover_nodes or [] if not node.passable}
+        options = []
+        for dx, dy in ((CELL_SIZE,0), (-CELL_SIZE,0), (0,CELL_SIZE), (0,-CELL_SIZE)):
+            nx, ny = x + dx, y + dy
+            if (nx, ny) in blocked or (engine.can_enter and not engine.can_enter(nx, ny)):
+                continue
+            if can_enter_cell(nx, ny, terrain_profile=engine.terrain_profile,
+                              allied_units=state.allied_units, enemy_units=state.enemy_units,
+                              exclude=unit, movement_mode=state.movement_mode):
+                options.append([nx // CELL_SIZE, ny // CELL_SIZE])
+        return options
 
     def snapshot(self) -> dict:
         state = self.engine.state
@@ -34,6 +52,7 @@ class TacticalPreview:
                     "ap": unit.action_points,
                     "defending": unit.is_defending,
                     "overwatch": unit.on_overwatch,
+                    "moves": self.move_options(unit) if key.startswith("ally:") and not battle.ended else [],
                     "actions": [action.key for action in available_combat_actions(unit)]
                     if key.startswith("ally:") and state.turn == "player" and unit.health > 0
                     else [],

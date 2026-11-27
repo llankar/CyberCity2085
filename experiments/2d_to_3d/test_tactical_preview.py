@@ -166,10 +166,15 @@ class TacticalPreviewTest(unittest.TestCase):
         engine = CombatEngine(CombatState(None, [ally], [enemy]),
                               can_enter=lambda x, y: x != 128)
         preview = TacticalPreview(engine)
+        starting_moves = preview.snapshot()["units"][0]["moves"]
+        self.assertIn([3, 2], starting_moves)
+        self.assertNotIn([4, 2], starting_moves)
         result = preview.action("move", "ally:0", destination=[3, 2])
         self.assertTrue(result["success"], result)
         self.assertEqual(result["state"]["units"][0]["cell"], [3, 2])
         self.assertLess(ally.action_points, 3)
+        self.assertNotIn([4, 2], result["state"]["units"][0]["moves"])
+        self.assertIn([2, 2], result["state"]["units"][0]["moves"])
         rejected = preview.action("move", "ally:0", destination=[4, 2])
         self.assertFalse(rejected["success"], rejected)
         self.assertEqual(rejected["state"], result["state"])

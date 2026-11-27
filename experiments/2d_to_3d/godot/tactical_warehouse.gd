@@ -13,6 +13,7 @@ var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
 var actors := {}
+var move_markers: Array[MeshInstance3D] = []
 var actor_models: Dictionary[String, PackedScene] = {}
 var last_sequence := -1
 var smoke := false
@@ -63,6 +64,22 @@ func _ready() -> void:
  hud.add_child(selection)
  effects = Effects.new()
  add_child(effects)
+ var marker_mesh := TorusMesh.new()
+ marker_mesh.inner_radius = .265
+ marker_mesh.outer_radius = .31
+ marker_mesh.rings = 16
+ marker_mesh.ring_segments = 6
+ var marker_material := StandardMaterial3D.new()
+ marker_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+ marker_material.albedo_color = Color(.15,.66,.74)
+ for index in 4:
+  var marker := MeshInstance3D.new()
+  marker.mesh = marker_mesh
+  marker.material_override = marker_material
+  marker.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+  marker.hide()
+  add_child(marker)
+  move_markers.append(marker)
 
 
 func apply_presentation(config: Dictionary) -> bool:
@@ -311,6 +328,8 @@ func send(command: Dictionary) -> void:
  var error := mailbox.send(command)
  if error == OK:
   pending_command = command
+  for marker in move_markers:
+   marker.hide()
   if smoke:
    smoke_command_sent_usec = Time.get_ticks_usec()
  if error != OK and error != ERR_BUSY:
@@ -373,6 +392,12 @@ func actor_at(screen_position: Vector2, side: String) -> String:
 func refresh_selection() -> void:
  var active: TacticalActor = actors[selected_ally]
  cutaway.actors = [] if active.fallen else [active]
+ var moves: Array = unit_state(selected_ally).get("moves", [])
+ for index in move_markers.size():
+  var marker := move_markers[index]
+  marker.visible = index < moves.size()
+  if marker.visible:
+   marker.position = cell_position(moves[index]) + Vector3.UP*.07
  for unit: Dictionary in mailbox.state.units:
   if unit.id.begins_with("ally:"):
    actors[unit.id].ring.scale = Vector3.ONE * (1.22 if unit.id == selected_ally else 1.0)
