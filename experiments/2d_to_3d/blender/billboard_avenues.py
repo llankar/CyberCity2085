@@ -233,6 +233,9 @@ def build(name):
                                    overpass=name.endswith("_collapsed_overpass"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
+    civic_surface = textured_material(
+        "Civic weathered concrete", LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
+    ) if civic else wall
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)
     palette = ((.025, .60, .73, 1), (.63, .039, .31, 1), (.88, .36, .043, 1))
     signs = []
@@ -319,7 +322,7 @@ def build(name):
             polygon_bench = riot_square and identifier.startswith("bench_")
             base, top = (.34,.43) if polygon_bench else (0,height)
             mesh.from_pydata([(x,y,z) for z in (base,top) for x,y in points], [], faces)
-            mesh.materials.append(seat if polygon_bench else wall)
+            mesh.materials.append(seat if polygon_bench else civic_surface if is_building else wall)
             if is_planter:
                 mesh.materials.append(gravel if civic else foliage)
                 mesh.polygons[1].material_index = 1
@@ -368,6 +371,31 @@ def build(name):
                 for loop in mesh.polygons[1].loop_indices:
                     vx,vy,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
                     uv.data[loop].uv = (vx/gw+.5, vy/gh+.5)
+                if civic:
+                    edges = zip(points,points[1:]+points[:1])
+                    for ((ax,ay),(bx,by)), face in zip(edges,mesh.polygons[2:]):
+                        dx,dy = bx-ax,by-ay
+                        length = math.hypot(dx,dy)
+                        repeat = length/2.7
+                        for loop, coord in zip(face.loop_indices, ((0,0),(repeat,0),(repeat,height/2.7),(0,height/2.7))):
+                            uv.data[loop].uv = coord
+                        if length < 1.4:
+                            continue
+                        yaw = math.atan2(dy,dx)
+                        nx,ny = dy/length,-dx/length
+                        for z in (.28,height-.25):
+                            band = box(identifier+" civic facade band",
+                                       ((ax+bx)/2+nx*.038,(ay+by)/2+ny*.038,z),
+                                       (length/2,.037,.052),frame,.01)
+                            band.rotation_euler.z = yaw
+                            band.parent = group
+                        bays = max(1,int(length/2.15))
+                        for index in range(bays):
+                            portion = (index+.5)/bays
+                            place(library / "urban_facade280/window.glb", group,
+                                  (ax+portion*dx+nx*.054,ay+portion*dy+ny*.054,height*.51),
+                                  (min(1.35,length/bays*.75),.28,.70), yaw=yaw, merge=True)
+
             if identifier.startswith("sign_") or identifier == "holo_platform":
                 sx = sum(px for px,_ in points)/count
                 sy = sum(py for _,py in points)/count
@@ -635,12 +663,17 @@ def build(name):
             continue
         if not any(part in identifier for part in ("block", "building", "_roof", "warehouse", "_factory", "_tower")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
-        shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
+        shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), civic_surface)
         shell.parent = group
         shell.data.materials.append(roof)
         uv = shell.data.uv_layers.active
         for face in shell.data.polygons:
             if face.normal.z < .9:
+                if civic and abs(face.normal.z) < .1:
+                    for loop_index in face.loop_indices:
+                        point = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
+                        along = point.y if abs(face.normal.x) > .5 else point.x
+                        uv.data[loop_index].uv = (along/2.7, (point.z+height/2)/2.7)
                 continue
             face.material_index = 1
             for loop_index in face.loop_indices:

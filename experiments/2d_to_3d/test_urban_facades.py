@@ -208,3 +208,30 @@ def test_freeway_rails_follow_survey_segments(variant):
         assert max(pos["max"][1] for pos in positions) == pytest.approx(-.012)
         for pos in positions:
             assert pos[bound][2] == pytest.approx(rail_rows[rail]*gh/ch-gh/2)
+
+
+@pytest.mark.parametrize(("name", "identifier"), [
+    ("city_district_riot_square", "west_north_building"),
+    ("city_district_civic_center", "west_outside_building"),
+    ("cybercity_street_05_civic_plaza", "northwest_building"),
+    ("cybercity_street_10_civic_plaza", "nw_block"),
+    ("cybercity_street_11_civic_plaza", "nw_block"),
+])
+def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / name / "environment.glb"
+    if not path.is_file():
+        pytest.skip("Build the civic map on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        data = json.loads(model.read(size))
+    nodes = data["nodes"]
+    root = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+    parts = [nodes[index] for index in root["children"]]
+    shell = next(node for node in parts if node["name"] == identifier)
+    primitives = data["meshes"][shell["mesh"]]["primitives"]
+    textured = {data["materials"][part["material"]]["name"] for part in primitives
+                if "TEXCOORD_0" in part["attributes"]
+                and "baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]}
+    assert {"Civic weathered concrete", "Original rooftop artwork"} <= textured
+    if name == "city_district_riot_square":
+        assert any(" civic facade band" in part["name"] for part in parts)
