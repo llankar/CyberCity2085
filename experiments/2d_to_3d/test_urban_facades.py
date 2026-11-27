@@ -344,7 +344,12 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
         pytest.skip("Build the industrial district on E: first")
     with path.open("rb") as model:
         size = struct.unpack("<4sIII4s", model.read(20))[3]
-        nodes = json.loads(model.read(size))["nodes"]
+        gltf = json.loads(model.read(size))
+    nodes = gltf["nodes"]
+    concrete = next(material for material in gltf["materials"]
+                    if material["name"] == "Industrial weathered concrete")
+    assert "baseColorTexture" in concrete["pbrMetallicRoughness"]
+    assert "normalTexture" in concrete
     for side in ("w", "e"):
         label = f"central_{side}_machine"
         root = next(node for node in nodes if node["name"] == f"Occludable_{label}")

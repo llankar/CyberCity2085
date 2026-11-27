@@ -404,12 +404,14 @@ def build(name):
                                    convoy_crossing=name.endswith("_convoy_crossing"))
                  if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
-    civic_surface = textured_material(
-        "Civic weathered concrete", LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
-    ) if civic else wall
-    if civic:
-        nodes = civic_surface.node_tree.nodes
-        links = civic_surface.node_tree.links
+    weathered_facades = civic or name.endswith("_industrial_district")
+    facade_surface = textured_material(
+        "Civic weathered concrete" if civic else "Industrial weathered concrete",
+        LAB / "generated/phase2/techmarket341/facade_concrete.png", .83
+    ) if weathered_facades else wall
+    if weathered_facades:
+        nodes = facade_surface.node_tree.nodes
+        links = facade_surface.node_tree.links
         texture = nodes.new("ShaderNodeTexImage")
         texture.image = bpy.data.images.load(str(LAB / "sources/environment169/concrete_wall_001/nor_gl.jpg"))
         texture.image.colorspace_settings.name = "Non-Color"
@@ -1154,7 +1156,7 @@ def build(name):
             continue
         if not any(part in identifier for part in ("block", "building", "_roof", "warehouse", "_factory", "_tower")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
-        shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), civic_surface)
+        shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), facade_surface)
         shell.parent = group
         shell.data.materials.append(roof)
         uv = shell.data.uv_layers.active
