@@ -917,7 +917,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://wasteland_outdoor_04_rusted_trainyard.tscn",
-    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
+    "scope": "covered wagons, gondolas and tankers fitted to surveys; modeled turntable bridge and rim; art review pending"
   },
   {
     "map": "wasteland_outdoor_05_irradiated_basin",
@@ -957,7 +957,7 @@
     "status": "preview",
     "batch": "expansion",
     "scene": "res://wasteland_outdoor_09_rusted_trainyard.tscn",
-    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
+    "scope": "covered wagons, gondolas and tankers fitted to surveys; modeled turntable bridge and rim; art review pending"
   },
   {
     "map": "wasteland_outdoor_10_irradiated_basin",
