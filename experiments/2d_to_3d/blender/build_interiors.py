@@ -19,6 +19,37 @@ from interior_furniture import (
 from library_placement import place, reset_library_cache
 
 
+
+def build_atrium_floor(geometry, floor, trim, grid, canvas):
+    gw, gh = grid
+    cw, ch = canvas
+
+    def surface(label, polygons, levels, material):
+        vertices, faces = [], []
+        for polygon in polygons:
+            first = len(vertices)
+            vertices.extend((px*gw/cw-gw/2,gh/2-py*gh/ch,z) for (px,py),z in zip(polygon,levels))
+            face = tuple(range(first,len(vertices)))
+            if len(face) == 3:
+                a,b,c = (Vector(vertices[index]) for index in face)
+                if (b-a).cross(c-a).z < 0:
+                    face = tuple(reversed(face))
+            faces.append(face)
+        mesh = bpy.data.meshes.new(label)
+        mesh.from_pydata(vertices, [], faces)
+        mesh.materials.append(material)
+        uv = mesh.uv_layers.new()
+        for loop in mesh.loops:
+            x,y,_ = vertices[loop.vertex_index]
+            uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
+        bpy.context.collection.objects.link(bpy.data.objects.new(label, mesh))
+
+    surface("Atrium upper floor", geometry["deck"], [-.025]*3, floor)
+    surface("Atrium recessed level", geometry["street"], [-1.85]*3, floor)
+    surface("Atrium shaft sides", [(a,b,b,a) for a,b in geometry["edges"]],
+            [-.025,-.025,-1.85,-1.85], trim)
+
+
 def build(name):
     reset_library_cache()
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -345,9 +376,12 @@ def build(name):
     texture = nodes.new("ShaderNodeTexImage")
     texture.image = bpy.data.images.load(str(out / "floor.png"))
     floor.node_tree.links.new(texture.outputs["Color"], nodes["Principled BSDF"].inputs["Base Color"])
-    bpy.ops.mesh.primitive_plane_add(size=2, location=(0,0,-.025))
-    bpy.context.object.scale = (gw/2,gh/2,1)
-    bpy.context.object.data.materials.append(floor)
+    if manifest.get("floor_geometry"):
+        build_atrium_floor(manifest["floor_geometry"], floor, partition_cap, (gw,gh), (cw,ch))
+    else:
+        bpy.ops.mesh.primitive_plane_add(size=2, location=(0,0,-.025))
+        bpy.context.object.scale = (gw/2,gh/2,1)
+        bpy.context.object.data.materials.append(floor)
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")

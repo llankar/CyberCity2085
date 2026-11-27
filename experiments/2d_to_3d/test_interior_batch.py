@@ -303,6 +303,16 @@ def test_interior_maps_export_remaining_fixture_groups():
         },
     }
     additions.update({
+        "city_interior_penthouse_atrium": {
+            "bath_sw": "Tub basin inset", "bath_se": "Tub basin inset", "south_lounge": "south_lounge cushions",
+        },
+        "cybercity_inner_10_penthouse_atrium": {"sw_plant": "sw_plant foliage"},
+        "cybercity_inner_12_maintenance_tunnel": {
+            "se_fans": "Vent fan deck", "south_inner_storage": "Warehouse pallet rack",
+        },
+        "cybercity_inner_14_detention_block": {
+            "east_weapons": "Warehouse pallet rack", "east_tools": "Workbench steel top",
+        },
         "cybercity_inner_09_apartment_block": {
             "sofa_s3": "sofa_s3 cushions", "chair_s3": "chair_s3 back",
             "bath_s": "Tub basin inset", "south_monitor": "south_monitor display",
@@ -414,3 +424,29 @@ def test_clinic_and_shelter_plumbing_is_exported_as_geometry():
         for identifier, part in modeled.items():
             assert any(nodes[index]["name"].startswith(part)
                        for index in groups[f"Occludable_{identifier}"])
+
+
+
+def test_penthouse_atrium_has_physical_recess_in_export():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    path = OUTPUT / "cybercity_inner_10_penthouse_atrium/environment.glb"
+    if not path.is_file():
+        pytest.skip("Build Penthouse Atrium 10 on E: first")
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        data = json.loads(glb.read(size))
+    nodes = {node["name"]: node for node in data["nodes"]}
+    assert "Occludable_central_void" not in nodes
+    for label, low, high in (
+        ("Atrium upper floor", -.025, -.025),
+        ("Atrium recessed level", -1.85, -1.85),
+        ("Atrium shaft sides", -1.85, -.025),
+    ):
+        mesh = data["meshes"][nodes[label]["mesh"]]
+        accessor = data["accessors"][mesh["primitives"][0]["attributes"]["POSITION"]]
+        assert (accessor["min"][1], accessor["max"][1]) == pytest.approx((low,high))

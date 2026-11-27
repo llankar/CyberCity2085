@@ -73,6 +73,12 @@ def fixtures(name):
         "wasteland_inner_01_abandoned_safehouse", "wasteland_inner_06_abandoned_safehouse",
     }
     room_fixtures = {
+        "city_interior_penthouse_atrium": {
+            "bath_sw": "bath_tub", "bath_se": "bath_tub", "south_lounge": "sofa",
+        },
+        "cybercity_inner_10_penthouse_atrium": {"sw_plant": "planter"},
+        "cybercity_inner_12_maintenance_tunnel": {"se_fans": "vent_fan", "south_inner_storage": "rack"},
+        "cybercity_inner_14_detention_block": {"east_weapons": "rack", "east_tools": "workbench"},
         "cybercity_inner_09_apartment_block": {"bath_s": "bath_tub"},
         "city_interior_control_center": {"north_display": "command_wall"},
         "cybercity_inner_01_control_center": {"north_display": "command_wall"},
@@ -196,6 +202,7 @@ def fixtures(name):
 def main():
     sys.path.insert(0, str(MAPS.parents[1]))
     from game.map_geometry import stroke_outline
+    from rooftop_terrain import terrain
 
     names = sys.argv[1:] or INTERIORS
     for name in names:
@@ -208,8 +215,10 @@ def main():
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
                     if "points" in row else row["polygon"]
                     for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
+        atrium = [row for row in survey["walls"] if row["id"] == "central_void"]
+        floor_geometry = terrain({**survey, "walls": [{**row, "kind": "water"} for row in atrium]}) if atrium else None
         (OUTPUT / name / "fixtures.json").write_text(
-            json.dumps({"selected": selected, "outlines": outlines}), encoding="utf-8"
+            json.dumps({"selected": selected, "outlines": outlines, "floor_geometry": floor_geometry}), encoding="utf-8"
         )
     return subprocess.run([
         "powershell.exe", "-NoProfile", "-File", str(ROOT / "run_blender.ps1"),
