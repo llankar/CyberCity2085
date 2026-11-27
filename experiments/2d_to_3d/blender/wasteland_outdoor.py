@@ -251,6 +251,16 @@ class WastelandOutdoors:
             c,s = abs(math.cos(angle)),abs(math.sin(angle))
             scale = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
             self.convoy_vehicle(group, name, x, y, length*scale, breadth*scale, angle)
+        elif self.ruined_downtown and name in {"bus_sw", "wreck_mid_e", "truck_mid"}:
+            angle = {"bus_sw": .36, "wreck_mid_e": .29, "truck_mid": -.20}[name]
+            breadth = min(breadth, length*.33)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            length, breadth = length*fit, breadth*fit
+            if name == "truck_mid":
+                self.convoy_vehicle(group, name, x, y, length, breadth, angle)
+            else:
+                self.downtown_bus_wreck(group, x, y, length, breadth, angle)
         elif name.startswith("convoy_"):
             self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
         elif self.city and name.startswith(("bus_", "truck_")):
@@ -323,6 +333,22 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def downtown_bus_wreck(self, group, x, y, length, width, yaw):
+        group.location = (x, y, 0)
+        group.rotation_euler.z = yaw
+        box("Bus wreck floor", (0,0,.38), (length*.48,width*.46,.13), self.dark).parent = group
+        box("Surviving bus roof", (-length*.31,0,1.18),
+            (length*.155,width*.44,.052), self.steel).parent = group
+        for side in (-1,1):
+            box("Bus wreck side sill", (0,side*width*.43,.64),
+                (length*.47,width*.055,.17), self.steel).parent = group
+            for offset in (-.15,.02,.20,.39):
+                box("Exposed bus window pillar", (length*offset,side*width*.43,.96),
+                    (.042,.039,.20), self.dark).parent = group
+            for offset in (-.32,.32):
+                box("Bus wreck wheel", (length*offset,side*width*.38,.23),
+                    (.22,width*.12,.22), self.dark,.085).parent = group
 
     def downtown_exposed_frame(self, group, name, x, y, width, depth):
         street_side = -1 if name.startswith("n") else 1

@@ -1557,3 +1557,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-COLLAPSED-OVERPASS-DEBRIS / DONE for 32 textured 3D fragments per variant, grouped within the eight existing ruin footprints. Both GLBs rebuilt on E:, ten targeted tests passed and Godot rendered variant 08. Smaller background debris remains in the floor artwork. Next: move to the Ruined Downtown family and inspect its largest flat or generic structures.
 
 - EXPERIMENTAL-RUINED-DOWNTOWN-FRAMES / DONE for exposed structural frames on six surveyed ruins per variant. Added open girders, columns and surviving upper-floor fragments to 01 and 06. Both GLBs rebuilt on E:, ten targeted tests passed and Godot rendered 06. Next: differentiate the large wrecks and refine the damaged facades.
+
+- EXPERIMENTAL-RUINED-DOWNTOWN-HEAVY-WRECKS / DONE for three surveyed heavy wrecks per variant. Added two angled, partially roofless bus shells and a truck fitted to their original bounds in 01 and 06. Both exports rebuilt on E:, ten targeted tests passed and Godot rendered 06. Next: add original facade color and panel remnants to the ruined blocks.

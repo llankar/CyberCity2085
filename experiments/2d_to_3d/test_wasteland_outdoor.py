@@ -29,6 +29,11 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_ruined_downtown"):
+            for identifier in ("bus_sw", "wreck_mid_e"):
+                bus = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+                parts = [nodes[index]["name"] for index in bus["children"]]
+                assert sum(part.startswith("Exposed bus window pillar") for part in parts) == 8
+                assert "rotation" in bus
             for node in nodes:
                 label = node["name"]
                 if label.startswith("Occludable_") and ("ruin" in label or label.endswith("ne_corner")):
