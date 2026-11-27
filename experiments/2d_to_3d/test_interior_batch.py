@@ -530,6 +530,11 @@ def test_interior_maps_export_remaining_fixture_groups():
             if component:
                 assert any(part.startswith(component) for part in parts), identifier
         if name.endswith("_bunker_command_post"):
+            for side in ("w", "e"):
+                wall_parts = [nodes[index]["name"]
+                              for index in groups[f"Occludable_central_wall_{side}"]]
+                assert sum(part.startswith("Bunker command wall conduit") for part in wall_parts) == 1
+                assert sum(part.startswith("Bunker command wall junction") for part in wall_parts) == 3
             table_parts = [nodes[index]["name"] for index in groups["Occludable_central_table"]]
             assert sum(part.startswith("Operations map control display") for part in table_parts) == 2
             assert sum(part.startswith("Operations map command key") for part in table_parts) == 6

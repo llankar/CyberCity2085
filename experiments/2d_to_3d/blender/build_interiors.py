@@ -283,6 +283,18 @@ def build(name):
             bpy.context.collection.objects.link(partition)
             partition.parent = group
             if bunker and identifier in {"central_wall_w", "central_wall_e"}:
+                start, end = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch))
+                              for px, py in row["points"][:2]]
+                inward = 1 if identifier.endswith("_w") else -1
+                conduit_x = start.x+inward*(row["width"]*gw/cw/2+.025)
+                conduit = box("Bunker command wall conduit",
+                              (conduit_x,(start.y+end.y)/2,1.16),
+                              (.046,abs(end.y-start.y)*.455,.036),partition_cap,.013)
+                conduit.parent = group
+                for fraction in (.23,.52,.78):
+                    box("Bunker command wall junction",
+                        (conduit_x+inward*.024,start.y+(end.y-start.y)*fraction,1.16),
+                        (.060,.081,.089),steel,.015).parent = group
                 flank_points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch))
                                 for px, py in row["points"][-3:]]
                 bags = []
