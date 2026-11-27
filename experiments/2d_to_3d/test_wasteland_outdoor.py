@@ -231,11 +231,6 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                                           ("truck_e", "Wreck flatbed side rail")):
                 wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert any(nodes[i]["name"].startswith(component) for i in wreck["children"])
-        if name.endswith("_convoy_crossing"):
-            for identifier in ("wreck_w", "wreck_ne", "wreck_se", "wreck_southwest"):
-                wreck = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
-                assert sum(nodes[i]["name"].startswith("Wreck flatbed crossmember")
-                           for i in wreck["children"]) == 3
         if name.endswith("_salt_flat_ambush"):
             poles = [node for node in nodes if node["name"].startswith("Salt flat abandoned utility pole")]
             assert len(poles) == 4
@@ -556,12 +551,22 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         data = json.loads(model.read(size))
     nodes = data["nodes"]
     groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    reconstructed_wreck = Path("E:/CyberCity2085-3d-lab/environment-library/assets/"
+                               "convoy_reconstructed_wreck/model.glb")
+    if reconstructed_wreck.is_file():
+        for identifier in ("wreck_w", "wreck_ne", "wreck_se", "wreck_southwest"):
+            truck, = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
+            assert truck["name"].startswith("Convoy reconstructed stripped truck")
+            surfaces = data["meshes"][truck["mesh"]]["primitives"]
+            assert any("baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]
+                       for part in surfaces)
     flatbeds = [[nodes[index]["name"] for index in children] for name, children in groups.items()
                 if name.startswith("Occludable_wreck_")
                 and any(nodes[index]["name"].startswith("Wreck flatbed crossmember")
                         for index in children)]
-    assert flatbeds
+    assert len(flatbeds) == (0 if reconstructed_wreck.is_file() else 4)
     for parts in flatbeds:
+        assert sum(part.startswith("Wreck flatbed crossmember") for part in parts) == 3
         assert sum(part.startswith("Wreck exposed frame rail") for part in parts) == 2
         assert sum(part.startswith("Wreck exposed rear axle") for part in parts) == 2
         assert sum(part.startswith("Wreck exposed drive shaft") for part in parts) == 1

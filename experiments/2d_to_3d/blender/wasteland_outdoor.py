@@ -616,7 +616,15 @@ class WastelandOutdoors:
             breadth = min(breadth, length*.38)
             c, s = abs(math.cos(angle)), abs(math.sin(angle))
             fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
-            self.convoy_vehicle(group, name, x, y, length*fit, breadth*fit, angle)
+            wreck = self.library / "convoy_reconstructed_wreck/model.glb"
+            if wreck.is_file():
+                # The cab faces local -X. The west and southwest cabs face east.
+                heading = angle + (math.pi if name in {"wreck_w", "wreck_southwest"} else 0)
+                for mesh in place(wreck, group, (x,y,0),
+                                  (length*fit,breadth*fit,2.25), yaw=heading, merge=True):
+                    mesh.name = "Convoy reconstructed stripped truck"
+            else:
+                self.convoy_vehicle(group, name, x, y, length*fit, breadth*fit, angle)
         elif self.wrecked_highway and name in wreck_yaws:
             angle = -wreck_yaws[name]
             c,s = abs(math.cos(angle)),abs(math.sin(angle))
