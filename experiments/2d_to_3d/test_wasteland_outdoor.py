@@ -31,6 +31,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         if name.endswith("_flooded_civic_square"):
             by_name = {node["name"]: node for node in nodes}
             assert "mesh" in by_name["Flooded civic square water surface"]
+            bus = by_name["Occludable_bus_west"]
+            assert "rotation" in bus
+            assert sum(nodes[i]["name"].startswith("Exposed bus window pillar")
+                       for i in bus["children"]) == 8
             monument = by_name["Occludable_monument"]
             assert sum(nodes[i]["name"].startswith("Flooded monument") for i in monument["children"]) == 4
             for row in surveyed:

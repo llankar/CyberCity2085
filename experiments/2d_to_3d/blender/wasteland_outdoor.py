@@ -296,9 +296,15 @@ class WastelandOutdoors:
             if name == "truck_mid":
                 self.convoy_vehicle(group, name, x, y, length, breadth, angle)
             else:
-                self.downtown_bus_wreck(group, x, y, length, breadth, angle)
+                self.open_bus_wreck(group, x, y, length, breadth, angle)
         elif name.startswith("convoy_"):
             self.convoy_vehicle(group, name, x, y, length, breadth, yaw)
+        elif self.flooded_square and name == "bus_west":
+            angle = math.radians(82)
+            breadth = min(breadth, length*.28)
+            c, s = math.cos(angle), math.sin(angle)
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            self.open_bus_wreck(group, x, y, length*fit, breadth*fit, angle)
         elif self.city and name.startswith(("bus_", "truck_")):
             self.vehicle(group, name, x,y,w,d)
         elif name.startswith(("wreck_", "truck_", "convoy_", "car_")):
@@ -458,7 +464,7 @@ class WastelandOutdoors:
         bpy.context.collection.objects.link(canopy)
         canopy.parent = group
 
-    def downtown_bus_wreck(self, group, x, y, length, width, yaw):
+    def open_bus_wreck(self, group, x, y, length, width, yaw):
         group.location = (x, y, 0)
         group.rotation_euler.z = yaw
         box("Bus wreck floor", (0,0,.38), (length*.48,width*.46,.13), self.dark).parent = group
