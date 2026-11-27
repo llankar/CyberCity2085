@@ -315,7 +315,10 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
-        elif emergency_medbay and kind in {"machine", "table"}:
+        elif emergency_medbay and kind == "table":
+            build_facility_fixture(group, "medbay_supply_table", x, y, w, d,
+                                   stretcher_frame, partition_cap, linen)
+        elif emergency_medbay and kind == "machine":
             build_diagnostic_bench(group, x, y, w, d, partition_cap, stretcher_frame, console_glass,
                                    telemetry=identifier == "central_machine")
         elif kind == "machine" and depot:

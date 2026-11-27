@@ -510,6 +510,17 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for offset, inset in ((-.28,.11),(.04,-.17),(.27,.045)):
             part("Vault displaced display fragment", length*offset,width*inset,.716,
                  length*.058,width*.10,.022,trim)
+    elif kind == "medbay_supply_table":
+        for end in (-1, 1):
+            for side in (-1, 1):
+                part("Triage table leg", end*length*.36,side*width*.32,.35,.035,.035,.35,steel)
+        part("Triage table lower shelf", 0,0,.24,length*.39,width*.37,.025,trim)
+        part("Triage table worktop", 0,0,.73,length*.48,width*.46,.045,steel)
+        part("Dressing tray", -length*.23,width*.10,.806,length*.16,width*.22,.035,trim)
+        for pack in (-1, 0, 1):
+            part("Sealed dressing pack", length*(.18+pack*.12),-width*.05,.828,
+                 length*.049,width*.18,.053,screen)
+        merge_fixture_meshes(group, "Medbay triage supply table")
     elif kind == "relay_console":
         for end in (-1, 1):
             part("Relay console pedestal", end*length*.31,0,.38,length*.14,width*.39,.38,trim)

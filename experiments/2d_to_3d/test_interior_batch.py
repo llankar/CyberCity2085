@@ -440,6 +440,8 @@ def test_interior_maps_export_remaining_fixture_groups():
         "central_machine": "Medbay telemetry station",
         "south_machine_w": "Clinic diagnostic bench",
         "bed_center": "Clinic treatment bed",
+        "west_n_table": "Medbay triage supply table",
+        "ne_table": "Medbay triage supply table",
     }
     for index in ("06", "11"):
         additions[f"wasteland_inner_{index}_maintenance_depot"] = {
