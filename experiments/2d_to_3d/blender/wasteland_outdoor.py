@@ -345,6 +345,18 @@ class WastelandOutdoors:
                         block.rotation_euler.z = yaw
                         block.parent = group
                     continue
+                elif self.convoy_crossing:
+                    count = max(1, round(length / .85))
+                    yaw = math.atan2(by-ay,bx-ax)
+                    for index in range(count):
+                        offset = (index+.5)/count
+                        block_height = (.38, .29, .35, .23)[(i+index)%4]
+                        block = self.concrete_guardrail("Convoy chipped roadside barrier",
+                                                       length*.95/count, width*.92, block_height)
+                        block.location = (ax+(bx-ax)*offset, ay+(by-ay)*offset, 0)
+                        block.rotation_euler.z = yaw
+                        block.parent = group
+                    continue
                 elif self.overpass:
                     segment = self.concrete_guardrail(name,length,width,height)
                     segment.location = ((ax+bx)/2,(ay+by)/2,0)
