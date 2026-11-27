@@ -163,6 +163,23 @@ for label, outline in VESSEL_OUTLINES.items():
     mesh.polygons[0].material_index = 1
     hull = bpy.data.objects.new(label, mesh)
     bpy.context.collection.objects.link(hull)
+    # Follow the actual traced deck edge, inset enough to sit on the deck.
+    rail_path = [(mx+(x-mx)*.96,my+(y-my)*.96) for x,y in deck]
+    for index, (x, y) in enumerate(rail_path):
+        nx, ny = rail_path[(index+1)%count]
+        if abs(y-ny) < .001 and abs(y-my) > 3:
+            continue  # Open end at the artwork boundary.
+        length = math.hypot(nx-x,ny-y)
+        handrail = box("Vessel perimeter handrail", ((x+nx)/2,(y+ny)/2,.71),
+                       (length/2,.023,.023),steel,.01)
+        handrail.rotation_euler.z = math.atan2(ny-y,nx-x)
+        handrail.parent = hull
+        posts = max(1,math.ceil(length/.85))
+        for post_index in range(posts):
+            fraction = post_index/posts
+            post = box("Vessel deck stanchion", (x+(nx-x)*fraction,y+(ny-y)*fraction,.59),
+                       (.029,.029,.12),steel,.01)
+            post.parent = hull
     north = label.startswith("North")
     cargo_x = (83 if north else 73)*gw/960-gw/2
     center_y = gh/2-(199 if north else 444)*gh/540

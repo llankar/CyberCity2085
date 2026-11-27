@@ -276,6 +276,8 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
         assert "mesh" in vessel
         parts = [nodes[index]["name"] for index in vessel["children"]]
         assert sum(part.startswith("Warehouse shipping container") for part in parts) == 3
+        assert sum(part.startswith("Vessel perimeter handrail") for part in parts) == 10
+        assert sum(part.startswith("Vessel deck stanchion") for part in parts) > 10
         for component in ("Bridge glazing", "Forward hatch", "Aft mooring winch"):
             assert any(part.startswith(component) for part in parts)
     for identifier in ("east_upper_cabin", "east_lower_cabin"):
