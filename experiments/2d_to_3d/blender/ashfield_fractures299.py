@@ -129,6 +129,15 @@ for wall in structural_walls:
                (.062, .038, height/2), rust, .009)
     post.rotation_euler.z = Vector((0, 1)).angle_signed(normal.xy)
     post.parent = wall.parent
+    tangent = Vector((normal.y, -normal.x, 0))
+    projections = [(corner-anchor).dot(tangent) for corner in corners]
+    left, right = min(projections), max(projections)
+    if right-left >= .65:
+        midpoint = anchor+tangent*((left+right)*.5)
+        tie = box("Ruined wall exposed horizontal steel tie", (midpoint.x,midpoint.y,height*.68),
+                  ((right-left)*.40,.034,.048), rust,.009)
+        tie.rotation_euler.z = post.rotation_euler.z
+        tie.parent = wall.parent
 
 assert structural_walls
 print("ASHFIELD320_UPRIGHTS", len(structural_walls))
