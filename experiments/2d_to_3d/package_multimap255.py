@@ -35,7 +35,11 @@ def main():
                    help='Render comparison sheets for the entire catalogue')
  parser.add_argument('--top-down', action='store_true',
                      help='Compare the original with a Godot top-down capture')
+ parser.add_argument('--refresh-changed', action='store_true',
+                     help='Reuse catalogue plates newer than their inputs and this script')
  args = parser.parse_args()
+ if args.refresh_changed and not (args.catalogue_maps or args.all_catalogue):
+  parser.error('--refresh-changed requires a catalogue selection')
  if args.top_down and not (args.catalogue_maps or args.all_catalogue):
   parser.error('--top-down requires a catalogue selection')
  if args.catalogue_maps or args.all_catalogue:
@@ -72,6 +76,15 @@ def main():
   if not native.is_file():
    if family=='showcase':native=LAB/'generated/phase2/library227/clean_0030.png'
    if not native.is_file():raise FileNotFoundError(native)
+  target=out/(family+'_comparison.jpg')
+  cards.append('<section><h2>'+html.escape(family)+'</h2><p>'+html.escape(reason)+'</p><img loading="lazy" src="'+target.name+'"></section>')
+  inputs = [original, native, Path(__file__)]
+  if args.top_down:
+   inputs.append(original.with_suffix('.walls.json'))
+  if args.refresh_changed and target.is_file() and all(
+   target.stat().st_mtime_ns >= source.stat().st_mtime_ns for source in inputs
+  ):
+   continue
   image=Image.new('RGB',(1920,1080),(7,15,22));draw=ImageDraw.Draw(image)
   for x,path in [(0,original),(960,native)]:
    panel = Image.open(path).convert('RGB')
@@ -93,8 +106,7 @@ def main():
    image.paste(thumbnail,(x+(960-thumbnail.width)//2,80+(960-thumbnail.height)//2))
   view = 'TOP DOWN' if args.top_down else 'ISOMETRIC'
   draw.text((30,30),name+' // ORIGINAL 2D',fill='white');draw.text((990,30),'EXPERIMENTAL GODOT // '+view,fill='white')
-  target=out/(family+'_comparison.jpg');image.save(target,quality=92)
-  cards.append('<section><h2>'+html.escape(family)+'</h2><p>'+html.escape(reason)+'</p><img loading="lazy" src="'+target.name+'"></section>')
+  image.save(target,quality=92)
  (out/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>CyberCity multi-map review</title><style>body{background:#07141b;color:#def;font:18px system-ui;max-width:1600px;margin:30px auto}img,video{width:100%}section{margin:30px 0}</style><h1>'+title+'</h1>'+video+''.join(cards),encoding='utf8')
  print('MULTIMAP_COMPARISONS_PACKAGED',len(cards))
 
