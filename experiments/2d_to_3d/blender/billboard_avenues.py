@@ -58,6 +58,10 @@ TRANSIT_11_ROOF_FANS = {
     "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
+    "cybercity_street_13_flood_prone_avenue": {
+        "nw_block": ((273, 1, 299, 40),),
+        "se_block": ((803, 354, 855, 384),),
+    },
     "city_district_holo_square": {
         "building_east": ((1790, 434, 1874, 479),),
         "building_se": ((1818, 774, 1875, 855),),

@@ -1927,3 +1927,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-HOLO-ROOF-VENTILATION / DONE. Fitted two twin-fan units to clearly visible paired fan outlines on the east and southeast polygon roofs. Reused the mounting curb and independent building cutaways. Rebuilt on E:, opened Godot and passed 26 urban tests. Corporate Plaza pair placement was left open pending a clearer source match. Next: tackle another high-impact exterior feature.
 
 - EXPERIMENTAL-CORPORATE-PLAZA-ROOF-DUCTS / DONE. Traced the clearly visible long rooftop housings on the two middle towers and built segmented ducts on low fitted curbs. Rebuilt on E:, rendered Godot and passed 26 urban tests. Next: identify recurring geometry issues across a broader family of maps.
+
+- EXPERIMENTAL-FLOOD-PRONE-ROOF-FANS / DONE. Traced two paired ventilation units on the northwest and southeast roofs of the shared Street 13/14 map and fitted the existing 3D fan modules. Rebuilt on E:, loaded Street 13 in Godot and passed eleven terrain tests. Next: review larger street-level features across distinct exterior families.

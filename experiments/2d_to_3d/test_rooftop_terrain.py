@@ -47,6 +47,10 @@ def test_native_export_preserves_terrain_levels(map_name):
             name.startswith("Quay rubber fender") for name in nodes
         )
     elif map_name == FLOODED_AVENUE:
+        for building in ("nw_block", "se_block"):
+            root = nodes[f"Occludable_{building}"]
+            assert any(data["nodes"][index]["name"] == f"{building} surveyed roof HVAC"
+                       for index in root["children"])
         deck, lower, boundary = "Flooded avenue sidewalk", "Flooded avenue water surface", "Flooded avenue curb edges"
         depth = -.075
         assert not any(name.startswith("Quay rubber fender") for name in nodes)
