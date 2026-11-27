@@ -92,6 +92,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                     len(row["points"])-1
                 )*multiplier
         if name.endswith("_ruined_transit_plaza"):
+            for direction in ("nw", "ne", "sw", "se"):
+                column = next(node for node in nodes if node["name"] == f"Occludable_column_{direction}")
+                assert sum(nodes[i]["name"].startswith("Station column blue panel")
+                           for i in column["children"]) == 3
             south = next(node for node in nodes if node["name"] == "South transit carriage")
             parts = [nodes[i]["name"] for i in south["children"]]
             assert sum(part.startswith("Exposed transit roof rib") for part in parts) == 3

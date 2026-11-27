@@ -497,6 +497,8 @@ class WastelandOutdoors:
                 if material == self.aggregate:
                     self.project_concrete_uv(tier.data)
                 tier.parent = group
+        elif self.ruined_transit and name.startswith("column_"):
+            self.transit_column(group, x, y, w, d)
         elif "column" in name or name == "monument":
             box(name+" footing", (x,y,.16), (w*.47,d*.47,.16), self.stone).parent = group
             box(name, (x,y,1.15), (w*.25,d*.25,1.0), self.stone).parent = group
@@ -652,6 +654,19 @@ class WastelandOutdoors:
                                     (length/2,width*.48,.09))
             cap.rotation_euler.z = yaw
             cap.parent = group
+
+    def transit_column(self, group, x, y, width, depth):
+        self.concrete_box("Station column stepped footing", (x,y,.13),
+                          (width*.46,depth*.46,.13)).parent = group
+        self.concrete_box("Station column concrete core", (x,y,.91),
+                          (width*.28,depth*.36,.68)).parent = group
+        plaza_side = -1 if x > 0 else 1
+        for offset, height in ((-.23,.32), (.02,.37), (.25,.26)):
+            box("Station column blue panel", (x+plaza_side*width*.29,y+depth*offset,1.04),
+                (.026,depth*.105,height), self.facade_blue,.014).parent = group
+        for offset in (-.35,.35):
+            box("Station column corroded frame", (x+plaza_side*width*.30,y+depth*offset,.92),
+                (.036,.034,.64), self.steel,.010).parent = group
 
     def transit_platform(self, group, name, x, y, width, depth):
         rail_side = -1 if name == "west_platform" else 1
