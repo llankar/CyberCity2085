@@ -190,7 +190,12 @@ class WastelandOutdoors:
         source = bpy.data.images.load(str(concrete_path / "diff.jpg"), check_existing=True)
         pixels = np.empty(len(source.pixels), dtype=np.float32)
         source.pixels.foreach_get(pixels)
-        pixels.reshape(-1, 4)[:, :3] *= (.40, .40, .38) if overpass else (.62, .58, .54)
+        concrete_tint = (.62, .58, .54)
+        if overpass:
+            concrete_tint = (.40, .40, .38)
+        elif flooded_square:
+            concrete_tint = (.34, .40, .43)
+        pixels.reshape(-1, 4)[:, :3] *= concrete_tint
         diffuse.image = bpy.data.images.new("Weathered Wasteland concrete", *source.size)
         diffuse.image.pixels.foreach_set(pixels)
         diffuse.image.pack()
@@ -199,6 +204,14 @@ class WastelandOutdoors:
         roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
         roughness.image.colorspace_settings.name = "Non-Color"
         links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
+        if flooded_square:
+            detail = nodes.new("ShaderNodeTexImage")
+            detail.image = bpy.data.images.load(str(concrete_path / "nor_gl.jpg"), check_existing=True)
+            detail.image.colorspace_settings.name = "Non-Color"
+            normal = nodes.new("ShaderNodeNormalMap")
+            normal.inputs["Strength"].default_value = .55
+            links.new(detail.outputs["Color"], normal.inputs["Color"])
+            links.new(normal.outputs["Normal"], shader.inputs["Normal"])
         self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
         if self.ruined_downtown or self.flooded_square or self.ruined_transit or self.cratered_waterfront:

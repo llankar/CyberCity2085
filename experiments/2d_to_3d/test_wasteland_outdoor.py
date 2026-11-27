@@ -45,7 +45,8 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         with catalogue_environment(name).open("rb") as model:
             magic, _, _, size, chunk = struct.unpack("<4sIII4s", model.read(20))
             assert (magic, chunk) == (b"glTF", b"JSON")
-            nodes = json.loads(model.read(size))["nodes"]
+            data = json.loads(model.read(size))
+            nodes = data["nodes"]
         names = {node["name"] for node in nodes if node.get("children")}
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
@@ -184,6 +185,9 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 assert sum(part.startswith("Scavenger barricade brace") for part in parts) == segments*3
                 assert sum(part.startswith("Scavenger overlapping scrap plate") for part in parts) == segments*3
         if name.endswith("_flooded_civic_square"):
+            concrete = next(material for material in data["materials"]
+                            if material["name"] == "Exposed concrete aggregate")
+            assert "normalTexture" in concrete
             by_name = {node["name"]: node for node in nodes}
             assert "mesh" in by_name["Flooded civic square water surface"]
             bus = by_name["Occludable_bus_west"]
