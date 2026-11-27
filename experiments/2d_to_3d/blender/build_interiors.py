@@ -388,6 +388,13 @@ def build(name):
             fixture_steel = stretcher_frame if kind == "clinic_reception" and ruined_clinic else steel
             fixture_display = depot_warning if kind == "inspection_pit" else console_glass if bunker else screen
             build_facility_fixture(group, kind, x, y, w, d, fixture_steel, partition_cap, fixture_display)
+            if bunker and identifier == "command_console":
+                box("Bunker terminal bridge", (x,y+d*.29,1.06),
+                    (w*.43,d*.12,.17),partition_cap,.023).parent = group
+                for bay in range(5):
+                    offset = (bay-2)*w*.163
+                    box("Bunker upright terminal", (x+offset,y+d*.16,1.12),
+                        (w*.066,d*.023,.104),console_glass,.009).parent = group
             if kind == "command_table":
                 artwork = make_material("Original bunker operations map", (.4,.4,.4,1), 0,.72)
                 texture = artwork.node_tree.nodes.new("ShaderNodeTexImage")
