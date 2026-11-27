@@ -295,7 +295,7 @@ def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
         size = struct.unpack("<4sIII4s", model.read(20))[3]
         nodes = json.loads(model.read(size))["nodes"]
     groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
-    for identifier in ("wreck_mid_w", "wreck_mid_e", "wreck_far_e", "wreck_middle5"):
+    for identifier in ("wreck_mid_w", "wreck_mid_e", "wreck_e", "wreck_far_e", "wreck_middle5"):
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         assert sum(part.startswith("Wreck flatbed crossmember") for part in parts) == 7
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6

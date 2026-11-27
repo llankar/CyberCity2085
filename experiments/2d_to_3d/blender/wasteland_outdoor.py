@@ -385,7 +385,7 @@ class WastelandOutdoors:
         vertical = d > w
         length, breadth = (d,w) if vertical else (w,d)
         yaw = math.pi/2 if vertical else 0
-        wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34,
+        wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34, "wreck_e": -.33,
                      "wreck_far_e": -.09, "wreck_middle5": -.12}
         convoy_flatbeds = {"wreck_w": .24, "wreck_ne": .37,
                            "wreck_se": -.46, "wreck_southwest": .22}
