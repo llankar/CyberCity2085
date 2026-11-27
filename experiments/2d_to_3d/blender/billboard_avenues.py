@@ -57,6 +57,13 @@ TRANSIT_11_ROOF_FANS = {
     "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
+    "cybercity_street_12_industrial_district": {
+        "nw_factory": ((210, 22, 264, 49),),
+        "north_factory": ((331, 21, 355, 44),),
+        "ne_factory": ((655, 23, 687, 51), (699, 4, 724, 29)),
+        "sw_factory": ((207, 475, 237, 506),),
+        "se_factory": ((689, 446, 718, 474), (734, 393, 793, 428)),
+    },
     "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,
     "cybercity_street_15_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
     "cybercity_street_16_billboard_avenue": ALTERNATE_BILLBOARD_ROOF_FANS,
