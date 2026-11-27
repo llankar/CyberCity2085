@@ -155,7 +155,8 @@ def build(name):
 
     seat = make_material("Blue enamel seating", (.047, .19, .25, 1), .38, .52)
     gravel = make_material("Planted gravel", (.086, .079, .058, 1), .05, .93)
-    foliage = make_material("Hardy street shrubs", (.095, .19, .075, 1), .03, .84)
+    foliage = make_material("Hardy street shrubs", (.062, .116, .043, 1), .03, .84)
+    leaf_tips = make_material("New shrub growth", (.14, .22, .072, 1), .03, .88)
     shipping_skins = [make_material("Shipping enamel", color, .55, .64) for color in (
         (.07,.17,.19,1), (.27,.081,.05,1), (.17,.21,.095,1)
     )]
@@ -402,14 +403,37 @@ def build(name):
                 ]
                 if "planter" in identifier:
                     parts.append(("gravel", (x, y, .375), (w*.43, d*.40, .02), gravel))
-                    for offset in (-.31, 0, .31):
-                        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1,
-                            location=(x+w*offset, y, .48+abs(offset)*.12))
-                        shrub = bpy.context.object
-                        shrub.name = identifier + " shrub"
-                        shrub.scale = (w*.13, d*.30, .19)
-                        shrub.data.materials.append(foliage)
-                        shrub.parent = group
+                    vertices, faces = [], []
+                    vertical = d > w
+                    for cluster in (-1, 0, 1):
+                        center_x = x if vertical else x+cluster*w*.27
+                        center_y = y+cluster*d*.27 if vertical else y
+                        radius_x = w*(.30 if vertical else .15)
+                        radius_y = d*(.15 if vertical else .30)
+                        for leaf in range(18):
+                            angle = leaf * 2.39996 + cluster*.75 + i*.18
+                            radius = math.sqrt((leaf+.5)/18)
+                            sx, sy = math.cos(angle), math.sin(angle)
+                            dx, dy = radius_x*sx, radius_y*sy
+                            px, py = center_x+dx*radius*.80, center_y+dy*radius*.80
+                            z = .40 + .14*(1-radius) + (leaf%4)*.025
+                            start = len(vertices)
+                            vertices.extend((
+                                (px-dx*.19, py-dy*.19, z),
+                                (px-dy*.09, py+dx*.09, z+.052),
+                                (px+dx*.21, py+dy*.21, z+.077),
+                                (px+dy*.09, py-dx*.09, z+.035),
+                            ))
+                            faces.append((start, start+3, start+2, start+1))
+                    shrub_mesh = bpy.data.meshes.new(identifier + " shrub foliage")
+                    shrub_mesh.from_pydata(vertices, [], faces)
+                    shrub_mesh.materials.append(foliage)
+                    shrub_mesh.materials.append(leaf_tips)
+                    for face in shrub_mesh.polygons:
+                        face.material_index = int(face.index % 4 == 0)
+                    shrub = bpy.data.objects.new(identifier + " shrub foliage", shrub_mesh)
+                    bpy.context.collection.objects.link(shrub)
+                    shrub.parent = group
                 else:
                     parts.append(("reflector", (x, y, .38), (w*.38, .04, .02), signs[2]))
             for label, position, half_size, material in parts:

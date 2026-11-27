@@ -53,3 +53,21 @@ def test_billboard_benches_export_as_grouped_panels():
         parts = [nodes[index]["name"] for index in bench["children"]]
         assert sum(" seat panel" in part for part in parts) in (2, 3)
         assert sum(" seat panel" in part for part in parts) == sum(" back panel" in part for part in parts)
+
+def test_billboard_planters_export_one_two_tone_foliage_mesh_per_group():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "city_exterior_billboard_avenue/environment.glb")
+    if not path.is_file():
+        pytest.skip("Run the urban Blender batch on E: first")
+    with path.open("rb") as glb:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", glb.read(20))
+        data = json.loads(glb.read(size))
+    nodes = data["nodes"]
+    plants = [node for node in nodes if node["name"].endswith(" shrub foliage")]
+    assert plants
+    grouped = {child for node in nodes if node["name"].startswith("Occludable_")
+               for child in node.get("children", [])}
+    for plant in plants:
+        assert nodes.index(plant) in grouped
+        primitives = data["meshes"][plant["mesh"]]["primitives"]
+        assert len({primitive["material"] for primitive in primitives}) == 2
