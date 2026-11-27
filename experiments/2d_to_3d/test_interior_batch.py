@@ -551,3 +551,28 @@ def test_service_tunnel_decor_is_exported_without_tactical_obstacles():
         bars = [node for node in children if node["name"].startswith("Drain grate bar")]
         assert len(bars) == 10
         assert all(node["translation"][1] < .02 for node in bars)
+
+
+def test_penthouse_ripple_exports_only_a_local_scale_animation():
+    import json
+    import struct
+
+    from interior_batch import OUTPUT
+
+    path = OUTPUT / "city_interior_penthouse_atrium" / "environment.glb"
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        data = json.loads(glb.read(size))
+        binary_size, _ = struct.unpack("<I4s", glb.read(8))
+        binary = glb.read(binary_size)
+    animation = next(clip for clip in data["animations"] if clip["name"] == "AtriumWaterRipple")
+    channel, = animation["channels"]
+    target = channel["target"]
+    assert target["path"] == "scale"
+    assert data["nodes"][target["node"]]["name"] == "center_fountain ripple"
+    sampler = animation["samplers"][channel["sampler"]]
+    values = data["accessors"][sampler["output"]]
+    view = data["bufferViews"][values["bufferView"]]
+    offset = view.get("byteOffset", 0) + values.get("byteOffset", 0)
+    scales = [struct.unpack_from("<3f", binary, offset+index*12)[0] for index in range(values["count"])]
+    assert min(scales) < 1.0 < max(scales)

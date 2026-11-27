@@ -41,6 +41,10 @@ func _ready() -> void:
   get_tree().quit(16)
   return
  add_child(model)
+ for player: AnimationPlayer in model.find_children("*", "AnimationPlayer", true, false):
+  if player.has_animation("AtriumWaterRipple"):
+   player.get_animation("AtriumWaterRipple").loop_mode = Animation.LOOP_LINEAR
+   player.play("AtriumWaterRipple")
  for instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
   if instance.mesh == null:
    continue

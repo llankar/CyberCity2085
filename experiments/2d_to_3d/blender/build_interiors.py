@@ -286,6 +286,10 @@ def build(name):
             ripple.name = identifier+" ripple"
             ripple.data.materials.append(console_glass)
             ripple.parent = group
+            for frame, spread in ((1,.85),(20,1.22),(40,.85)):
+                ripple.scale = (spread,spread,1)
+                ripple.keyframe_insert(data_path="scale", frame=frame)
+            ripple.animation_data.action.name = "AtriumWaterRipple"
         elif kind == "sofa":
             box(identifier+" frame", (x,y,.18), (w*.47,d*.46,.16), steel).parent = group
             box(identifier+" cushions", (x,y,.37), (w*.43,d*.39,.088), upholstery).parent = group
