@@ -2,4 +2,4 @@
 [ext_resource type="Script" path="res://laboratory247.gd" id="1"]
 [node name="BlacksiteEnvironmentReview" type="Node3D"]
 script = ExtResource("1")
-review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/blacksite339/"
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/interiors/city_interior_blacksite_lab/"

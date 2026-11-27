@@ -188,3 +188,25 @@ def test_dockside_exports_all_surveyed_obstacle_groups():
         parts = [nodes[index]["name"] for index in forklift["children"]]
         assert sum(" fork" in part for part in parts) == 2
         assert sum(" wheel" in part for part in parts) == 4
+
+
+def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
+    import json
+    import struct
+
+    import pytest
+    from interior_batch import OUTPUT
+
+    for name in ("city_interior_medical_clinic", "city_interior_blacksite_lab"):
+        survey, selected = fixtures(name)
+        expected = {row["id"] for row in survey["walls"]}
+        assert set(selected) == expected
+        path = OUTPUT / name / "environment.glb"
+        if not path.is_file():
+            pytest.skip(f"Build {name} on E: first")
+        with path.open("rb") as model:
+            _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+            nodes = json.loads(model.read(size))["nodes"]
+        groups = {node["name"] for node in nodes
+                  if node["name"].startswith("Occludable_") and node.get("children")}
+        assert groups == {f"Occludable_{identifier}" for identifier in expected}

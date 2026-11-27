@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parent
 MAPS = ROOT.parents[1] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/interiors")
 INTERIORS = (
+    "city_interior_blacksite_lab",
+    "city_interior_medical_clinic",
     "cybercity_inner_03_research_lab",
     "cybercity_inner_04_medical_clinic",
     "cybercity_inner_06_blacksite_lab",
@@ -85,9 +87,11 @@ def fixtures(name):
             selected[identifier] = "rubble"
         elif "stall" in identifier:
             selected[identifier] = "stall"
+        elif "polygon" in row and ("wall" in identifier or "partition" in identifier or "return" in identifier):
+            selected[identifier] = "partition"
         elif "wall" in identifier or (name.endswith("penthouse_atrium") and "_edge" in identifier):
             selected[identifier] = "wall"
-        elif "bed" in identifier or identifier == "operating_table":
+        elif "bed" in identifier or identifier.endswith("operating_table"):
             selected[identifier] = "bed"
         elif "pods" in identifier or identifier.endswith("_core") or identifier.startswith("core_") or identifier in {"central_chamber", "central_cryo", "core"}:
             selected[identifier] = "pod"
@@ -95,7 +99,7 @@ def fixtures(name):
             selected[identifier] = "crate"
         elif "server" in identifier or "cabinet" in identifier:
             selected[identifier] = "cabinet"
-        elif any(part in identifier for part in ("console", "computer", "gaming", "_kiosk", "ticket_")):
+        elif any(part in identifier for part in ("console", "computer", "gaming", "_kiosk", "ticket_", "monitor")):
             selected[identifier] = "console"
         elif any(part in identifier for part in ("sofa", "chair", "booth")):
             selected[identifier] = "sofa"
@@ -109,7 +113,7 @@ def fixtures(name):
             selected[identifier] = "barrier"
         elif identifier.endswith("_fountain"):
             selected[identifier] = "fountain"
-        elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee", "bar_", "_bar")) or identifier == "reception":
+        elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee", "bar_", "_bar", "counter")) or identifier == "reception":
             selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"
@@ -131,7 +135,7 @@ def main():
                         "--output", str(OUTPUT / name), "--objects", ",".join(selected),
                         "--include-side-walls"], check=True)
         outlines = {row["id"]: stroke_outline(row["points"], row["width"])
-                    if selected[row["id"]] == "partition" else row["polygon"]
+                    if "points" in row else row["polygon"]
                     for row in survey["walls"] if selected.get(row["id"]) in {"partition", "rubble"}}
         (OUTPUT / name / "fixtures.json").write_text(
             json.dumps({"selected": selected, "outlines": outlines}), encoding="utf-8"
