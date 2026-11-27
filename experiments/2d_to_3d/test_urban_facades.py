@@ -261,6 +261,12 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
     with path.open("rb") as model:
         size = struct.unpack("<4sIII4s", model.read(20))[3]
         nodes = json.loads(model.read(size))["nodes"]
+    for side in ("w", "e"):
+        label = f"central_{side}_machine"
+        root = next(node for node in nodes if node["name"] == f"Occludable_{label}")
+        parts = [nodes[index] for index in root["children"]]
+        assert any(part["name"] == f"{label} skid" for part in parts)
+        assert sum("mesh" in part for part in parts) >= 3
     clad = 0
     for node in nodes:
         parts = [nodes[index]["name"] for index in node.get("children", [])]

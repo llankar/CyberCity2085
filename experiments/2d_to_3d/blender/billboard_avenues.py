@@ -720,6 +720,19 @@ def build(name):
             box(identifier, (x,y,.7), (w/2,d/2,.7), wall).parent = group
             box(identifier + " coping", (x,y,1.4), (w/2,d/2,.055), frame).parent = group
             continue
+        if name.endswith("_industrial_district") and identifier in {"central_w_machine", "central_e_machine"}:
+            box(identifier+" skid", (x,y,.115), (w*.48,d*.48,.115), frame,.022).parent = group
+            if identifier == "central_e_machine":
+                for side in (-1,1):
+                    place(library / "roof_twin_fan/optimized.glb", group,
+                          (x,y+side*d*.23,.23), (w*.84,d*.42,.53), merge=True)
+            else:
+                for side in (-1,1):
+                    place(library / "industrial_service267/model.glb", group,
+                          (x-w*.08,y+side*d*.22,.23), (w*.62,d*.39,1.03), merge=True)
+                box("West machinery conduit trunk", (x+w*.35,y,.48),
+                    (w*.09,d*.44,.25),frame,.022).parent = group
+            continue
         if identifier.endswith("_machine"):
             vertical = d > w
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
