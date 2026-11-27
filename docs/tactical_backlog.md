@@ -1593,3 +1593,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 
 - NEODOLLAR-SUBPAGE-HEADER-01 — DONE (2026-11-24). Symbole ₦ ajouté à la valeur FUNDS des bandeaux partagés des sous-pages, de Squad Ops et de l'Operative Dossier, en cohérence avec l'écran Headquarters.
 
+
+- [x] TACTICAL-PSI-FOCUS — Avoid spending AP on an ineffective cast and report the actual relief for living allies.

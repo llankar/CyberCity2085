@@ -221,6 +221,19 @@ func run() -> void:
 	mission.enemy_units[0].position = Vector2i(15, 14)
 	layout.place_encounter(mission.player_units, mission.enemy_units, mission.objective, board)
 	assert(not mission._defense_zone_breached(), "deployment cannot place a guard inside the marked defense zone")
+	mission.player_units.assign([
+		{"name": "Oracle", "hp": 20, "ap": 3, "stress": 0},
+		{"name": "Rook", "hp": 0, "stress": 35},
+		{"name": "Vera", "hp": 10, "stress": 0},
+	])
+	mission.active_player_index = 0
+	mission._apply_psi_focus()
+	assert(mission.player_units[0].ap == 3 and mission.player_units[1].stress == 35)
+	mission.player_units[2].stress = 8
+	mission._apply_psi_focus()
+	assert(mission.player_units[0].ap == 2 and mission.player_units[2].stress == 0)
+	assert(mission.player_units[1].stress == 35 and "8 stress" in mission.status_line)
+	mission.player_units.assign([{"name": "Oracle", "hp": 20, "max_hp": 20, "ap": 3, "position": Vector2i(1, 1)}])
 	mission.enemy_units.clear()
 	for kind in ["civilian_rescue", "recon_scan"]:
 		mission.objective = generator.build_objective(kind, 40, 28)

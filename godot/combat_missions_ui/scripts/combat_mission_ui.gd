@@ -1403,14 +1403,24 @@ func _apply_psi_focus() -> void:
 		_sync_display()
 		return
 	var relief: int = int((_ACTION_DEFS.get("Psi Focus", {}) as Dictionary).get("stress_relief", 25))
+	var affected := 0
+	var relieved := 0
+	for unit in player_units:
+		if int(unit.get("hp", 0)) <= 0:
+			continue
+		var reduction := mini(relief, maxi(0, int(unit.get("stress", 0))))
+		if reduction > 0:
+			unit["stress"] = int(unit["stress"]) - reduction
+			affected += 1
+			relieved += reduction
+	if affected == 0:
+		status_line = "No active allies need stress relief."
+		_sync_display()
+		return
 	_spend_player_ap(active, 1)
 	player_units[active_player_index] = active
-	for i in range(player_units.size()):
-		var u := player_units[i] as Dictionary
-		u["stress"] = maxi(0, int(u.get("stress", 0)) - relief)
-		player_units[i] = u
 	_visual_self_effect("psi")
-	var line := "%s: Psi Focus — squad stress −%d." % [_active_unit_name(), relief]
+	var line := "%s: Psi Focus relieved %d stress across %d active allies." % [_active_unit_name(), relieved, affected]
 	_log_event(line)
 	status_line = line
 	CombatSignals.audio_event.emit("psi")
