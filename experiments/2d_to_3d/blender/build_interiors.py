@@ -243,6 +243,7 @@ def build(name):
         # The two continuous tracks are visible in the source texture but have
         # no obstacle trace. Align the rails to the four painted running lines.
         tracks = ((.415,.465), (.551,.599))
+        crossing_spans = ((.324,.375), (.645,.701))
         for track, (north, south) in enumerate(tracks, start=1):
             y_edges = [gh*(.5-fraction) for fraction in (north, south)]
             for index, y in enumerate(y_edges, start=1):
@@ -252,7 +253,7 @@ def build(name):
             for index in range(count):
                 fraction = (index+.5)/count
                 # The lower track crosses two original maintenance walkways.
-                if track == 2 and (.324 < fraction < .375 or .645 < fraction < .701):
+                if track == 2 and any(left < fraction < right for left,right in crossing_spans):
                     continue
                 x = gw*(fraction-.5)
                 start = len(vertices)
@@ -266,6 +267,23 @@ def build(name):
             sleepers.materials.append(partition_cap)
             obj = bpy.data.objects.new(f"Track {track} sleeper bed", sleepers)
             bpy.context.collection.objects.link(obj)
+
+        crossing_north, crossing_south = .514, .624
+        crossing_y = gh*(.5-(crossing_north+crossing_south)/2)
+        crossing_depth = gh*(crossing_south-crossing_north)
+        for index, (left,right) in enumerate(crossing_spans, start=1):
+            width = gw*(right-left)
+            x = gw*((left+right)/2-.5)
+            label = f"Maintenance crossing {index}"
+            box(label+" deck", (x,crossing_y,.085),
+                (width*.48,crossing_depth*.49,.042), partition_cap)
+            for side in (-1,1):
+                box(label+" curb", (x+side*width*.438,crossing_y,.16),
+                    (width*.035,crossing_depth*.49,.035), rail)
+            for tread in range(8):
+                offset = ((tread+.5)/8-.5)*crossing_depth
+                box(label+" raised grip", (x,crossing_y+offset,.129),
+                    (width*.38,.022,.01), steel, .006)
 
     floor = make_material("Original interior floor", (.13,.15,.17,1), .05,.84)
     nodes = floor.node_tree.nodes

@@ -46,6 +46,13 @@ def test_train_tunnel_exports_edge_to_edge_rails_and_two_sleeper_beds():
     beds = [node for node in data["nodes"] if node["name"].endswith(" sleeper bed")]
     assert len(rails) == 4
     assert len(beds) == 2
+    decks = [node for node in data["nodes"] if node["name"].startswith("Maintenance crossing ")
+             and node["name"].endswith(" deck")]
+    assert len(decks) == 2
+    for deck in decks:
+        mesh = data["meshes"][deck["mesh"]]
+        assert min(data["accessors"][p["attributes"]["POSITION"]]["max"][1]
+                   + deck["translation"][1] for p in mesh["primitives"]) > .107
     for rail in rails:
         mesh = data["meshes"][rail["mesh"]]
         positions = [data["accessors"][p["attributes"]["POSITION"]] for p in mesh["primitives"]]
