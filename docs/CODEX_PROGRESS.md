@@ -1747,3 +1747,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-WATER-TERRAIN-EXPORT-COVERAGE / DONE. Extended the native GLB check to the three distinct docks and Flood Prone Avenue. Verified the deck, basin and curb heights directly in the exported meshes, and checked that dock fenders remain exclusive to docks. Eleven terrain tests passed. Next: resume geometry reconstruction on a different map family.
 
 - EXPERIMENTAL-INDUSTRIAL-LOADING-BAYS / DONE. Added shutter hoods, guide rails and rubber bumpers to the larger warehouse entrances. Rebuilt Freight Yard and the shared Industrial District 12/13 model on E:, rendered Freight Yard in Godot and passed five catalogue tests. Next: examine the quay-side and street-side visibility of loading-bay fixtures.
+
+- EXPERIMENTAL-WAREHOUSE-FACADE-FINISH / DONE. Applied world-scale concrete mapping to industrial walls and added side and rear eave flashing. Rebuilt Freight Yard and Industrial District 12/13 on E:, rendered Industrial District in Godot from a low angle and passed five catalogue tests. Next: compare the remaining industrial roof details to their source art.

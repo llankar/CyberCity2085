@@ -842,7 +842,7 @@ def build(name):
         uv = shell.data.uv_layers.active
         for face in shell.data.polygons:
             if face.normal.z < .9:
-                if (civic or transport_facades) and abs(face.normal.z) < .1:
+                if (civic or transport_facades or industrial) and abs(face.normal.z) < .1:
                     for loop_index in face.loop_indices:
                         point = shell.data.vertices[shell.data.loops[loop_index].vertex_index].co
                         along = point.y if abs(face.normal.x) > .5 else point.x
@@ -919,6 +919,12 @@ def build(name):
                     box(identifier + " rear utility conduit", (x-w*.40,back-direction*.06,height*.46),
                         (.035,.045,height*.40), frame,.01).parent = group
         if industrial:
+            if height >= 2.4:
+                for side in (-1,1):
+                    box(identifier + " warehouse eave flashing",
+                        (x+side*w/2,y,height-.15),(.045,d*.49,.055),frame,.01).parent = group
+                box(identifier + " warehouse rear eave flashing",
+                    (x,y-direction*d/2,height-.15),(w*.49,.045,.055),frame,.01).parent = group
             door_width = min(w*.48, 3.3)
             box(identifier + " loading shutter", (x,front+direction*.07,.95),
                 (door_width/2,.08,.95), frame).parent = group
