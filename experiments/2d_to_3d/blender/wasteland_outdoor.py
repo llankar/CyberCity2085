@@ -13,13 +13,14 @@ from shipping_container import build_container
 
 
 class WastelandOutdoors:
-    def __init__(self, library, grid, canvas, *, city=False, overpass=False, wrecked_highway=False):
+    def __init__(self, library, grid, canvas, *, city=False, overpass=False, wrecked_highway=False, trainyard=False):
         self.library = library
         self.gw, self.gh = grid
         self.cw, self.ch = canvas
         self.city = city
         self.overpass = overpass
         self.wrecked_highway = wrecked_highway
+        self.trainyard = trainyard
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
         self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
         concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
@@ -183,7 +184,9 @@ class WastelandOutdoors:
         yaw = math.pi/2 if vertical else 0
         wreck_yaws = {"wreck_mid_w": -.16, "wreck_mid_e": -.34,
                      "wreck_far_e": -.09, "wreck_middle5": -.12}
-        if self.wrecked_highway and name in wreck_yaws:
+        if self.trainyard and ("wagon" in name or name == "north_tank"):
+            self.trainyard_wagon(group, name, x, y, length, breadth, yaw)
+        elif self.wrecked_highway and name in wreck_yaws:
             angle = -wreck_yaws[name]
             c,s = abs(math.cos(angle)),abs(math.sin(angle))
             scale = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
@@ -254,6 +257,51 @@ class WastelandOutdoors:
                     (w*.162,d*.48,.18+.11*i),.08).parent = group
         else:
             raise ValueError(f"No wasteland object model for {name}")
+
+    def trainyard_wagon(self, group, name, x, y, length, width, yaw):
+        group.location = (x,y,0)
+        group.rotation_euler.z = yaw
+
+        def part(label, along, across, z, dimensions, material):
+            box(label, (along,across,z), dimensions, material,.019).parent = group
+
+        part("Wagon underframe", 0,0,.30, (length*.47,width*.43,.13), self.dark)
+        part("Wagon coupling", 0,0,.36, (length*.49,width*.105,.049), self.dark)
+        for end in (-1,1):
+            part("Wagon bogie", end*length*.29,0,.18, (length*.098,width*.43,.15), self.dark)
+        if name in {"wagon_sw", "wagon_s", "north_tank"}:
+            radius = min(width*.37,.54)
+            bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=radius, depth=length*.84,
+                location=(0,0,.46+radius), rotation=(0,math.pi/2,0))
+            tank = bpy.context.object
+            tank.name = "Rail tanker cylinder"
+            tank.data.materials.append(self.steel)
+            tank.parent = group
+            for offset in (-.31,0,.31):
+                bpy.ops.mesh.primitive_torus_add(major_segments=24, minor_segments=6,
+                    major_radius=radius, minor_radius=.019,
+                    location=(offset*length,0,.46+radius), rotation=(0,math.pi/2,0))
+                brace = bpy.context.object
+                brace.name = "Rail tanker brace"
+                brace.data.materials.append(self.dark)
+                brace.parent = group
+        elif name in {"wagon_n3", "wagon_mid"}:
+            part("Open wagon recessed floor", 0,0,.465, (length*.44,width*.39,.055), self.dark)
+            for side in (-1,1):
+                part("Open wagon side", 0,side*width*.398,.69, (length*.45,width*.048,.24), self.steel)
+                part("Open wagon end", side*length*.431,0,.69, (length*.036,width*.40,.24), self.steel)
+            for section in (-.29,0,.29):
+                part("Open wagon cargo rib", section*length,0,.536,
+                     (length*.022,width*.34,.03), self.steel)
+        else:
+            part("Covered wagon body", 0,0,.81, (length*.443,width*.416,.405), self.steel)
+            part("Covered wagon roof", 0,0,1.245, (length*.461,width*.439,.066), self.dark)
+            for side in (-1,1):
+                part("Wagon sliding door", 0,side*width*.423,.803,
+                     (length*.164,width*.025,.307), self.dark)
+                for bay in (-.35,-.22,.22,.35):
+                    part("Wagon cladding rib", bay*length,side*width*.434,.82,
+                         (.024,.018,.357), self.steel)
 
     def convoy_vehicle(self, group, name, x, y, length, width, yaw):
         group.location = (x,y,0)

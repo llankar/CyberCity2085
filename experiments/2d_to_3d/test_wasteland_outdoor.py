@@ -103,3 +103,24 @@ def test_wrecked_highway_heavy_wrecks_have_exposed_flatbeds(variant):
         assert sum(part.startswith("Convoy wheel") for part in parts) == 6
     assert not any(nodes[index]["name"].startswith("Wreck flatbed")
                    for index in groups["Occludable_wreck_sw"])
+
+
+@pytest.mark.parametrize("variant", ("04", "09"))
+def test_trainyard_wagon_geometry_varies_by_reference_type(variant):
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues") / (
+        f"wasteland_outdoor_{variant}_rusted_trainyard"
+    ) / "environment.glb"
+    if not path.is_file():
+        pytest.skip("Build Rusted Trainyard on E: first")
+    with path.open("rb") as model:
+        size = struct.unpack("<4sIII4s", model.read(20))[3]
+        nodes = json.loads(model.read(size))["nodes"]
+    groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    for identifier, component in {
+        "wagon_n1": "Covered wagon roof", "wagon_n3": "Open wagon recessed floor",
+        "wagon_mid": "Open wagon recessed floor", "wagon_s": "Rail tanker cylinder",
+        "north_tank": "Rail tanker cylinder",
+    }.items():
+        parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
+        assert any(part.startswith(component) for part in parts), identifier
+        assert sum(part.startswith("Wagon bogie") for part in parts) == 2
