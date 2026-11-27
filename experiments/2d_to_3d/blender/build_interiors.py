@@ -441,6 +441,15 @@ def build(name):
             box(identifier+" base", (x,y,.10), (w*.49,d*.49,.10), ballast).parent = group
             box(identifier+" upright", (x,y,.88), (w*.39,d*.39,.80), steel).parent = group
             box(identifier+" cap", (x,y,1.67), (w*.45,d*.45,.09), partition_cap).parent = group
+            if name == "city_transit_train_tunnel":
+                for side in (-1, 1):
+                    box("Tunnel column steel edge", (x+side*w*.387,y,.90),
+                        (w*.043,d*.405,.76), partition_cap,.018).parent = group
+                track_face = y-math.copysign(d*.404,y)
+                box("Tunnel column lower armor", (x,track_face,.38),
+                    (w*.34,d*.037,.23), partition_cap,.022).parent = group
+                box("Tunnel column upper brace", (x,track_face,1.41),
+                    (w*.34,d*.037,.11), rail,.018).parent = group
             if name == "city_transit_metro_interchange":
                 facing = -1 if y > 0 else 1
                 front = y + facing*d*.39
