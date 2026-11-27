@@ -2045,3 +2045,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-ASHFIELD-TORN-ROOF-PANELS / DONE for export and native loading. Widened the corrugated panels, varied their torn edges and kept the new coordinates inside their supporting slab triangles. Rebuilt the shared 02/07 export on E:, refreshed Godot and the comparative gallery, and passed eleven outdoor tests. Next: review terrain artifacts and missing landmarks in a different exterior family.
 
 - EXPERIMENTAL-DUST-ROAD-WRECK-CABS / DONE for export and native loading. Reused side windows, cab sills and bumpers on the three Dust Road truck wrecks. Rebuilt the shared 01/06 export on E:, captured scene 06, updated the gallery and passed eleven outdoor tests. Next: review the Dust Road lighting and rubble contrast.
+
+- EXPERIMENTAL-DUST-ROAD-LIGHTING / DONE for native overview. Matched the two variant presets at reduced key and ambient intensity and reduced the orange tint. Captured the shared scene through variant 06 and refreshed the 122-map gallery. Next: compare rubble silhouettes at tactical zoom.
