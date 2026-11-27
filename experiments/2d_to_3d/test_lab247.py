@@ -17,3 +17,18 @@ class PodExport(unittest.TestCase):
   self.assertTrue(any('blue glass' in m.get('name','') for m in gltf['materials']))
 
 if __name__=='__main__':unittest.main()
+
+
+def test_lab_upgrade_preserves_survey_identity_without_duplicate_geometry():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/lab291/environment.glb")
+    with path.open("rb") as glb:
+        size = struct.unpack("<4sIII4s", glb.read(20))[3]
+        nodes = json.loads(glb.read(size))["nodes"]
+    groups = {node["name"]: node for node in nodes if node.get("children")}
+    replacements = json.loads(Path(__file__).with_name("lab_fixtures290.json").read_text())["fixtures"]
+    for replacement in replacements:
+        original, = replacement["existing_overlaps"] or [replacement["id"]]
+        node = groups[f"Occludable_{original}"]
+        assert node["extras"]["visual_fixture"] == replacement["id"]
+        if original != replacement["id"]:
+            assert f"Occludable_{replacement['id']}" not in groups

@@ -162,7 +162,12 @@ for fixture in survey["fixtures"]:
     x = ((x1+x2)/2/canvas_w-.5)*grid_w
     y = (.5-(y1+y2)/2/canvas_h)*grid_h
     w, d = (x2-x1)/canvas_w*grid_w/2, (y2-y1)/canvas_h*grid_h/2
-    group = bpy.data.objects.new("Occludable_" + fixture["id"], None)
+    overlaps = fixture["existing_overlaps"]
+    # An upgraded fixture that replaces a single surveyed obstacle retains
+    # that obstacle's ID for cutaway and catalog lookup.
+    identifier = overlaps[0] if len(overlaps) == 1 else fixture["id"]
+    group = bpy.data.objects.new("Occludable_" + identifier, None)
+    group["visual_fixture"] = fixture["id"]
     bpy.context.collection.objects.link(group)
     if fixture["family"] == "storage":
         for offset in (-.5, .5):
@@ -196,5 +201,5 @@ for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.type == "LIGHT" and obj.data.type == "POINT"
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
-                          use_selection=True, export_apply=True, export_lights=True)
+                          use_selection=True, export_apply=True, export_lights=True, export_extras=True)
 print("LAB291_EXPORTED", count, "surveyed furniture groups")
