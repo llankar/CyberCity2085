@@ -1239,6 +1239,14 @@ def build(name):
             if w >= 3 and height >= 2.4:
                 box(identifier + " loading shutter hood", (x,front+direction*.13,1.98),
                     (door_width*.54,.16,.10), frame,.025).parent = group
+                if name.endswith("_industrial_district"):
+                    box(identifier + " loading bay lamp", (x,front+direction*.259,1.93),
+                        (door_width*.25,.022,.036), signs[2],.012).parent = group
+                    control_x = x+door_width*.64
+                    box(identifier + " loading bay control housing", (control_x,front+direction*.055,.93),
+                        (.115,.065,.19),frame,.02).parent = group
+                    box(identifier + " loading bay control indicator", (control_x,front+direction*.124,1.01),
+                        (.056,.013,.031),signs[0],.009).parent = group
                 for side in (-1,1):
                     jamb_x = x+side*door_width*.52
                     box(identifier + " loading shutter guide", (jamb_x,front+direction*.11,.94),
