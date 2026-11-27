@@ -5,5 +5,5 @@ script = ExtResource("1")
 review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/wasteland_city_03_collapsed_overpass/"
 review_size = 38.0
 review_ambient_color = Color(0.90, 0.78, 0.67, 1)
-review_ambient_energy = 0.56
-review_key_energy = 1.1
+review_ambient_energy = 0.45
+review_key_energy = 0.72
