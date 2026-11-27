@@ -100,6 +100,25 @@ for entry in entrances:
 assert entrances
 print("RESIDENTIAL317_ENTRIES", len(entrances))
 
+window_trim = make_material("Residential window sill steel", (.105,.13,.15,1), .52,.65)
+windows = [obj for obj in bpy.context.scene.objects
+           if obj.type == "MESH" and " window" in obj.name and obj.parent]
+for window in windows:
+    points = [window.matrix_world @ Vector(corner) for corner in window.bound_box]
+    lo = Vector(tuple(min(point[i] for point in points) for i in range(3)))
+    hi = Vector(tuple(max(point[i] for point in points) for i in range(3)))
+    center = (lo+hi)/2
+    center.z = lo.z-.032
+    half_x, half_y = (hi.x-lo.x)/2, (hi.y-lo.y)/2
+    if half_x >= half_y:
+        half_x, half_y = half_x+.045, half_y+.035
+    else:
+        half_x, half_y = half_x+.035, half_y+.045
+    sill = box("Residential projected window sill", tuple(center),
+               (half_x,half_y,.032), window_trim,.009)
+    sill.parent = window.parent
+    sill.matrix_parent_inverse = window.parent.matrix_world.inverted()
+
 street = json.loads((output / "street_fixtures.json").read_text(encoding="utf-8"))
 cw, ch = street["canvas_size"]
 library = phase.parents[1] / "environment-library/assets"
