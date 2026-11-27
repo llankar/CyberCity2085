@@ -1,4 +1,5 @@
 """The experimental selector must cover the complete original map catalogue."""
+from hashlib import sha256
 import json
 from pathlib import Path
 import re
@@ -33,7 +34,13 @@ def test_identical_map_variants_share_visual_assets():
     catalogue = {entry["map"]: entry["scene"].removeprefix("res://")
                  for entry in json.loads((godot / "preproduction_catalog.json").read_text())}
     canonical_by_folder = {}
+    model_by_image = {}
+    image_by_model = {}
     for name, scene in catalogue.items():
+        image_digest = sha256((maps / f"{name}.png").read_bytes()).digest()
+        model = catalogue_environment(name)
+        assert model_by_image.setdefault(image_digest, model) == model, name
+        assert image_by_model.setdefault(model, image_digest) == image_digest, name
         survey = json.loads((maps / f"{name}.wall-traces.json").read_text())
         folder = re.search(r'^review_folder = "([^"]+)"$', (godot / scene).read_text(), re.MULTILINE)
         if folder:
@@ -53,6 +60,7 @@ def test_identical_map_variants_share_visual_assets():
         folders = [re.search(r'^review_folder = "([^"]+)"$', (godot / catalogue[name]).read_text(),
                              re.MULTILINE).group(1) for name in (variant, original)]
         assert folders[0] == folders[1], variant
+    assert len(model_by_image) == len(image_by_model) == 92
 
 
 def test_local_catalogue_exports_exist():
