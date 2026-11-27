@@ -47,7 +47,7 @@ def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False, floor_be
     bpy.context.object.parent=group
 
 
-def build_rack(group, x, y, w, d, steel, beam):
+def build_rack(group, x, y, w, d, steel, beam, *, records=False):
     parts = []
     def rack_part(label, location, dimensions, material):
         parts.append(box(label, location, dimensions, material, .012))
@@ -61,6 +61,14 @@ def build_rack(group, x, y, w, d, steel, beam):
         for side in (-1,1):
             rack_part("Safety shelf rail", (x+side*w*.42,y,height+.01),
                       (.048,d*.46,.065), beam)
+        if records:
+            for offset, height_factor in ((-.30,.9),(-.10,.74),(.13,.95),(.32,.82)):
+                vertical = d > w
+                location = (x,y+offset*d) if vertical else (x+offset*w,y)
+                footprint = (w*.32,d*.064) if vertical else (w*.064,d*.32)
+                half_height = .13*height_factor
+                rack_part("Records shelf binders", (*location,height+.038+half_height),
+                          (*footprint,half_height), beam if offset < 0 else steel)
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
         part.select_set(True)

@@ -296,7 +296,7 @@ def build(name):
         )):
             build_server_bank(group, x, y, w, d, server_housing, steel, screen)
         elif kind == "rack":
-            build_rack(group, x, y, w, d, steel, trim)
+            build_rack(group, x, y, w, d, steel, trim, records=name.endswith("_police_records"))
         elif kind == "track":
             box(identifier+" ballast", (x,y,.012), (w/2,d/2,.012), ballast).parent = group
             count = max(1, round(w/.40))
