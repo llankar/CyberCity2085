@@ -1824,8 +1824,11 @@ class WastelandOutdoors:
             bevel.segments = 2
             project_art(obj, source, min_up)
 
+        stripped_flatbed = self.convoy_crossing and name.startswith("wreck_")
         chassis_width = .285 if self.convoy_crossing else .40
-        part("Convoy chassis", (0,0,.44), (length*.48,width*chassis_width,.13), self.dark)
+        chassis_center, chassis_span = (.345,.134) if stripped_flatbed else (0,.48)
+        part("Convoy chassis", (length*chassis_center,0,.44),
+             (length*chassis_span,width*chassis_width,.13), self.dark)
         body_steel = self.convoy_steel if self.convoy_crossing else self.steel
         if self.convoy_crossing:
             shaped_body("Convoy cab", (
@@ -1870,7 +1873,16 @@ class WastelandOutdoors:
                      (.009,width*.041,.023), self.steel,.006)
                 part("Convoy cab access step", (length*.32,side*width*.449,.491),
                      (length*.093,.036,.025), self.dark,.009)
-        part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
+        if stripped_flatbed:
+            for side in (-1, 1):
+                part("Wreck exposed frame rail", (-length*.143,side*width*.235,.56),
+                     (length*.325,width*.045,.059),body_steel,.016)
+                part("Wreck rear mudflap", (-length*.408,side*width*.405,.36),
+                     (.021,width*.10,.166),self.convoy_rubber,.012)
+            part("Wreck rear underride beam", (-length*.462,0,.41),
+                 (.031,width*.43,.043),body_steel,.016)
+        else:
+            part("Convoy cargo bed", (-length*.143,0,.60), (length*.325,width*.415,.055), self.steel)
         # Keep the wheel tops above the chassis underside at .31 m.
         wheel_radius = min(.38,max(.23,width*.23)) if self.convoy_crossing else min(.30,max(.17,width*.19))
         for side in (-1,1):

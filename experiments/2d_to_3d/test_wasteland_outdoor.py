@@ -556,6 +556,14 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         data = json.loads(model.read(size))
     nodes = data["nodes"]
     groups = {node["name"]: node["children"] for node in nodes if node.get("children")}
+    flatbeds = [[nodes[index]["name"] for index in children] for name, children in groups.items()
+                if name.startswith("Occludable_wreck_")
+                and any(nodes[index]["name"].startswith("Wreck flatbed crossmember")
+                        for index in children)]
+    assert flatbeds
+    for parts in flatbeds:
+        assert sum(part.startswith("Wreck exposed frame rail") for part in parts) == 2
+        assert not any(part.startswith("Convoy cargo bed") for part in parts)
     for identifier, load in {
         "convoy_w": "Convoy tarpaulin load", "convoy_mw": "Convoy tanker vessel",
         "convoy_me": "Convoy strapped crate", "convoy_e": "Convoy tarpaulin load",
