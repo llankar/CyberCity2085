@@ -1061,6 +1061,16 @@ def build(name):
         angle = 0 if direction < 0 else math.pi
         if name == "city_exterior_corporate_plaza" and "_tower_" in identifier:
             inward = 1 if identifier.startswith("west") else -1
+            if identifier.endswith("_middle"):
+                duct_x = (135 if inward > 0 else 826)*gw/cw-gw/2
+                duct_y = gh/2-254*gh/ch
+                duct_length = 96*gh/ch
+                duct_width = 15*gw/cw
+                box(identifier+" rooftop duct curb", (duct_x,duct_y,height+.036),
+                    (duct_width*.56,duct_length*.51,.041),frame,.016).parent = group
+                for offset in (-.33,0,.33):
+                    box(identifier+" rooftop duct section", (duct_x,duct_y+duct_length*offset,height+.13),
+                        (duct_width*.43,duct_length*.161,.10),wall,.022).parent = group
             entrance_x = x+inward*w/2
             entry_width = min(.65,d*.16)
             box(identifier+" plaza entrance surround", (entrance_x+inward*.05,y,.99),

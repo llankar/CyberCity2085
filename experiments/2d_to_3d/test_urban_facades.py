@@ -74,6 +74,8 @@ def test_corporate_plaza_tower_entrances_face_the_square():
             surround = parts[f"{label} plaza entrance surround"]
             light = parts[f"{label} plaza entrance light"]
             assert (light["translation"][0] - surround["translation"][0])*inward > 0
+            if position == "middle":
+                assert sum(part.startswith(f"{label} rooftop duct section") for part in parts) == 3
 
 
 @pytest.mark.parametrize("name", [
