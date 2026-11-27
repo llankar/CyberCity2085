@@ -349,6 +349,15 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
             part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
+    elif kind == "shelter_kitchen":
+        part("Shelter kitchen base cabinets", 0,0,.35,length*.46,width*.43,.35,trim)
+        for offset in (-.31,.31):
+            part("Shelter kitchen worktop", offset*length,0,.75,length*.16,width*.46,.05,steel)
+        for side in (-1,1):
+            part("Shelter kitchen basin rim", 0,side*width*.37,.75,length*.15,width*.09,.05,steel)
+        part("Shelter kitchen basin bottom", 0,0,.711,length*.15,width*.28,.011,steel)
+        part("Shelter kitchen tap stem", 0,width*.37,.865,.028,.028,.071,steel)
+        part("Shelter kitchen tap spout", 0,width*.26,.927,.027,width*.13,.023,steel)
     elif kind == "clinic_reception":
         part("Clinic reception cabinet", 0,0,.39,length*.45,width*.36,.39,trim)
         part("Clinic reception worktop", 0,0,.81,length*.48,width*.44,.043,steel)

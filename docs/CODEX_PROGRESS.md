@@ -1785,3 +1785,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-RUINED-CLINIC-RECEPTION / DONE. Reconstructed the reception desk with a raised counter, two idle terminals and a records tray inside the surveyed footprint. Rebuilt shared 03/08 GLB on E:, rendered in Godot and passed seventeen interior tests. Next: reconstruct the worn treatment furniture and run a tactical preview.
 
 - EXPERIMENTAL-RUINED-CLINIC-STRETCHERS / DONE. Used thin pads, steel side rails and grab handles for the clinic beds. Rebuilt the shared 03/08 model on E:, passed seventeen interior tests and reached round 2 in Godot tactical preview. Next: inspect the new clinic furniture in the capture and prioritize the next family.
+
+- EXPERIMENTAL-APARTMENT-SHELTER-KITCHEN / DONE. Reconstructed the north kitchen counter with base cabinets, a recessed basin and tap using the original footprint. Rebuilt the shared 07/12 GLB on E:, passed seventeen interior tests and rendered the overview in Godot. Next: compare the shelter's sleeping areas with the original art.

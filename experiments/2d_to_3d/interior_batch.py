@@ -130,6 +130,8 @@ def fixtures(name):
             selected[identifier] = "stove"
         elif name.endswith("_abandoned_safehouse") and identifier == "kitchen_nw":
             selected[identifier] = "stove"
+        elif name.endswith("_apartment_shelter") and identifier == "north_kitchen":
+            selected[identifier] = "shelter_kitchen"
         elif name == "city_interior_corporate_lobby" and identifier.endswith("_meeting"):
             selected[identifier] = "meeting_table"
         elif name == "city_interior_corporate_lobby" and identifier.endswith("_utility"):
