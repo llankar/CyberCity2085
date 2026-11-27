@@ -1783,3 +1783,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-LOOTED-VAULT-RADIAL-LAYOUT / DONE. Angled the four corner cases to match the illustrated radial arrangement, narrowing the rotated models to stay inside their surveyed rectangles. Rebuilt 05/10 on E:, captured a top-down view in Godot and passed seventeen interior tests. Next: compare the vault layout in play and move to another interior.
 
 - EXPERIMENTAL-RUINED-CLINIC-RECEPTION / DONE. Reconstructed the reception desk with a raised counter, two idle terminals and a records tray inside the surveyed footprint. Rebuilt shared 03/08 GLB on E:, rendered in Godot and passed seventeen interior tests. Next: reconstruct the worn treatment furniture and run a tactical preview.
+
+- EXPERIMENTAL-RUINED-CLINIC-STRETCHERS / DONE. Used thin pads, steel side rails and grab handles for the clinic beds. Rebuilt the shared 03/08 model on E:, passed seventeen interior tests and reached round 2 in Godot tactical preview. Next: inspect the new clinic furniture in the capture and prioritize the next family.

@@ -7,7 +7,7 @@ from create_hardsurface_crate import box
 from library_placement import place
 
 
-def build_bed(group, x, y, w, d, steel, linen, pad):
+def build_bed(group, x, y, w, d, steel, linen, pad, *, stretcher=False):
     long_y = d > w
     length, width = (d,w) if long_y else (w,d)
     parts = []
@@ -19,9 +19,18 @@ def build_bed(group, x, y, w, d, steel, linen, pad):
         for side in (-1,1):
             piece("Bed leg",end*length*.32,side*width*.31,.24,.05,.05,.24,steel)
     piece("Bed frame",0,0,.48,length*.46,width*.43,.065,steel)
-    piece("Bed mattress",0,0,.57,length*.44,width*.4,.075,linen)
-    piece("Bed pillow",length*.30,0,.66,length*.105,width*.31,.045,linen)
-    piece("Bed cover",-length*.13,0,.644,length*.29,width*.405,.021,pad)
+    if stretcher:
+        piece("Worn stretcher pad",0,0,.566,length*.42,width*.34,.046,pad)
+        for side in (-1,1):
+            piece("Stretcher side rail",0,side*width*.425,.62,length*.31,.025,.026,steel)
+            for end in (-1,1):
+                piece("Stretcher rail upright",end*length*.29,side*width*.425,.57,.025,.025,.06,steel)
+        for end in (-1,1):
+            piece("Stretcher end handle",end*length*.465,0,.60,.029,width*.30,.025,steel)
+    else:
+        piece("Bed mattress",0,0,.57,length*.44,width*.4,.075,linen)
+        piece("Bed pillow",length*.30,0,.66,length*.105,width*.31,.045,linen)
+        piece("Bed cover",-length*.13,0,.644,length*.29,width*.405,.021,pad)
     bpy.ops.object.select_all(action="DESELECT")
     for obj in parts:
         obj.select_set(True)
