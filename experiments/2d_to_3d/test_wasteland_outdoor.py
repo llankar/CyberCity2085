@@ -29,6 +29,10 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
         if name.endswith("_irradiated_basin"):
+            tank = next(node for node in nodes if node["name"] == "Occludable_sw_tank")
+            shell = nodes[tank["children"][0]]
+            assert shell["name"] == "Open corroded basin tank"
+            assert len(shell["children"]) == 3
             for identifier in ("west_pipe", "east_pipe", "east_pipe2", "south_pipe"):
                 group = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
                 assert any(nodes[i]["name"].startswith("Hollow basin drain")

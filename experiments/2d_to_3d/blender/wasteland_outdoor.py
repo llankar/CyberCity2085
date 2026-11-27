@@ -397,7 +397,7 @@ class WastelandOutdoors:
                     bogie.parent = group
         elif "crane" in name:
             build_crane(group,x,y,w,d,self.dark,self.steel,height=3.4,outreach=min(length,2.5))
-        elif name in {"west_pipe", "east_pipe", "east_pipe2", "south_pipe"}:
+        elif name in {"west_pipe", "east_pipe", "east_pipe2", "south_pipe", "sw_tank"}:
             self.basin_drain(group, name, x, y, w, d)
         elif any(part in name for part in ("pipe","tank","shelf")):
             place(self.library / "industrial_service267/model.glb", group, (x,y,0),
@@ -488,8 +488,9 @@ class WastelandOutdoors:
 
     def basin_drain(self, group, name, x, y, width, depth):
         segments = 20
-        radius = min(width,depth)*(.39 if name == "south_pipe" else .33)
-        length = min(width,depth)*.55
+        tank = name == "sw_tank"
+        radius = min(width,depth)*(.23 if tank else .39 if name == "south_pipe" else .33)
+        length = min(width,depth)*(.75 if tank else .55)
         rings = ((radius,0), (radius,length),
                  (radius*.76,length), (radius*.76,0))
         vertices = [(r*math.cos(math.tau*i/segments), r*math.sin(math.tau*i/segments), z)
@@ -502,12 +503,23 @@ class WastelandOutdoors:
                 faces.append((start+i,start+j,following+j,following+i))
         mesh = bpy.data.meshes.new("Hollow basin drain shell")
         mesh.from_pydata(vertices, [], faces)
-        mesh.materials.append(self.aggregate)
+        mesh.materials.append(self.steel if tank else self.aggregate)
         self.project_concrete_uv(mesh)
-        drain = bpy.data.objects.new("Hollow basin drain", mesh)
+        drain = bpy.data.objects.new("Open corroded basin tank" if tank else "Hollow basin drain", mesh)
         bpy.context.collection.objects.link(drain)
         drain.parent = group
-        if name == "south_pipe":
+        if tank:
+            angle = .60
+            drain.location = (x-math.sin(angle)*length/2,y+math.cos(angle)*length/2,radius*.89)
+            drain.rotation_euler = (math.pi/2,0,angle)
+            for offset in (.16,.52,.86):
+                bpy.ops.mesh.primitive_torus_add(major_segments=20, minor_segments=6,
+                    major_radius=radius, minor_radius=.027, location=(0,0,length*offset))
+                band = bpy.context.object
+                band.name = "Corroded tank reinforcing band"
+                band.data.materials.append(self.dark)
+                band.parent = drain
+        elif name == "south_pipe":
             drain.location = (x,y,0)
         else:
             drain.location = (x,y,radius*.90)

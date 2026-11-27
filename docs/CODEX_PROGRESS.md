@@ -1603,3 +1603,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-CRATERED-WATERFRONT-WAREHOUSES / DONE for the three surveyed north-side buildings. Added raised steel framing, surviving blue facade fragments and collapsed deck pieces. Rebuilt the GLB on E:, ten targeted tests passed and Godot rendered the scene. Next: inspect the outdoor Wasteland families for large groups still represented by generic vehicles or rocks.
 
 - EXPERIMENTAL-IRRADIATED-BASIN-DRAINS / DONE for both variants. Replaced generic machine meshes with four hollow concrete drains per map, with horizontal outfalls and a vertical southern opening. Rebuilt both GLBs, passed ten focused tests and rendered 05 in Godot. Next: inspect the basin water and southwest tank.
+
+- EXPERIMENTAL-IRRADIATED-BASIN-TANK / DONE for the southwest tank on 05 and 10. Fitted an open corroded shell and three reinforcing bands to the original diagonal footprint. Both GLBs rebuilt on E:, ten targeted tests passed and 10 rendered in Godot. Next: trace basin-water polygons around dry islands and preserve existing tactical movement.
