@@ -124,3 +124,20 @@ def test_warehouse_racks_export_stock_under_each_rack_occluder():
         assert any(feature in nodes[index]["name"] for index in group["children"])
     root_names = {nodes[index]["name"] for index in data["scenes"][data["scene"]]["nodes"]}
     assert "east_office service floor" in root_names
+
+def test_substation_exports_all_surveyed_equipment_groups():
+    import json
+    from pathlib import Path
+    import struct
+
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/substation334/environment.glb")
+    if not path.is_file():
+        import pytest
+        pytest.skip("Build the experimental Power Substation on E: first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        nodes = json.loads(model.read(size))["nodes"]
+    survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_power_substation.wall-traces.json"
+    surveyed = {f"Occludable_{row['id']}" for row in json.loads(survey_path.read_text())["walls"]}
+    exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
+    assert surveyed == exported
