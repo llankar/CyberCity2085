@@ -279,6 +279,12 @@ class WastelandOutdoors:
                     yaw = math.atan2(by-ay,bx-ax)
                     segment = box("Scavenger scrap barricade", (*midpoint,height/2),
                                   (length*.48,width*.42,height*.45), self.steel,.035)
+                    for offset, lift, material in ((-.28,.78,self.dark),(.04,.91,self.steel),(.33,.73,self.dark)):
+                        plate = box("Scavenger overlapping scrap plate",
+                                    (midpoint[0]+offset*(bx-ax),midpoint[1]+offset*(by-ay),height*lift),
+                                    (length*.145,width*.44,height*.13),material,.014)
+                        plate.rotation_euler.z = yaw
+                        plate.parent = group
                     for offset in (-.36,.0,.36):
                         post = box("Scavenger barricade brace",
                                    (midpoint[0]+offset*(bx-ax), midpoint[1]+offset*(by-ay), height*.49),

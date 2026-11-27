@@ -182,6 +182,7 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
                 segments = len(row["points"])-1
                 assert sum(part.startswith("Scavenger scrap barricade") for part in parts) == segments
                 assert sum(part.startswith("Scavenger barricade brace") for part in parts) == segments*3
+                assert sum(part.startswith("Scavenger overlapping scrap plate") for part in parts) == segments*3
         if name.endswith("_flooded_civic_square"):
             by_name = {node["name"]: node for node in nodes}
             assert "mesh" in by_name["Flooded civic square water surface"]
