@@ -29,7 +29,13 @@ bpy.context.preferences.filepaths.save_version = 0
 service = library / "industrial_service267/model.glb"
 steel = make_material("Substation switchgear casing", (.055,.09,.11,1), .65,.56)
 copper = make_material("Substation conduit metal", (.15,.073,.033,1), .69,.60)
-display = make_material("Substation telemetry", (.035,.33,.44,1), .12,.42,.6)
+display = make_material("Substation telemetry", (.011,.095,.14,1), .12,.43,.24)
+pad = make_material("Substation bolted service pad", (.06,.10,.12,1), .41,.74)
+pad_nodes = pad.node_tree.nodes
+pad_shader = pad_nodes.get("Principled BSDF")
+pad_texture = pad_nodes.new("ShaderNodeTexImage")
+pad_texture.image = bpy.data.images.load(str(lab / "sources/environment169/blue_metal_plate/diff.jpg"))
+pad.node_tree.links.new(pad_texture.outputs["Color"], pad_shader.inputs["Base Color"])
 equipment_count = wall_count = accessory_count = 0
 for row in survey["walls"]:
     identifier = row["id"]
@@ -72,11 +78,14 @@ for row in survey["walls"]:
                   (span, thickness, 1.7), yaw=math.pi/2 if vertical else 0)
             wall_count += 1
     elif identifier.endswith("_transformer"):
+        # This low deck stays visible through cutaways of the equipment above it.
+        box(identifier+" retained service pad", (x,y,.021),
+            (w*.499,d*.499,.026), pad, .008)
         vertical = d > w
         length, width = (d,w) if vertical else (w,d)
         for side in (-1, 1):
             center = (x if vertical else x+side*w*.24,
-                      y+side*d*.24 if vertical else y, 0)
+                      y+side*d*.24 if vertical else y, .047)
             place(transformer, group, center, (length*.45,width*.92,1.85),
                   yaw=math.pi/2 if vertical else 0)
             equipment_count += 1
@@ -87,8 +96,13 @@ for row in survey["walls"]:
             height = .98 if identifier == "central_control" else .82
             box(identifier+" operator cabinet", (x,y,height/2),
                 (w*.45,d*.42,height/2), steel).parent = group
-            box(identifier+" telemetry screen", (x,y,height+.027),
-                (w*.34,d*.27,.032), display).parent = group
+            box(identifier+" telemetry bezel", (x,y-d*.10,height+.028),
+                (w*.36,d*.18,.028), copper).parent = group
+            box(identifier+" telemetry screen", (x,y-d*.10,height+.061),
+                (w*.31,d*.135,.009), display).parent = group
+            for index in (-1,0,1):
+                box(identifier+" control button", (x+index*w*.17,y+d*.18,height+.014),
+                    (w*.034,d*.034,.014), copper, .006).parent = group
         elif identifier.endswith("_tanks"):
             radius = min(w*.33,d*.16)
             for offset in (-.26,.26):

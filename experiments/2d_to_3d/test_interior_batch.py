@@ -136,8 +136,12 @@ def test_substation_exports_all_surveyed_equipment_groups():
         pytest.skip("Build the experimental Power Substation on E: first")
     with path.open("rb") as model:
         _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
-        nodes = json.loads(model.read(size))["nodes"]
+        data = json.loads(model.read(size))
+        nodes = data["nodes"]
     survey_path = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_power_substation.wall-traces.json"
     surveyed = {f"Occludable_{row['id']}" for row in json.loads(survey_path.read_text())["walls"]}
     exported = {node["name"] for node in nodes if node["name"].startswith("Occludable_") and node.get("children")}
     assert surveyed == exported
+    roots = [nodes[index] for index in data["scenes"][data["scene"]]["nodes"]]
+    pads = [node for node in roots if node["name"].endswith(" retained service pad")]
+    assert len(pads) == 6
