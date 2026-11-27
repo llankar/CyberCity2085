@@ -844,12 +844,21 @@ def build(name):
                 for side in (-1,1):
                     place(library / "roof_twin_fan/optimized.glb", group,
                           (x,y+side*d*.23,.23), (w*.84,d*.42,.53), merge=True)
+                box("East cooling manifold", (x,y,.41),
+                    (w*.43,d*.036,.075),frame,.018).parent = group
             else:
                 for side in (-1,1):
                     place(library / "industrial_service267/model.glb", group,
                           (x-w*.08,y+side*d*.22,.23), (w*.62,d*.39,1.03), merge=True)
                 box("West machinery conduit trunk", (x+w*.35,y,.48),
                     (w*.09,d*.44,.25),frame,.022).parent = group
+            for side in (-1, 1):
+                box(identifier+" skid edge", (x+side*w*.465,y,.205),
+                    (w*.025,d*.46,.055),wall,.012).parent = group
+            box(identifier+" service panel", (x,y-d*.45,.32),
+                (w*.13,d*.035,.12),frame,.016).parent = group
+            box(identifier+" service indicator", (x,y-d*.488,.35),
+                (w*.069,d*.009,.018),signs[1],.005).parent = group
             continue
         if identifier.endswith("_machine"):
             vertical = d > w

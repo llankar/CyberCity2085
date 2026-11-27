@@ -349,7 +349,11 @@ def test_industrial_side_pilasters_follow_independent_building_cutaways():
         label = f"central_{side}_machine"
         root = next(node for node in nodes if node["name"] == f"Occludable_{label}")
         parts = [nodes[index] for index in root["children"]]
-        assert any(part["name"] == f"{label} skid" for part in parts)
+        names = {part["name"] for part in parts}
+        assert {f"{label} skid", f"{label} service panel", f"{label} service indicator"} <= names
+        assert sum(name.startswith(f"{label} skid edge") for name in names) == 2
+        if side == "e":
+            assert "East cooling manifold" in names
         assert sum("mesh" in part for part in parts) >= 3
     clad = 0
     for node in nodes:
