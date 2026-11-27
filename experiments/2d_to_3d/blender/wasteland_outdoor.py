@@ -686,6 +686,9 @@ class WastelandOutdoors:
                 for index in range(3):
                     if self.ruined_downtown and index == 1:
                         continue
+                    if self.burned_market and side == (-1 if name.startswith("n") else 1):
+                        if index == (0 if name.startswith(("nw", "sw")) else 1):
+                            continue
                     height = .75+.22*((index+(side>0))%3)
                     self.concrete_box(name+" fractured facade", (x+(index-1)*w*.31,y+side*d*.41,height/2),
                         (w*.154,d*.075,height/2), .065).parent = group
@@ -1033,6 +1036,12 @@ class WastelandOutdoors:
         shutter.parent = group
         box("Charred market storefront jamb", (x-width*.31,y+street*depth*.25,.67),
             (.055,.055,.67),self.dark,.012).parent = group
+        brace = box("Fallen market roof brace",
+                    (x+width*.16,y+street*depth*.13,.78),
+                    (.055,depth*.24,.055),self.steel,.014)
+        brace.rotation_euler.x = street*.48
+        brace.rotation_euler.z = -.19
+        brace.parent = group
         for offset, height in ((-.25,.17), (.03,.28), (.30,.12)):
             piece = self.concrete_box("Fallen market floor fragment",
                                       (x+width*offset, y+street*depth*.08, .32+height),
