@@ -50,6 +50,7 @@ entrance = window.with_name("entrance.glb")
 neon = [make_material(f"Tech market facade light {index}", color, .28,.43,.42)
         for index,color in enumerate(((.055,.46,.60,1),(.46,.06,.24,1),(.62,.25,.05,1)))]
 crate = lab / "environment-library/assets/cargo_crate274/model.glb"
+electronics = lab / "environment-library/assets/industrial_service267/model.glb"
 placed = []
 buildings = []
 for row in survey["walls"]:
@@ -106,6 +107,17 @@ for row in survey["walls"]:
                                   (min(length*.25,1.15),.18,.43),cladding,.03)
                     counter.rotation_euler.z = math.atan2(dy,dx)
                     counter.parent = group
+                    if identifier in {"central_market_stall", "east_center_market",
+                                      "south_center_market", "north_stall_green"}:
+                        spread = min(length*.12, .48)
+                        for label, asset, offset in (
+                            ("Market display electronics", electronics, -spread),
+                            ("Market display parts case", crate, spread),
+                        ):
+                            fitted = place(asset, group, (cx+dx*offset,cy+dy*offset,.86),
+                                           (.40,.28,.32), yaw=counter.rotation_euler.z, merge=True)
+                            for piece in fitted:
+                                piece.name = label
             placed.append(identifier)
             continue
         front = min(edges, key=lambda edge: math.hypot(

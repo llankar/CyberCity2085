@@ -58,6 +58,10 @@ def test_tech_market_buildings_export_textured_roofs_and_facade_bays():
         assert identifier in parts
         assert any(part.startswith("Canopy post") for part in parts)
         assert any(part.startswith("Canopy edge rail") for part in parts)
+        if identifier in {"central_market_stall", "east_center_market",
+                          "south_center_market", "north_stall_green"}:
+            assert any(part.startswith("Market display electronics") for part in parts)
+            assert any(part.startswith("Market display parts case") for part in parts)
     for direction in ("nw", "west", "sw", "ne", "east", "se"):
         name = f"building_{direction}"
         parts = [nodes[index] for index in roots[f"Occludable_{name}"]["children"]]
