@@ -10,6 +10,7 @@ var mailbox: Mailbox
 var status: Label
 var selection: Label
 var target_hint: Label
+var target_line: MeshInstance3D
 var selected_ally := ALLY
 var effects: Effects
 var cutaway := Cutaway.new()
@@ -69,6 +70,20 @@ func _ready() -> void:
  target_hint.position = Vector2(20, 287)
  target_hint.add_theme_font_size_override("font_size", 20)
  hud.add_child(target_hint)
+ target_line = MeshInstance3D.new()
+ var guide_mesh := CylinderMesh.new()
+ guide_mesh.height = 1
+ guide_mesh.top_radius = .016
+ guide_mesh.bottom_radius = .016
+ guide_mesh.radial_segments = 6
+ var guide_material := StandardMaterial3D.new()
+ guide_material.albedo_color = Color(.28,.90,1)
+ guide_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+ target_line.mesh = guide_mesh
+ target_line.material_override = guide_material
+ target_line.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ target_line.hide()
+ add_child(target_line)
  effects = Effects.new()
  add_child(effects)
  var marker_mesh := TorusMesh.new()
@@ -165,7 +180,7 @@ func _process(delta: float) -> void:
  if actors[selected_ally].fallen:
   select_next_ally()
  refresh_selection()
- refresh_target_hint()
+ refresh_target_hint(get_viewport().get_mouse_position())
  status.text = "%s  //  Round %d   %s\n%s\nLeft click: select or move (amber: nearby cover)   Right click: %s   F / M / P: attack mode\nA: self aid   Shift+A: aid hovered ally   B: defend   O: overwatch\nTab: next agent   T: end turn   Q / E: rotate   Wheel: zoom   Middle drag: pan   Home: focus   Esc: close" % [
   scenario_title, state.round, state.turn, "  |  ".join(readout), attack_mode]
  if not mailbox.message.is_empty():
@@ -219,7 +234,13 @@ func _process(delta: float) -> void:
     if not ally.position.is_equal_approx(cell_position(smoke_destination)):
      get_tree().quit(7)
      return
-    fire_at(review_camera.unproject_position(target_center(hostile)))
+    var aim_point := review_camera.unproject_position(target_center(hostile))
+    refresh_target_hint(aim_point)
+    if not target_line.visible or not target_hint.text.ends_with("hit chance"):
+     push_error("Valid shot did not show a targeting guide")
+     get_tree().quit(23)
+     return
+    fire_at(aim_point)
    2:
     if not mailbox.success or int(state.units[0].ap) != 1:
      push_error(mailbox.message)
@@ -282,6 +303,7 @@ func _process(delta: float) -> void:
     status.hide()
     selection.hide()
     target_hint.hide()
+    target_line.hide()
     update_review_camera()
     cutaway.update(.15)
     await RenderingServer.frame_post_draw
@@ -338,6 +360,8 @@ func send(command: Dictionary) -> void:
  var error := mailbox.send(command)
  if error == OK:
   pending_command = command
+  target_line.hide()
+  target_hint.text = ""
   for marker in move_markers:
    marker.hide()
   if smoke:
@@ -399,11 +423,12 @@ func actor_at(screen_position: Vector2, side: String) -> String:
  return nearest
 
 
-func refresh_target_hint() -> void:
+func refresh_target_hint(screen_point: Vector2) -> void:
  target_hint.text = ""
+ target_line.hide()
  if playing_events or mailbox.pending:
   return
- var id := actor_at(get_viewport().get_mouse_position(), "enemy:")
+ var id := actor_at(screen_point, "enemy:")
  if id.is_empty():
   return
  var enemy := unit_state(id)
@@ -419,6 +444,13 @@ func refresh_target_hint() -> void:
    label = "Insufficient AP"
   else:
    label = "%d%% hit chance" % int(context.hit_percent)
+   var origin := target_center(actors[selected_ally])
+   var endpoint := target_center(actors[id])
+   var axis := endpoint-origin
+   target_line.position = (origin+endpoint)/2
+   target_line.quaternion = Quaternion(Vector3.UP, axis.normalized())
+   target_line.scale.y = axis.length()
+   target_line.show()
  target_hint.text = "%s  //  %s  //  %s" % [enemy.name, attack_mode.capitalize(), label]
 
 
@@ -523,7 +555,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if previous_mode != attack_mode and not playing_events:
    status.text = status.text.replace("Right click: " + previous_mode, "Right click: " + attack_mode)
  if event is InputEventMouseMotion or event is InputEventKey:
-  refresh_target_hint()
+  refresh_target_hint(get_viewport().get_mouse_position())
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
   fire_at(event.position)
  if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -531,7 +563,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if not ally.is_empty() and not playing_events and not mailbox.pending:
    selected_ally = ally
    refresh_selection()
-   refresh_target_hint()
+   refresh_target_hint(get_viewport().get_mouse_position())
    return
   var ground: Variant = ground_under_cursor(event.position)
   if ground is Vector3:
