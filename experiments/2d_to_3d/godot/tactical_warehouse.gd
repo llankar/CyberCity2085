@@ -207,8 +207,11 @@ func _process(delta: float) -> void:
   if closing:
    return
  var readout: Array[String] = []
+ var hostiles_remaining := 0
  for unit: Dictionary in state.units:
   var id: String = unit.id
+  if id.begins_with("enemy:") and int(unit.hp) > 0:
+   hostiles_remaining += 1
   var point := cell_position(unit.cell)
   if not actors.has(id):
    var actor := TacticalActor.new()
@@ -243,8 +246,8 @@ func _process(delta: float) -> void:
   focus_selected()
  refresh_selection()
  refresh_target_hint(get_viewport().get_mouse_position())
- status.text = "%s  //  Round %d  %s\n%s" % [
-  scenario_title, state.round, state.turn, "  |  ".join(readout)]
+ status.text = "%s  //  Round %d  %s\nEliminate hostiles  //  %d remaining\n%s" % [
+  scenario_title, state.round, state.turn, hostiles_remaining, "  |  ".join(readout)]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
  if state.outcome != null:
@@ -254,6 +257,10 @@ func _process(delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
+    if not status.text.contains("Eliminate hostiles  //  1 remaining"):
+     push_error("The opening HUD did not show the skirmish objective")
+     get_tree().quit(22)
+     return
     if not benchmark_combat and smoke_outcome.is_empty():
      var window := get_window()
      var original_size := window.size
