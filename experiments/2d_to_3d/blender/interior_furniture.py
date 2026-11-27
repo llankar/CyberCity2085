@@ -333,6 +333,13 @@ def build_facility_fixture(group, kind, x, y, w, d, steel, trim, screen):
         for side in (-1,1):
             part("Meeting seat", 0,side*width*.36,.42,length*.21,width*.105,.058,trim)
             part("Meeting seat back", 0,side*width*.45,.62,length*.23,width*.034,.19,steel)
+    elif kind == "command_table":
+        part("Operations table pedestal", 0,0,.36,length*.28,width*.23,.36,trim)
+        part("Operations table armor rim", 0,0,.76,length*.46,width*.44,.064,steel)
+        part("Inset operations map", 0,0,.831,length*.35,width*.31,.012,trim)
+        for side in (-1,1):
+            part("Operations map illuminated edge", 0,side*width*.326,.845,length*.34,.017,.012,screen)
+            part("Operations table control panel", side*length*.392,0,.847,length*.034,width*.20,.024,steel)
     elif kind == "inspection_pit":
         part("Inspection trench inset", 0,0,.006,length*.48,width*.48,.015,trim)
         for side in (-1,1):
