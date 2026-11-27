@@ -133,6 +133,49 @@ def build_rooftop_ground(out, floor, grid, canvas, library):
                       yaw=yaw, merge=True)
 
 
+
+def build_freeway_deck(floor, wall, frame, grid, canvas, rail_rows):
+    gw, gh = grid
+    _, ch = canvas
+    north, south = (gh/2-row*gh/ch for row in rail_rows)
+    recess = gh/ch*11
+    street_level, road_level = -1.78, -.025
+
+    def pavement(label, high, low, height):
+        mesh = bpy.data.meshes.new(label)
+        mesh.from_pydata(
+            [(-gw/2,low,height),(gw/2,low,height),(gw/2,high,height),(-gw/2,high,height)],
+            [], [(0,1,2,3)],
+        )
+        mesh.materials.append(floor)
+        uv = mesh.uv_layers.new()
+        for loop in mesh.loops:
+            x,y,_ = mesh.vertices[loop.vertex_index].co
+            uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
+        bpy.context.collection.objects.link(bpy.data.objects.new(label, mesh))
+
+    pavement("Freeway main deck", north, south, road_level)
+    pavement("North avenue pavement", gh/2, north+recess, road_level)
+    pavement("South avenue pavement", south-recess, -gh/2, road_level)
+    pavement("North under-deck strip", north+recess, north, street_level)
+    pavement("South under-deck strip", south, south-recess, street_level)
+    box("Freeway structural slab", (0,(north+south)/2,-.295),
+        (gw/2,(north-south)/2,.27), wall,.035)
+    for edge, side in ((north,1),(south,-1)):
+        box("Freeway edge girder", (0,edge-side*.075,-.42),
+            (gw/2,.10,.16), frame,.02)
+        box("Freeway lower retaining wall", (0,edge+side*recess,-.90),
+            (gw/2,.035,.88), wall,.02)
+        for i in range(8):
+            x = ((i+.5)/8-.5)*gw
+            box("Freeway pier footing", (x,edge+side*.12,-1.66),
+                (.32,.21,.12), frame,.025)
+            box("Freeway pier shaft", (x,edge+side*.11,-1.075),
+                (.19,.16,.50), wall,.018)
+            box("Freeway pier bearing", (x,edge,-.60),
+                (.33,.24,.083), frame,.02)
+
+
 def build(name):
     reset_library_cache()
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -142,6 +185,8 @@ def build(name):
     gw, gh = json.loads((MAPS / f"{name}.walls.json").read_text())["grid"]
     cw, ch = survey["canvas_size"]
     freeway = name.endswith("_elevated_freeway")
+    deck_rails = {row["id"]: row["points"][0][1] for row in survey["walls"]
+                  if row["id"] in {"highway_north_rail", "highway_south_rail"}}
     riot_square = name == "city_district_riot_square"
     civic = name in {"city_district_civic_center", "city_district_riot_square"} or name.endswith("_civic_plaza")
     industrial = name.endswith(("freight_yard", "industrial_district"))
@@ -637,6 +682,9 @@ def build(name):
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
     if name in ROOFTOPS:
         build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
+    elif freeway and len(deck_rails) == 2:
+        build_freeway_deck(floor, wall, frame, (gw,gh), (cw,ch),
+                           (deck_rails["highway_north_rail"], deck_rails["highway_south_rail"]))
     else:
         bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
         bpy.context.object.scale = (gw/2, gh/2, 1)

@@ -160,7 +160,8 @@ def test_freeway_rails_follow_survey_segments(variant):
         pytest.skip("Build the freeway on E: first")
     with path.open("rb") as glb:
         size = struct.unpack("<4sIII4s", glb.read(20))[3]
-        nodes = json.loads(glb.read(size))["nodes"]
+        data = json.loads(glb.read(size))
+    nodes = data["nodes"]
     roots = {node["name"]: node["children"] for node in nodes if node.get("children")}
     maps = Path(__file__).resolve().parents[2] / "assets/maps"
     survey = json.loads((maps / f"{name}.wall-traces.json").read_text())
@@ -179,3 +180,20 @@ def test_freeway_rails_follow_survey_segments(variant):
             assert beam["translation"] == pytest.approx((
                 (ax+bx)*gw/(2*cw)-gw/2, .54, (ay+by)*gh/(2*ch)-gh/2,
             ), abs=.0001)
+
+
+    for label, elevation in (("Freeway main deck", -.025),
+                             ("North under-deck strip", -1.78), ("South under-deck strip", -1.78)):
+        node = next(node for node in nodes if node["name"] == label)
+        position = data["meshes"][node["mesh"]]["primitives"][0]["attributes"]["POSITION"]
+        bounds = data["accessors"][position]
+        assert (bounds["min"][1], bounds["max"][1]) == pytest.approx((elevation, elevation))
+        if "under-deck" in label:
+            tactical = json.loads((maps / f"{name}.walls.json").read_text())
+            rail_ids = {"highway_north_rail", "highway_south_rail"}
+            blocked = {tuple(cell) for wall in tactical["walls"] if wall["id"] in rail_ids
+                       for cell in wall["cells"]}
+            for row in range(gh):
+                if bounds["min"][2] < row+.5-gh/2 < bounds["max"][2]:
+                    assert all((column,row) in blocked for column in range(gw))
+    assert sum(node["name"].startswith("Freeway pier shaft") for node in nodes) == 16
