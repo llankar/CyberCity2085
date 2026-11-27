@@ -574,8 +574,8 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         parts = [nodes[index]["name"] for index in groups[f"Occludable_{identifier}"]]
         if any(part.startswith("Convoy reconstructed") for part in parts):
             truck, = [nodes[index] for index in groups[f"Occludable_{identifier}"]]
-            assert truck["name"].startswith("Convoy reconstructed tanker" if identifier == "convoy_mw"
-                                            else "Convoy reconstructed canvas truck")
+            kind = {"convoy_mw": "tanker", "convoy_me": "cargo truck"}.get(identifier, "canvas truck")
+            assert truck["name"].startswith(f"Convoy reconstructed {kind}")
             surfaces = data["meshes"][truck["mesh"]]["primitives"]
             assert any("baseColorTexture" in data["materials"][part["material"]]["pbrMetallicRoughness"]
                        for part in surfaces)
