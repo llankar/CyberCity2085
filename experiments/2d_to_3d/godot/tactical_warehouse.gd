@@ -274,7 +274,7 @@ func _process(delta: float) -> void:
     var enemy: Array = unit_state("enemy:0").cell
     smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),
                          int(start[1]) + signi(int(enemy[1]) - int(start[1]))]
-    if not benchmark_combat and not verify_move_hover(state.units[0]):
+    if not benchmark_combat and smoke_outcome.is_empty() and not verify_move_hover(state.units[0]):
      get_tree().quit(23)
      return
     if not benchmark_combat and not verify_absorbed_impact():
@@ -455,14 +455,24 @@ func show_outcome(state: Dictionary) -> void:
   scenario_title, state.round, standing, squad_size]
  status.hide()
  selection.hide()
+ control_hints.hide()
  target_hint.hide()
  target_line.hide()
+ for marker in move_markers:
+  marker.hide()
  outcome_panel.show()
+ outcome_close.grab_focus()
 
 
 func verify_smoke_outcome(expected: String, standing: int) -> void:
  if not outcome_panel.visible or outcome_title.text != expected.capitalize() or not outcome_details.text.ends_with("%d / 2" % standing):
   push_error("The %s outcome did not reach the skirmish panel" % expected)
+  get_tree().quit(24)
+  return
+ if control_hints.visible or not outcome_close.has_focus() or move_markers.any(
+  func(marker: MeshInstance3D) -> bool: return marker.visible
+ ):
+  push_error("The result panel did not take over the tactical controls")
   get_tree().quit(24)
   return
  await RenderingServer.frame_post_draw
