@@ -2047,3 +2047,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DUST-ROAD-WRECK-CABS / DONE for export and native loading. Reused side windows, cab sills and bumpers on the three Dust Road truck wrecks. Rebuilt the shared 01/06 export on E:, captured scene 06, updated the gallery and passed eleven outdoor tests. Next: review the Dust Road lighting and rubble contrast.
 
 - EXPERIMENTAL-DUST-ROAD-LIGHTING / DONE for native overview. Matched the two variant presets at reduced key and ambient intensity and reduced the orange tint. Captured the shared scene through variant 06 and refreshed the 122-map gallery. Next: compare rubble silhouettes at tactical zoom.
+
+- EXPERIMENTAL-DUST-ROAD-SANDBAG-CONTRAST / DONE for export and native loading. Added alternating stained and faded canvas to distinguish the sandbag cover from the surrounding dust. Rebuilt the shared 01/06 model on E:, refreshed the Godot and comparison views and passed eleven outdoor tests. Next: inspect the remaining exterior maps for visible discrepancies in larger structures.

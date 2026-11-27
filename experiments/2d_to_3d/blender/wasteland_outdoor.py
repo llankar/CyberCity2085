@@ -220,6 +220,9 @@ class WastelandOutdoors:
             self.facade_blue = make_material("Faded blue enamel", (.035,.115,.147,1), .54,.78)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
+        if dust_road:
+            self.canvas = make_material("Dust Road stained canvas", (.105,.083,.054,1), 0,.96)
+            self.canvas_faded = make_material("Dust Road faded canvas", (.154,.125,.082,1), 0,.95)
 
     @staticmethod
     def project_concrete_uv(mesh):
@@ -595,9 +598,10 @@ class WastelandOutdoors:
             group.rotation_euler.z = yaw
             for layer, offsets in enumerate(((-.36,-.12,.12,.36), (-.25,0,.25))):
                 for index, offset in enumerate(offsets):
+                    fabric = self.canvas_faded if (index+layer)%3 == 0 else self.canvas
                     bag = box("Dust road staggered sandbag",
                               (length*offset,breadth*.035*(-1)**index,.108+layer*.165),
-                              (length*.117,breadth*(.38-layer*.055),.105), self.canvas,.078)
+                              (length*.117,breadth*(.38-layer*.055),.105), fabric,.078)
                     bag.rotation_euler.z = .07*(-1)**(index+layer)
                     bag.parent = group
         elif "sandbag" in name:
