@@ -1748,26 +1748,41 @@ class WastelandOutdoors:
         group.location = (x,y,0)
         group.rotation_euler.z = yaw + (0 if name == "convoy_e" else math.pi)
 
-        def part(label, position, scale, material, bevel=.035, *, project_top=False):
-            obj = box(label, position, scale, material, bevel)
-            obj.parent = group
-            if not (project_top and self.convoy_crossing and name.startswith("convoy_")):
+        cab_sources = {"convoy_w": (55,243,92,270), "convoy_mw": (269,239,304,274),
+                       "convoy_me": (468,242,500,274), "convoy_e": (711,241,731,271),
+                       "convoy_far_e": (773,242,810,270)}
+        tarp_sources = {"convoy_w": (101,233,168,274), "convoy_e": (641,231,706,271),
+                        "convoy_far_e": (822,235,874,273)}
+
+        def project_art(obj, source, min_up=.9):
+            if not self.convoy_crossing or source is None:
                 return
             mesh = obj.data
             mesh.materials.append(self.surveyed_surface)
             uv = mesh.uv_layers.active
             transform = group.matrix_basis @ obj.matrix_basis
+            points = [transform @ vertex.co for vertex in mesh.vertices]
+            x0, x1 = min(p.x for p in points), max(p.x for p in points)
+            y0, y1 = min(p.y for p in points), max(p.y for p in points)
+            left, top, right, bottom = source
             for face in mesh.polygons:
-                if face.normal.z < .9:
+                if (transform.to_3x3() @ face.normal).normalized().z < min_up:
                     continue
                 face.material_index = 1
                 for index in face.loop_indices:
-                    point = transform @ mesh.vertices[mesh.loops[index].vertex_index].co
-                    uv.data[index].uv = (point.x/self.gw+.5,point.y/self.gh+.5)
+                    point = points[mesh.loops[index].vertex_index]
+                    u = left+(right-left)*(point.x-x0)/(x1-x0)
+                    v = bottom-(bottom-top)*(point.y-y0)/(y1-y0)
+                    uv.data[index].uv = (u/self.cw,1-v/self.ch)
+
+        def part(label, position, scale, material, bevel=.035, *, source=None):
+            obj = box(label, position, scale, material, bevel)
+            obj.parent = group
+            project_art(obj, source)
 
         part("Convoy chassis", (0,0,.44), (length*.48,width*.40,.13), self.dark)
         part("Convoy cab", (length*.345,0,.80), (length*.139,width*.40,.34), self.steel,
-             project_top=True)
+             source=cab_sources.get(name))
         part("Convoy windshield", (length*.481,0,.924), (.016,width*.33,.111), self.dark)
         if (self.salt_flat or self.dust_road or self.wrecked_highway or self.convoy_crossing
                 or self.scavenger_plaza or self.ruined_downtown):
@@ -1811,6 +1826,8 @@ class WastelandOutdoors:
             tank.name = "Convoy tanker vessel"
             tank.data.materials.append(self.steel)
             tank.parent = group
+            if group.name == "Occludable_convoy_mw":
+                project_art(tank, (316,238,419,273), min_up=.30)
             for face in tank.data.polygons:
                 face.use_smooth = len(face.vertices) == 4
             if self.convoy_crossing or self.salt_flat or self.dust_road or self.wrecked_highway:
@@ -1865,7 +1882,7 @@ class WastelandOutdoors:
             if self.convoy_crossing:
                 tarp = self.convoy_tarps["tan" if name == "convoy_e" else "olive"]
             part("Convoy tarpaulin load", (-length*.147,0,.94),
-                 (length*.303,width*.386,.286),tarp,.112,project_top=True)
+                 (length*.303,width*.386,.286),tarp,.112,source=tarp_sources.get(name))
             for offset in (-.34,-.18,-.02):
                 part("Convoy tarp strap", (length*offset,0,1.23),
                      (.024,width*.36,.018),self.dark,.007)

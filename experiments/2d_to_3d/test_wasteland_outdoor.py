@@ -551,7 +551,9 @@ def test_convoy_crossing_has_distinct_cargo_trucks():
         assert any(part.startswith(load) for part in parts), identifier
         for index in groups[f"Occludable_{identifier}"]:
             node = nodes[index]
-            if node["name"].split(".")[0] not in {"Convoy cab", "Convoy tarpaulin load"}:
+            if node["name"].split(".")[0] not in {
+                "Convoy cab", "Convoy tarpaulin load", "Convoy tanker vessel",
+            }:
                 continue
             surfaces = data["meshes"][node["mesh"]]["primitives"]
             materials = {data["materials"][part["material"]]["name"] for part in surfaces}
