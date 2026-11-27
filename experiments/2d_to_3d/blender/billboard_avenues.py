@@ -621,6 +621,13 @@ def build(name):
                                        (length/2,.037,.052),frame,.01)
                             band.rotation_euler.z = yaw
                             band.parent = group
+                        if name == "city_district_riot_square" and nx*(ax+bx) < -1 and abs(nx) > .65:
+                            accent = signs[1] if ax+bx < 0 else signs[0]
+                            light = box(identifier+" plaza-facing facade light",
+                                        ((ax+bx)/2+nx*.071,(ay+by)/2+ny*.071,height-.31),
+                                        (length*.39,.018,.022),accent,.006)
+                            light.rotation_euler.z = yaw
+                            light.parent = group
                         bays = max(1,int(length/2.15))
                         for index in range(bays):
                             portion = (index+.5)/bays

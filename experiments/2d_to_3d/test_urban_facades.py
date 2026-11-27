@@ -326,6 +326,7 @@ def test_civic_facades_export_textured_walls_and_roofs(name, identifier):
     assert sum(" civic roof coping" in part["name"] for part in parts) >= 3
     if name == "city_district_riot_square":
         assert any(" civic facade band" in part["name"] for part in parts)
+        assert any(" plaza-facing facade light" in part["name"] for part in parts)
         for side in ("west", "east"):
             barrier = next(node for node in nodes if node["name"] == f"Occludable_barricade_{side}")
             parts = [nodes[index]["name"] for index in barrier["children"]]
