@@ -310,6 +310,13 @@ def build(name):
             build_medical_scanner(group, x, y, w, d, linen, partition_cap, screen)
         elif checkpoint and identifier.startswith(("barrier_", "scanner_", "security_booth_")):
             build_checkpoint_fixture(group, identifier, x, y, w, d, steel, partition_cap, screen, warning)
+        elif kind == "machine" and name.endswith("_maintenance_depot"):
+            place(labs[kind], group, (x,y,.11), (length*.82,breadth*.62,.82), yaw=yaw)
+            for side in (-1, 1):
+                offset = side*breadth*.40
+                rail_center = (x+offset,y,.10) if vertical else (x,y+offset,.10)
+                rail_size = (breadth*.044,length*.46,.10) if vertical else (length*.46,breadth*.044,.10)
+                box("Depot machine guide rail", rail_center, rail_size, rail,.023).parent = group
         elif kind in {"floor_generator", "safehouse_generator"}:
             place(library / "industrial_generator265/model.glb", group, (x,y,0),
                   (length*.94,breadth*.94,1.12), yaw=yaw)
