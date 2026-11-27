@@ -925,6 +925,15 @@ def build(name):
             for slat in range(1,9):
                 box(identifier + " shutter slat", (x,front+direction*.157,slat*.20),
                     (door_width*.48,.012,.02), wall).parent = group
+            if w >= 3 and height >= 2.4:
+                box(identifier + " loading shutter hood", (x,front+direction*.13,1.98),
+                    (door_width*.54,.16,.10), frame,.025).parent = group
+                for side in (-1,1):
+                    jamb_x = x+side*door_width*.52
+                    box(identifier + " loading shutter guide", (jamb_x,front+direction*.11,.94),
+                        (.047,.077,.94), frame,.012).parent = group
+                    box(identifier + " loading dock bumper", (jamb_x,front+direction*.18,.32),
+                        (.085,.12,.23), wall,.028).parent = group
             continue
         if "billboard" not in name and i % 3 != 0:
             continue
