@@ -480,6 +480,9 @@ class WastelandOutdoors:
         convoy_flatbeds = {"wreck_w": .24, "wreck_ne": .37,
                            "wreck_se": -.46, "wreck_southwest": .22}
         salt_stripped = {"wreck_sw": .08, "wreck_e": .94, "wreck_southwest": .22}
+        salt_roofed = {"wreck_nw": .08, "wreck_n": -1.33, "wreck_ne": -.63,
+                       "wreck_mid_w": 1.27, "wreck_mid_c": -.34, "wreck_w": -1.01,
+                       "wreck_se": -1.04}
         if self.trainyard and ("wagon" in name or name == "north_tank"):
             if name == "wagon_turntable":
                 yaw = math.atan2(54*self.gh/self.ch, 66*self.gw/self.cw)
@@ -515,6 +518,13 @@ class WastelandOutdoors:
             c, s = math.cos(angle), math.sin(angle)
             fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
             self.stripped_car(group, x, y, length*fit, breadth*fit, angle)
+        elif self.salt_flat and name in salt_roofed:
+            angle = salt_roofed[name]
+            breadth = min(breadth, length*.50)
+            c, s = abs(math.cos(angle)), abs(math.sin(angle))
+            fit = min(w/(length*c+breadth*s), d/(length*s+breadth*c))
+            place(self.library / "derelict_suv275/model.glb", group, (x,y,0),
+                  (length*fit,breadth*fit,1.22), yaw=angle)
         elif self.convoy_crossing and name in convoy_flatbeds:
             angle = convoy_flatbeds[name]
             breadth = min(breadth, length*.38)
