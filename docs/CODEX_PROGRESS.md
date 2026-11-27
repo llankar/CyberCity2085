@@ -1721,3 +1721,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-TRANSIT-FACADES / DONE for shared world-scaled facade materials and alternating upper windows. Rebuilt both distinct Transit Interchange GLBs (06 and 11) on E:; 12 shares the 11 model. Captured both low views in Godot and passed four catalogue tests. Next: address repetition in the transport roofs or another map family.
 
 - EXPERIMENTAL-TRANSIT-ROOF-EQUIPMENT / DONE for the first two surveyed units. Matched the existing roof fan model to two footprints on the northern buildings of the 11/12 original. Rebuilt the shared GLB on E:, rendered 305 meshes in Godot and passed four catalogue tests. Next: prioritize remaining transport roof fixtures with a broader batch.
+
+- EXPERIMENTAL-TRANSIT-ROOF-BATCH / DONE for five additional source-matched roof fans. Placed them on the north-east, west, east and southern roofs of Transit Interchange 11/12 using the existing module. Rebuilt the shared GLB, rendered 315 meshes in Godot and passed four catalogue tests. Next: assess a separate transport map or consolidate the next set of surveyed props.

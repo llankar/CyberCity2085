@@ -42,6 +42,11 @@ MARKET_07_08_ROOF_FANS = {
 TRANSIT_11_ROOF_FANS = {
     "nw_block": ((106, 16, 137, 43),),
     "north_block": ((247, 8, 280, 35),),
+    "ne_corner": ((824, 8, 848, 30),),
+    "west_mid": ((8, 190, 38, 219),),
+    "east_south": ((918, 320, 941, 343),),
+    "sw_block": ((104, 468, 129, 491),),
+    "south_block": ((268, 484, 296, 513),),
 }
 ROOF_FANS_BY_MAP = {
     "city_exterior_billboard_avenue": BILLBOARD_ROOF_FANS,
