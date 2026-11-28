@@ -5,12 +5,12 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "WINDOWS-RELEASE-ACCEPTANCE"
+    "ENGLISH-UI-01"
   ],
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Reconcile the verified Windows acceptance with the remaining production goal criteria."
+    "next_action": "Audit remaining English player-facing copy in active briefing, debrief and finale screens. Preserve historical Windows integration checks without making them release gates."
   },
   "tasks": [
     {
@@ -834,6 +834,7 @@
     },
     {
       "id": "WINDOWS-CURRENT-BUILD",
+      "archived": true,
       "title": "Current Windows distribution and headless smoke",
       "status": "IN_PROGRESS",
       "files": [
@@ -1244,6 +1245,7 @@
     },
     {
       "id": "UE2-04",
+      "archived": true,
       "title": "Cycle de vie Win32 et continuité de fenêtre",
       "status": "IN_PROGRESS",
       "files": [
@@ -1900,6 +1902,7 @@
     },
     {
       "id": "UE5-03",
+      "archived": true,
       "title": "Démarrer Godot avec le jeu et réutiliser le même processus dès la première mission",
       "status": "IN_PROGRESS",
       "files": [
@@ -1924,6 +1927,7 @@
     },
     {
       "id": "UE5-04",
+      "archived": true,
       "title": "Conserver la transition visible jusqu’à la readiness native Windows",
       "status": "IN_PROGRESS",
       "files": [
@@ -2089,6 +2093,7 @@
     },
     {
       "id": "GODOT-UI-FOCUS-01",
+      "archived": true,
       "title": "Traduire le HUD tactique résiduel et afficher le combat sans clic",
       "status": "IN_PROGRESS",
       "files": [
