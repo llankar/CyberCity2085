@@ -170,6 +170,9 @@ def build_battle_debrief_summary(
         ])
     objective_text=("Objective completed" if external.get("objective_completed") is True else
                     "Objective not completed" if external.get("objective_completed") is False else "Objective completion not reported")
+    objective_progress = external.get("objective_progress")
+    if external.get("objective_completed") is False and type(objective_progress) is int and objective_progress > 0:
+        objective_text = f"Objective incomplete · progress {objective_progress}"
     civilian_rescue = debrief_raw.get("civilian_rescue") if isinstance(debrief_raw, dict) else None
     if isinstance(civilian_rescue, dict):
         objective_text = f"{civilian_rescue['rescued']}/{civilian_rescue['total']} civilian groups rescued"

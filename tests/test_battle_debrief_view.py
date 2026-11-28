@@ -16,6 +16,23 @@ from game.ui.screens.battle_debrief_view import (
 )
 
 
+def test_retreat_debrief_shows_recorded_partial_objective_progress():
+    state = GameState()
+    state.latest_mission_debrief = {
+        "external_combat": {
+            "outcome": "retreat",
+            "objective_completed": False,
+            "objective_progress": 2,
+        },
+    }
+
+    summary = build_battle_debrief_summary(state, False, _mission(), [])
+
+    assert summary["outcome"] == "retreat"
+    assert summary["objective_result"] == "Objective incomplete · progress 2"
+    assert "Mission funds: ₦+0" in summary["rewards"]
+
+
 def test_debrief_distinguishes_downed_agents_from_recovery_and_death():
     state = GameState(characters=[Character("Vera"), Character("Rook", recovery_turns=2)])
     stats = [
