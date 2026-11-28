@@ -2573,6 +2573,14 @@ func _assassination_target_index() -> int:
 			best_priority = rank
 	return target
 
+func _assassination_objective_text() -> String:
+	if objective_completed:
+		return "PRIORITY TARGET NEUTRALIZED"
+	var target := _assassination_target_index()
+	if _is_enemy_visible_to_player(target):
+		return "PRIORITY TARGET // %s" % str(enemy_units[target].get("name", "Identified hostile"))
+	return "PRIORITY TARGET // Locate the target"
+
 func _objective_interaction_available() -> bool:
 	return not objective.has("hold_until_turn") and (not objective.get("once_per_turn", false) \
 		or int(objective.get("last_interaction_turn", -1)) != turn_number)
@@ -2754,6 +2762,8 @@ func _update_visual_context() -> void:
 	elif objective.get("type", "") == "defend":
 		_hud.objective_text = "HOLD %d/%d // Keep hostiles outside the marked zone." % [
 			objective_progress, int(objective.get("defend_turns_required", 4))]
+	elif objective.get("type", "") == "assassination":
+		_hud.objective_text = _assassination_objective_text()
 	elif not objective.get("phase_labels", []).is_empty():
 		_hud.objective_text = "%d/%d // %s" % [
 			objective_progress, int(objective.get("progress_needed", 1)), str(objective.get("label", ""))]
