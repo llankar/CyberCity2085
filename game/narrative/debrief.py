@@ -233,6 +233,8 @@ def build_mission_debrief_report(
     skill_check_outcomes: list[str] | None = None,
     performance_by_agent: dict[str, dict] | None = None,
     tactical_moments: list[dict[str, str]] | None = None,
+    *,
+    retreated: bool = False,
 ) -> DebriefReport:
     """Build a deterministic debrief report from post-mission agent states."""
     mission_title = mission.title if mission else "Unknown Operation"
@@ -261,9 +263,12 @@ def build_mission_debrief_report(
                                moment["kind"], moment["text"]) for moment in moments]
     return DebriefReport(
         mission_title=mission_title,
-        mission_outcome=_mission_outcome_label(victory),
+        mission_outcome="retreat" if retreated else _mission_outcome_label(victory),
         lines=moment_lines+lines,
-        decision_key=_extract_decision_key(lines, mission, victory),
+        decision_key=(
+            f"Command ordered a withdrawal from {mission_title}."
+            if retreated else _extract_decision_key(lines, mission, victory)
+        ),
         risk_taken=_extract_risk_taken(moment_lines + lines, complication, victory),
         heroic_action=next((moment["text"] for moment in moments if moment["kind"] in {"last_stand", "rescue"}),
                            "No clutch action recorded in this engagement." if moments else _extract_heroic_action(lines)),

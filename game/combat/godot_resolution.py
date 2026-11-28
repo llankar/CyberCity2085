@@ -77,6 +77,7 @@ def resolve_godot_result(game_state,mission,result,session_id):
     survivors,units=resolve_campaign_battle(
         context, result['outcome']=='victory', defeated_override=result['enemies_killed'],
         objective_progress=result.get('objective_progress'),
+        retreated=result['outcome']=='retreat',
     )
     shadow.latest_mission_debrief.setdefault('deployment_vehicle', {})['heavy_strike_used'] = bool(
         result.get('heavy_strike_used', False)

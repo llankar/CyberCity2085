@@ -197,6 +197,8 @@ def test_non_victory_keeps_failure_policy_without_synthetic_xp(tmp_path,outcome)
     resolve_godot_result(state,mission,result,session['session_id'])
     assert state.characters[0].stats.xp==0
     assert state.active_mission is None and state.latest_mission_debrief
+    decision = state.latest_mission_debrief['decision_key']
+    assert ('ordered a withdrawal' in decision) == (outcome == 'retreat')
     rewards = state.latest_mission_debrief['campaign_rewards']
     assert rewards['mission_payout'] == 0
     assert rewards['net_funds_change'] == state.available_funds - before

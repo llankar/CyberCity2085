@@ -8,7 +8,7 @@ from game.narrative.debrief import build_mission_debrief_report
 from game.narrative.relationship_consequences import apply_tactical_relationship_consequences
 
 
-def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, objective_progress=None):
+def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, objective_progress=None, retreated=False):
     ending_before = self.game_state.campaign.ending
     funds_before=self.game_state.available_funds
     transaction_start = len(self.game_state.funds.transaction_history)
@@ -167,6 +167,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
         self.triggered_complication,
         performance_by_agent=performance_by_agent,
         tactical_moments=tactical_moments,
+        retreated=retreated,
     )
     from game.narrative.agent_reputation import apply_agent_reputation_awards
 
