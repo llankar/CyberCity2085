@@ -90,6 +90,21 @@ def test_undeployed_reserve_agent_does_not_prevent_total_wipe_loss():
     assert state.owned_equipment == {"monoblade": 1}
 
 
+def test_total_wipe_preserves_the_reserves_equipped_copy_in_an_undercounted_save():
+    deployed = equipped_agent("Rook", "pulse_rifle")
+    reserve = equipped_agent("Longshot", "pulse_rifle")
+    state = GameState(characters=[deployed, reserve], owned_equipment={"pulse_rifle": 1})
+    snapshot = snapshot_deployed_equipment(state.characters, ["Rook"])
+    state.characters.remove(deployed)
+    state.owned_equipment["pulse_rifle"] = 1
+
+    report = resolve_equipment_custody(state, snapshot, victory=False)
+
+    assert report["total_wipe"]
+    assert report["lost"] == {}
+    assert state.owned_equipment == {"pulse_rifle": 1}
+
+
 def test_godot_total_wipe_applies_equipment_loss_once_across_replay(tmp_path):
     state, mission, session, result = scenario(tmp_path)
     pulse = next(

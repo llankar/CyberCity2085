@@ -54,9 +54,14 @@ def resolve_equipment_custody(state, snapshot: list[dict], victory: bool) -> dic
     lose_deployment = total_wipe and not victory
     lost_items = Counter()
     if lose_deployment:
+        reserve_items = Counter(
+            item["id"]
+            for row in snapshot_deployed_equipment(state.characters, roster_names)
+            for item in row["items"]
+        )
         for item_id, quantity in total_items.items():
             available = max(0, int(state.owned_equipment.get(item_id, 0)))
-            removed = min(available, quantity)
+            removed = min(max(0, available - reserve_items[item_id]), quantity)
             if removed:
                 state.owned_equipment[item_id] = available - removed
                 if state.owned_equipment[item_id] == 0:
