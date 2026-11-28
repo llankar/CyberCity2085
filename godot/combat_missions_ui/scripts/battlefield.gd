@@ -32,6 +32,7 @@ var move_range_cells  : Array[Vector2i] = []
 var move_range_anchor : Vector2i = Vector2i(-1, -1)
 var attack_range_cells: Array[Vector2i] = []
 var path_cells        : Array[Vector2i] = []
+var blast_preview_cells: Array[Vector2i] = []
 var hovered_cell      : Vector2i = Vector2i(-1, -1)
 var selected_cell     : Vector2i = Vector2i(-1, -1)
 
@@ -164,6 +165,7 @@ func _move_highlight_corners(cell: Vector2i) -> PackedVector2Array:
 # ── Range / path highlighting ─────────────────────────────────────────────────
 
 func show_move_range(cells: Array[Vector2i], anchor_cell: Vector2i = Vector2i(-1, -1)) -> void:
+	blast_preview_cells.clear()
 	move_range_cells   = cells
 	move_range_anchor  = anchor_cell
 	attack_range_cells = []
@@ -171,6 +173,7 @@ func show_move_range(cells: Array[Vector2i], anchor_cell: Vector2i = Vector2i(-1
 	queue_redraw()
 
 func show_attack_range(cells: Array[Vector2i]) -> void:
+	blast_preview_cells.clear()
 	attack_range_cells = cells
 	move_range_cells   = []
 	move_range_anchor  = Vector2i(-1, -1)
@@ -182,11 +185,22 @@ func show_path(cells: Array[Vector2i]) -> void:
 	queue_redraw()
 
 func clear_highlights() -> void:
+	blast_preview_cells.clear()
 	move_range_cells   = []
 	move_range_anchor  = Vector2i(-1, -1)
 	attack_range_cells = []
 	path_cells         = []
 	selected_cell      = Vector2i(-1, -1)
+	queue_redraw()
+
+func show_blast_preview(center: Vector2i, radius: int) -> void:
+	blast_preview_cells.clear()
+	for dx in range(-radius, radius + 1):
+		var span := radius - absi(dx)
+		for dy in range(-span, span + 1):
+			var cell := center + Vector2i(dx, dy)
+			if Rect2i(0, 0, GRID_COLS, GRID_ROWS).has_point(cell):
+				blast_preview_cells.append(cell)
 	queue_redraw()
 
 # ── AStar2D pathfinding ───────────────────────────────────────────────────────
@@ -553,6 +567,9 @@ func _draw_path_preview() -> void:
 # ── Hover ─────────────────────────────────────────────────────────────────────
 
 func _draw_hover() -> void:
+	for cell in blast_preview_cells:
+		var corners := _iso_corners_inner(cell, 0.85)
+		draw_polygon(corners, PackedColorArray([Color(1.0, 0.58, 0.18, 0.28)]))
 	if hovered_cell.x < 0:
 		return
 	var d := _iso_corners_inner(hovered_cell, 0.20)

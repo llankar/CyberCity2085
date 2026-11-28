@@ -1615,3 +1615,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] GODOT-AREA-TARGET-DISPATCH — Use the same visibility and blast rules for pointer, keyboard and gamepad confirmation.
 
 - [x] GODOT-AREA-PREVIEW — Display the blast radius for area attacks in the target card.
+
+- [x] GODOT-AREA-FOOTPRINT — Preview the impact footprint on a legal board cell.

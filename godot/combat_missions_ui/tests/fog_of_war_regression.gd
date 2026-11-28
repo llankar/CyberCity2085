@@ -378,6 +378,10 @@ func run() -> void:
 	mission.visual_mode = false
 	mission._update_player_visibility()
 	assert(mission._is_enemy_visible_to_player(0) and not mission._is_enemy_visible_to_player(1))
+	mission._visual_cell_hovered(Vector2i(13, 1))
+	assert(board.blast_preview_cells.size() == 12 and Vector2i(13, 1) in board.blast_preview_cells)
+	mission._visual_cell_hovered(Vector2i(16, 0))
+	assert(board.blast_preview_cells.is_empty(), "a hidden center has no blast preview")
 	mission._apply_missile_salvo(Vector2i(16, 0))
 	assert(mission.player_units[0].ap == 5 and mission.enemy_units[1].hp == 30)
 	assert("hidden by fog" in mission.status_line)

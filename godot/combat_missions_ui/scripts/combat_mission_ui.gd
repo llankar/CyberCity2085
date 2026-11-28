@@ -2777,11 +2777,21 @@ func _visual_cell_hovered(cell: Vector2i) -> void:
 	if cell.x < 0 or cell.y < 0 or cell.x >= GRID_COLS or cell.y >= GRID_ROWS:
 		var no_path: Array[Vector2i] = []
 		_battlefield.show_path(no_path)
+		_battlefield.show_blast_preview(Vector2i(-1, -1), 0)
 		return
 	if not battle_started or battle_ended or turn_side != "player": return
-	if _action_type(selected_action) != "MOVE": return
 	var active := _current_active_player()
 	if active.is_empty(): return
+	var action_type := _action_type(selected_action)
+	if action_type == "FIRE_AOE":
+		var offset := cell - _cell_position(active)
+		var in_range := absi(offset.x) + absi(offset.y) <= _action_range(selected_action)
+		if in_range and _player_visible_cells.has(cell) and int(active.get("ap", 0)) >= _action_ap_cost(selected_action):
+			_battlefield.show_blast_preview(cell, int(_ACTION_DEFS[selected_action].get("aoe_radius", 2)))
+		else:
+			_battlefield.show_blast_preview(Vector2i(-1, -1), 0)
+		return
+	if action_type != "MOVE": return
 	var route: Array[Vector2i] = _battlefield.find_path(_cell_position(active),cell)
 	if route.size()-1 > int(active.get("ap",0)) or _is_cell_occupied(cell,active_player_index,-1): route.clear()
 	_battlefield.show_path(route)
