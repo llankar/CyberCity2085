@@ -2764,6 +2764,9 @@ func _update_visual_context() -> void:
 			objective_progress, int(objective.get("defend_turns_required", 4))]
 	elif objective.get("type", "") == "assassination":
 		_hud.objective_text = _assassination_objective_text()
+	elif objective.has("hold_until_turn") and not objective_completed:
+		_hud.objective_text = "CHARGE ARMED // Enemy phases left: %d" % [
+			maxi(0, int(objective["hold_until_turn"]) - turn_number)]
 	elif not objective.get("phase_labels", []).is_empty():
 		_hud.objective_text = "%d/%d // %s" % [
 			objective_progress, int(objective.get("progress_needed", 1)), str(objective.get("label", ""))]

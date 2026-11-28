@@ -40,6 +40,19 @@ func run() -> void:
 	var mission = load("res://scripts/combat_mission_ui.gd").new()
 	mission._battlefield = board
 	mission._hud = load("res://scripts/hud_controller.gd").new()
+	var base_hud = mission._hud
+	mission._hud = load("res://scripts/visual_hud.gd").new()
+	mission.objective = {"type": "sabotage_window", "hold_until_turn": 4}
+	mission.turn_number = 2
+	mission._update_visual_context()
+	assert(mission._hud.objective_text == "CHARGE ARMED // Enemy phases left: 2")
+	mission.turn_number = 3
+	mission._update_visual_context()
+	assert(mission._hud.objective_text == "CHARGE ARMED // Enemy phases left: 1")
+	mission._hud.free()
+	mission._hud = base_hud
+	mission.objective = {}
+	mission.turn_number = 1
 	var start := Vector2i(1, 1)
 	mission.player_units.assign([{"hp": 20, "position": Vector2i(13, 1)}])
 	mission.enemy_units.assign([
