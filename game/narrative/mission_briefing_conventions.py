@@ -23,6 +23,10 @@ _LEGACY_FRENCH_REPLACEMENTS = (
         "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
         "Risk of lasting emotional scars for the squad (likely emotional scars).",
     ),
+    (
+        "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade",
+        "Risk of lasting emotional scars for the squad (likely emotional scars)",
+    ),
     ("s\u00e9quelles \u00e9motionnelles probables", "likely emotional scars"),
 )
 
@@ -32,11 +36,8 @@ def translate_legacy_briefing_text(text: str | None) -> str:
     cleaned = " ".join(str(text or "").split()).strip()
     if not cleaned:
         return ""
-    for source, target in _LEGACY_FRENCH_REPLACEMENTS:
-        if cleaned == source:
-            return target
     translated = cleaned
-    for source, target in _LEGACY_FRENCH_REPLACEMENTS:
+    for source, target in sorted(_LEGACY_FRENCH_REPLACEMENTS, key=lambda pair: -len(pair[0])):
         translated = translated.replace(source, target)
     return translated
 

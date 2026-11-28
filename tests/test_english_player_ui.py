@@ -5,6 +5,7 @@ import subprocess
 
 from game.gamestate import GameState
 from game.i18n import DEFAULT_LANGUAGE, normalize_language, t
+from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
 from game.ui.components.departments.copy import word
 from game.ui.components.squad_copy import localized_squad_copy
 
@@ -42,6 +43,19 @@ FORBIDDEN_PLAYER_COPY = (
     "sélectionné",
     "témoin est",
 )
+
+
+def test_embedded_legacy_briefing_translates_the_complete_emotional_hint():
+    legacy = (
+        "After-action note: Risque de séquelles émotionnelles durables pour l'escouade "
+        "(séquelles émotionnelles probables)."
+    )
+    assert translate_legacy_briefing_text(legacy) == (
+        "After-action note: Risk of lasting emotional scars for the squad (likely emotional scars)."
+    )
+    assert translate_legacy_briefing_text(
+        "Risque de séquelles émotionnelles durables pour l'escouade"
+    ) == "Risk of lasting emotional scars for the squad (likely emotional scars)"
 
 
 def test_english_is_the_only_runtime_language_even_for_legacy_saves():
