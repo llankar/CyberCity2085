@@ -10,6 +10,7 @@ static func capture(scene: Node) -> Dictionary:
 	var session: Dictionary = scene.handoff.get("session", {})
 	var state := {}
 	for field in FIELDS: state[field] = scene.get(field)
+	state.heavy_strike_used = scene.heavy_strike_used
 	for group in GROUPS:
 		var rows := []
 		for unit: Dictionary in scene.get(group):
@@ -46,6 +47,7 @@ static func validate(snapshot: Dictionary, scene: Node) -> String:
 	if not state is Dictionary: return "Missing tactical state"
 	for field in FIELDS:
 		if not state.has(field): return "Missing tactical field: " + field
+	if not state.get("heavy_strike_used", false) is bool: return "Invalid VTOL strike state"
 	if state.turn_side not in ["player", "enemy"] or not _integer(state.turn_number, 1, 100000): return "Invalid tactical turn"
 	if not _integer(state.initial_enemy_count, 0, 10000) or not _integer(state.objective_progress, 0, 100000): return "Invalid tactical counters"
 	if not state.pending_end_turn_confirmation is bool or not state.objective_completed is bool or not state.show_combat_log is bool: return "Invalid tactical flags"
@@ -119,6 +121,14 @@ static func restore(snapshot: Dictionary, scene: Node) -> void:
 		elif field == "combat_log":
 			var lines: Array[String] = []; lines.assign(state[field]); scene.set(field, lines)
 		else: scene.set(field, state[field])
+	scene.heavy_strike_used = state.get("heavy_strike_used", false)
+	if scene.heavy_strike_available and not state.has("heavy_strike_used"):
+		for i in range(scene.player_units.size()):
+			var deployed_actions: Array = scene.player_units[i].get("available_actions", [])
+			var saved_actions: Array = state.player_units[i].get("available_actions", [])
+			if "VTOL Heavy Strike" in deployed_actions and "VTOL Heavy Strike" not in saved_actions:
+				scene.heavy_strike_used = true
+				break
 	for group in GROUPS:
 		var units: Array[Dictionary] = []
 		var deployed: Array = scene.get(group)

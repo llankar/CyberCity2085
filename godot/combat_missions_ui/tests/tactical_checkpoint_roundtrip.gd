@@ -34,6 +34,11 @@ func run() -> void:
 	scene._execute_action("Overwatch")
 	assert(scene.overwatch_indices == [0])
 	assert(scene.player_units[0].ap == ap_before_overwatch - 1)
+	var spent_strike: bool = scene.heavy_strike_available and side == "player"
+	if spent_strike:
+		scene.selected_action = "VTOL Heavy Strike"
+		scene._apply_missile_salvo(scene._cell_position(scene.player_units[0]))
+		assert(scene.heavy_strike_used and scene.player_units[0].ap == ap_before_overwatch - 1)
 	scene.player_units[0].hp = maxi(1, int(scene.player_units[0].hp)-2)
 	scene.player_units[0].status_effects = ["bleed"]
 	scene.turn_number = 3
@@ -58,6 +63,8 @@ func run() -> void:
 	var handoff: Dictionary = scene.handoff.duplicate(true)
 	handoff.resume_snapshot = snapshot.duplicate(true)
 	handoff.resume_snapshot.state.player_units[0].erase("base_ap")
+	if side == "player":
+		handoff.resume_snapshot.state.erase("heavy_strike_used")
 	if reject_resume: handoff.resume_snapshot.state.player_units[0].max_hp = -1
 	preload("res://scripts/session_mailbox.gd").publish(path, handoff)
 	scene._audio.stop_playback()
@@ -87,6 +94,9 @@ func run() -> void:
 	var after := Checkpoint.capture(resumed)
 	var normalized: Dictionary = JSON.parse_string(JSON.stringify(after))
 	assert(normalized.state == snapshot.state, "All tactical state including AP/postures/objective must roundtrip")
+	assert(resumed.heavy_strike_used == spent_strike)
+	if resumed.heavy_strike_available:
+		assert(("VTOL Heavy Strike" in resumed.player_units[0].available_actions) != spent_strike)
 	assert(resumed.overwatch_indices == [0] and resumed.player_units[0].ap == ap_before_overwatch - 1)
 	if "--qa-resize" in args:
 		assert(after.camera.viewport == [1600.0,900.0])

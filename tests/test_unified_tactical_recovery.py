@@ -106,6 +106,7 @@ def _actual_roundtrip(tmp_path,side,support,isometric=False,classic=False,resize
         from game.combat.godot_bridge import write_godot_combat_handoff
         state.spec_ops_assets=[CombatRobot(id='robot',name='Drone'),PowerArmorSuit(id='suit',name='Mantis')]
         state.selected_asset_ids=['robot','suit']
+        state.vehicle_upgrade_ids.append("heavy_strike")
         path=write_godot_combat_handoff(state,mission,handoff_path=tmp_path/'support.json')
         _,session=create_session(state,mission,path)
         assert len(state.combat_sessions[session['session_id']]['expected_support'])==2
