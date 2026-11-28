@@ -378,7 +378,11 @@ func run() -> void:
 	mission.visual_mode = false
 	mission._update_player_visibility()
 	assert(mission._is_enemy_visible_to_player(0) and not mission._is_enemy_visible_to_player(1))
-	mission._apply_missile_salvo(Vector2i(14, 0))
+	mission._apply_missile_salvo(Vector2i(16, 0))
+	assert(mission.player_units[0].ap == 5 and mission.enemy_units[1].hp == 30)
+	assert("hidden by fog" in mission.status_line)
+	mission.selected_target_index = 0
+	mission._confirm_tactical_action("ENTER")
 	assert(mission.enemy_units[0].hp < 30 and mission.enemy_units[1].hp < 30)
 	assert("Confirmed hits: 1." in mission.combat_log.back(), "blast feedback excludes hidden targets")
 	mission.player_units[0].ap = 5

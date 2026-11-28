@@ -25,7 +25,7 @@ func run() -> void:
 	file.store_string(JSON.stringify({"audio":{"enabled":false},"mission":{"objective_type":"hack","risk_level":1},"squad":[{"name":"QA","role":"samurai","hp":24,"max_hp":24,"aim":100}],"support_assets":[{"name":"QA Armor","asset_type":"power_armor","hp":40},{"name":"QA Robot","asset_type":"combat_robot","hp":36}]}));file.close()
 	root.add_child(live);await process_frame;await process_frame
 	assert(live.player_units.size()==3,"both support entity families retain default actions when a handoff omits them")
-	assert(live.player_units[1].available_actions==["Move","Defend","Rifle Burst","Servo Punch"])
+	assert(live.player_units[1].available_actions==["Move","Defend","Rifle Burst","Servo Punch","Overwatch"])
 	assert(live.player_units[2].available_actions==["Move","Defend","Missile Salvo"])
 	var selection_state:=JSON.stringify(live.player_units)
 	live._on_unit_clicked(1,false);assert(live.active_player_index==1,"power armor selects through the combat controller")
@@ -36,6 +36,8 @@ func run() -> void:
 	live.active_player_index=0;live.player_units[0].position=Vector2i(5,5);live.player_units[0].ap=4;live.player_units[0].aim=100
 	live.enemy_units[0].position=Vector2i(23,5);live.enemy_units[0].hp=100;live.enemy_units[0].defense=0
 	live._battlefield._opaque_cells.clear()
+	live.player_units[0].vision_range = 18
+	live._update_player_visibility()
 	live._attack_enemy(0,"Pistol Shot")
 	assert(live.player_units[0].ap==4 and live.enemy_units[0].hp==100 and live.status_line.begins_with("Target out of range"))
 	var hit_seed:=0
@@ -49,6 +51,7 @@ func run() -> void:
 	live._apply_missile_salvo(Vector2i(39,27))
 	assert(live.player_units[0].ap==3,"AOE cannot bypass its displayed range or spend AP on an invalid target")
 	live.selected_action="Grenade";live.enemy_units[0].position=Vector2i(10,5);live.enemy_units[0].hp=100
+	live._update_player_visibility()
 	live._apply_missile_salvo(Vector2i(10,5))
 	assert(live.player_units[0].ap==1 and live.enemy_units[0].hp==92,"AOE uses the selected weapon damage rather than hardcoded missile stats")
 	DirAccess.remove_absolute(live.handoff_path)

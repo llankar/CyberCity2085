@@ -1037,11 +1037,7 @@ func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> voi
 			status_line = "No live target on this cell."
 			_sync_display()
 	elif atype == "FIRE_AOE":
-		if _player_visible_cells.has(cell):
-			_apply_missile_salvo(cell)
-		else:
-			status_line = "Target area is hidden by fog of war."
-			_sync_display()
+		_apply_missile_salvo(cell)
 	elif atype == "PSI_HEAL":
 		_apply_psi_focus()
 	elif atype == "HEAL":
@@ -1476,6 +1472,10 @@ func _apply_medical_utility(action_name: String) -> void:
 func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	var active := _current_active_player()
 	if active.is_empty(): return
+	if not _player_visible_cells.has(center_cell):
+		status_line = "Target area is hidden by fog of war."
+		_sync_display()
+		return
 	var ap := int(active.get("ap", 0))
 	var action := selected_action if _action_type(selected_action)=="FIRE_AOE" else "Missile Salvo"
 	if action == "VTOL Heavy Strike" and (not heavy_strike_available or heavy_strike_used):
@@ -1552,7 +1552,10 @@ func _resolve_selected_attack() -> void:
 		status_line = "No live target."
 		_sync_display()
 		return
-	_attack_enemy(selected_target_index, selected_action)
+	if atype == "FIRE_AOE":
+		_apply_missile_salvo(_cell_position(enemy_units[selected_target_index]))
+	else:
+		_attack_enemy(selected_target_index, selected_action)
 
 func _move_active_unit_to(cell: Vector2i) -> void:
 	var active := _current_active_player()

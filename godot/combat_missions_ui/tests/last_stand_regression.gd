@@ -45,6 +45,7 @@ func run() -> void:
 		mission.enemy_units[i]["hp"] = 1
 		mission.enemy_units[i]["position"] = center + Vector2i(0, i)
 	mission.selected_action = "Missile Salvo"
+	mission._update_player_visibility()
 	mission._apply_missile_salvo(center)
 	assert(mission.enemy_units[0].hp == 0 and mission.enemy_units[1].hp == 0)
 	assert(actor.actions_used == 8 - actor.ap and actor.actions_used > 0)
