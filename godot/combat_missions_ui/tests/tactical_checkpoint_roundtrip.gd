@@ -105,6 +105,7 @@ func run() -> void:
 	assert(normalized.token_facings == snapshot.token_facings)
 	assert(resumed._unit_tokens.p0.position == resumed._battlefield.cell_to_world(resumed._cell_position(resumed.player_units[0])))
 	if side == "player":
+		assert(resumed._cancel_tactical_confirmation())
 		resumed.selected_action = "MOVE"
 		resumed._sync_display()
 		resumed._camera.force_update_scroll()

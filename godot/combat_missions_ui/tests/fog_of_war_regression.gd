@@ -390,6 +390,12 @@ func run() -> void:
 	mission._confirm_tactical_action("ENTER")
 	assert(mission.player_units[0].ap == 5 and mission.enemy_units[0].hp == 30)
 	mission.turn_side = "player"
+	mission._execute_action("RETREAT")
+	mission._on_cell_clicked(Vector2i(14, 0))
+	assert(not mission.pending_retreat_confirmation and mission.player_units[0].ap == 5)
+	mission._execute_action("END TURN")
+	mission._on_unit_clicked(0, true)
+	assert(not mission.pending_end_turn_confirmation and mission.enemy_units[0].hp == 30)
 	mission._confirm_tactical_action("ENTER")
 	assert(mission.enemy_units[0].hp < 30 and mission.enemy_units[1].hp < 30)
 	assert("Confirmed hits: 1." in mission.combat_log.back(), "blast feedback excludes hidden targets")

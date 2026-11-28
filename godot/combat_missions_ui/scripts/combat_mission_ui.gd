@@ -858,11 +858,7 @@ func _gui_input(event: InputEvent) -> void:
 		match ke.keycode:
 			KEY_ESCAPE:
 				# Escape dismisses overlays; only mission results may leave combat.
-				if pending_end_turn_confirmation or pending_retreat_confirmation:
-					pending_end_turn_confirmation = false
-					pending_retreat_confirmation = false
-					status_line = "Confirmation cancelled."
-					_sync_display()
+				_cancel_tactical_confirmation()
 				show_combat_log = false
 				if is_instance_valid(_hud):
 					if "settings_open" in _hud:_hud.settings_open = false
@@ -1006,7 +1002,9 @@ func _on_action_pressed(action: String) -> void:
 	_execute_action(action)
 
 func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> void:
-	if not battle_started or turn_side != "player":
+	if not battle_started or battle_ended or turn_side != "player":
+		return
+	if _cancel_tactical_confirmation():
 		return
 
 	# Objective interaction: clicking the objective cell when the active player
@@ -1058,6 +1056,8 @@ func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 			_sync_display()
 		return
 	if not battle_started or battle_ended or turn_side != "player":
+		return
+	if _cancel_tactical_confirmation():
 		return
 	if unit_id >= 1000:
 		return   # vehicle token — decorative, not a combat target
@@ -2918,10 +2918,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				_clear_gamepad_cursor()
 				get_viewport().set_input_as_handled()
 				return
-			pending_end_turn_confirmation = false
-			pending_retreat_confirmation = false
-			status_line = "Confirmation cancelled."
-			_sync_display()
+			_cancel_tactical_confirmation()
 		_:
 			return
 	_hud.gamepad_hints = true
@@ -2969,6 +2966,15 @@ func _clear_gamepad_cursor() -> void:
 		_battlefield.hovered_cell = _gamepad_cell
 		_visual_cell_hovered(_gamepad_cell)
 		_battlefield.queue_redraw()
+
+func _cancel_tactical_confirmation() -> bool:
+	if not pending_end_turn_confirmation and not pending_retreat_confirmation:
+		return false
+	pending_end_turn_confirmation = false
+	pending_retreat_confirmation = false
+	status_line = "Confirmation cancelled."
+	_sync_display()
+	return true
 
 func _confirm_tactical_action(source: String) -> void:
 	if battle_ended:

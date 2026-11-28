@@ -1621,3 +1621,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] GODOT-VTOL-STRIKE-RESUME — Preserve the once-per-mission strike and debrief accounting across resume.
 
 - [x] GODOT-TACTICAL-CONFIRM-TURN — Honor the current phase and pending retreat in shared confirmation.
+
+- [x] GODOT-TACTICAL-CONFIRM-MAP — Cancel a pending confirmation without executing the underlying map click.
