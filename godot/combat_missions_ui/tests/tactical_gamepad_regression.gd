@@ -124,4 +124,7 @@ func run() -> void:
 		quit(1)
 		return
 	print("TACTICAL_GAMEPAD_CHECKS_PASSED")
+	mission._audio.stop_playback()
+	mission.queue_free()
+	await create_timer(0.15).timeout
 	quit()
