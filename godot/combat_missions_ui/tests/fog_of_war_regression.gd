@@ -285,6 +285,19 @@ func run() -> void:
 	assert("1 AP" in mission._hud._action_btns["Psi Focus"].tooltip_text)
 	assert("25 stress per living" in mission._hud._action_btns["Psi Focus"].tooltip_text)
 	assert("12 HP to this agent" in mission._hud._action_btns["Trauma Patch"].tooltip_text)
+	var previous_handoff: Dictionary = mission.handoff
+	mission.handoff = {"squad": [
+		{"name": "Armed", "available_actions": ["Move", "Pistol Shot"]},
+		{"name": "Unarmed", "available_actions": ["Move", "Defend", "Overwatch"]},
+	]}
+	mission._hud.player_units.assign(mission._build_player_units())
+	mission._hud.active_player_idx = 0
+	mission._hud._rebuild_agent_actions()
+	assert("Overwatch" in mission._hud._visible_actions)
+	mission._hud.active_player_idx = 1
+	mission._hud._rebuild_agent_actions()
+	assert("Overwatch" not in mission._hud._visible_actions)
+	mission.handoff = previous_handoff
 	mission._hud.free()
 	mission._hud = null
 	mission.player_units.assign([{"name": "Oracle", "hp": 20, "max_hp": 20, "ap": 3, "position": Vector2i(1, 1)}])

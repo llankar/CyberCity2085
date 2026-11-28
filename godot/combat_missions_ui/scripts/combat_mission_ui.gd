@@ -2318,7 +2318,8 @@ func _build_player_units() -> Array[Dictionary]:
 	for unit: Dictionary in units:
 		unit["ap"] = _player_turn_ap(unit)
 		var actions: Array = unit.get("available_actions", [])
-		if "Overwatch" not in actions and not _overwatch_weapon(unit).is_empty():
+		actions.erase("Overwatch")
+		if not _overwatch_weapon(unit).is_empty():
 			actions.append("Overwatch")
 		unit["damage_dealt"] = 0
 		unit["damage_taken"] = 0

@@ -128,7 +128,9 @@ static func restore(snapshot: Dictionary, scene: Node) -> void:
 				var expected: Dictionary = deployed[units.size()]
 				row["base_ap"] = expected.get("base_ap", 4)
 				var actions: Array = row.get("available_actions", [])
-				if "Overwatch" in expected.get("available_actions", []) and "Overwatch" not in actions:
+				if "Overwatch" not in expected.get("available_actions", []):
+					actions.erase("Overwatch")
+				elif "Overwatch" not in actions:
 					actions.append("Overwatch")
 					row["available_actions"] = actions
 			row.position = Vector2i(int(row.position[0]), int(row.position[1]))
