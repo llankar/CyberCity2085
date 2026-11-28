@@ -41,6 +41,11 @@ def validate_tactical_snapshot(snapshot, record):
         raise ValueError('Invalid tactical counters')
     if any(type(state[key]) is not bool for key in ('pending_end_turn_confirmation', 'objective_completed', 'show_combat_log')):
         raise ValueError('Invalid tactical flags')
+    if any(type(state.get(key, False)) is not bool
+           for key in ('pending_retreat_confirmation', 'heavy_strike_used')):
+        raise ValueError('Invalid optional tactical flags')
+    if state['pending_end_turn_confirmation'] and state.get('pending_retreat_confirmation', False):
+        raise ValueError('Conflicting tactical confirmations')
     if not isinstance(state['selected_action'], str) or not isinstance(state['combat_log'], list) or len(state['combat_log']) > 10000 or any(not isinstance(line, str) for line in state['combat_log']):
         raise ValueError('Invalid tactical presentation')
     timer = state['enemy_turn_timer']

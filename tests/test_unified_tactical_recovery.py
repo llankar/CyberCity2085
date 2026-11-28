@@ -64,6 +64,9 @@ def test_resume_preparation_is_read_only_and_new_session_preserves_runtime_state
  lambda s:s['state']['player_units'][0].update(max_hp=1),
  lambda s:s['state'].update(player_units=[]),lambda s:s['state'].update(objective_progress=-1),
  lambda s:s['state'].update(objective_completed='true'),
+ lambda s:s['state'].update(pending_retreat_confirmation='false'),
+ lambda s:s['state'].update(heavy_strike_used=1),
+ lambda s:s['state'].update(pending_retreat_confirmation=True,pending_end_turn_confirmation=True),
  lambda s:s['camera'].update(zoom=float('nan')),lambda s:s['camera'].update(zoom=8),
 ])
 def test_invalid_snapshot_never_mutates_campaign(tmp_path,mutate):
