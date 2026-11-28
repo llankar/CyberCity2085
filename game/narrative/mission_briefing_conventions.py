@@ -65,5 +65,10 @@ def build_short_emotional_impact(level: str | None, text: str | None) -> str:
     if emotional_anchor and emotional_anchor not in base.lower():
         base = f"{base.rstrip('.')} ({emotional_anchor})."
     if len(base) > MAX_EMOTIONAL_IMPACT_CHARS:
-        base = f"{base[: MAX_EMOTIONAL_IMPACT_CHARS - 1].rstrip()}..."
+        ellipsis = "..."
+        limit = MAX_EMOTIONAL_IMPACT_CHARS - len(ellipsis)
+        excerpt = base[:limit]
+        if not base[limit].isspace() and not excerpt[-1].isspace() and " " in excerpt:
+            excerpt = excerpt.rsplit(" ", 1)[0]
+        base = excerpt.rstrip() + ellipsis
     return base or NEUTRAL_IMPACT_FALLBACK

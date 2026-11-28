@@ -5,7 +5,11 @@ import subprocess
 
 from game.gamestate import GameState
 from game.i18n import DEFAULT_LANGUAGE, normalize_language, t
-from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
+from game.narrative.mission_briefing_conventions import (
+    MAX_EMOTIONAL_IMPACT_CHARS,
+    build_short_emotional_impact,
+    translate_legacy_briefing_text,
+)
 from game.ui.components.departments.copy import word
 from game.ui.components.squad_copy import localized_squad_copy
 
@@ -56,6 +60,13 @@ def test_embedded_legacy_briefing_translates_the_complete_emotional_hint():
     assert translate_legacy_briefing_text(
         "Risque de séquelles émotionnelles durables pour l'escouade"
     ) == "Risk of lasting emotional scars for the squad (likely emotional scars)"
+
+
+def test_long_briefing_impact_keeps_whole_words_within_the_display_limit():
+    intro = "Uncertain support from local contacts might leave the squad exposed after the operation"
+    summary = build_short_emotional_impact("high", f"{intro} ends unexpectedly.")
+    assert summary == f"{intro} ends..."
+    assert len(summary) <= MAX_EMOTIONAL_IMPACT_CHARS
 
 
 def test_english_is_the_only_runtime_language_even_for_legacy_saves():
