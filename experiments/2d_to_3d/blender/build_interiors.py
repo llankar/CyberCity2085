@@ -727,18 +727,30 @@ def build(name):
             build_facility_fixture(group, "shelter_pantry", x, y, w, d,
                                    shelter_wood, shelter_iron, bedding_canvas)
         elif kind == "cabinet":
+            long_y = d > w
+            frontage, depth = (d,w) if long_y else (w,d)
+            inward = -1 if (x if long_y else y) > 0 else 1
+
+            def front_piece(label, along, offset, height, half_width, half_depth, half_height, material, bevel):
+                location = (x+inward*offset,y+along,height) if long_y else (x+along,y+inward*offset,height)
+                scale = (half_depth,half_width,half_height) if long_y else (half_width,half_depth,half_height)
+                box(label, location, scale, material, bevel).parent = group
+
             box(identifier, (x,y,.81), (w*.45,d*.40,.72), steel,.035).parent = group
             box("Cabinet recessed plinth", (x,y,.067),
-                (w*.39,d*.34,.067),trim,.018).parent = group
+                (w*.39,d*.34,.067),steel,.018).parent = group
             box("Cabinet top cap", (x,y,1.54),
-                (w*.47,d*.435,.045),trim,.025).parent = group
-            for level in (.33,.64,.95,1.26):
-                box("Cabinet drawer", (x,y-d*.415,level),
-                    (w*.395,d*.032,.124),trim,.02).parent = group
-                box("Cabinet pull", (x,y-d*.463,level+.035),
-                    (w*.142,d*.026,.021),steel,.009).parent = group
-            box("Cabinet reader", (x+w*.30,y-d*.455,1.295),
-                (w*.035,d*.019,.025),screen,.008).parent = group
+                (w*.47,d*.435,.045),partition_cap,.025).parent = group
+            face = depth*(.456 if long_y else .406)
+            for bay in (-.22, .22):
+                along = frontage*bay
+                for level in (.33,.64,.95,1.26):
+                    front_piece("Cabinet drawer", along, face, level,
+                                frontage*.195,depth*.021,.124,partition_cap,.02)
+                    front_piece("Cabinet pull", along, face+depth*.021, level+.035,
+                                frontage*.067,depth*.011,.021,steel,.009)
+            front_piece("Cabinet reader", frontage*.38, face+depth*.025, 1.295,
+                        frontage*.022,depth*.008,.025,screen,.008)
             merge_fixture_meshes(group, identifier)
         elif metro and identifier == "center_kiosk":
             corner_bevel = min(w,d)*.12
