@@ -56,6 +56,8 @@ const _ACTION_DEFS: Dictionary = {
 	"VTOL Heavy Strike": {"type": "FIRE_AOE", "range": 999, "damage": 14, "heal": 0, "ap": 0, "aoe_radius": 2},
 }
 const GRID_COLS := 40
+const RETREAT_PROMPT := "Confirm retreat — R or Enter: confirm / Esc: cancel / click RETREAT."
+const END_TURN_PROMPT := "Confirm end turn — T or Enter: confirm / Esc: cancel / click END TURN."
 const GRID_ROWS := 28
 const TOP_BAR_H    : float = 44.0
 const RIGHT_PANEL_W: float = 340.0
@@ -1299,6 +1301,10 @@ func _start_combat(source: String) -> void:
 	if not resume.is_empty():
 		preload("res://scripts/tactical_checkpoint.gd").restore_camera(resume, self)
 		status_line = "Combat resumed — turn %d" % turn_number
+		if turn_side == "player" and pending_retreat_confirmation:
+			status_line = RETREAT_PROMPT
+		elif turn_side == "player" and pending_end_turn_confirmation:
+			status_line = END_TURN_PROMPT
 		_sync_display()
 		_banner.show_banner(turn_side, turn_number)
 		print("TACTICAL COMBAT UI RESUMED")
@@ -1330,7 +1336,7 @@ func _execute_action(action_name: String) -> void:
 			return
 		pending_retreat_confirmation = true
 		pending_end_turn_confirmation = false
-		status_line = "Confirm retreat — R or Enter: confirm / Esc: cancel / click RETREAT."
+		status_line = RETREAT_PROMPT
 		_log_event("Retreat: confirmation required.")
 		_sync_display()
 		return
@@ -1339,7 +1345,7 @@ func _execute_action(action_name: String) -> void:
 			_end_player_turn()
 			return
 		pending_end_turn_confirmation = true
-		status_line = "Confirm end turn — T or Enter: confirm / Esc: cancel / click END TURN."
+		status_line = END_TURN_PROMPT
 		_log_event("End turn: confirm required.")
 		_sync_display()
 		return

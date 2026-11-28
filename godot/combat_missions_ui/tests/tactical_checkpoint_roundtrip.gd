@@ -43,7 +43,8 @@ func run() -> void:
 	scene.player_units[0].status_effects = ["bleed"]
 	scene.turn_number = 3
 	scene.objective_progress = 1
-	scene.pending_end_turn_confirmation = true
+	scene.pending_retreat_confirmation = spent_strike
+	scene.pending_end_turn_confirmation = not spent_strike
 	scene.selected_action = "Pistol Shot"
 	scene._camera.position = Vector2(93, 171)
 	scene._camera.zoom = Vector2.ONE * 0.7
@@ -105,6 +106,7 @@ func run() -> void:
 	assert(normalized.token_facings == snapshot.token_facings)
 	assert(resumed._unit_tokens.p0.position == resumed._battlefield.cell_to_world(resumed._cell_position(resumed.player_units[0])))
 	if side == "player":
+		assert(resumed._hud.status_line.begins_with("Confirm retreat" if spent_strike else "Confirm end turn"))
 		assert(resumed._cancel_tactical_confirmation())
 		resumed.selected_action = "MOVE"
 		resumed._sync_display()
