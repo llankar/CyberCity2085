@@ -198,7 +198,8 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         for key,value in dict(map_index=0,_paused=False,pending_end_turn_confirmation=False,
                               turn="player",player_units=[actor],active_index=0,combat_action_buttons=[],
                               selecting_target=True,target_candidates=[target],selected_target_idx=0,
-                              _deploying=False,_pointer_camera_offset=(64,32)).items():
+                              _deploying=False,_pointer_camera_offset=(64,32),
+                              _heavy_strike_available=False,_heavy_strike_used=False).items():
             setattr(view,key,value)
         view.window=SimpleNamespace(width=1280,height=720)
         view.on_key_press=Mock()
@@ -236,6 +237,8 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view.turn="player"
         view.player_units=[medic,patient]
         view.active_index=0
+        view._heavy_strike_available=False
+        view._heavy_strike_used=False
         before=medic.action_points
         self.assertTrue(view._perform_combat_action("first_aid"))
         self.assertEqual(view.target_candidates,[patient])
