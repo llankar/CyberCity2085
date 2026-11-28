@@ -13,8 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PLAYER_COPY_FILES = (
     "game/mission_generation.py",
     "game/missions/objective_branches.py",
+    "game/ui/components/briefing_content.py",
+    "game/ui/screens/battle_debrief_view.py",
+    "game/ui/screens/campaign_ending_view.py",
     "game/ui/screens/combat_recovery.py",
     "game/ui/screens/godot_combat_handoff_view.py",
+    "game/ui/screens/mission_briefing_view.py",
     "game/ui/screens/research_lab.py",
     "game/ui/screens/world_map_view.py",
     "game/ui/widgets/critical_choice_highlight.py",
