@@ -69,6 +69,10 @@ func run() -> void:
 	mission._enemy_containment_act(0)
 	var detour: Vector2i = mission.enemy_units[0]["position"]
 	assert(detour.x == 5 and absi(detour.y - 1) == 1, "breacher detours around an ally")
+	mission.objective["breach_steps_per_phase"] = 3
+	mission.enemy_units.assign([{"hp": 20, "ap": 2, "position": Vector2i(7, 1)}])
+	mission._enemy_containment_act(0)
+	assert(mission.enemy_units[0].position == Vector2i(5, 1), "authored breach speed is capped by available AP")
 	var center := Vector2i(20, 14)
 	var center_wall: Array[Dictionary] = [{"cell": center, "solid": true}]
 	board.configure(Vector2(1280, 720), null, center_wall, center)

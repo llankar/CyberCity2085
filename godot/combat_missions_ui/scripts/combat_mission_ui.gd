@@ -2031,13 +2031,17 @@ func _enemy_containment_act(enemy_index: int) -> void:
 			var alternate: Array[Vector2i] = _battlefield.find_path(start, Vector2i(marker.x, row), occupied)
 			if alternate.size() >= 2 and (route.is_empty() or alternate.size() < route.size()):
 				route = alternate
-	if route.size() >= 2:
-		var destination := route[1]
-		if not _is_cell_occupied(destination, -1, enemy_index):
-			enemy["position"] = destination
-			var ekey := "e%d" % enemy_index
-			if _unit_tokens.has(ekey):
-				_visual_move_token(ekey, start, destination, enemy)
+	var step_budget := mini(int(enemy.get("ap", 0)), int(objective.get("breach_steps_per_phase", 1)))
+	var destination := start
+	for step in range(1, mini(route.size(), step_budget + 1)):
+		if _is_cell_occupied(route[step], -1, enemy_index):
+			break
+		destination = route[step]
+	if destination != start:
+		enemy["position"] = destination
+		var ekey := "e%d" % enemy_index
+		if _unit_tokens.has(ekey):
+			_visual_move_token(ekey, start, destination, enemy)
 	enemy["ap"] = 0
 	enemy_units[enemy_index] = enemy
 
