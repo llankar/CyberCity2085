@@ -10,18 +10,17 @@
   "active_scope": {
     "owner_closed_except_concrete_regressions": ["maps", "illustrations", "animations", "atlases", "calibration", "Combat Visual 2.4/2.5", "Hangar", "Operative Dossier", "general economy", "Arcade/Godot integration"],
     "historical_actions_are_archived": true,
-    "next_action": "Review production release acceptance gaps, including physical controller and human listening, without repeating automated checks for identical files."
+    "next_action": "Reconcile the verified Windows acceptance with the remaining production goal criteria."
   },
   "tasks": [
     {
       "id": "WINDOWS-RELEASE-ACCEPTANCE",
       "title": "Accept the installed Windows candidate in an isolated mission",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": ["docs/release_checklist.md", "docs/tactical_backlog.md"],
       "tests": ["Candidate d58ef4c5 passed silent setup, installed startup and save roundtrip, and both tactical checkpoint phases. Previous candidate 320413cd passed injected controller input and WASAPI signal checks."],
-      "evidence": ["E:/CyberCity2085-builds/verify-d58ef4c5", "E:/CyberCity2085-builds/verify-320413cd", "Owner confirmed installation, play and the expected 2D combat display on 2026-11-28."],
-      "remaining": ["Observe the installed briefing, combat and debrief in one isolated mission.", "Exercise a physical controller and listen to movement, sniper fire and music at normal game volume."],
-      "blockers": ["A physical controller and human observation are required for the remaining manual checks."]
+      "evidence": ["E:/CyberCity2085-builds/verify-d58ef4c5", "E:/CyberCity2085-builds/verify-320413cd", "Owner confirmed installed play, audio and mission handoff on 2026-11-28 and waived physical controller testing."],
+      "remaining": []
     },
     {
       "id": "WINDOWS-PRODUCTION-INSTALLER-INTEGRITY",
