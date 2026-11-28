@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] Standalone build, Inno Setup and silent installation on E:. The installed executable reports `b677bf17` and passes bundled Godot startup and test-save checks.
 - [x] Forty-nine focused tests passed. The external native fixture passed against the installed project, including guard expiry, AP refill and pursuit around occupied cells. The changed scripts match source and QA drivers are excluded.
+- [x] Installed Godot resumed player and enemy turns with and without robot and power armor support. Each fixture removed the first agent's base AP field from the snapshot to exercise legacy restore.
 - [ ] Physical controller, human listening and visible installed handoff remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-a7903fd66bab4e0db9999f03a816ab65/dist/installer`.
