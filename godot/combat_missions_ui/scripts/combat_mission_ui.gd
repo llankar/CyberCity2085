@@ -382,7 +382,8 @@ func _sync_display() -> void:
 	_refresh_initiative()
 
 	# Objective proximity hint — overrides status line when actionable.
-	if turn_side == "player" and not objective.is_empty() \
+	if turn_side == "player" and not pending_end_turn_confirmation and not pending_retreat_confirmation \
+			and not objective.is_empty() \
 			and objective.get("needs_marker", false) and objective.get("interactive", true) \
 			and not objective_completed and _objective_interaction_available():
 		var active := _current_active_player()
@@ -1329,7 +1330,7 @@ func _execute_action(action_name: String) -> void:
 			return
 		pending_retreat_confirmation = true
 		pending_end_turn_confirmation = false
-		status_line = "Confirm retreat — press R or Enter, or click RETREAT."
+		status_line = "Confirm retreat — R or Enter: confirm / Esc: cancel / click RETREAT."
 		_log_event("Retreat: confirmation required.")
 		_sync_display()
 		return
@@ -1338,7 +1339,7 @@ func _execute_action(action_name: String) -> void:
 			_end_player_turn()
 			return
 		pending_end_turn_confirmation = true
-		status_line = "Confirm end turn — press T again or click END TURN."
+		status_line = "Confirm end turn — T or Enter: confirm / Esc: cancel / click END TURN."
 		_log_event("End turn: confirm required.")
 		_sync_display()
 		return

@@ -414,8 +414,12 @@ func run() -> void:
 	mission.turn_side = "player"
 	mission.selected_action = "Missile Salvo"
 	sink.outcome = ""
+	mission.objective = {"needs_marker": true, "cell": Vector2i(1, 0), "label": "Hack"}
+	mission.objective_completed = false
+	mission.player_units[0].ap = 4
 	mission._execute_action("RETREAT")
 	assert(sink.outcome.is_empty() and mission.pending_retreat_confirmation)
+	assert(mission._hud.status_line.begins_with("Confirm retreat") and "Esc: cancel" in mission._hud.status_line)
 	mission._confirm_tactical_action("ENTER")
 	assert(sink.outcome == "retreat" and mission.battle_ended)
 	sink.free()
