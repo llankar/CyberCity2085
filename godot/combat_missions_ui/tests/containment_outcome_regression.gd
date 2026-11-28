@@ -28,8 +28,9 @@ func run() -> void:
 
 	if expected == "defeat":
 		var marker := mission.objective.cell as Vector2i
-		var breacher: int = mission._containment_breacher_index()
-		assert(breacher >= 0)
+		var breachers: Array[int] = mission._containment_breacher_indices()
+		assert(breachers.size() == 1)
+		var breacher: int = breachers[0]
 		mission.enemy_units[breacher].position = marker + Vector2i.RIGHT
 		mission.turn_side = "enemy"
 		mission._resolve_enemy_turn()

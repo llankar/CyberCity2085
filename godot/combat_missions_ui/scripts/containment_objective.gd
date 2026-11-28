@@ -1,19 +1,21 @@
 extends RefCounted
 
-static func breacher_index(enemy_units: Array, objective: Dictionary) -> int:
+static func breacher_indices(enemy_units: Array, objective: Dictionary) -> Array[int]:
 	var target := objective.get("cell", Vector2i.ZERO) as Vector2i
-	var best := -1
-	var best_distance := 999999
+	var candidates: Array[Vector2i] = []
 	for index in range(enemy_units.size()):
 		var enemy := enemy_units[index] as Dictionary
 		if int(enemy.get("hp", 0)) <= 0: continue
 		var cell := enemy.get("position", Vector2i.ZERO) as Vector2i
 		var dx := cell.x - target.x
 		var distance := (absi(dx) if objective.get("type") == "defend" else maxi(0, dx)) + absi(cell.y - target.y)
-		if distance < best_distance:
-			best_distance = distance
-			best = index
-	return best
+		candidates.append(Vector2i(distance, index))
+	candidates.sort_custom(func(a: Vector2i, b: Vector2i): return a.y < b.y if a.x == b.x else a.x < b.x)
+	var selected: Array[int] = []
+	var limit := clampi(int(objective.get("active_breachers", 1)), 0, candidates.size())
+	for index in range(limit):
+		selected.append(candidates[index].y)
+	return selected
 
 static func target_cell(enemy_cell: Vector2i, objective: Dictionary) -> Vector2i:
 	var marker := objective.get("cell", Vector2i.ZERO) as Vector2i

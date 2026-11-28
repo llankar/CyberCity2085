@@ -16,7 +16,9 @@ func _init() -> void:
 		{"hp": 10, "position": Vector2i(20, 14)},
 		{"hp": 0, "position": Vector2i(14, 14)},
 	]
-	assert(rules.breacher_index(enemies, objective) == 1)
+	assert(rules.breacher_indices(enemies, objective) == [1])
+	objective["active_breachers"] = 3
+	assert(rules.breacher_indices(enemies, objective) == [1, 0])
 	assert(rules.target_cell(Vector2i(20, 20), objective) == Vector2i(14, 17))
 	assert(not rules.breached(enemies, objective))
 	enemies[1]["position"] = Vector2i(14, 17)

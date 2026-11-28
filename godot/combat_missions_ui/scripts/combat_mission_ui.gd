@@ -1780,16 +1780,18 @@ func _resolve_enemy_turn() -> void:
 	if defending and _defense_zone_breached():
 		_end_combat("defeat", "Defense failed: a hostile entered the marked zone.")
 		return
-	var breacher := _containment_breacher_index() if containment or defending else -1
+	var breachers: Array[int] = []
+	if containment or defending:
+		breachers = _containment_breacher_indices()
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) <= 0: continue
 		if containment:
-			if i == breacher:
+			if i in breachers:
 				var origin := _cell_position(enemy_units[i])
 				_enemy_containment_act(i)
 				if origin != _cell_position(enemy_units[i]):
 					_trigger_overwatch(i)
-		elif defending and i == breacher and _advance_defense_breacher(i):
+		elif defending and i in breachers and _advance_defense_breacher(i):
 			_trigger_overwatch(i)
 		else:
 			_enemy_act(i)
@@ -2014,8 +2016,8 @@ func _enemy_known_occupied_cells(enemy_index: int) -> Array[Vector2i]:
 			occupied.append(_cell_position(player))
 	return occupied
 
-func _containment_breacher_index() -> int:
-	return preload("res://scripts/containment_objective.gd").breacher_index(enemy_units, objective)
+func _containment_breacher_indices() -> Array[int]:
+	return preload("res://scripts/containment_objective.gd").breacher_indices(enemy_units, objective)
 
 func _enemy_containment_act(enemy_index: int) -> void:
 	var enemy := enemy_units[enemy_index] as Dictionary
