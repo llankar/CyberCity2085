@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 290cef0c
+## Current Windows candidate · 7b184732
+
+- [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed.
+- [x] The focused source suite passed 104 tests with two deselections. Installed Godot passed the external controller fixture, including empty-cell blast preview and confirmation.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-3421077a156943d4ba3c728d8b266e34/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `39CEB001E7C6A335186F566C788EFCEF53683315905781A380BE93D67AAE4793` |
+| CyberCity2085-Setup-1.bin | `65760225BE7BEE00E075E5128DE0174A7B996C511164FFE46CE9910E5EA49283` |
+| CyberCity2085-Setup-2.bin | `0F44381FFFB7413CAFC5BE296B7F44B29FC5F40BE2AB19A16003FBEC795A9F3C` |
+| CyberCity2085-Setup-3.bin | `02DC6A1FCBC1CBFC62C2EED362BEE5AA5F40311A86C1E725BC7F9021F91A319B` |
+
+## Previous Windows candidate · 290cef0c
 
 - [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed. Runtime combat and checkpoint scripts match the checkout.
 - [x] Combined suite reported 89 passing tests and one deselected resize case. The strict fog and Overwatch fixture exposed missing HUD setup in the test harness. With that corrected, both targeted source tests and the installed fixture passed without script errors.
