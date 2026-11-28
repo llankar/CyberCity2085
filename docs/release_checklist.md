@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 7b184732
+## Current Windows candidate · 320413cd
+
+- [x] Standalone build and silent installation succeeded on E:. The installed smoke verified startup, save roundtrip and bundled Godot startup.
+- [x] Installed Godot passed player- and enemy-phase checkpoint recovery with support. The fixture covers pending confirmation and the VTOL strike state.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-5439baaf32334d858da35b7863d95328/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `277CBF3CAE892B5CEE30C4484923C6F42FB631536DCEA69488C25C051C4CCE1C` |
+| CyberCity2085-Setup-1.bin | `D6605FA6A1ECADE4FC48F517667C4ECD9B62C84E1F33173DAAD50B93CB34EF2F` |
+| CyberCity2085-Setup-2.bin | `D428B412E4DBDA6E1419E5C525886CE4E44A030A18E5FBF46432E2CC9F2E6EA0` |
+| CyberCity2085-Setup-3.bin | `7A3BBA95B7D0416A4A561CC028F0B8B05110B3E3AC62EC200DE2790328CC2EE8` |
+
+## Previous Windows candidate · 7b184732
 
 - [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed.
 - [x] The focused source suite passed 104 tests with two deselections. Installed Godot passed the external controller fixture, including empty-cell blast preview and confirmation.
@@ -18,7 +33,7 @@ Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercit
 | CyberCity2085-Setup-2.bin | `0F44381FFFB7413CAFC5BE296B7F44B29FC5F40BE2AB19A16003FBEC795A9F3C` |
 | CyberCity2085-Setup-3.bin | `02DC6A1FCBC1CBFC62C2EED362BEE5AA5F40311A86C1E725BC7F9021F91A319B` |
 
-## Previous Windows candidate · 290cef0c
+## Earlier Windows candidate · 290cef0c
 
 - [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed. Runtime combat and checkpoint scripts match the checkout.
 - [x] Combined suite reported 89 passing tests and one deselected resize case. The strict fog and Overwatch fixture exposed missing HUD setup in the test harness. With that corrected, both targeted source tests and the installed fixture passed without script errors.
