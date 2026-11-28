@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · d58ef4c5
+## Current Windows candidate · ec1e3ebd
+
+- [x] 88 targeted source tests passed. Campaign progression was excluded.
+- [x] Standalone build, silent installation, installed startup, save roundtrip and bundled Godot startup passed.
+- The owner confirmed installed sound and handoff on d58ef4c5 and waived physical controller testing. The owner has not reported a separate playthrough on ec1e3ebd.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-0bce2799c9a84385b45e878c93dbdce1/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup-1.bin | `988BD697389A24B6C6D434DF348FDDE9A136AB567709070BE770C14CAF5E9082` |
+| CyberCity2085-Setup-2.bin | `E5A76023F8D72CC75B57919518BE1FB0C586A70A5651C1497735BC5BF1D857BD` |
+| CyberCity2085-Setup-3.bin | `229171165745966CDC9DE909E2FDB3360AFDD1ABD52939C26DAB97F09E6FED4B` |
+| CyberCity2085-Setup.exe | `E2A8B46BC6E2699FA3A342D187554A8A9BB3BF4A1EB8348DA6387696D117C70E` |
+
+## Previous Windows candidate · d58ef4c5
 
 - [x] The owner reports that the installed game runs and displays 2D combat. The 3D prototype is a separate experiment.
 - [x] Standalone build and silent installation on E:. Installed startup, save roundtrip and bundled Godot startup passed.
@@ -20,7 +35,7 @@ Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercit
 | CyberCity2085-Setup-3.bin | `D7917299C3F1187EA5D6E3EDBF24E634B30AA5798D50328A58C0AA6D91AFE5F7` |
 | CyberCity2085-Setup.exe | `586213A982CC22C2001C7CBA2512081967B2B8631DEAD17D162EF87573CF64FB` |
 
-## Previous Windows candidate · 320413cd
+## Earlier Windows candidate · 320413cd
 
 - [x] Standalone build and silent installation succeeded on E:. The installed smoke verified startup, save roundtrip and bundled Godot startup.
 - [x] Installed Godot passed player- and enemy-phase checkpoint recovery with support. The fixture covers pending confirmation and the VTOL strike state.
