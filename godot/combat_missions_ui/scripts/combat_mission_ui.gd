@@ -1711,10 +1711,6 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 func _end_player_turn() -> void:
 	pending_end_turn_confirmation = false
 	selected_action = "MOVE"
-	for i in range(player_units.size()):
-		var u := player_units[i] as Dictionary
-		u["ap"] = 4
-		player_units[i] = u
 	turn_side = "enemy"
 	enemy_turn_timer = enemy_turn_duration
 	_log_event("── Player ends turn %02d ──" % turn_number)
@@ -1751,6 +1747,8 @@ func _resolve_enemy_turn() -> void:
 		var defender := player_units[index]
 		defender["defense"] = maxi(0, int(defender.get("defense", 4)) - 3)
 	defend_indices.clear()
+	for unit in player_units:
+		unit["ap"] = _player_turn_ap(unit)
 	turn_side    = "player"
 	turn_number += 1
 	overwatch_indices.clear()
@@ -1783,6 +1781,12 @@ func _resolve_enemy_turn() -> void:
 			_activate_player_from_portrait(chosen)
 			return
 	_sync_display()
+
+func _player_turn_ap(unit: Dictionary) -> int:
+	if int(unit.get("hp", 0)) <= 0:
+		return 0
+	var budget := int(unit.get("base_ap", 4))
+	return mini(2, budget) if int(unit.get("stress", 0)) >= 80 else budget
 
 func _subtype_attack_range(subtype: String) -> int:
 	match subtype:
@@ -2207,7 +2211,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"hp":                int(agent.get("hp", 30)),
 			"max_hp":            maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),
 			"stress":            int(agent.get("stress", 0)),
-			"ap":                2 if int(agent.get("stress", 0)) >= 80 else maxi(4, int(agent.get("action_points", 4))),
+			"base_ap":           maxi(4, int(agent.get("action_points", 4))),
 			"defense":           int(agent.get("defense", role_def_base)),
 			"initiative":        int(agent.get("initiative", 20 + int(agent.get("level", 1)) * 2 - i)),
 			"aim":               int(agent.get("aim", 5)),
@@ -2249,7 +2253,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"hp":                hp,
 			"max_hp":            maxi(hp, int(asset.get("max_hp", hp))),
 			"stress":            0,
-			"ap":                maxi(1, int(asset.get("action_points", 2))),
+			"base_ap":           maxi(1, int(asset.get("action_points", 2))),
 			"defense":           int(asset.get("defense", 6 if role == "robot" else 8)),
 			"initiative":        int(asset.get("initiative", 16 - row_index)),
 			"aim":               int(asset.get("aim", 5)),
@@ -2262,6 +2266,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"size_scale":        (clampf(float(asset.get("size_scale",3.5)),0.5,5.0) if role == "robot" else 1.15),
 		})
 	for unit: Dictionary in units:
+		unit["ap"] = _player_turn_ap(unit)
 		unit["damage_dealt"] = 0
 		unit["damage_taken"] = 0
 		unit["kills"] = 0

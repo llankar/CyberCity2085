@@ -121,8 +121,11 @@ static func restore(snapshot: Dictionary, scene: Node) -> void:
 		else: scene.set(field, state[field])
 	for group in GROUPS:
 		var units: Array[Dictionary] = []
+		var deployed: Array = scene.get(group)
 		for entry: Dictionary in state[group]:
 			var row := entry.duplicate(true)
+			if group == "player_units":
+				row["base_ap"] = deployed[units.size()].get("base_ap", 4)
 			row.position = Vector2i(int(row.position[0]), int(row.position[1]))
 			units.append(row)
 		scene.set(group, units)

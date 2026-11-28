@@ -54,6 +54,7 @@ func run() -> void:
 	assert(scene._cell_position(scene.player_units[0]) != origin)
 	var handoff: Dictionary = scene.handoff.duplicate(true)
 	handoff.resume_snapshot = snapshot.duplicate(true)
+	handoff.resume_snapshot.state.player_units[0].erase("base_ap")
 	if reject_resume: handoff.resume_snapshot.state.player_units[0].max_hp = -1
 	preload("res://scripts/session_mailbox.gd").publish(path, handoff)
 	scene.queue_free()

@@ -306,13 +306,20 @@ func run() -> void:
 	mission.objective = {}
 	mission.enemy_units.clear()
 	mission.player_units[0].defense = 7
+	mission.player_units[0].base_ap = 5
+	mission.player_units[0].ap = 1
+	mission.player_units.append({"hp": 20, "stress": 80, "base_ap": 5, "ap": 0, "position": Vector2i(2, 1)})
+	mission.player_units.append({"hp": 20, "base_ap": 3, "ap": 0, "position": Vector2i(3, 1)})
+	mission.player_units.append({"hp": 0, "base_ap": 4, "ap": 0, "position": Vector2i(4, 1)})
 	mission.defend_indices.assign([0])
 	mission._end_player_turn()
 	assert(mission.turn_side == "enemy" and mission.defend_indices == [0])
 	assert(mission.player_units[0].defense == 7, "guard protects during the enemy phase")
+	assert(mission.player_units[0].ap == 1, "AP refills only on return to the player")
 	mission._resolve_enemy_turn()
 	assert(mission.turn_side == "player" and mission.defend_indices.is_empty())
 	assert(mission.player_units[0].defense == 4, "guard bonus expires without stacking")
+	assert(mission.player_units.map(func(unit: Dictionary) -> int: return unit.ap) == [5, 2, 3, 0])
 	sink.free()
 	mission.free()
 	board.free()
