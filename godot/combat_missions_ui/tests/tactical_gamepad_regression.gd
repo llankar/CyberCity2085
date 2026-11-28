@@ -68,6 +68,7 @@ func run() -> void:
 	mission._execute_action(attack)
 	var movement_cell: Vector2i = agent.position
 	var attack_ap: int = agent.ap
+	var empty_direction := JOY_BUTTON_INVALID
 	for button: JoyButton in directions:
 		var empty_cell: Vector2i = movement_cell + directions[button]
 		if not Rect2i(Vector2i.ZERO, Vector2i(mission.GRID_COLS, mission.GRID_ROWS)).has_point(empty_cell):
@@ -76,11 +77,25 @@ func run() -> void:
 			continue
 		await press(button)
 		await press(JOY_BUTTON_A)
+		empty_direction = button
 		break
 	if agent.ap != attack_ap or mission.status_line != "No live target on this cell." or not mission._hud.target_info.is_empty():
 		push_error("Gamepad confirmation on an empty cell must not attack a fallback enemy.")
 		quit(1)
 		return
+	var empty_center: Vector2i = mission._gamepad_cell
+	agent.ap = 4
+	var actions: Array = agent.get("available_actions", ["Move", attack])
+	actions.append("Grenade")
+	agent.available_actions = actions
+	mission._execute_action("Grenade")
+	mission._clear_gamepad_cursor()
+	assert(empty_direction != JOY_BUTTON_INVALID)
+	await press(empty_direction)
+	assert(empty_center in mission._battlefield.blast_preview_cells)
+	await press(JOY_BUTTON_A)
+	assert(agent.ap == 2, "controller confirms the blast on an empty visible cell")
+	assert(mission._battlefield.blast_preview_cells.is_empty(), "firing clears the previous footprint")
 	mission._execute_action("Move")
 	await press(JOY_BUTTON_X)
 	if mission._hud.gamepad_action.to_upper() != "MOVE" or "choose action" not in mission._hud.tactical_status():
