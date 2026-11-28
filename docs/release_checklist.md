@@ -4,6 +4,7 @@ Date: November 13, 2026
 
 ## Current Windows candidate · d58ef4c5
 
+- [x] The owner reports that the installed game runs and displays 2D combat. The 3D prototype is a separate experiment.
 - [x] Standalone build and silent installation on E:. Installed startup, save roundtrip and bundled Godot startup passed.
 - [x] Native installed checkpoint recovery passed in player and enemy phases with support. Source tests cover reports published after startup timeout or just before retry.
 - [x] The bundled Godot executable, 451 tactical project files and 46 campaign audio files match candidate 320413cd by SHA-256, including the components exercised by its injected-input and WASAPI fixtures.

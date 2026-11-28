@@ -19,7 +19,7 @@
       "status": "IN_PROGRESS",
       "files": ["docs/release_checklist.md", "docs/tactical_backlog.md"],
       "tests": ["Candidate d58ef4c5 passed silent setup, installed startup and save roundtrip, and both tactical checkpoint phases. Previous candidate 320413cd passed injected controller input and WASAPI signal checks."],
-      "evidence": ["E:/CyberCity2085-builds/verify-d58ef4c5", "E:/CyberCity2085-builds/verify-320413cd"],
+      "evidence": ["E:/CyberCity2085-builds/verify-d58ef4c5", "E:/CyberCity2085-builds/verify-320413cd", "Owner confirmed installation, play and the expected 2D combat display on 2026-11-28."],
       "remaining": ["Observe the installed briefing, combat and debrief in one isolated mission.", "Exercise a physical controller and listen to movement, sniper fire and music at normal game volume."],
       "blockers": ["A physical controller and human observation are required for the remaining manual checks."]
     },
