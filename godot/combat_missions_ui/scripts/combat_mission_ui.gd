@@ -1353,6 +1353,14 @@ func _execute_action(action_name: String) -> void:
 			overwatch_indices.erase(active_player_index)
 			_log_event("%s leaves overwatch." % _active_unit_name())
 		else:
+			var watcher := _current_active_player()
+			var cost := _action_ap_cost("Overwatch")
+			if int(watcher.get("hp", 0)) <= 0 or _overwatch_weapon(watcher).is_empty() \
+					or int(watcher.get("ap", 0)) < cost:
+				status_line = "Overwatch requires a ranged weapon and 1 AP."
+				_sync_display()
+				return
+			_spend_player_ap(watcher, cost)
 			overwatch_indices.append(active_player_index)
 			_log_event("%s enters overwatch." % _active_unit_name())
 		status_line = "Overwatch toggled."
@@ -1610,15 +1618,18 @@ func _attack_audio_event(attacker: Dictionary, action_name: String, attack_type:
 		return "fire_laser"
 	return "fire"
 
-func _attack_enemy(target_index: int, action_name: String) -> void:
+func _attack_enemy(target_index: int, action_name: String, watcher_index: int = -1) -> void:
 	if target_index < 0 or target_index >= enemy_units.size(): return
-	if not _is_enemy_visible_to_player(target_index):
+	var reaction := watcher_index >= 0
+	var attacker_index := watcher_index if reaction else active_player_index
+	if not reaction and not _is_enemy_visible_to_player(target_index):
 		status_line = "No visible hostile at that position."
 		_sync_display()
 		return
 	var target := enemy_units[target_index] as Dictionary
 	if int(target.get("hp", 0)) <= 0: return
-	var attacker := player_units[active_player_index] as Dictionary
+	var attacker := player_units[attacker_index] as Dictionary
+	var attacker_name := str(attacker.get("name", "Agent"))
 	# Report range before line of sight, consistently with the target card.
 	var rng := _action_range(action_name)
 	if rng == 0:
@@ -1635,13 +1646,13 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		_sync_display()
 		return
 	var ap: int      = int(attacker.get("ap", 0))
-	var ap_cost: int = _action_ap_cost(action_name)
+	var ap_cost: int = 0 if reaction else _action_ap_cost(action_name)
 	if ap < ap_cost:
 		status_line = "Not enough AP (%s costs %d AP)." % [action_name, ap_cost]
 		_sync_display()
 		return
 	_spend_player_ap(attacker, ap_cost)
-	player_units[active_player_index] = attacker
+	player_units[attacker_index] = attacker
 
 	var atype := _action_type(action_name)
 	var aim: int      = int(attacker.get("psi", 5)) if atype == "PSI" else int(attacker.get("aim", 5))
@@ -1651,7 +1662,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var hit := randf() * 100.0 < chance
 
 	var ekey := "e%d" % target_index
-	var akey := "p%d" % active_player_index
+	var akey := "p%d" % attacker_index
 	if _unit_tokens.has(akey) and _unit_tokens.has(ekey):
 		_visual_attack(akey, ekey, _action_type(action_name), action_name)
 	# The weapon report happens when the shot leaves the barrel, independently
@@ -1661,15 +1672,15 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 
 	if not hit:
 		_log_event("%s misses %s. (%d%%)" % [
-				_active_unit_name(), str(target.get("name", "?")), int(chance)])
+				attacker_name, str(target.get("name", "?")), int(chance)])
 		status_line = "Miss!"
 		if _unit_tokens.has(ekey):
 			_unit_tokens[ekey].play_hit(0, false)
 		CombatSignals.audio_event.emit("miss")
 		CombatSignals.unit_attacked.emit(
-			active_player_index, false, target_index, true, 0, false)
+			attacker_index, false, target_index, true, 0, false)
 		_sync_display()
-		if int(player_units[active_player_index].get("ap", 0)) == 0:
+		if not reaction and int(attacker.get("ap", 0)) == 0:
 			_auto_advance_unit()
 		return
 
@@ -1688,12 +1699,12 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	if atype != "FIRE":
 		CombatSignals.audio_event.emit(_attack_audio_event(attacker, action_name, atype))
 	CombatSignals.unit_attacked.emit(
-		active_player_index, false, target_index, true, damage, true)
+		attacker_index, false, target_index, true, damage, true)
 	if int(target.get("hp", 0)) <= 0:
 		CombatSignals.unit_died.emit(target_index, true)
 		_log_last_stand(attacker)
 
-	var line := "%s: %s → %d dmg." % [_active_unit_name(), action_name, damage]
+	var line := "%s: %s → %d dmg." % [attacker_name, action_name, damage]
 	_log_event(line)
 	status_line = line
 	if int(target.get("hp", 0)) <= 0:
@@ -1705,8 +1716,30 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		_complete_mission()
 		return
 	_sync_display()
-	if int(player_units[active_player_index].get("ap", 0)) == 0:
+	if not reaction and int(attacker.get("ap", 0)) == 0:
 		_auto_advance_unit()
+
+func _overwatch_weapon(unit: Dictionary) -> String:
+	for action: String in unit.get("available_actions", []):
+		if _action_type(action) == "FIRE":
+			return action
+	return ""
+
+func _trigger_overwatch(enemy_index: int) -> void:
+	var target := enemy_units[enemy_index]
+	for index in overwatch_indices.duplicate():
+		if int(target.get("hp", 0)) <= 0 or battle_ended:
+			break
+		var watcher := player_units[index]
+		var weapon := _overwatch_weapon(watcher)
+		if weapon.is_empty() or not _unit_can_see(watcher, target):
+			continue
+		var offset := _cell_position(target) - _cell_position(watcher)
+		if absi(offset.x) + absi(offset.y) > _action_range(weapon):
+			continue
+		overwatch_indices.erase(index)
+		_log_event("%s fires on overwatch." % str(watcher.get("name", "Agent")))
+		_attack_enemy(enemy_index, weapon, index)
 
 func _end_player_turn() -> void:
 	pending_end_turn_confirmation = false
@@ -1734,9 +1767,17 @@ func _resolve_enemy_turn() -> void:
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) <= 0: continue
 		if containment:
-			if i == breacher: _enemy_containment_act(i)
-		elif not (defending and i == breacher and _advance_defense_breacher(i)):
+			if i == breacher:
+				var origin := _cell_position(enemy_units[i])
+				_enemy_containment_act(i)
+				if origin != _cell_position(enemy_units[i]):
+					_trigger_overwatch(i)
+		elif defending and i == breacher and _advance_defense_breacher(i):
+			_trigger_overwatch(i)
+		else:
 			_enemy_act(i)
+		if battle_ended:
+			return
 		if containment and _containment_breached():
 			_end_combat("defeat", "Containment failed: a hostile crossed the marked breach zone.")
 			return
@@ -1841,6 +1882,7 @@ func _action_ap_cost(action: String) -> int:
 
 func _enemy_act(enemy_index: int) -> void:
 	var enemy   := enemy_units[enemy_index] as Dictionary
+	var initial_cell := _cell_position(enemy)
 	var subtype := str(enemy.get("enemy_subtype", "grunt")).to_lower()
 	var ap: int = int(enemy.get("ap", 2))
 	var rng: int = _subtype_attack_range(subtype)
@@ -1878,6 +1920,8 @@ func _enemy_act(enemy_index: int) -> void:
 				_visual_move_token(search_key, start, destination, enemy)
 		ti = _enemy_engagement_target(enemy_index, subtype, rng)
 		if ti < 0:
+			if _cell_position(enemy) != initial_cell:
+				_trigger_overwatch(enemy_index)
 			enemy["ap"] = 0
 			enemy_units[enemy_index] = enemy
 			return
@@ -1931,6 +1975,10 @@ func _enemy_act(enemy_index: int) -> void:
 				_visual_move_token(ekey, ep, destination, enemy)
 
 	# ── Attack phase ──────────────────────────────────────────────────────────
+	if _cell_position(enemy) != initial_cell:
+		_trigger_overwatch(enemy_index)
+		if int(enemy.get("hp", 0)) <= 0 or battle_ended:
+			return
 	if dist <= rng and ap > 0 and _unit_can_see(enemy, player_units[ti] as Dictionary):
 		_enemy_attack(enemy_index, ti, subtype)
 		ap -= 1
@@ -2269,6 +2317,9 @@ func _build_player_units() -> Array[Dictionary]:
 		})
 	for unit: Dictionary in units:
 		unit["ap"] = _player_turn_ap(unit)
+		var actions: Array = unit.get("available_actions", [])
+		if "Overwatch" not in actions and not _overwatch_weapon(unit).is_empty():
+			actions.append("Overwatch")
 		unit["damage_dealt"] = 0
 		unit["damage_taken"] = 0
 		unit["kills"] = 0
@@ -2578,6 +2629,7 @@ func _draw_text(text: String, pos: Vector2, font_size: int, color: Color) -> voi
 func _configure_visual_hud() -> void:
 	_hud.supported_actions = _ACTION_DEFS.keys()
 	_hud.action_tooltips = {
+		"Overwatch": "%d AP · Fire once if a moving hostile ends its move in sight and weapon range." % _action_ap_cost("Overwatch"),
 		"Psi Focus": "%d AP · Relieve up to %d stress per living, standing squad member." % [
 			_action_ap_cost("Psi Focus"), _ACTION_DEFS["Psi Focus"]["stress_relief"]],
 	}

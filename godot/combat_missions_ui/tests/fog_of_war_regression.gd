@@ -234,6 +234,7 @@ func run() -> void:
 	mission.turn_number = 4
 	mission.objective_completed = false
 	mission.enemy_units.assign([{"hp": 20, "position": Vector2i(16, 14)}])
+	mission.battle_ended = false
 	mission._resolve_enemy_turn()
 	assert(mission.enemy_units[0].position == Vector2i(15, 14), "breacher advances to the defense zone")
 	assert(sink.outcome == "defeat" and not mission.objective_completed)
@@ -327,6 +328,21 @@ func run() -> void:
 	assert(mission.turn_side == "player" and mission.defend_indices.is_empty())
 	assert(mission.player_units[0].defense == 4, "guard bonus expires without stacking")
 	assert(mission.player_units.map(func(unit: Dictionary) -> int: return unit.ap) == [5, 2, 3, 0])
+	mission.player_units[0].available_actions = ["Rifle Burst", "Overwatch"]
+	mission.player_units[0].position = Vector2i(0, 0)
+	mission.enemy_units.assign([{"name": "Patrol", "hp": 20, "position": Vector2i(16, 0)}])
+	mission.battle_started = true
+	mission.battle_ended = false
+	mission._execute_action("Overwatch")
+	assert(mission.player_units[0].ap == 4 and mission.overwatch_indices == [0])
+	mission._trigger_overwatch(0)
+	assert(mission.overwatch_indices == [0], "hidden enemies cannot trigger reaction fire")
+	mission.enemy_units[0].position = Vector2i(5, 0)
+	mission._trigger_overwatch(0)
+	assert(mission.overwatch_indices.is_empty() and mission.player_units[0].ap == 4)
+	var log_size: int = mission.combat_log.size()
+	mission._trigger_overwatch(0)
+	assert(mission.combat_log.size() == log_size, "the reaction is spent only once")
 	sink.free()
 	mission.free()
 	board.free()

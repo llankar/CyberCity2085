@@ -1609,3 +1609,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-TURN-AP — Preserve cyberware, support and stress AP budgets between turns and across combat resume.
 
 - [x] GODOT-PURSUIT-TRAFFIC — Account for known occupancy when ranking enemy pursuit steps.
+
+- [x] GODOT-OVERWATCH-REACTION — Resolve a one-shot ranged reaction to visible hostile movement.

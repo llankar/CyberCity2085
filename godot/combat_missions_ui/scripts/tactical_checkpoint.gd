@@ -125,7 +125,12 @@ static func restore(snapshot: Dictionary, scene: Node) -> void:
 		for entry: Dictionary in state[group]:
 			var row := entry.duplicate(true)
 			if group == "player_units":
-				row["base_ap"] = deployed[units.size()].get("base_ap", 4)
+				var expected: Dictionary = deployed[units.size()]
+				row["base_ap"] = expected.get("base_ap", 4)
+				var actions: Array = row.get("available_actions", [])
+				if "Overwatch" in expected.get("available_actions", []) and "Overwatch" not in actions:
+					actions.append("Overwatch")
+					row["available_actions"] = actions
 			row.position = Vector2i(int(row.position[0]), int(row.position[1]))
 			units.append(row)
 		scene.set(group, units)
