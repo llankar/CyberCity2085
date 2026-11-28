@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 320413cd
+## Current Windows candidate · d58ef4c5
+
+- [x] Standalone build and silent installation on E:. Installed startup, save roundtrip and bundled Godot startup passed.
+- [x] Native installed checkpoint recovery passed in player and enemy phases with support. Source tests cover reports published after startup timeout or just before retry.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-d63ca42ddda24e038464577956d7748e/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup-1.bin | `4503BE42A46DE138779007D97DEFDCD6CF99905C83D809992E0994F912F8C2C1` |
+| CyberCity2085-Setup-2.bin | `85C51E8084135ABF258088FA34BACF2B2BC296E35ABD59228CDD997BE318521E` |
+| CyberCity2085-Setup-3.bin | `D7917299C3F1187EA5D6E3EDBF24E634B30AA5798D50328A58C0AA6D91AFE5F7` |
+| CyberCity2085-Setup.exe | `586213A982CC22C2001C7CBA2512081967B2B8631DEAD17D162EF87573CF64FB` |
+
+## Previous Windows candidate · 320413cd
 
 - [x] Standalone build and silent installation succeeded on E:. The installed smoke verified startup, save roundtrip and bundled Godot startup.
 - [x] Installed Godot passed player- and enemy-phase checkpoint recovery with support. The fixture covers pending confirmation and the VTOL strike state.
@@ -18,7 +33,7 @@ Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercit
 | CyberCity2085-Setup-2.bin | `D428B412E4DBDA6E1419E5C525886CE4E44A030A18E5FBF46432E2CC9F2E6EA0` |
 | CyberCity2085-Setup-3.bin | `7A3BBA95B7D0416A4A561CC028F0B8B05110B3E3AC62EC200DE2790328CC2EE8` |
 
-## Previous Windows candidate · 7b184732
+## Earlier Windows candidate · 7b184732
 
 - [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed.
 - [x] The focused source suite passed 104 tests with two deselections. Installed Godot passed the external controller fixture, including empty-cell blast preview and confirmation.

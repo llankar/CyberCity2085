@@ -18,8 +18,8 @@
       "title": "Accept the installed Windows candidate in an isolated mission",
       "status": "IN_PROGRESS",
       "files": ["docs/release_checklist.md", "docs/tactical_backlog.md"],
-      "tests": ["Candidate 320413cd passed silent setup, installed startup and save roundtrip, both tactical checkpoint phases, injected controller input and WASAPI signal checks."],
-      "evidence": ["E:/CyberCity2085-builds/verify-320413cd"],
+      "tests": ["Candidate d58ef4c5 passed silent setup, installed startup and save roundtrip, and both tactical checkpoint phases. Previous candidate 320413cd passed injected controller input and WASAPI signal checks."],
+      "evidence": ["E:/CyberCity2085-builds/verify-d58ef4c5", "E:/CyberCity2085-builds/verify-320413cd"],
       "remaining": ["Observe the installed briefing, combat and debrief in one isolated mission.", "Exercise a physical controller and listen to movement, sniper fire and music at normal game volume."],
       "blockers": ["A physical controller and human observation are required for the remaining manual checks."]
     },
