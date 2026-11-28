@@ -1900,13 +1900,15 @@ func _enemy_act(enemy_index: int) -> void:
 		var best_cell := ep
 		var best_has_shot := has_shot
 		var best_covered := covered
-		var best_route_length: int = _battlefield.find_path(ep, tp).size()
+		var pursuit_occupied := occupied.duplicate()
+		pursuit_occupied.erase(tp)
+		var best_route_length: int = _battlefield.find_path(ep, tp, pursuit_occupied).size()
 		for cell: Vector2i in reachable:
 			var offset := tp - cell
 			var can_shoot: bool = absi(offset.x) + absi(offset.y) <= mini(rng, _vision_range(enemy)) \
 				and _battlefield.has_los(cell, tp, [])
 			var has_cover: bool = can_shoot and prefers_cover and _battlefield.has_low_cover_toward(cell, tp)
-			var route_length: int = _battlefield.find_path(cell, tp).size()
+			var route_length: int = _battlefield.find_path(cell, tp, pursuit_occupied).size()
 			var advances := not can_shoot and route_length > 0 \
 				and (best_route_length == 0 or route_length < best_route_length)
 			if (can_shoot and not best_has_shot) or (has_cover and not best_covered) \

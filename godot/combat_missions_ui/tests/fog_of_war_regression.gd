@@ -53,6 +53,13 @@ func run() -> void:
 	assert(mission.enemy_units[0]["position"] == Vector2i(3, 1), "pursuit stops at the first legal shot")
 	var no_walls: Array[Dictionary] = []
 	board.configure(Vector2(1280, 720), null, no_walls, Vector2i(2, 1))
+	mission.enemy_units.assign([
+		{"hp": 20, "ap": 2, "position": start, "enemy_subtype": "grunt"},
+		{"hp": 20, "position": Vector2i(2, 1)},
+	])
+	mission._enemy_act(0)
+	var pursuit_step: Vector2i = mission.enemy_units[0].position
+	assert(pursuit_step.x == start.x and absi(pursuit_step.y - start.y) == 1, "pursuit takes the open side around an allied blocker")
 	mission.objective = {"type": "containment", "cell": Vector2i(2, 1)}
 	mission.enemy_units.assign([
 		{"hp": 20, "ap": 4, "position": Vector2i(5, 1)},

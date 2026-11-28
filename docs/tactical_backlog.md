@@ -1607,3 +1607,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-GUARD-EXPIRY — Keep guard active during the hostile response and expire the defense modifier when control returns.
 
 - [x] TACTICAL-TURN-AP — Preserve cyberware, support and stress AP budgets between turns and across combat resume.
+
+- [x] GODOT-PURSUIT-TRAFFIC — Account for known occupancy when ranking enemy pursuit steps.
