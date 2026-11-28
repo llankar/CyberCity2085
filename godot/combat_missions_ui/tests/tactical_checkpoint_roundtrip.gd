@@ -60,6 +60,7 @@ func run() -> void:
 	handoff.resume_snapshot.state.player_units[0].erase("base_ap")
 	if reject_resume: handoff.resume_snapshot.state.player_units[0].max_hp = -1
 	preload("res://scripts/session_mailbox.gd").publish(path, handoff)
+	scene._audio.stop_playback()
 	scene.queue_free()
 	await process_frame
 	if "--qa-resize" in args: root.size = Vector2i(1600,900)
@@ -76,6 +77,7 @@ func run() -> void:
 		assert(status.event == "error" and not status.ready)
 		assert(resumed._unit_tokens.is_empty(), "Never spawn a fresh encounter as a silent fallback")
 		print("TACTICAL_CHECKPOINT_REJECT_PASS")
+		resumed._audio.stop_playback()
 		resumed.queue_free()
 		await process_frame
 		quit(); return
@@ -114,6 +116,8 @@ func run() -> void:
 		assert(resumed.turn_number == 4 and resumed.turn_side == "player")
 		assert(resumed.overwatch_indices.is_empty(), "restored Overwatch expires after the enemy phase")
 	print("TACTICAL_CHECKPOINT_ROUNDTRIP_PASS ", side)
+	resumed._audio.stop_playback()
 	resumed.queue_free()
 	await process_frame
+	await create_timer(0.1).timeout
 	quit()
