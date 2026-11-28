@@ -8,7 +8,9 @@ Date: November 13, 2026
 - [x] Standalone build and silent installation on E:. Installed startup, save roundtrip and bundled Godot startup passed.
 - [x] Native installed checkpoint recovery passed in player and enemy phases with support. Source tests cover reports published after startup timeout or just before retry.
 - [x] The bundled Godot executable, 451 tactical project files and 46 campaign audio files match candidate 320413cd by SHA-256, including the components exercised by its injected-input and WASAPI fixtures.
-- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+- [ ] With the installed game and a disposable save, launch one mission from the briefing, finish it or retreat, and verify that the debrief opens and the base can be reached.
+- [ ] In that combat, use a physical controller to switch agents, move and confirm an end turn. Confirm that the cancel button can dismiss the end-turn prompt without advancing the turn.
+- [ ] At normal game volume, listen to footsteps, the sniper shot and music. Verify that switching agents does not play the old beep.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-d63ca42ddda24e038464577956d7748e/dist/installer`.
 

@@ -2627,3 +2627,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - WINDOWS-d58ef4c5-COMPONENT-PARITY — DONE for installed file comparison. The Godot binary, 451 tactical project files and 46 campaign audio files match 320413cd by SHA-256. The host still reports only the synthetic Xbox bus. Next: on d58ef4c5, observe a single isolated mission from briefing to combat to debrief, use a physical controller and listen to movement, sniper fire and music.
 
 - WINDOWS-OWNER-INSTALLED-PLAY — DONE for owner confirmation of installation and play. On November 28 the owner reported that the installed game works and combat displays in 2D, as expected for production. Physical controller use, listening and the full briefing-to-debrief sequence were not explicitly reported and remain open.
+
+- WINDOWS-MANUAL-CHECKLIST-d58ef4c5 — DONE for test procedure. Split the remaining manual acceptance into three observable checks on a disposable save and a single isolated mission. The owner confirmed installed play. The three detailed manual checks themselves remain TODO. No new installer was built for this documentation update.
