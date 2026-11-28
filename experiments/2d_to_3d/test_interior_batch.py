@@ -329,6 +329,14 @@ def test_showcase_clinic_and_blacksite_cover_all_surveyed_fixtures():
                   if node["name"].startswith("Occludable_") and node.get("children")}
         assert groups == {f"Occludable_{identifier}" for identifier in expected}
 
+        for identifier, kind in selected.items():
+            if kind != "cabinet":
+                continue
+            cabinet = next(node for node in nodes if node["name"] == f"Occludable_{identifier}")
+            assert len(cabinet["children"]) == 1
+            mesh = nodes[cabinet["children"][0]]["mesh"]
+            assert len({part["material"] for part in data["meshes"][mesh]["primitives"]}) == 3
+
         for node in nodes:
             if selected.get(node["name"]) != "partition":
                 continue

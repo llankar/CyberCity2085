@@ -727,12 +727,19 @@ def build(name):
             build_facility_fixture(group, "shelter_pantry", x, y, w, d,
                                    shelter_wood, shelter_iron, bedding_canvas)
         elif kind == "cabinet":
-            box(identifier, (x,y,.78), (w*.46,d*.44,.78), steel).parent = group
-            for level in (.42,.73,1.04,1.35):
-                box(identifier+" panel", (x,y-d*.45,level),
-                    (w*.39,.026,.10), trim).parent = group
-                box(identifier+" status", (x+w*.26,y-d*.49,level),
-                    (w*.06,.019,.021), screen).parent = group
+            box(identifier, (x,y,.81), (w*.45,d*.40,.72), steel,.035).parent = group
+            box("Cabinet recessed plinth", (x,y,.067),
+                (w*.39,d*.34,.067),trim,.018).parent = group
+            box("Cabinet top cap", (x,y,1.54),
+                (w*.47,d*.435,.045),trim,.025).parent = group
+            for level in (.33,.64,.95,1.26):
+                box("Cabinet drawer", (x,y-d*.415,level),
+                    (w*.395,d*.032,.124),trim,.02).parent = group
+                box("Cabinet pull", (x,y-d*.463,level+.035),
+                    (w*.142,d*.026,.021),steel,.009).parent = group
+            box("Cabinet reader", (x+w*.30,y-d*.455,1.295),
+                (w*.035,d*.019,.025),screen,.008).parent = group
+            merge_fixture_meshes(group, identifier)
         elif metro and identifier == "center_kiosk":
             corner_bevel = min(w,d)*.12
             box("Metro kiosk raised plinth", (x,y,.10), (w*.48,d*.46,.10),
