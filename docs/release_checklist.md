@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed.
 - [x] The focused source suite passed 104 tests with two deselections. Installed Godot passed the external controller fixture, including empty-cell blast preview and confirmation.
+- [x] Installed Godot restored a spent VTOL strike from a player-phase snapshot missing the new flag, and preserved an unused strike in an enemy-phase snapshot.
 - [ ] Physical controller, human listening and visible installed handoff remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-3421077a156943d4ba3c728d8b266e34/dist/installer`.
