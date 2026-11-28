@@ -670,6 +670,12 @@ class GameState:
 
         if consequence.affected_faction:
             faction = self.get_faction(consequence.affected_faction)
+            if faction is None and consequence.affected_faction == "Samurai Consortium" and (
+                "faction_influence" in effects or "faction_hostility" in effects
+            ):
+                # Older campaigns may meet the Consortium before it has a strategic record.
+                faction = Faction("Samurai Consortium", 55, 50, 35, category="corporate")
+                self.factions.append(faction)
             if faction:
                 if "faction_hostility" in effects:
                     faction.hostility_to_player += effects["faction_hostility"]

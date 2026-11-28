@@ -9,6 +9,17 @@ from game.mission_system import ensure_mission_templates, resolve_mission_outcom
 
 
 class MissionGenerationTest(unittest.TestCase):
+    def test_archive_command_applies_and_preserves_samurai_faction_pressure(self):
+        mission = next(m for m in _regional_missions("Chrome Warrens") if m.id == "samurai_intercept")
+        state = GameState()
+        self.assertIsNone(state.get_faction(mission.target_faction))
+        resolve_mission_outcome(state, mission, True)
+        faction = state.get_faction(mission.target_faction)
+        self.assertEqual((faction.influence, faction.hostility_to_player), (51, 52))
+        resolve_mission_outcome(state, mission, False)
+        self.assertEqual((faction.influence, faction.hostility_to_player), (54, 52))
+        self.assertEqual(sum(entry.name == faction.name for entry in state.factions), 1)
+
     def test_regional_outcomes_apply_contract_specific_district_effects(self):
         missions = {mission.id: mission for mission in _regional_missions("Chrome Warrens")}
         for contract, victory, field, delta in (
