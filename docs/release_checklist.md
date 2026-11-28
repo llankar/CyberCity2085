@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · 183ee50c
+## Current Windows candidate · b677bf17
+
+- [x] Standalone build, Inno Setup and silent installation on E:. The installed executable reports `b677bf17` and passes bundled Godot startup and test-save checks.
+- [x] Forty-nine focused tests passed. The external native fixture passed against the installed project, including guard expiry, AP refill and pursuit around occupied cells. The changed scripts match source and QA drivers are excluded.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-a7903fd66bab4e0db9999f03a816ab65/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `3B5736810E294D232B2E709BA74F9DFF66EC2382F7E7FF2B937DE06435E91573` |
+| CyberCity2085-Setup-1.bin | `C7C3F794F53339D5C2DDF109C6B75C9B2FB90B96FDCBBB92D7E4E32292DCF9EA` |
+| CyberCity2085-Setup-2.bin | `096FC60173EA4604D20AA8E890F44BDE2D39C55608F71378056EA62A851E57AA` |
+| CyberCity2085-Setup-3.bin | `73D8155F0DDBE0E747BCC655CA4AF0D2DF14C0774D73A9267224099740C70DB3` |
+
+## Previous Windows candidate · 183ee50c
 
 - [x] Standalone build, Inno Setup compilation and silent installation on E:. The installed executable reports `183ee50c` and passes bundled Godot startup and test-save checks.
 - [x] Four targeted source tests passed. The external native fog regression passed against the installed project, including the blocked patrol sector. The installed combat script matches source and the QA scripts are excluded.
