@@ -52,6 +52,9 @@ func run() -> void:
 	assert(live.player_units[0].ap==3,"AOE cannot bypass its displayed range or spend AP on an invalid target")
 	live.selected_action="Grenade";live.enemy_units[0].position=Vector2i(10,5);live.enemy_units[0].hp=100
 	live._update_player_visibility()
+	live.selected_target_index = 0
+	live._update_visual_context()
+	assert(live._hud.target_info.chance_label == "AREA IMPACT // RADIUS 2")
 	live._apply_missile_salvo(Vector2i(10,5))
 	assert(live.player_units[0].ap==1 and live.enemy_units[0].hp==92,"AOE uses the selected weapon damage rather than hardcoded missile stats")
 	DirAccess.remove_absolute(live.handoff_path)

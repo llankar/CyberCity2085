@@ -2765,7 +2765,13 @@ func _update_visual_context() -> void:
 		_visual_enemy_portraits[portrait_key] = portrait
 	_hud.target_info["portrait"] = _visual_enemy_portraits[portrait_key]
 	_hud.target_info["detail"] = "DISTANCE %d  //  RANGE %d  //  %d AP" % [distance,rng,_action_ap_cost(selected_action)]
-	_hud.target_info["chance_label"] = "OUT OF RANGE" if distance > rng else ("OBSTACLE: SIGHT BLOCKED" if not los else "SHOT: %d %%" % int(chance))
+	if distance > rng:
+		_hud.target_info["chance_label"] = "OUT OF RANGE"
+	elif atype == "FIRE_AOE":
+		var radius := int(_ACTION_DEFS[selected_action].get("aoe_radius", 2))
+		_hud.target_info["chance_label"] = "AREA IMPACT // RADIUS %d" % radius
+	else:
+		_hud.target_info["chance_label"] = "SHOT: %d %%" % int(chance) if los else "OBSTACLE: SIGHT BLOCKED"
 
 func _visual_cell_hovered(cell: Vector2i) -> void:
 	if cell.x < 0 or cell.y < 0 or cell.x >= GRID_COLS or cell.y >= GRID_ROWS:
