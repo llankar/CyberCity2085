@@ -14,14 +14,13 @@ The release keeps the current hybrid architecture:
 
 - Python and Arcade own campaign state, management, rules, saves, and the
   fallback tactical battle.
-- Godot remains an optional tactical presentation client until it can return a
-  complete, versioned mission result to the Python campaign.
+- Godot runs the tactical presentation and returns versioned mission results to
+  the Python campaign through the existing handoff.
 - The Arcade fallback must remain capable of completing every required mission.
 
-This decision avoids a high-risk rewrite. The existing Python game already owns
-the tested rules and campaign shell, while the Godot client still has an
-incomplete return path. A full engine migration is therefore outside the 1.0
-scope.
+The current Windows candidate and remaining isolated mission checks are tracked
+in the [release checklist](release_checklist.md). Earlier milestones below record
+the state at the time of each update.
 
 ## Audit baseline — 12 November 2026
 

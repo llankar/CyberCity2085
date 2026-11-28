@@ -14,12 +14,22 @@
   },
   "tasks": [
     {
+      "id": "WINDOWS-RELEASE-ACCEPTANCE",
+      "title": "Accept the installed Windows candidate in an isolated mission",
+      "status": "IN_PROGRESS",
+      "files": ["docs/release_checklist.md", "docs/tactical_backlog.md"],
+      "tests": ["Candidate 320413cd passed silent setup, installed startup and save roundtrip, both tactical checkpoint phases, injected controller input and WASAPI signal checks."],
+      "evidence": ["E:/CyberCity2085-builds/verify-320413cd"],
+      "remaining": ["Observe the installed briefing, combat and debrief in one isolated mission.", "Exercise a physical controller and listen to movement, sniper fire and music at normal game volume."],
+      "blockers": ["A physical controller and human observation are required for the remaining manual checks."]
+    },
+    {
       "id": "WINDOWS-PRODUCTION-INSTALLER-INTEGRITY",
       "title": "Verify production installer slices and matching installed components",
       "status": "DONE",
       "files": ["docs/release_checklist.md", "docs/CODEX_PROGRESS.md"],
       "tests": ["SHA-256 recorded for the setup and 3 data slices. Installed Godot, combat and HUD scripts, audio manager and all 90 packaged audio files match 44c9b5c6."],
-      "evidence": ["The current installed smoke report is OK for build ee240a3e. Changes since that build are documentation only."],
+      "evidence": ["Historical installed smoke report for build ee240a3e. For the current candidate, see WINDOWS-RELEASE-ACCEPTANCE."],
       "remaining": ["Physical controller and human listening remain unverified."]
     },
     {
@@ -29,7 +39,7 @@
       "files": ["docs/release_checklist.md", "tools/check_unified_return.py"],
       "tests": ["Packaged headless smoke passed. Frozen Windows native data mission finished normally and after an enemy phase checkpoint resume."],
       "evidence": ["E:/CyberCity2085-builds/qa-frozen-e400dfdb", "E:/CyberCity2085-builds/qa-frozen-resume-e400dfdb"],
-      "remaining": ["Production installer based on the newest runtime, physical controller, and listening review remain open."]
+      "remaining": ["The production installer follow-up is recorded under WINDOWS-RELEASE-ACCEPTANCE."]
     },
     {
       "id": "STRATEGIC-MISSION-CLOSURES",
