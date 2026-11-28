@@ -50,7 +50,7 @@ class CampaignEnding:
         )
 
 
-def _agent_epilogue(character: object, fallen_names: set[str]) -> str:
+def _agent_epilogue(character: object, fallen_names: set[str], roster_names: set[str]) -> str:
     name = str(getattr(character, "name", "Unknown agent"))
     nickname = str(getattr(character, "nickname", "")).strip()
     display_name = f'{name} "{nickname}"' if nickname else name
@@ -59,7 +59,8 @@ def _agent_epilogue(character: object, fallen_names: set[str]) -> str:
     reputation = list(getattr(character, "reputation", []))
     scars = list(getattr(character, "temporary_scars", []))
     relationships = {
-        name: value for name, value in getattr(character, "relationships", {}).items() if value > 0
+        other: value for other, value in getattr(character, "relationships", {}).items()
+        if value > 0 and (other in fallen_names or other in roster_names)
     }
 
     if not alive:
@@ -82,9 +83,10 @@ def _agent_epilogue(character: object, fallen_names: set[str]) -> str:
 def build_agent_epilogues(game_state: "GameState") -> list[str]:
     """Compose the squad's final record from resolved agent state."""
     fallen_names = {name.split(' "', 1)[0] for name in game_state.fallen_agent_names}
+    roster_names = {agent.name for agent in game_state.characters}
     fallen_missions = game_state.fallen_agent_missions
     return [
-        *(_agent_epilogue(agent, fallen_names) for agent in game_state.characters),
+        *(_agent_epilogue(agent, fallen_names, roster_names) for agent in game_state.characters),
         *(
             f"{name} fell during {fallen_missions[name]} and lives on in the squad's roll of honour."
             if name in fallen_missions else f"{name} lives on in the squad's roll of honour."

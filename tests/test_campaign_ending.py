@@ -90,7 +90,7 @@ def test_finale_remembers_the_fatal_mission_and_the_surviving_bond(tmp_path) -> 
     from game.mission_templates import create_mission_templates
 
     fallen = Character("Mara", nickname="Ghost")
-    survivor = Character("Vera", relationships={"Mara": 7})
+    survivor = Character("Vera", relationships={"Mara": 7, "Former recruit": 10})
     rival = Character("Iris", relationships={"Vera": -10})
     state = GameState(characters=[fallen, survivor, rival])
     state.active_mission = create_mission_templates()[0]
