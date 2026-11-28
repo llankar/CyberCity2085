@@ -143,36 +143,6 @@ class GodotCombatHandoffView(arcade.View):
                 self._recover_prepared_result()
             return
 
-        from game.combat.session_protocol import read_session_status
-        session_id = getattr(self.launch_result, "session_id", None)
-        record = self.game_state.combat_sessions.get(session_id, {})
-        status_path = record.get("session", {}).get("status_path")
-        status = read_session_status(status_path, session_id, self.mission.id) if status_path else None
-        if status and status['event'] == 'error':
-            self._cleanup_godot()
-            self._launch_failed = True
-            self._status = "Combat recovery was rejected. The campaign remains intact."
-            return
-        if status and status["ready"]:
-            self._session_ready = True
-            if not getattr(self, "_audio_transferred", False):
-                try:
-                    from game.combat.audio_transfer import release_music_to_godot
-                    release_music_to_godot(record)
-                    self._audio_transferred = True
-                except (OSError, ValueError, KeyError, TypeError):
-                    self._cleanup_godot()
-                    self._launch_failed = True
-                    self._status = "Audio link interrupted; campaign unchanged."
-                    return
-        # This deadline applies only to initialization, never to a long battle.
-        if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
-            self._cleanup_godot()
-            self._launch_failed = True
-            self._status = "The tactical zone is not responding. R: retry; Esc: return to command."
-            self.game_state.add_event(self._status)
-            return
-
         # Poll results even before a native window is found (and on Linux).
         from game.combat.godot_bridge import read_godot_combat_result
 
@@ -205,6 +175,36 @@ class GodotCombatHandoffView(arcade.View):
             self._status = "Combat report unreadable; campaign unchanged."
             self.game_state.add_event(self._status)
             return
+        from game.combat.session_protocol import read_session_status
+        session_id = getattr(self.launch_result, "session_id", None)
+        record = self.game_state.combat_sessions.get(session_id, {})
+        status_path = record.get("session", {}).get("status_path")
+        status = read_session_status(status_path, session_id, self.mission.id) if status_path else None
+        if status and status['event'] == 'error':
+            self._cleanup_godot()
+            self._launch_failed = True
+            self._status = "Combat recovery was rejected. The campaign remains intact."
+            return
+        if status and status["ready"]:
+            self._session_ready = True
+            if not getattr(self, "_audio_transferred", False):
+                try:
+                    from game.combat.audio_transfer import release_music_to_godot
+                    release_music_to_godot(record)
+                    self._audio_transferred = True
+                except (OSError, ValueError, KeyError, TypeError):
+                    self._cleanup_godot()
+                    self._launch_failed = True
+                    self._status = "Audio link interrupted; campaign unchanged."
+                    return
+        # This deadline applies only to initialization, never to a long battle.
+        if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
+            self._cleanup_godot()
+            self._launch_failed = True
+            self._status = "The tactical zone is not responding. R: retry; Esc: return to command."
+            self.game_state.add_event(self._status)
+            return
+
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
             if result_path and Path(result_path).is_file():

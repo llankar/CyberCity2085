@@ -298,6 +298,11 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             bridge.launch_result.result_path = Path(folder) / "result.json"
             bridge.launch_result.result_path.write_text("{}", encoding="utf-8")
+            bridge.launch_result.session_id = "tactical"
+            bridge.game_state.combat_sessions["tactical"] = {
+                "session": {"status_path": str(Path(folder) / "missing-status.json")},
+            }
+            bridge._elapsed = 90.0
             def mark_applied(_result):
                 bridge._result_applied = True
             bridge._apply_combat_result.side_effect = mark_applied
