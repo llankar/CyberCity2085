@@ -192,11 +192,28 @@ def build_diagnostic_bench(group, x, y, w, d, housing, steel, screen, *, telemet
             box("Diagnostic ventilation slot", (x+w*.416,support_y,.41+slot*.052),
                 (w*.009,d*.087,.009),housing,.005).parent = group
     box("Diagnostic steel rim", (x,y,.75), (w*.48,d*.48,.055), steel, .025).parent = group
+    box("Diagnostic cable trunk", (x+w*.30,y,.63),
+        (w*.065,d*.36,.055), housing, .018).parent = group
     panel_count = 3 if d > w*2 else 2
+    display_angle = math.radians(24)
     for panel in range(panel_count):
         panel_y = y+d*((panel+.5)/panel_count-.5)*.87
-        box("Diagnostic screen", (x-w*.065,panel_y,.81),
-            (w*.28,d*.33/panel_count,.016), screen, .012).parent = group
+        # The operator on the +X side faces a raised, sloping display.
+        display_half_width = w*.24
+        display_height = .865 + display_half_width*math.sin(display_angle)
+        panel_housing = box("Diagnostic display housing", (x-w*.08,panel_y,display_height),
+                            (display_half_width,d*.35/panel_count,.043), housing, .018)
+        panel_housing.rotation_euler.y = display_angle
+        panel_housing.parent = group
+        face_offset = .046
+        display = box("Diagnostic screen",
+                      (x-w*.08+face_offset*math.sin(display_angle), panel_y,
+                       display_height+face_offset*math.cos(display_angle)),
+                      (w*.201,d*.29/panel_count,.009), screen, .010)
+        display.rotation_euler.y = display_angle
+        display.parent = group
+        box("Diagnostic display mount", (x-w*.08,panel_y,(display_height+.80)*.5),
+            (w*.11,d*.19/panel_count,(display_height-.80)*.5),steel,.016).parent = group
         box("Diagnostic button bank", (x+w*.30,panel_y,.81),
             (w*.075,d*.22/panel_count,.025), housing, .012).parent = group
         for key in (-1, 0, 1):

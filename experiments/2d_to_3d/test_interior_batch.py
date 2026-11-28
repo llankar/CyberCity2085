@@ -549,6 +549,10 @@ def test_interior_maps_export_remaining_fixture_groups():
                                if nodes[index]["name"].startswith(component))
                 primitives = data["meshes"][fixture["mesh"]]["primitives"]
                 assert len({primitive["material"] for primitive in primitives}) == 3
+                if component == "Clinic diagnostic bench":
+                    top = max(data["accessors"][part["attributes"]["POSITION"]]["max"][1]
+                              for part in primitives)
+                    assert top + fixture.get("translation", [0, 0, 0])[1] > .90, identifier
         if name.endswith("_looted_vault"):
             core = [nodes[index]["name"] for index in groups["Occludable_core"]]
             assert sum(part.startswith("Vault lid hinge barrel") for part in core) == 4
