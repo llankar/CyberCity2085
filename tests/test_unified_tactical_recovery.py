@@ -100,7 +100,7 @@ def test_actual_godot_tactical_checkpoint_roundtrip(tmp_path,side,support):
 def _actual_roundtrip(tmp_path,side,support,isometric=False,classic=False,resize=False):
     godot=shutil.which('godot')
     if not godot:pytest.skip('Godot unavailable')
-    state,mission,session,_=scenario(tmp_path)
+    state,mission,session,_=scenario(tmp_path, armed=True)
     if support:
         from game.management.spec_ops_assets import CombatRobot,PowerArmorSuit
         from game.combat.godot_bridge import write_godot_combat_handoff
@@ -123,7 +123,7 @@ def _actual_roundtrip(tmp_path,side,support,isometric=False,classic=False,resize
 def test_godot_refuses_corrupt_resume_without_silent_fresh_battle(tmp_path):
     godot=shutil.which('godot')
     if not godot:pytest.skip('Godot unavailable')
-    _,_,session,_=scenario(tmp_path)
+    _,_,session,_=scenario(tmp_path, armed=True)
     path=Path(session['snapshot_path']).with_name('handoff.json')
     result=subprocess.run([godot,'--headless','--quit-after','120','--audio-driver','Dummy',
         '--path',str(ROOT/'godot/combat_missions_ui'),'--script','tests/tactical_checkpoint_roundtrip.gd',

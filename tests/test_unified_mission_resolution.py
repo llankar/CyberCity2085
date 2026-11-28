@@ -70,8 +70,12 @@ def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
     assert '_end_combat("retreat")' in scene
 
 
-def scenario(tmp_path, fund_reward=0, objective_type="extract", mission_id="unified_test"):
+def scenario(tmp_path, fund_reward=0, objective_type="extract", mission_id="unified_test", *, armed=False):
     agent=Character('Vera',role='sniper')
+    if armed:
+        from game.management.equipment import equip_starter_loadout
+
+        equip_starter_loadout(agent.loadout, agent.role)
     state=GameState(characters=[agent],selected_agent_names=['Vera'])
     mission=MissionTemplate(id=mission_id,title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type=objective_type,fund_reward=fund_reward)
     state.active_mission=mission

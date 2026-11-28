@@ -30,7 +30,10 @@ func run() -> void:
 		moved = true; break
 	assert(moved and scene.player_units[0].ap == 3)
 	scene._execute_action("Defend")
+	var ap_before_overwatch: int = scene.player_units[0].ap
 	scene._execute_action("Overwatch")
+	assert(scene.overwatch_indices == [0])
+	assert(scene.player_units[0].ap == ap_before_overwatch - 1)
 	scene.player_units[0].hp = maxi(1, int(scene.player_units[0].hp)-2)
 	scene.player_units[0].status_effects = ["bleed"]
 	scene.turn_number = 3
@@ -82,6 +85,7 @@ func run() -> void:
 	var after := Checkpoint.capture(resumed)
 	var normalized: Dictionary = JSON.parse_string(JSON.stringify(after))
 	assert(normalized.state == snapshot.state, "All tactical state including AP/postures/objective must roundtrip")
+	assert(resumed.overwatch_indices == [0] and resumed.player_units[0].ap == ap_before_overwatch - 1)
 	if "--qa-resize" in args:
 		assert(after.camera.viewport == [1600.0,900.0])
 		assert(after.camera.zoom >= resumed._ZOOM_MIN and after.camera.zoom <= resumed._ZOOM_MAX)
@@ -104,9 +108,11 @@ func run() -> void:
 			assert(resumed._cell_position(resumed.player_units[0]) == destination and resumed.player_units[0].ap == ap_before-1)
 			clicked = true; break
 		assert(clicked, "No legal destination to verify viewport-to-grid click after restore")
+		assert(resumed.overwatch_indices.is_empty(), "moving cancels restored Overwatch")
 	if side == "enemy":
 		resumed._resolve_enemy_turn()
 		assert(resumed.turn_number == 4 and resumed.turn_side == "player")
+		assert(resumed.overwatch_indices.is_empty(), "restored Overwatch expires after the enemy phase")
 	print("TACTICAL_CHECKPOINT_ROUNDTRIP_PASS ", side)
 	resumed.queue_free()
 	await process_frame
