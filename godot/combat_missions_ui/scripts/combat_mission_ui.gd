@@ -1711,7 +1711,6 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 func _end_player_turn() -> void:
 	pending_end_turn_confirmation = false
 	selected_action = "MOVE"
-	defend_indices.clear()
 	for i in range(player_units.size()):
 		var u := player_units[i] as Dictionary
 		u["ap"] = 4
@@ -1748,6 +1747,10 @@ func _resolve_enemy_turn() -> void:
 		if defending and _defense_zone_breached():
 			_end_combat("defeat", "Defense failed: a hostile entered the marked zone.")
 			return
+	for index in defend_indices:
+		var defender := player_units[index]
+		defender["defense"] = maxi(0, int(defender.get("defense", 4)) - 3)
+	defend_indices.clear()
 	turn_side    = "player"
 	turn_number += 1
 	overwatch_indices.clear()

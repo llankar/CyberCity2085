@@ -1603,3 +1603,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [x] TACTICAL-PASSIVE-UTILITY-BUTTONS — Show implemented equipment commands in the Godot HUD.
 
 - [x] GODOT-ENEMY-BLOCKED-PATROL — Keep unalerted enemy search moving when the selected patrol sector is obstructed.
+
+- [x] TACTICAL-GUARD-EXPIRY — Keep guard active during the hostile response and expire the defense modifier when control returns.

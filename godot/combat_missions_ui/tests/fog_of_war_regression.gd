@@ -303,6 +303,16 @@ func run() -> void:
 				assert(sink.outcome.is_empty() and not mission._objective_interaction_available())
 			mission.turn_number += 1
 		assert(sink.outcome == "victory" and mission.objective_completed)
+	mission.objective = {}
+	mission.enemy_units.clear()
+	mission.player_units[0].defense = 7
+	mission.defend_indices.assign([0])
+	mission._end_player_turn()
+	assert(mission.turn_side == "enemy" and mission.defend_indices == [0])
+	assert(mission.player_units[0].defense == 7, "guard protects during the enemy phase")
+	mission._resolve_enemy_turn()
+	assert(mission.turn_side == "player" and mission.defend_indices.is_empty())
+	assert(mission.player_units[0].defense == 4, "guard bonus expires without stacking")
 	sink.free()
 	mission.free()
 	board.free()
