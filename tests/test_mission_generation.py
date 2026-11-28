@@ -3,10 +3,27 @@
 import unittest
 
 from game.gamestate import GameState
+from game.combat.godot_bridge import build_godot_combat_payload
+from game.mission_generation import _regional_missions
 from game.mission_system import ensure_mission_templates
 
 
 class MissionGenerationTest(unittest.TestCase):
+    def test_regional_contracts_offer_defense_containment_and_priority_targets(self):
+        missions = {mission.id: mission for mission in _regional_missions("Chrome Warrens")}
+        expected = {
+            "shelter_perimeter": "defend",
+            "clinic_breach": "containment",
+            "samurai_intercept": "assassination",
+        }
+        state = GameState()
+        for contract, objective in expected.items():
+            with self.subTest(contract=contract):
+                mission = missions[contract]
+                payload = build_godot_combat_payload(state, mission)
+                self.assertEqual(payload["mission"]["objective_type"], objective)
+                self.assertTrue(payload["map"]["path"])
+
     def test_daily_generation_creates_day_tagged_board(self):
         game_state = GameState(mission_templates=[])
 

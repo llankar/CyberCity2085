@@ -180,6 +180,9 @@ def _regional_missions(district_name: str) -> list[MissionTemplate]:
         ("robot_factory", "Sabotage: Autonomous Line", "Stop the production controller in a factory guarded by security robots.", "Three Sevens Corp", "corp_37_robot", "city", "sabotage", 4),
         ("mutant_overpass", "Clearance: Collapsed Overpass", "Eliminate the mutant pack blocking the collapsed overpass and reopen the refugee route.", "Mutant Clans", "mutant", "wasteland", "eliminate", 3),
         ("starver_depot", "Recovery: Lost Medicine", "Recover the abandoned medical depot data before the Starvers seal its access points.", "Starver Swarm", "starver", "wasteland", "data_theft", 2),
+        ("shelter_perimeter", "Defense: Shelter Perimeter", "Keep raiders outside the marked shelter perimeter until the residents can evacuate.", "Wasteland Raiders", "raider", "wasteland", "defend", 3),
+        ("clinic_breach", "Containment: Quarantine Break", "Stop Starvers from crossing the marked breach and reaching the clinic evacuation route.", "Starver Swarm", "starver", "city", "containment", 3),
+        ("samurai_intercept", "Intercept: Archive Command", "Locate and neutralize the priority hostile before the clan can issue new surveillance orders.", "Samurai Consortium", "corp_samurai", "city", "assassination", 4),
     ]
     missions = []
     for key, title, objective, faction, theme, environment, objective_type, risk in contracts:
