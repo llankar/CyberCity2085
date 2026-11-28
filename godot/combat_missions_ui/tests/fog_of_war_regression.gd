@@ -370,6 +370,16 @@ func run() -> void:
 	mission._resolve_enemy_turn()
 	assert(not "Oracle fires on overwatch." in mission.combat_log, "a stationary hostile does not trigger a reaction")
 	assert(mission.overwatch_indices.is_empty(), "unused overwatch expires")
+	mission.enemy_units.assign([{"name": "Last hostile", "enemy_subtype": "grunt", "hp": 1, "position": hostile_start}])
+	mission.player_units[0].aim = 100
+	mission.combat_log.clear()
+	sink.outcome = ""
+	mission._execute_action("Overwatch")
+	mission._end_player_turn()
+	seed(42)
+	mission._resolve_enemy_turn()
+	assert(sink.outcome == "victory" and mission.battle_ended, "a fatal reaction resolves the mission immediately")
+	assert(mission.enemy_units[0].hp == 0 and mission.turn_side == "ended")
 	sink.free()
 	mission._hud.free()
 	mission.free()
