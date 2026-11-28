@@ -84,6 +84,10 @@ func run() -> void:
 	mission._enemy_act(0)
 	assert(mission.enemy_units[0].position == Vector2i(20, 12), "search continues after the initial center sweep")
 	assert(mission.player_units[0].hp == 20, "the patrol has no knowledge of hidden targets")
+	mission.enemy_units.assign([{"hp": 20, "ap": 1, "position": center}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0].position == Vector2i(20, 13), "one remaining AP still permits a patrol step")
+	assert(mission.player_units[0].hp == 20, "the lone AP was spent on movement")
 	var sector_wall: Array[Dictionary] = [{"cell": Vector2i(20, 7), "solid": true}]
 	board.configure(Vector2(1280, 720), null, sector_wall, center)
 	mission.enemy_units.assign([{"hp": 20, "ap": 3, "position": center}])
@@ -92,6 +96,11 @@ func run() -> void:
 	assert(mission.player_units[0].hp == 20)
 	board.configure(Vector2(1280, 720), null, no_walls, center)
 	mission.turn_number = 1
+	mission.player_units.assign([{"hp": 20, "position": Vector2i(10, 5)}])
+	mission.enemy_units.assign([{"hp": 20, "ap": 1, "position": Vector2i(5, 5), "enemy_subtype": "psi"}])
+	mission._enemy_act(0)
+	assert(mission.enemy_units[0].position == Vector2i(6, 5), "one AP can close the distance to a visible target")
+	assert(mission.player_units[0].hp == 20, "closing the distance leaves no AP to attack")
 	var shooter := {"hp": 20, "position": Vector2i(5, 5)}
 	mission.player_units.assign([
 		{"hp": 20, "defense": 10, "position": Vector2i(6, 5)},

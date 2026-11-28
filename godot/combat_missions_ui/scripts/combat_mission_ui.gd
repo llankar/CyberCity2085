@@ -1905,8 +1905,7 @@ func _enemy_act(enemy_index: int) -> void:
 	var rng: int = _subtype_attack_range(subtype)
 	var ti: int = _enemy_engagement_target(enemy_index, subtype, rng)
 	var occupied := _enemy_known_occupied_cells(enemy_index)
-	# Search without using hidden player coordinates. Enemies reserve one AP so
-	# discovery during movement can still lead to an attack this turn.
+	# Keep an AP for newly discovered targets when the enemy can afford both actions.
 	if ti < 0:
 		var start := _cell_position(enemy)
 		var search_goal := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
@@ -1923,7 +1922,7 @@ func _enemy_act(enemy_index: int) -> void:
 					break
 		if route.is_empty():
 			route = _battlefield.find_path(start, search_goal, occupied, true)
-		var search_steps := mini(maxi(0, ap - 1), maxi(0, route.size() - 1))
+		var search_steps := mini(ap - int(ap > 1), maxi(0, route.size() - 1))
 		for step in range(1, search_steps + 1):
 			if _is_cell_occupied(route[step], -1, enemy_index):
 				search_steps = step - 1
@@ -1953,7 +1952,9 @@ func _enemy_act(enemy_index: int) -> void:
 	var prefers_cover := subtype in ["elite", "commander"] and float(profile.get("cover_bias", 1.0)) >= 1.0
 	var has_shot := dist <= rng
 	var covered: bool = prefers_cover and _battlefield.has_low_cover_toward(ep, tp)
-	var move_ap := maxi(0, ap - 1) if not has_shot or (prefers_cover and not covered) else 0
+	var move_ap := ap - int(ap > 1) if not has_shot else 0
+	if has_shot and prefers_cover and not covered:
+		move_ap = maxi(0, ap - 1)
 
 	if move_ap > 0:
 		occupied = _enemy_known_occupied_cells(enemy_index)
