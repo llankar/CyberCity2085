@@ -90,6 +90,8 @@ def test_retry_and_choose_executable_never_silently_start_arcade():
     bridge.mission = Mock()
     bridge.window = Mock()
     bridge._launch_failed = True
+    bridge._result_applied = False
+    bridge.launch_result = SimpleNamespace(session_id="failed")
     bridge._overlaid = False
     bridge._cleanup_godot = Mock()
     bridge._fallback_to_arcade_battle = Mock()
@@ -108,6 +110,31 @@ def test_retry_and_choose_executable_never_silently_start_arcade():
         bridge.on_key_press(71,0)
     save.assert_called_once_with('D:/Godot/godot.exe')
     retry.assert_called_once()
+
+
+def test_retry_recovers_published_result_before_launching_again(tmp_path):
+    from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+
+    bridge = GodotCombatHandoffView.__new__(GodotCombatHandoffView)
+    bridge.game_state = GameState()
+    bridge.launch_result = SimpleNamespace(session_id="failed")
+    bridge._result_applied = False
+    result_path = tmp_path / "result.json"
+    result = {"outcome": "victory", "phase": "confirmed"}
+    result_path.write_text(json.dumps(result), encoding="utf-8")
+    bridge.game_state.combat_sessions["failed"] = {"session": {"result_path": str(result_path)}}
+    bridge._cleanup_godot = Mock()
+
+    def apply_result(_result):
+        bridge._result_applied = True
+
+    bridge._apply_combat_result = Mock(side_effect=apply_result)
+    with patch("game.combat.godot_bridge.launch_godot_combat_ui") as launch:
+        bridge._retry_godot()
+
+    bridge._apply_combat_result.assert_called_once_with(result)
+    bridge._cleanup_godot.assert_not_called()
+    launch.assert_not_called()
 
 
 @pytest.mark.skipif(sys.platform != 'linux' or not os.environ.get('DISPLAY') or not (shutil.which('godot') or shutil.which('godot4')),

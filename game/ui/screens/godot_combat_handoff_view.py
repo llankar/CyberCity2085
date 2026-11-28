@@ -437,6 +437,10 @@ class GodotCombatHandoffView(arcade.View):
     def _retry_godot(self) -> None:
         from game.combat.godot_bridge import launch_godot_combat_ui
 
+        # The result may have arrived between displaying the failure and pressing R.
+        self._recover_prepared_result()
+        if self._result_applied:
+            return
         self._cleanup_godot()
         from game.combat.persistent_runtime import runtime_for_window
         runtime=runtime_for_window(self.window)
