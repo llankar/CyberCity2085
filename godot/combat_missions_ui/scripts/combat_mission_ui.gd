@@ -1506,26 +1506,28 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 		_visual_fx.burst("explosion", Vector2.ZERO, _battlefield.cell_to_world(center_cell))
 	var base_dmg   := _action_damage(action)
 	var aoe_radius := int((_ACTION_DEFS.get(action, {}) as Dictionary).get("aoe_radius", 2))
-	var hits := 0
+	var confirmed_hits := 0
 	for j in range(enemy_units.size()):
 		var eu := enemy_units[j] as Dictionary
 		if int(eu.get("hp", 0)) <= 0: continue
 		var epos := _cell_position(eu)
 		var dist := absi(epos.x - center_cell.x) + absi(epos.y - center_cell.y)
 		if dist > aoe_radius: continue
+		var visible := _is_enemy_visible_to_player(j)
 		var dmg := maxi(1, base_dmg - dist)
 		_apply_hp_damage(eu, dmg, active)
 		enemy_units[j] = eu
 		var ekey := "e%d" % j
-		if _unit_tokens.has(ekey) and is_instance_valid(_unit_tokens[ekey]):
+		if visible and _unit_tokens.has(ekey) and is_instance_valid(_unit_tokens[ekey]):
 			_unit_tokens[ekey].play_hit(dmg, true)
 			if int(eu.get("hp", 0)) <= 0:
 				_unit_tokens[ekey].play_death()
 				CombatSignals.unit_died.emit(j, true)
-		if int(eu.get("hp", 0)) <= 0:
+		if visible and int(eu.get("hp", 0)) <= 0:
 			_log_last_stand(active)
-		hits += 1
-	var line := "%s: %s — %d enemies hit." % [_active_unit_name(),action,hits]
+		if visible:
+			confirmed_hits += 1
+	var line := "%s: %s — Confirmed hits: %d." % [_active_unit_name(), action, confirmed_hits]
 	_log_event(line)
 	status_line = line
 	CombatSignals.audio_event.emit("explosion_small")

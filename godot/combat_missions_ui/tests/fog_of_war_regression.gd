@@ -370,6 +370,18 @@ func run() -> void:
 	mission._resolve_enemy_turn()
 	assert(not "Oracle fires on overwatch." in mission.combat_log, "a stationary hostile does not trigger a reaction")
 	assert(mission.overwatch_indices.is_empty(), "unused overwatch expires")
+	mission.enemy_units.assign([
+		{"hp": 30, "position": Vector2i(14, 0)},
+		{"hp": 30, "position": Vector2i(16, 0)},
+	])
+	mission.selected_action = "Missile Salvo"
+	mission.visual_mode = false
+	mission._update_player_visibility()
+	assert(mission._is_enemy_visible_to_player(0) and not mission._is_enemy_visible_to_player(1))
+	mission._apply_missile_salvo(Vector2i(14, 0))
+	assert(mission.enemy_units[0].hp < 30 and mission.enemy_units[1].hp < 30)
+	assert("Confirmed hits: 1." in mission.combat_log.back(), "blast feedback excludes hidden targets")
+	mission.player_units[0].ap = 5
 	mission.enemy_units.assign([{"name": "Last hostile", "enemy_subtype": "grunt", "hp": 1, "position": hostile_start}])
 	mission.player_units[0].aim = 100
 	mission.combat_log.clear()
