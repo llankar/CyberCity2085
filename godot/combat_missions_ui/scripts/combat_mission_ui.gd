@@ -858,6 +858,11 @@ func _gui_input(event: InputEvent) -> void:
 		match ke.keycode:
 			KEY_ESCAPE:
 				# Escape dismisses overlays; only mission results may leave combat.
+				if pending_end_turn_confirmation or pending_retreat_confirmation:
+					pending_end_turn_confirmation = false
+					pending_retreat_confirmation = false
+					status_line = "Confirmation cancelled."
+					_sync_display()
 				show_combat_log = false
 				if is_instance_valid(_hud):
 					if "settings_open" in _hud:_hud.settings_open = false
@@ -1324,7 +1329,7 @@ func _execute_action(action_name: String) -> void:
 			return
 		pending_retreat_confirmation = true
 		pending_end_turn_confirmation = false
-		status_line = "Confirm retreat — press R again or click RETREAT."
+		status_line = "Confirm retreat — press R or Enter, or click RETREAT."
 		_log_event("Retreat: confirmation required.")
 		_sync_display()
 		return
@@ -2869,9 +2874,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		JOY_BUTTON_A:
 			if not _hud.gamepad_action.is_empty():
 				_hud.close_gamepad_actions(true)
-			elif pending_retreat_confirmation:
-				_execute_action("RETREAT")
-			elif pending_end_turn_confirmation:
+			elif pending_retreat_confirmation or pending_end_turn_confirmation:
 				_confirm_tactical_action("GAMEPAD")
 			elif _gamepad_cell.x >= 0:
 				_on_cell_clicked(_gamepad_cell, true)
@@ -2968,8 +2971,15 @@ func _clear_gamepad_cursor() -> void:
 		_battlefield.queue_redraw()
 
 func _confirm_tactical_action(source: String) -> void:
+	if battle_ended:
+		return
 	if not battle_started:
 		_start_combat(source)
+	elif turn_side != "player":
+		return
+	elif pending_retreat_confirmation:
+		_clear_gamepad_cursor()
+		_execute_action("RETREAT")
 	elif pending_end_turn_confirmation:
 		_clear_gamepad_cursor()
 		_end_player_turn()

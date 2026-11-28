@@ -386,6 +386,10 @@ func run() -> void:
 	assert(mission.player_units[0].ap == 5 and mission.enemy_units[1].hp == 30)
 	assert("hidden by fog" in mission.status_line)
 	mission.selected_target_index = 0
+	mission.turn_side = "enemy"
+	mission._confirm_tactical_action("ENTER")
+	assert(mission.player_units[0].ap == 5 and mission.enemy_units[0].hp == 30)
+	mission.turn_side = "player"
 	mission._confirm_tactical_action("ENTER")
 	assert(mission.enemy_units[0].hp < 30 and mission.enemy_units[1].hp < 30)
 	assert("Confirmed hits: 1." in mission.combat_log.back(), "blast feedback excludes hidden targets")
@@ -400,6 +404,14 @@ func run() -> void:
 	mission._resolve_enemy_turn()
 	assert(sink.outcome == "victory" and mission.battle_ended, "a fatal reaction resolves the mission immediately")
 	assert(mission.enemy_units[0].hp == 0 and mission.turn_side == "ended")
+	mission.battle_ended = false
+	mission.turn_side = "player"
+	mission.selected_action = "Missile Salvo"
+	sink.outcome = ""
+	mission._execute_action("RETREAT")
+	assert(sink.outcome.is_empty() and mission.pending_retreat_confirmation)
+	mission._confirm_tactical_action("ENTER")
+	assert(sink.outcome == "retreat" and mission.battle_ended)
 	sink.free()
 	mission._hud.free()
 	mission.free()
