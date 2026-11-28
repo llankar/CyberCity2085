@@ -7,6 +7,8 @@ from typing import TYPE_CHECKING
 
 import arcade
 
+from game.management.economy import format_neodollars
+
 if TYPE_CHECKING:
     from game.consequences import Consequence
     from game.gamestate import GameState
@@ -161,9 +163,9 @@ def build_battle_debrief_summary(
     if isinstance(rewards, dict):
         reward_lines = [f"{key.title()}: {value:+}" for key, value in rewards["resources"].items()]
         if "mission_payout" in rewards:
-            reward_lines.append(f"Mission funds: {rewards['mission_payout']:+}")
+            reward_lines.append(f"Mission funds: {format_neodollars(rewards['mission_payout'], signed=True)}")
         reward_lines.extend([
-            f"Corporate balance: {rewards['net_funds_change']:+}",
+            f"Corporate balance: {format_neodollars(rewards['net_funds_change'], signed=True)}",
             f"Duration: {getattr(mission, 'duration_days', 0)}d",
         ])
     objective_text=("Objective completed" if external.get("objective_completed") is True else
@@ -195,7 +197,7 @@ def build_battle_debrief_summary(
         ),
         "outcome": external.get("outcome", "victory" if victory else "defeat"),
         "rewards": reward_lines if reward_lines is not None else [
-            f"Credits: +{getattr(mission, 'fund_reward', 0) if victory and mission else 0}",
+            f"Mission funds: {format_neodollars(mission.fund_reward if victory and mission else 0, signed=True)}",
             f"Duration: {getattr(mission, 'duration_days', 0) if mission else 0}d",
         ],
         "agent_rows": agent_rows,
