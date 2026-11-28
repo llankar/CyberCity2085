@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] Standalone build and silent installation on E:. Installed startup, save roundtrip and bundled Godot startup passed.
 - [x] Native installed checkpoint recovery passed in player and enemy phases with support. Source tests cover reports published after startup timeout or just before retry.
+- [x] The bundled Godot executable, 451 tactical project files and 46 campaign audio files match candidate 320413cd by SHA-256, including the components exercised by its injected-input and WASAPI fixtures.
 - [ ] Physical controller, human listening and visible installed handoff remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-d63ca42ddda24e038464577956d7748e/dist/installer`.
