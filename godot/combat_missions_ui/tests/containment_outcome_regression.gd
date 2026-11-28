@@ -31,7 +31,19 @@ func run() -> void:
 		var breachers: Array[int] = mission._containment_breacher_indices()
 		assert(breachers.size() == 1)
 		var breacher: int = breachers[0]
-		mission.enemy_units[breacher].position = marker + Vector2i.RIGHT
+		var placed := false
+		var width := int(mission.objective.get("breach_half_width_cells", 3))
+		for y in range(maxi(0, marker.y - width), mini(mission.GRID_ROWS, marker.y + width + 1)):
+			var goal := Vector2i(marker.x, y)
+			var start := goal + Vector2i.RIGHT
+			if mission._battlefield.is_wall(goal) or mission._battlefield.is_wall(start):
+				continue
+			if mission._is_cell_occupied(goal, -1, breacher) or mission._is_cell_occupied(start, -1, breacher):
+				continue
+			mission.enemy_units[breacher].position = start
+			placed = true
+			break
+		assert(placed, "The authored breach needs an unoccupied approach for this fixture.")
 		mission.turn_side = "enemy"
 		mission._resolve_enemy_turn()
 		assert(mission._containment_breached())

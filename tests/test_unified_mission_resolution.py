@@ -302,18 +302,14 @@ def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
 def test_native_containment_outcome_is_applied_once_after_save_reload(tmp_path, outcome):
     import subprocess
     from game.combat.godot_bridge import find_godot_executable
+    from game.mission_generation import _regional_missions
 
     godot = find_godot_executable()
     if not godot:
         pytest.skip("Godot unavailable")
     agent = Character("Vera", role="sniper")
     state = GameState(characters=[agent], selected_agent_names=["Vera"])
-    mission = MissionTemplate(
-        id=f"native_containment_{outcome}", title="Native containment",
-        objective_text="Hold the marked breach", target_faction="Novatek",
-        district="Chrome", district_pressure={}, starting_enemy_count=3,
-        risk_level=2, objective_type="containment", fund_reward=120,
-    )
+    mission = next(m for m in _regional_missions("Chrome Warrens") if m.id == "clinic_breach")
     state.active_mission = mission
     handoff = write_godot_combat_handoff(state, mission, handoff_path=tmp_path / "handoff.json")
     handoff, session = create_session(state, mission, handoff)
