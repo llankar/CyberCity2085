@@ -2,7 +2,22 @@
 
 Date: November 13, 2026
 
-## Current Windows candidate · b677bf17
+## Current Windows candidate · 290cef0c
+
+- [x] Standalone build, Inno Setup and silent installation on E:. Installed Godot startup and test-save checks passed. Runtime combat and checkpoint scripts match the checkout.
+- [x] Combined suite reported 89 passing tests and one deselected resize case. The strict fog and Overwatch fixture exposed missing HUD setup in the test harness. With that corrected, both targeted source tests and the installed fixture passed without script errors.
+- [ ] Physical controller, human listening and visible installed handoff remain unverified.
+
+Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-174be049c5214291bd1d997180e14eea/dist/installer`.
+
+| File | SHA-256 |
+| --- | --- |
+| CyberCity2085-Setup.exe | `44F20141B601507BC0CCA734ED876EC961BCED4F2253881EC6B03A1D21040F42` |
+| CyberCity2085-Setup-1.bin | `8FF988F387BF7AE53D0C652AAE788A35E8732798092FF0F431D145E40FB832DD` |
+| CyberCity2085-Setup-2.bin | `E241B4C40C066A00D1614E4687594C114AC7640D3400BDCEBAB8FA6E8C7BE690` |
+| CyberCity2085-Setup-3.bin | `AD7B7CC2898590607A2EB881EE362BEF6429FDC5E3D5D7159F7AAF2F3605E65F` |
+
+## Previous Windows candidate · b677bf17
 
 - [x] Standalone build, Inno Setup and silent installation on E:. The installed executable reports `b677bf17` and passes bundled Godot startup and test-save checks.
 - [x] Forty-nine focused tests passed. The external native fixture passed against the installed project, including guard expiry, AP refill and pursuit around occupied cells. The changed scripts match source and QA drivers are excluded.

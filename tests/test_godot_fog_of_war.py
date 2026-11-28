@@ -53,4 +53,5 @@ def test_godot_fog_los_and_enemy_awareness_regression():
     )
     output = result.stdout + result.stderr
     assert result.returncode == 0, output
+    assert "SCRIPT ERROR:" not in output, output
     assert "GODOT_FOG_OF_WAR_CHECKS_PASSED" in output, output

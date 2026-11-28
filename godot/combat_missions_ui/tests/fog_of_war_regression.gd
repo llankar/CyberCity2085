@@ -39,6 +39,7 @@ func run() -> void:
 	board.configure(Vector2(1280, 720), null, walls, Vector2i(20, 14))
 	var mission = load("res://scripts/combat_mission_ui.gd").new()
 	mission._battlefield = board
+	mission._hud = load("res://scripts/hud_controller.gd").new()
 	var start := Vector2i(1, 1)
 	mission.player_units.assign([{"hp": 20, "position": Vector2i(13, 1)}])
 	mission.enemy_units.assign([
@@ -270,7 +271,6 @@ func run() -> void:
 		patient.available_actions = []
 		mission._apply_medical_utility(item)
 		assert(patient.hp == 20 and patient.ap == 1)
-	mission._hud = load("res://scripts/hud_controller.gd").new()
 	assert(mission._attack_audio_event({}, "Mind Spike", "PSI") == "psi")
 	mission._configure_visual_hud()
 	mission._hud.size = Vector2(1280, 720)
@@ -298,8 +298,6 @@ func run() -> void:
 	mission._hud._rebuild_agent_actions()
 	assert("Overwatch" not in mission._hud._visible_actions)
 	mission.handoff = previous_handoff
-	mission._hud.free()
-	mission._hud = null
 	mission.player_units.assign([{"name": "Oracle", "hp": 20, "max_hp": 20, "ap": 3, "position": Vector2i(1, 1)}])
 	mission.enemy_units.clear()
 	for kind in ["civilian_rescue", "recon_scan"]:
@@ -373,6 +371,7 @@ func run() -> void:
 	assert(not "Oracle fires on overwatch." in mission.combat_log, "a stationary hostile does not trigger a reaction")
 	assert(mission.overwatch_indices.is_empty(), "unused overwatch expires")
 	sink.free()
+	mission._hud.free()
 	mission.free()
 	board.free()
 	print("GODOT_FOG_OF_WAR_CHECKS_PASSED")
