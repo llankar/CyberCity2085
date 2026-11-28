@@ -260,6 +260,18 @@ def build_consequence_summary_lines(
     summary = build_battle_debrief_summary(game_state, victory, mission, agent_stats, triggered_complication)
     section("RESOURCES / FUNDS", summary["rewards"])
     section("ASSET BAY RECOVERY", summary["equipment_recovery"])
+    report = getattr(game_state, "latest_mission_debrief", {}) or {}
+    support = report.get("deployment_vehicle", {})
+    support_lines = []
+    if support.get("field_medevac_used"):
+        support_lines.append("Field Medevac stabilized a critically wounded operative.")
+    if support.get("heavy_strike_used"):
+        support_lines.append("Nighthawk support strike used.")
+    support_lines.extend(
+        f"Trauma Center reduced {name}'s recovery by one day."
+        for name in report.get("trauma_center_patients", [])
+    )
+    section("DEPLOYMENT SUPPORT", support_lines)
     district = getattr(game_state, "district", None)
     if district is not None:
         section("DISTRICT STATUS", [

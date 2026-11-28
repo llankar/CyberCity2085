@@ -2234,7 +2234,7 @@ class BattleView(GameView):
         from game.ui.screens.mission_return import show_mission_debrief
         show_mission_debrief(self, victory, surviving_participants, all_player_units)
 
-    def resolve_defeated_player_unit(self, unit: Unit) -> None:
+    def resolve_defeated_player_unit(self, unit: Unit) -> str | None:
         """Resolve a downed agent's vertical-slice post-battle outcome."""
         character = unit.character
         if not character:
@@ -2250,6 +2250,7 @@ class BattleView(GameView):
         )
         if outcome == "field medevac":
             self._field_medevac_used = True
+        return outcome
 
     def remove_character_from_roster(self, character: Character) -> None:
         """Remove a character only when a battle outcome confirms death."""

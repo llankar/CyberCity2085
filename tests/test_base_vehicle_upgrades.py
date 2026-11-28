@@ -1,3 +1,5 @@
+import pytest
+
 from game.gamestate import GameState
 from game.character import Character
 from game.combat.godot_bridge import build_godot_combat_payload, write_godot_combat_handoff
@@ -9,6 +11,7 @@ from game.management.equipment import default_equipment_catalog, equipment_purch
 from game.mission_system import launch_selected_mission
 from game.mission_templates import MissionTemplate
 from game.ui.screens.mission_briefing_view import build_mission_briefing_facts
+from game.ui.screens.battle_debrief_view import build_consequence_summary_lines
 from test_unified_mission_resolution import scenario
 from pathlib import Path
 from unittest.mock import patch
@@ -80,13 +83,17 @@ def test_signal_array_reveals_real_hostile_estimate_in_briefing():
     assert informed["hostile_estimate"] == "6 hostiles // Starvers doctrine"
 
 
-def test_trauma_center_removes_one_additional_recovery_day(tmp_path):
+@pytest.mark.parametrize("has_center", [False, True])
+def test_trauma_center_removes_one_additional_recovery_day(tmp_path, has_center):
     state, mission, session, result = scenario(tmp_path)
-    state.base_upgrade_ids.append("trauma_center")
+    if has_center:
+        state.base_upgrade_ids.append("trauma_center")
     result["agents"][0]["hp"] = 0
     with patch("game.battle_outcomes.random.choice", return_value="critically injured"):
         resolve_godot_result(state, mission, result, session["session_id"])
-    assert state.characters[0].recovery_turns == 1
+    assert state.characters[0].recovery_turns == (0 if has_center else 1)
+    lines = build_consequence_summary_lines(state, True, mission, [])
+    assert ("Trauma Center reduced Vera's recovery by one day." in lines) == has_center
 
 
 def test_field_medevac_prevents_exactly_one_fatality_per_mission(tmp_path):
@@ -113,6 +120,9 @@ def test_field_medevac_prevents_exactly_one_fatality_per_mission(tmp_path):
     assert any("Field Medevac" in line for line in state.characters[0].history)
     vehicle = state.latest_mission_debrief["deployment_vehicle"]
     assert vehicle["field_medevac_available"] and vehicle["field_medevac_used"]
+    assert "Field Medevac stabilized a critically wounded operative." in build_consequence_summary_lines(
+        state, False, mission, []
+    )
 
 
 def test_heavy_strike_is_exposed_only_while_vehicle_charge_is_available():
@@ -135,6 +145,7 @@ def test_godot_heavy_strike_usage_reaches_mission_debrief(tmp_path):
     vehicle = state.latest_mission_debrief["deployment_vehicle"]
     assert vehicle["heavy_strike_available"]
     assert vehicle["heavy_strike_used"]
+    assert "Nighthawk support strike used." in build_consequence_summary_lines(state, True, mission, [])
 
 
 def test_nighthawk_uses_existing_local_vtol_art():

@@ -23,6 +23,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
         self.game_state.x += 50 * defeated
     processed_character_ids = set()
     surviving_participants = []
+    evacuated_patients = []
     all_player_units = list(self.player_units) + list(self.defeated_player_units)
     from .equipment_recovery import resolve_equipment_custody, snapshot_unit_equipment
     equipment_snapshot = getattr(self, "equipment_snapshot", None)
@@ -44,7 +45,9 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
         if hasattr(unit, "reported_stress"):
             unit.character.stress = unit.reported_stress
         if unit.health <= 0:
-            self.resolve_defeated_player_unit(unit)
+            outcome = self.resolve_defeated_player_unit(unit)
+            if outcome in {"critically injured", "field medevac"}:
+                evacuated_patients.append(unit.character)
             continue
         if unit.spec_ops_asset is None:
             unit.character.stats.hp = unit.health
@@ -68,10 +71,12 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
     # Mission return can be imported by a game process that was launched before
     # a development hot-update added GameState helpers. Read persisted state
     # directly here so an in-flight Godot result can still return safely.
+    trauma_center_patients = []
     if "trauma_center" in getattr(self.game_state, "base_upgrade_ids", []):
-        for character in surviving_participants:
+        for character in (*surviving_participants, *evacuated_patients):
             if character.recovery_turns > 0:
                 character.recovery_turns -= 1
+                trauma_center_patients.append(character.name)
                 self.game_state.add_event(
                     f"Trauma Center reduced {character.name}'s recovery by one day."
                 )
@@ -196,6 +201,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None, obje
         self.game_state, equipment_snapshot, victory
     )
     self.game_state.latest_mission_debrief["equipment_recovery"] = equipment_report
+    self.game_state.latest_mission_debrief["trauma_center_patients"] = trauma_center_patients
     self.game_state.latest_mission_debrief["deployment_vehicle"] = {
         "field_medevac_available": self._field_medevac_available,
         "field_medevac_used": self._field_medevac_used,
