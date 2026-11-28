@@ -23,5 +23,5 @@ def build_mission_card_line(
         f"Risk {mission.risk_level} ({risk_label}) | "
         f"Reward {mission.fund_reward} funds | "
         f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''} | "
-        f"{mission.target_faction} | Enemies {mission.starting_enemy_count}"
+        f"{mission.target_faction}"
     )

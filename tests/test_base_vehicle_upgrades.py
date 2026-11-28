@@ -12,9 +12,12 @@ from game.mission_system import launch_selected_mission
 from game.mission_templates import MissionTemplate
 from game.ui.screens.mission_briefing_view import build_mission_briefing_facts
 from game.ui.screens.battle_debrief_view import build_consequence_summary_lines
+from game.ui.screens.mission_board import build_mission_board_lines
 from test_unified_mission_resolution import scenario
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
+from game.ui.components import briefing_scene
+from game.ui.layouts.world_map_beacons import Rect
 
 
 def test_base_and_vehicle_upgrades_purchase_atomically_and_persist(tmp_path):
@@ -81,6 +84,17 @@ def test_signal_array_reveals_real_hostile_estimate_in_briefing():
     assert limited["mission_intel_level"] == 0 and "Limited" in limited["hostile_estimate"]
     assert informed["mission_intel_level"] == 1
     assert informed["hostile_estimate"] == "6 hostiles // Starvers doctrine"
+    assert "Enemies 6" not in build_mission_board_lines([mission], 0)[0]
+    for facts in (limited, informed):
+        presenter = Mock(u=1, mission=mission, facts=facts, lines={"objective": []}, regions={})
+        presenter.view._elapsed = 0
+        with patch.object(briefing_scene.arcade, "draw_lrbt_rectangle_outline"), patch.object(
+            briefing_scene.arcade, "draw_line"
+        ):
+            briefing_scene.draw_scene(presenter, Rect(0, 0, 800, 600))
+        intel_call = presenter.scroll_text.call_args
+        assert intel_call.args[0] == "intel"
+        assert intel_call.args[2][0] == facts["hostile_estimate"]
 
 
 @pytest.mark.parametrize("has_center", [False, True])

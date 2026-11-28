@@ -67,7 +67,7 @@ def draw_scene(p, r):
 
     theme = str(p.mission.enemy_theme).replace("_", " ").upper()
     intel = [
-        p.tr("contacts", n=p.mission.starting_enemy_count),
+        p.facts["hostile_estimate"],
         p.tr("enemy", name=theme),
         p.tr("pressure", value=pressure_label(p.mission.district_pressure)),
         p.tr("inspect_map"),
