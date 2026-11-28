@@ -5,10 +5,23 @@ import unittest
 from game.gamestate import GameState
 from game.combat.godot_bridge import build_godot_combat_payload
 from game.mission_generation import _regional_missions
-from game.mission_system import ensure_mission_templates
+from game.mission_system import ensure_mission_templates, resolve_mission_outcome
 
 
 class MissionGenerationTest(unittest.TestCase):
+    def test_regional_outcomes_apply_contract_specific_district_effects(self):
+        missions = {mission.id: mission for mission in _regional_missions("Chrome Warrens")}
+        for contract, victory, field, delta in (
+            ("shelter_perimeter", True, "stability", 5),
+            ("clinic_breach", False, "media_heat", 5),
+            ("samurai_intercept", False, "media_heat", 2),
+        ):
+            with self.subTest(contract=contract):
+                state = GameState()
+                setattr(state.district, field, 30)
+                resolve_mission_outcome(state, missions[contract], victory)
+                self.assertEqual(getattr(state.district, field), 30 + delta)
+
     def test_regional_contracts_offer_defense_containment_and_priority_targets(self):
         missions = {mission.id: mission for mission in _regional_missions("Chrome Warrens")}
         expected = {

@@ -184,8 +184,26 @@ def _regional_missions(district_name: str) -> list[MissionTemplate]:
         ("clinic_breach", "Containment: Quarantine Break", "Stop Starvers from crossing the marked breach and reaching the clinic evacuation route.", "Starver Swarm", "starver", "city", "containment", 3),
         ("samurai_intercept", "Intercept: Archive Command", "Locate and neutralize the priority hostile before the clan can issue new surveillance orders.", "Samurai Consortium", "corp_samurai", "city", "assassination", 4),
     ]
+    fallout = {
+        "shelter_perimeter": (
+            ("The residents evacuated through the protected corridor.", {"stability": 5, "unrest": -4}),
+            ("Raiders breached the shelter perimeter and scattered the evacuees.", {"stability": -4, "unrest": 5}),
+        ),
+        "clinic_breach": (
+            ("The clinic evacuation route stayed clear of Starvers.", {"stability": 3, "media_heat": -3}),
+            ("The breach cut off the evacuation route and triggered a public alert.", {"unrest": 4, "media_heat": 5}),
+        ),
+        "samurai_intercept": (
+            ("The clan lost its field command before it could issue new surveillance orders.", {"faction_influence": -4, "faction_hostility": 2}),
+            ("The clan issued its surveillance orders and expanded its local reach.", {"faction_influence": 3, "media_heat": 2}),
+        ),
+    }
     missions = []
     for key, title, objective, faction, theme, environment, objective_type, risk in contracts:
+        (success_text, success_effects), (failure_text, failure_effects) = fallout.get(key, (
+            (f"{title}: objective complete; the routes and shelters are safer.", {"stability": 3, "unrest": -3}),
+            (f"{title}: failure increases pressure on local residents.", {"unrest": 4, "media_heat": 2}),
+        ))
         missions.append(MissionTemplate(
             id=key, title=title, objective_text=objective, target_faction=faction,
             district=district_name, district_pressure={"unrest": 3, "media_heat": 1},
@@ -195,12 +213,12 @@ def _regional_missions(district_name: str) -> list[MissionTemplate]:
             duration_days=2 if environment == "wasteland" else 1,
             success_consequences=[Consequence(
                 affected_district=district_name, affected_faction=faction, severity=1,
-                narrative_text=f"{title}: objective complete; the routes and shelters are safer.",
-                mechanical_effects={"stability": 3, "unrest": -3})],
+                narrative_text=success_text,
+                mechanical_effects=success_effects)],
             failure_consequences=[Consequence(
                 affected_district=district_name, affected_faction=faction, severity=2,
-                narrative_text=f"{title}: failure increases pressure on local residents.",
-                mechanical_effects={"unrest": 4, "media_heat": 2})],
+                narrative_text=failure_text,
+                mechanical_effects=failure_effects)],
         ))
     return missions
 
