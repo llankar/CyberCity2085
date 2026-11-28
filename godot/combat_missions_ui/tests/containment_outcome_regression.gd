@@ -1,5 +1,5 @@
 extends SceneTree
-## Drives both containment terminal states through normal combat actions.
+## Drives regional objective terminal states through normal combat actions.
 ## It never calls _end_combat/_complete_mission or mutates completion state.
 
 func _initialize() -> void:
@@ -24,9 +24,11 @@ func run() -> void:
 			break
 		await process_frame
 	assert(mission.battle_started)
-	assert(mission.objective.get("type", "") == "containment")
+	var kind := _arg_value(args, "--qa-objective")
+	assert(mission.objective.get("type", "") == kind)
 
 	if expected == "defeat":
+		assert(kind == "containment")
 		var marker := mission.objective.cell as Vector2i
 		var breachers: Array[int] = mission._containment_breacher_indices()
 		assert(breachers.size() == 1)
@@ -47,10 +49,19 @@ func run() -> void:
 		mission.turn_side = "enemy"
 		mission._resolve_enemy_turn()
 		assert(mission._containment_breached())
+	elif kind == "defend":
+		assert(not mission._defense_zone_breached())
+		mission.turn_number = int(mission.objective["defend_turns_required"])
+		mission.turn_side = "enemy"
+		mission._resolve_enemy_turn()
+		assert(mission._enemy_alive_count() > 0)
 	else:
 		var actor := mission.player_units[mission.active_player_index] as Dictionary
 		actor["aim"] = 100
+		var priority_target: int = mission._assassination_target_index()
 		for index in range(mission.enemy_units.size()):
+			if kind == "assassination" and index != priority_target:
+				continue
 			var enemy := mission.enemy_units[index] as Dictionary
 			enemy["hp"] = 1
 			enemy["defense"] = 0
@@ -61,6 +72,8 @@ func run() -> void:
 				if int(enemy.get("hp", 0)) == 0:
 					break
 			assert(int(enemy.get("hp", 0)) == 0)
+		if kind == "assassination":
+			assert(priority_target >= 0 and mission._enemy_alive_count() > 0)
 
 	assert(mission.battle_ended)
 	assert(mission._results._outcome == expected)
@@ -73,5 +86,5 @@ func run() -> void:
 	assert(not FileAccess.file_exists(session.result_path))
 	mission._results._extract_btn.pressed.emit()
 	assert(FileAccess.file_exists(session.result_path))
-	print("CONTAINMENT_NATIVE_OUTCOME_PASSED outcome=", expected)
+	print("REGIONAL_NATIVE_OUTCOME_PASSED objective=", kind, " outcome=", expected)
 	quit()

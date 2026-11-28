@@ -298,8 +298,11 @@ def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
     assert state.latest_mission_debrief["tactical_moments"][0]["agent_name"] == "Vera"
 
 
-@pytest.mark.parametrize("outcome", ["victory", "defeat"])
-def test_native_containment_outcome_is_applied_once_after_save_reload(tmp_path, outcome):
+@pytest.mark.parametrize(("contract", "outcome"), [
+    ("clinic_breach", "victory"), ("clinic_breach", "defeat"),
+    ("shelter_perimeter", "victory"), ("samurai_intercept", "victory"),
+])
+def test_native_regional_outcome_is_applied_once_after_save_reload(tmp_path, contract, outcome):
     import subprocess
     from game.combat.godot_bridge import find_godot_executable
     from game.mission_generation import _regional_missions
@@ -309,7 +312,7 @@ def test_native_containment_outcome_is_applied_once_after_save_reload(tmp_path, 
         pytest.skip("Godot unavailable")
     agent = Character("Vera", role="sniper")
     state = GameState(characters=[agent], selected_agent_names=["Vera"])
-    mission = next(m for m in _regional_missions("Chrome Warrens") if m.id == "clinic_breach")
+    mission = next(m for m in _regional_missions("Chrome Warrens") if m.id == contract)
     state.active_mission = mission
     handoff = write_godot_combat_handoff(state, mission, handoff_path=tmp_path / "handoff.json")
     handoff, session = create_session(state, mission, handoff)
@@ -317,10 +320,11 @@ def test_native_containment_outcome_is_applied_once_after_save_reload(tmp_path, 
     proc = subprocess.run([
         godot, "--headless", "--audio-driver", "Dummy", "--path", str(project),
         "--script", "res://tests/containment_outcome_regression.gd", "--",
-        "--handoff", str(handoff), "--qa-outcome", outcome,
+        "--handoff", str(handoff), "--qa-outcome", outcome, "--qa-objective", mission.objective_type,
     ], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
     output = proc.stdout + proc.stderr
-    assert proc.returncode == 0 and f"CONTAINMENT_NATIVE_OUTCOME_PASSED outcome={outcome}" in output, output
+    assert proc.returncode == 0 and "SCRIPT ERROR" not in output, output
+    assert f"REGIONAL_NATIVE_OUTCOME_PASSED objective={mission.objective_type} outcome={outcome}" in output, output
     result = json.loads(Path(session["result_path"]).read_text(encoding="utf-8"))
     assert result["outcome"] == outcome
     assert result["objective_completed"] is (outcome == "victory")
