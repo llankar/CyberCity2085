@@ -6,6 +6,7 @@ Date: November 13, 2026
 
 - [x] Standalone build and silent installation succeeded on E:. The installed smoke verified startup, save roundtrip and bundled Godot startup.
 - [x] Installed Godot passed player- and enemy-phase checkpoint recovery with support. The fixture covers pending confirmation and the VTOL strike state.
+- [x] Installed WASAPI captured movement, sniper and music signals. All 90 audio files match the previous candidate by SHA-256.
 - [ ] Physical controller, human listening and visible installed handoff remain unverified.
 
 Keep Setup and its three BIN files together in `E:/CyberCity2085-builds/cybercity-build-5439baaf32334d858da35b7863d95328/dist/installer`.
